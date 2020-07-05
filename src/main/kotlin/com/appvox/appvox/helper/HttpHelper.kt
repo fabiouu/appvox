@@ -15,7 +15,7 @@ class HttpHelper(
     @Value("\${scraper.proxy.host:}")
     private val proxyHost: String,
 
-    @Value("\${scraper.proxy.port:0}")
+    @Value("\${scraper.proxy.port:#{0}}")
     private val proxyPort : Int
 )  {
 
