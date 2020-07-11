@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.node.TextNode
 import com.appvox.appvox.domain.result.googleplay.GooglePlayReviewResult
 import com.appvox.appvox.domain.result.googleplay.GooglePlayReviewsResult
 import com.appvox.appvox.helper.HttpHelper
+import com.fasterxml.jackson.databind.JsonNode
 //import com.appvox.appvox.helper.HttpHelper
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
@@ -31,9 +32,13 @@ class GooglePlayReviewService(
     @Value("\${scraper.googlePlay.review.url:}")
     private val reviewUrl : String
 ) {
-
     fun getReviewsByAppId(
-            appId : String, region :String, language : String, sortType : Int, reviewCount: Int, token: String? = null) : GooglePlayReviewsResult {
+            appId : String,
+            language : String,
+            sortType : Int,
+            reviewCount: Int,
+            token: String? = null) : GooglePlayReviewsResult {
+
         val requestHeaders = HttpHeaders()
         requestHeaders.contentType = MediaType.APPLICATION_FORM_URLENCODED
         var requestBody : String
@@ -44,12 +49,9 @@ class GooglePlayReviewService(
         }
         val request: HttpEntity<String> = HttpEntity(requestBody, requestHeaders)
         val requestUrl = requestUrl.format(language)
-        val gplayResponse= httpHelper
+        val gplayRes= httpHelper
                 .getRestTemplate().postForEntity(requestUrl, request, String::class.java)
-        val cleanGplayResponse= gplayResponse.body!!.substring(5)
-        val gplayResponseRootArray = ObjectMapper().readTree(cleanGplayResponse)
-        val gplaySubResponse : TextNode = gplayResponseRootArray[0][2] as TextNode
-        val gplayReviews = ObjectMapper().readTree(gplaySubResponse.textValue())
+        val gplayReviews = extractReviewsFromResponse(gplayRes.body!!)
 
         var reviewResults = ArrayList<GooglePlayReviewResult>()
         for (gplayReview in gplayReviews[0]) {
@@ -76,5 +78,14 @@ class GooglePlayReviewService(
         val token = if (!gplayReviews.isEmpty && !gplayReviews[1].isEmpty) gplayReviews[1][1] else null
 
         return GooglePlayReviewsResult(token = token?.asText(), googlePlayReviews = reviewResults)
+    }
+
+    private fun extractReviewsFromResponse(gplayRes: String): JsonNode {
+        val cleanGplayRes = gplayRes.substring(5)
+        val gplayResRootArray = ObjectMapper().readTree(cleanGplayRes)
+        val gplayResSubArray : JsonNode = gplayResRootArray[0][2]
+        val gplayResSubArrayAsJsonString = gplayResSubArray.textValue()
+        val gplayReviews = ObjectMapper().readTree(gplayResSubArrayAsJsonString)
+        return gplayReviews
     }
 }

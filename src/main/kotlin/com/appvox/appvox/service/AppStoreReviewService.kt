@@ -25,14 +25,14 @@ class AppStoreReviewService(
 ) {
 
     fun getReviewsByAppId(
-            appId : String, region : String, language : String, sortType : Int,
-            reviewCount: Int, token: String? = null) : AppStoreReviewsResult {
+            appId : String, region : String,
+            reviewCount: Int) : AppStoreReviewsResult {
 
         val requestHeaders = HttpHeaders()
         requestHeaders.setBearerAuth(bearerAuth)
-        val request: HttpEntity<String> = HttpEntity<String>(requestHeaders)
+        val request: HttpEntity<String> = HttpEntity(requestHeaders)
 
-        val url = requestUrl.format(region, appId, language, reviewCount)
+        val url = requestUrl.format(region, appId, reviewCount)
         val appStoreResponse = httpHelper.getRestTemplate().exchange(
                 url, HttpMethod.GET, request, AppStoreReviewsResult::class.java)
 
