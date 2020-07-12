@@ -1,13 +1,11 @@
 package com.appvox.appvox.facade
 
 import com.appvox.appvox.converter.AppStoreReviewConverter
-import com.appvox.appvox.converter.GooglePlayReviewConverter
 import com.appvox.appvox.domain.response.ReviewsResponse
 import com.appvox.appvox.service.AppStoreReviewService
-import com.appvox.appvox.service.GooglePlayReviewService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
-import java.lang.Double.parseDouble
+
 
 @Service
 class AppStoreReviewFacade(

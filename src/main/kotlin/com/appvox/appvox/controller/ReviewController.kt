@@ -22,10 +22,10 @@ class ReviewController(
     fun getReviewsByAppId(
             @PathVariable(value = "appId") appId: String,
             @RequestParam(value = "language", defaultValue = "en", required = false) language: String,
-            @RequestParam(value = "sortType", defaultValue = "1", required = false) sortType: Int,
+            @RequestParam(value = "sort", defaultValue = "1", required = false) sort: Int,
             @RequestParam(value = "size", defaultValue = "40", required = false) size: Int,
             @RequestParam(value = "token", defaultValue = "", required = false) token: String) : ReviewsResponse {
-        val reviews = googlePlayReviewFacade.getReviewsByAppId(appId, language, sortType, size, token)
+        val reviews = googlePlayReviewFacade.getReviewsByAppId(appId, language, sort, size, token)
         return reviews
     }
 
