@@ -3,8 +3,8 @@ server:
 
 scraper:
  proxy:
-  host: 127.0.0.1
-  port: 1080
+  host:
+  port:
  googlePlay:
   request:
    url: https://play.google.com/_/PlayStoreUi/data/batchexecute?rpcids=UsvDTd&f.sid=-2417434988450146470&bl=boq_playuiserver_20200303.10_p0&hl=%s&authuser&soc-app=121&soc-platform=1&soc-device=1&_reqid=1080551
