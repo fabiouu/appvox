@@ -1,12 +1,10 @@
 package com.appvox.appvox.service
 
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.databind.node.TextNode
 import com.appvox.appvox.domain.result.googleplay.GooglePlayReviewResult
 import com.appvox.appvox.domain.result.googleplay.GooglePlayReviewsResult
 import com.appvox.appvox.helper.HttpHelper
 import com.fasterxml.jackson.databind.JsonNode
-//import com.appvox.appvox.helper.HttpHelper
+import com.fasterxml.jackson.databind.ObjectMapper
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpEntity
@@ -49,9 +47,9 @@ class GooglePlayReviewService(
         }
         val request: HttpEntity<String> = HttpEntity(requestBody, requestHeaders)
         val requestUrl = requestUrl.format(language)
-        val gplayRes= httpHelper
+        val gplayResponse= httpHelper
                 .getRestTemplate().postForEntity(requestUrl, request, String::class.java)
-        val gplayReviews = extractReviewsFromResponse(gplayRes.body!!)
+        val gplayReviews = extractReviewsFromResponse(gplayResponse.body!!)
 
         var reviewResults = ArrayList<GooglePlayReviewResult>()
         for (gplayReview in gplayReviews[0]) {
@@ -71,7 +69,6 @@ class GooglePlayReviewService(
                     replyComment = if (!reply.isNull) reply[1].asText() else null,
                     replySubmitTime = if (!reply.isNull) reply[2][0].asLong() else null
             )
-//            println(review)
             reviewResults.add(review)
         }
 
