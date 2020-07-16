@@ -19,10 +19,8 @@ class GooglePlayReviewFacade(
 
         val reviews = googlePlayReviewService.getReviewsByAppId(
                 appId = appId,
-                language = request.language,
-                sortType = request.sort,
-                reviewCount = request.size,
-                token = request.token)
+                request = request
+        )
         val reviewsResponse = googlePlayReviewConverter.toResponse(reviews)
 
         return reviewsResponse

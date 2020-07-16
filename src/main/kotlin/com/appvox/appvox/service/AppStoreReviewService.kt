@@ -1,6 +1,7 @@
 package com.appvox.appvox.service
 
 //import com.appvox.appvox.helper.HttpHelper
+import com.appvox.appvox.domain.request.AppStoreReviewRequest
 import com.appvox.appvox.domain.result.appstore.AppStoreReviewResult
 import com.appvox.appvox.domain.result.appstore.AppStoreReviewsResult
 import com.appvox.appvox.helper.HttpHelper
@@ -24,17 +25,14 @@ class AppStoreReviewService(
         private val bearerAuth : String
 ) {
 
-    fun getReviewsByAppId(
-            appId : String, region : String,
-            reviewCount: Int) : AppStoreReviewsResult {
+    fun getReviewsByAppId(appId : String, request : AppStoreReviewRequest) : AppStoreReviewsResult {
 
         val requestHeaders = HttpHeaders()
         requestHeaders.setBearerAuth(bearerAuth)
-        val request: HttpEntity<String> = HttpEntity(requestHeaders)
-
-        val url = requestUrl.format(region, appId, reviewCount)
+        val appStoreRequest: HttpEntity<String> = HttpEntity(requestHeaders)
+        val url = requestUrl.format(request.region, appId, request.size)
         val appStoreResponse = httpHelper.getRestTemplate().exchange(
-                url, HttpMethod.GET, request, AppStoreReviewsResult::class.java)
+                url, HttpMethod.GET, appStoreRequest, AppStoreReviewsResult::class.java)
 
         return appStoreResponse.body!!
     }

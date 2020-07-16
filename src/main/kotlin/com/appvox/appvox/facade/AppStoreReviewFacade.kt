@@ -20,8 +20,7 @@ class AppStoreReviewFacade(
 
         val reviews = appStoreReviewService.getReviewsByAppId(
                 appId = appId,
-                region = request.region,
-                reviewCount = request.size
+                request = request
         )
         val reviewsResponse = appStoreReviewConverter.toResponse(reviews)
 

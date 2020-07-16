@@ -1,5 +1,6 @@
 package com.appvox.appvox.service
 
+import com.appvox.appvox.domain.request.GooglePlayReviewRequest
 import com.appvox.appvox.domain.result.googleplay.GooglePlayReviewResult
 import com.appvox.appvox.domain.result.googleplay.GooglePlayReviewsResult
 import com.appvox.appvox.helper.HttpHelper
@@ -30,25 +31,20 @@ class GooglePlayReviewService(
     @Value("\${scraper.googlePlay.review.url:}")
     private val reviewUrl : String
 ) {
-    fun getReviewsByAppId(
-            appId : String,
-            language : String,
-            sortType : Int,
-            reviewCount: Int,
-            token: String? = null) : GooglePlayReviewsResult {
+    fun getReviewsByAppId(appId : String, request : GooglePlayReviewRequest) : GooglePlayReviewsResult {
 
         val requestHeaders = HttpHeaders()
         requestHeaders.contentType = MediaType.APPLICATION_FORM_URLENCODED
         var requestBody : String
-        if (token != null && token.isNotEmpty()) {
-            requestBody = requestBodyWithToken.format(sortType, reviewCount, token, appId)
+        if (request.token != null && request.token.isNotEmpty()) {
+            requestBody = requestBodyWithToken.format(request.sort, request.size, request.token, appId)
         } else {
-            requestBody = intialRequestBody.format(sortType, reviewCount, appId)
+            requestBody = intialRequestBody.format(request.sort, request.size, appId)
         }
-        val request: HttpEntity<String> = HttpEntity(requestBody, requestHeaders)
-        val requestUrl = requestUrl.format(language)
+        val gplayRequest: HttpEntity<String> = HttpEntity(requestBody, requestHeaders)
+        val requestUrl = requestUrl.format(request.language)
         val gplayResponse= httpHelper
-                .getRestTemplate().postForEntity(requestUrl, request, String::class.java)
+                .getRestTemplate().postForEntity(requestUrl, gplayRequest, String::class.java)
         val gplayReviews = extractReviewsFromResponse(gplayResponse.body!!)
 
         var reviewResults = ArrayList<GooglePlayReviewResult>()
