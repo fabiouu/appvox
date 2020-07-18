@@ -1,7 +1,7 @@
 package com.appvox.appvox.converter
 
-import com.appvox.appvox.domain.response.ReviewResponse
-import com.appvox.appvox.domain.response.ReviewsResponse
+import com.appvox.appvox.domain.response.review.ReviewResponse
+import com.appvox.appvox.domain.response.review.ReviewsResponse
 import com.appvox.appvox.domain.result.appstore.AppStoreReviewsResult
 import org.springframework.stereotype.Component
 import java.time.Instant
@@ -10,7 +10,7 @@ import java.time.Instant
 @Component
 class AppStoreReviewConverter {
 
-    fun toResponse(reviewResult : AppStoreReviewsResult) : ReviewsResponse {
+    fun toResponse(reviewResult: AppStoreReviewsResult, nextCursor: String) : ReviewsResponse {
         var reviews = ArrayList<ReviewResponse>()
         val appStoreReviews = reviewResult.appStoreReviews
         for (appStoreReview in appStoreReviews) {
@@ -31,7 +31,7 @@ class AppStoreReviewConverter {
         }
 
         return ReviewsResponse(
-                next = reviewResult.next,
+                nextCursor = nextCursor,
                 reviews = reviews
         )
     }
