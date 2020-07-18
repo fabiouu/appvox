@@ -1,8 +1,8 @@
 package com.appvox.appvox.controller
 
-import com.appvox.appvox.domain.request.AppStoreReviewRequest
-import com.appvox.appvox.domain.request.GooglePlayReviewRequest
-import com.appvox.appvox.domain.response.ReviewsResponse
+import com.appvox.appvox.domain.request.review.AppStoreReviewRequest
+import com.appvox.appvox.domain.request.review.GooglePlayReviewRequest
+import com.appvox.appvox.domain.response.review.ReviewsResponse
 import com.appvox.appvox.facade.AppStoreReviewFacade
 import com.appvox.appvox.facade.GooglePlayReviewFacade
 import org.springframework.beans.factory.annotation.Autowired
@@ -34,5 +34,4 @@ class ReviewController(
         val reviews = appStoreReviewFacade.getReviewsByAppId(appId, request)
         return reviews
     }
-
 }

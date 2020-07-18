@@ -1,6 +1,6 @@
 package com.appvox.appvox.service
 
-import com.appvox.appvox.domain.request.GooglePlayReviewRequest
+import com.appvox.appvox.domain.request.review.GooglePlayReviewRequest
 import com.appvox.appvox.domain.result.googleplay.GooglePlayReviewResult
 import com.appvox.appvox.domain.result.googleplay.GooglePlayReviewsResult
 import com.appvox.appvox.helper.HttpHelper
@@ -37,7 +37,7 @@ class GooglePlayReviewService(
         requestHeaders.contentType = MediaType.APPLICATION_FORM_URLENCODED
         var requestBody : String
         if (request.token != null && request.token.isNotEmpty()) {
-            requestBody = requestBodyWithToken.format(request.sort, request.size, request.token, appId)
+            requestBody = requestBodyWithToken.format(request.size, request.token, appId)
         } else {
             requestBody = intialRequestBody.format(request.sort, request.size, appId)
         }
