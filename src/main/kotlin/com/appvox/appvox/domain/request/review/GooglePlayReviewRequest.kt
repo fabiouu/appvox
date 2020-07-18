@@ -7,5 +7,5 @@ open class GooglePlayReviewRequest(
         val sort: Int = 1,
         val size: Int = 40,
         val token: String? = "",
-        cursor: String?
+        cursor: String? = null
 ) : PaginatedRequest(cursor)

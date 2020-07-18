@@ -3,7 +3,6 @@ package com.appvox.appvox.facade
 import com.appvox.appvox.converter.GooglePlayReviewConverter
 import com.appvox.appvox.domain.request.review.GooglePlayReviewRequest
 import com.appvox.appvox.domain.response.review.ReviewsResponse
-import com.appvox.appvox.domain.result.googleplay.GooglePlayReviewsResult
 import com.appvox.appvox.helper.CursorHelper
 import com.appvox.appvox.service.GooglePlayReviewService
 import org.springframework.beans.factory.annotation.Autowired
@@ -19,39 +18,37 @@ class GooglePlayReviewFacade(
 ) {
     fun getReviewsByAppId(appId : String, request: GooglePlayReviewRequest) : ReviewsResponse {
 
-        var reviews : GooglePlayReviewsResult
-        var nextCursor = ""
-        if (null != request.cursor) {
+        var facadeRequest = request
+        if (null != request.cursor && request.cursor!!.isNotEmpty()) {
             val queryParameters = CursorHelper.decodeCursorToParameters(request.cursor!!)
-            reviews = googlePlayReviewService.getReviewsByAppId(
-                    appId = appId,
-                    request = GooglePlayReviewRequest(
-                        size = (queryParameters["size"] ?: error("")).toInt(),
-                        language = queryParameters["language"] ?: error(""),
-                        sort = (queryParameters["sort"] ?: error("")).toInt(),
-                        token = queryParameters["token"] ?: error(""),
-                        cursor = null
-                    )
+            facadeRequest = GooglePlayReviewRequest(
+                    size = (queryParameters["size"] ?: error("")).toInt(),
+                    language = queryParameters["language"] ?: error(""),
+                    sort = (queryParameters["sort"] ?: error("")).toInt(),
+                    token = queryParameters["token"] ?: error("")
             )
-        } else {
-            reviews = googlePlayReviewService.getReviewsByAppId(
-                    appId = appId,
-                    request = request
-            )
-
-            if (reviews.token != null && reviews.token!!.isNotEmpty()) {
-                val queryParameters = hashMapOf<String, String>(
-                    "language" to request.language,
-                    "size" to request.size.toString(),
-                    "sort" to request.sort.toString(),
-                    "token" to reviews.token!!
-                )
-                nextCursor = CursorHelper.encodeParametersToCursor(queryParameters)
-            }
-
         }
 
-        val reviewsResponse = googlePlayReviewConverter.toResponse(reviews, nextCursor)
-        return reviewsResponse
+        val reviews = googlePlayReviewService.getReviewsByAppId(
+                appId = appId,
+                request = facadeRequest
+        )
+
+        var nextCursor : String? = null
+        if (reviews.token != null && reviews.token!!.isNotEmpty()) {
+            nextCursor = buildGooglePlayCursor(request.language, request.size, request.sort, reviews.token!!)
+        }
+
+        return googlePlayReviewConverter.toResponse(reviews, nextCursor)
+    }
+
+    fun buildGooglePlayCursor(language : String, size : Int, sort : Int, token : String) : String {
+        val queryParameters = hashMapOf(
+            "language" to language,
+            "size" to size.toString(),
+            "sort" to sort.toString(),
+            "token" to token
+        )
+        return CursorHelper.encodeParametersToCursor(queryParameters)
     }
 }

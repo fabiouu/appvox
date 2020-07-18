@@ -10,7 +10,7 @@ import java.time.Instant
 @Component
 class AppStoreReviewConverter {
 
-    fun toResponse(reviewResult: AppStoreReviewsResult, nextCursor: String) : ReviewsResponse {
+    fun toResponse(reviewResult: AppStoreReviewsResult, nextCursor: String?) : ReviewsResponse {
         var reviews = ArrayList<ReviewResponse>()
         val appStoreReviews = reviewResult.appStoreReviews
         for (appStoreReview in appStoreReviews) {

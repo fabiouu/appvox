@@ -3,7 +3,6 @@ package com.appvox.appvox.facade
 import com.appvox.appvox.converter.AppStoreReviewConverter
 import com.appvox.appvox.domain.request.review.AppStoreReviewRequest
 import com.appvox.appvox.domain.response.review.ReviewsResponse
-import com.appvox.appvox.domain.result.appstore.AppStoreReviewsResult
 import com.appvox.appvox.helper.CursorHelper
 import com.appvox.appvox.service.AppStoreReviewService
 import org.springframework.beans.factory.annotation.Autowired
@@ -20,36 +19,35 @@ class AppStoreReviewFacade(
 ) {
     fun getReviewsByAppId(appId : String, request: AppStoreReviewRequest) : ReviewsResponse {
 
-        var reviews : AppStoreReviewsResult
-        var nextCursor = ""
+        var facadeRequest = request
         if (null != request.cursor) {
             val queryParameters = CursorHelper.decodeCursorToParameters(request.cursor!!)
-            reviews = appStoreReviewService.getReviewsByAppId(
-                    appId = appId,
-                    request = AppStoreReviewRequest(
-                        size = (queryParameters["size"] ?: error("")).toInt(),
-                        region = queryParameters["region"] ?: error(""),
-                        next = queryParameters["next"] ?: error(""),
-                        cursor = null
-                    )
-            )
-        } else {
-            reviews = appStoreReviewService.getReviewsByAppId(
-                    appId = appId,
-                    request = request
+            facadeRequest = AppStoreReviewRequest(
+                size = (queryParameters["size"] ?: error("")).toInt(),
+                region = queryParameters["region"] ?: error(""),
+                next = queryParameters["next"] ?: error("")
             )
         }
 
+        var reviews = appStoreReviewService.getReviewsByAppId(
+            appId = appId,
+            request = facadeRequest
+        )
+
+        var nextCursor : String? = null
         if (reviews.next != null && reviews.next!!.isNotEmpty()) {
-            val queryParameters = hashMapOf<String, String>(
-                    "region" to request.region,
-                    "size" to request.size.toString(),
-                    "next" to reviews.next!!
-            )
-            nextCursor = CursorHelper.encodeParametersToCursor(queryParameters)
+            nextCursor = buildAppStoreCursor(facadeRequest.region, facadeRequest.size, reviews.next!!)
         }
 
-        val reviewsResponse = appStoreReviewConverter.toResponse(reviews, nextCursor)
-        return reviewsResponse
+        return appStoreReviewConverter.toResponse(reviews, nextCursor)
+    }
+
+    fun buildAppStoreCursor(region : String, size : Int, next : String) : String {
+        val queryParameters = hashMapOf(
+            "region" to region,
+            "size" to size.toString(),
+            "next" to next
+        )
+        return CursorHelper.encodeParametersToCursor(queryParameters)
     }
 }

@@ -6,5 +6,5 @@ open class AppStoreReviewRequest(
     val region: String = "us",
     val size: Int = 0,
     val next: String?,
-    cursor : String?
+    cursor : String? = null
 ) : PaginatedRequest(cursor)
