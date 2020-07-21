@@ -26,7 +26,6 @@
         - [ ] Sentiment Analysis
     - [ ] Application Details
     - [ ] Search App by name
-- [ ] Maven/Gradle package to use as an import
 - [ ] Cursor-based paginated REST API to query App Store / Google Play data
     - [x] User Reviews
     - [ ] Application Details

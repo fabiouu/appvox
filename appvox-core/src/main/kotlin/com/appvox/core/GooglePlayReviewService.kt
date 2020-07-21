@@ -28,8 +28,6 @@ object GooglePlayReviewService {
             requestBody = intialRequestBody.format(request.sort, request.size, appId)
         }
 
-        val addr = InetSocketAddress("127.0.0.1", 1080)
-        FuelManager.instance.proxy = Proxy(Proxy.Type.HTTP, addr)
         val requestUrl = requestUrl.format(request.language)
         val (request, response, result) = requestUrl
                 .httpPost()

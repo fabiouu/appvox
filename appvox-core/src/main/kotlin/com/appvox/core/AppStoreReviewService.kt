@@ -16,10 +16,6 @@ object AppStoreReviewService {
     private const val requestUrlWithNext : String = "https://amp-api.apps.apple.com%s&platform=web&additionalPlatforms=appletv,ipad,iphone,mac"
     private const val bearerToken : String = "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IldlYlBsYXlLaWQifQ.eyJpc3MiOiJBTVBXZWJQbGF5IiwiaWF0IjoxNTgyMTQzMTIxLCJleHAiOjE1OTc2OTUxMjF9.j3MAuNa0ZfVVOsBtsGFBmNwT4jPrKu2Alp5PzdhQC3Id--pboI9GqrysOSj2bfg0P-iJboXsg3R_dWr1TQ3pwg"
 
-    init {
-
-    }
-
     fun getReviewsByAppId(appId : String, request : AppStoreReviewRequest) : AppStoreReviewsResult? {
 
         var requestUrl : String
@@ -29,25 +25,11 @@ object AppStoreReviewService {
             requestUrl = requestUrlPattern.format(request.region, appId, request.size)
         }
 
-        val addr = InetSocketAddress("127.0.0.1", 1080)
-        FuelManager.instance.proxy = Proxy(Proxy.Type.HTTP, addr)
         val (request, response, result) = requestUrl
                 .httpGet()
                 .authentication()
                 .bearer(bearerToken)
                 .responseObject<AppStoreReviewsResult>()
-
-//        var response2 : AppStoreReviewsResult?
-//        when (result) {
-//            is Result.Failure -> {
-//                val ex = result.getException()
-////                print(ex)
-//            }
-//            is Result.Success -> {
-//                response2 = result.getAs<AppStoreReviewsResult>()
-////                println(data)
-//            }
-//        }
 
         val appStoreResult = result.getAs<AppStoreReviewsResult>()
         return appStoreResult
