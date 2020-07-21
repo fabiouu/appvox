@@ -14,7 +14,10 @@
     </a>
 </p>
 
-Capture the voice of your App users on Google Play / App Store
+<h3 align="center">
+  Capture the voice of your App users on Google Play / App Store
+</h3>
+
 
 ## Features
 - [ ] Scraper Core
