@@ -15,7 +15,7 @@
 </p>
 
 <h3 align="center">
-  Capture the voice of your App users on Google Play / App Store
+  Capture the voice of your App users from Google Play / App Store
 </h3>
 
 

@@ -5,12 +5,8 @@ import com.appvox.core.domain.result.googleplay.GooglePlayReviewResult
 import com.appvox.core.domain.result.googleplay.GooglePlayReviewsResult
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.github.kittinunf.fuel.core.FuelManager
 import com.github.kittinunf.fuel.core.Headers.Companion.CONTENT_TYPE
 import com.github.kittinunf.fuel.httpPost
-import org.apache.http.entity.ContentType.APPLICATION_FORM_URLENCODED
-import java.net.InetSocketAddress
-import java.net.Proxy
 
 object GooglePlayReviewService {
 
@@ -32,7 +28,6 @@ object GooglePlayReviewService {
         val (request, response, result) = requestUrl
                 .httpPost()
                 .body(requestBody)
-                .header(CONTENT_TYPE,  APPLICATION_FORM_URLENCODED)
                 .responseString()
 
         val gplayReviews = extractReviewsFromResponse(result.get())
