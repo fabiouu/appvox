@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.github.kittinunf.fuel.core.Headers.Companion.CONTENT_TYPE
 import com.github.kittinunf.fuel.httpPost
+import java.awt.PageAttributes
 
 object GooglePlayReviewService {
 
@@ -28,6 +29,7 @@ object GooglePlayReviewService {
         val (request, response, result) = requestUrl
                 .httpPost()
                 .body(requestBody)
+                .header(CONTENT_TYPE,  "application/x-www-form-urlencoded")
                 .responseString()
 
         val gplayReviews = extractReviewsFromResponse(result.get())
