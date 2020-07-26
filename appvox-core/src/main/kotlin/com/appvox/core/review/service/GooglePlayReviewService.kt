@@ -30,10 +30,6 @@ object GooglePlayReviewService {
     private val REPLY_COMMENT_INDEX = arrayOf(7, 1)
     private val REPLY_SUBMIT_TIME_INDEX = arrayOf(7, 2, 0)
 
-    init {
-        HttpUtils.setProxy("localhost", 1080)
-    }
-
     fun getReviewsByAppId(appId : String, request : GooglePlayReviewRequest) : GooglePlayReviewsResult {
 
         var requestBody : String
