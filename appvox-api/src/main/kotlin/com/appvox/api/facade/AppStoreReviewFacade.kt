@@ -1,10 +1,10 @@
 package com.appvox.api.facade
 
 import com.appvox.api.converter.AppStoreReviewConverter
-import com.appvox.core.domain.request.review.AppStoreReviewRequest
-import com.appvox.core.domain.response.review.ReviewsResponse
+import com.appvox.core.review.domain.request.AppStoreReviewRequest
+import com.appvox.core.review.domain.response.ReviewsResponse
 import com.appvox.api.helper.CursorHelper
-import com.appvox.core.AppStoreReviewService
+import com.appvox.core.review.service.AppStoreReviewService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 

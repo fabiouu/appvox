@@ -1,8 +1,8 @@
 package com.appvox.api.converter
 
-import com.appvox.core.domain.response.review.ReviewResponse
-import com.appvox.core.domain.response.review.ReviewsResponse
-import com.appvox.core.domain.result.appstore.AppStoreReviewsResult
+import com.appvox.core.review.domain.response.ReviewResponse
+import com.appvox.core.review.domain.response.ReviewsResponse
+import com.appvox.core.review.domain.result.AppStoreReviewsResult
 import org.springframework.stereotype.Component
 import java.time.Instant
 

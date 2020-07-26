@@ -1,14 +1,11 @@
-package com.appvox.core
+package com.appvox.core.review.service
 
-import com.appvox.core.domain.request.review.AppStoreReviewRequest
-import com.appvox.core.domain.result.appstore.AppStoreReviewsResult
-import com.github.kittinunf.fuel.core.FuelManager
+import com.appvox.core.review.domain.request.AppStoreReviewRequest
+import com.appvox.core.review.domain.result.AppStoreReviewsResult
 import com.github.kittinunf.fuel.core.extensions.authentication
 import com.github.kittinunf.fuel.gson.responseObject
 import com.github.kittinunf.fuel.httpGet
 import com.github.kittinunf.result.getAs
-import java.net.InetSocketAddress
-import java.net.Proxy
 
 object AppStoreReviewService {
 

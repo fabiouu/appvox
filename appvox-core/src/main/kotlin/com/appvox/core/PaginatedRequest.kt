@@ -1,3 +1,3 @@
-package com.appvox.core.domain.request
+package com.appvox.core
 
 open class PaginatedRequest(open val cursor : String? = null)

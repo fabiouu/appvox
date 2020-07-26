@@ -1,4 +1,4 @@
-package com.appvox.core.domain.response.review
+package com.appvox.core.review.domain.response
 
 data class ReviewResponse(
         val type: String,

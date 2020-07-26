@@ -1,6 +1,6 @@
-package com.appvox.core.domain.response.review
+package com.appvox.core.review.domain.response
 
-import com.appvox.core.domain.response.PaginatedResponse
+import com.appvox.core.PaginatedResponse
 
 open class ReviewsResponse(
         val reviews: List<ReviewResponse>,

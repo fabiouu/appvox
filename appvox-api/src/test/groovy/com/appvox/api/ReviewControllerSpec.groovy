@@ -1,6 +1,6 @@
 package com.appvox.api
 
-import com.appvox.core.domain.response.review.ReviewsResponse
+import com.appvox.core.review.response.ReviewsResponse
 import org.junit.runner.RunWith
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration

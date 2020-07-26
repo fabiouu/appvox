@@ -1,3 +1,3 @@
-package com.appvox.core.domain.response
+package com.appvox.core
 
 open class PaginatedResponse(val nextCursor : String? = null)

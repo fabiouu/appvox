@@ -1,4 +1,4 @@
-package com.appvox.core.domain.result.googleplay
+package com.appvox.core.review.domain.result
 
 data class GooglePlayReviewResult(
         val reviewId: String,

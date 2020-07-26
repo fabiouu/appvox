@@ -1,6 +1,7 @@
-package com.appvox.core
+package com.appvox.core.review
 
-import com.appvox.core.domain.request.review.AppStoreReviewRequest
+import com.appvox.core.review.domain.request.AppStoreReviewRequest
+import com.appvox.core.review.service.AppStoreReviewService
 import spock.lang.Specification
 
 class AppStoreReviewServiceSpec extends Specification {

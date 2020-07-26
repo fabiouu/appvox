@@ -1,6 +1,7 @@
-package com.appvox.core
+package com.appvox.core.review
 
-import com.appvox.core.domain.request.review.GooglePlayReviewRequest
+import com.appvox.core.review.domain.request.GooglePlayReviewRequest
+import com.appvox.core.review.service.GooglePlayReviewService
 import spock.lang.Specification
 
 class GooglePlayReviewServiceSpec extends Specification {

@@ -2,9 +2,9 @@ package com.appvox.api.controller
 
 import com.appvox.api.facade.AppStoreReviewFacade
 import com.appvox.api.facade.GooglePlayReviewFacade
-import com.appvox.core.domain.request.review.AppStoreReviewRequest
-import com.appvox.core.domain.request.review.GooglePlayReviewRequest
-import com.appvox.core.domain.response.review.ReviewsResponse
+import com.appvox.core.review.domain.request.AppStoreReviewRequest
+import com.appvox.core.review.domain.request.GooglePlayReviewRequest
+import com.appvox.core.review.domain.response.ReviewsResponse
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable

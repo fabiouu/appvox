@@ -1,6 +1,6 @@
-package com.appvox.core.domain.request.review
+package com.appvox.core.review.domain.request
 
-import com.appvox.core.domain.request.PaginatedRequest
+import com.appvox.core.PaginatedRequest
 
 open class AppStoreReviewRequest(
     val region: String = "us",

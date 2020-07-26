@@ -1,4 +1,4 @@
-package com.appvox.core.domain.result.appstore
+package com.appvox.core.review.domain.result
 
 data class AppStoreReviewResult(
         val id: String,

@@ -1,10 +1,10 @@
 package com.appvox.api.facade
 
 import com.appvox.api.converter.GooglePlayReviewConverter
-import com.appvox.core.domain.request.review.GooglePlayReviewRequest
-import com.appvox.core.domain.response.review.ReviewsResponse
+import com.appvox.core.review.domain.request.GooglePlayReviewRequest
+import com.appvox.core.review.domain.response.ReviewsResponse
 import com.appvox.api.helper.CursorHelper
-import com.appvox.core.GooglePlayReviewService
+import com.appvox.core.review.service.GooglePlayReviewService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
