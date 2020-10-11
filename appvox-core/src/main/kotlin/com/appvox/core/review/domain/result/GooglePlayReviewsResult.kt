@@ -1,3 +1,3 @@
 package com.appvox.core.review.domain.result
 
-data class GooglePlayReviewsResult(val token: String?, val reviews: List<GooglePlayReviewResult>)
+data class GooglePlayReviewsResult(var token: String?, val reviews: List<GooglePlayReviewResult>)

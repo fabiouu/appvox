@@ -1,7 +1,7 @@
-package com.appvox.api.controller
+package com.appvox.api.review.controller
 
-import com.appvox.api.facade.AppStoreReviewFacade
-import com.appvox.api.facade.GooglePlayReviewFacade
+import com.appvox.api.review.facade.AppStoreReviewFacade
+import com.appvox.api.review.facade.GooglePlayReviewFacade
 import com.appvox.core.review.domain.request.AppStoreReviewRequest
 import com.appvox.core.review.domain.request.GooglePlayReviewRequest
 import com.appvox.core.review.domain.response.ReviewsResponse

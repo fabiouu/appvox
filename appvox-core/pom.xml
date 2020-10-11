@@ -15,28 +15,6 @@
         <fuel.version>2.2.3</fuel.version>
     </properties>
 
-    <dependencyManagement>
-        <dependencies>
-<!--            <dependency>-->
-<!--                <groupId>org.spockframework</groupId>-->
-<!--                <artifactId>spock-bom</artifactId>-->
-<!--                <version>2.0-M1-groovy-2.5</version>-->
-<!--                <type>pom</type>-->
-<!--                <scope>import</scope>-->
-<!--            </dependency>-->
-<!--            <dependency>-->
-<!--                <groupId>org.jetbrains.kotlin</groupId>-->
-<!--                <artifactId>kotlin-reflect</artifactId>-->
-<!--                <version>${kotlin.version}</version>-->
-<!--            </dependency>-->
-<!--            <dependency>-->
-<!--                <groupId>org.jetbrains.kotlin</groupId>-->
-<!--                <artifactId>kotlin-stdlib-jdk8</artifactId>-->
-<!--                <version>${kotlin.version}</version>-->
-<!--            </dependency>-->
-        </dependencies>
-    </dependencyManagement>
-
     <dependencies>
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>

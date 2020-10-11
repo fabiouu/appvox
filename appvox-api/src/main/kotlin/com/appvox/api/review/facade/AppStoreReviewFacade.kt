@@ -1,6 +1,6 @@
-package com.appvox.api.facade
+package com.appvox.api.review.facade
 
-import com.appvox.api.converter.AppStoreReviewConverter
+import com.appvox.api.review.converter.AppStoreReviewConverter
 import com.appvox.core.review.domain.request.AppStoreReviewRequest
 import com.appvox.core.review.domain.response.ReviewsResponse
 import com.appvox.api.helper.CursorHelper

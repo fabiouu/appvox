@@ -13,7 +13,8 @@
 	<modules>
 		<module>appvox-core</module>
 		<module>appvox-api</module>
-	</modules>
+        <module>appvox-samples</module>
+    </modules>
 
 	<properties>
 		<kotlin.compiler.jvmTarget>1.8</kotlin.compiler.jvmTarget>

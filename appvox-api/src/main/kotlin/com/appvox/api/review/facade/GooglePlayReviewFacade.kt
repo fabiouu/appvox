@@ -1,6 +1,6 @@
-package com.appvox.api.facade
+package com.appvox.api.review.facade
 
-import com.appvox.api.converter.GooglePlayReviewConverter
+import com.appvox.api.review.converter.GooglePlayReviewConverter
 import com.appvox.core.review.domain.request.GooglePlayReviewRequest
 import com.appvox.core.review.domain.response.ReviewsResponse
 import com.appvox.api.helper.CursorHelper

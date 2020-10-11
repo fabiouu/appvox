@@ -1,11 +1,11 @@
-package com.appvox.core.review.domain.request
+package com.appvox.core.details.domain.request
 
 import com.appvox.core.PaginatedRequest
 
-open class GooglePlayReviewRequest(
+open class GooglePlayDetailsRequest(
         val language: String = "en",
         val sort: Int = 1,
         val size: Int = 40,
-        var token: String? = "",
+        val token: String? = "",
         cursor: String? = null
 ) : PaginatedRequest(cursor)

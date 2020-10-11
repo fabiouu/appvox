@@ -1,21 +1,22 @@
 package com.appvox.core.review.service
 
 import com.appvox.core.review.domain.request.GooglePlayReviewRequest
-import com.appvox.core.search.domain.request.GooglePlaySearchRequest
 import com.appvox.core.review.domain.result.GooglePlayReviewResult
 import com.appvox.core.review.domain.result.GooglePlayReviewsResult
 import com.appvox.core.utils.HttpUtils
-import com.appvox.core.utils.JsonUtils
 import com.appvox.core.utils.JsonUtils.getJsonNodeByIndex
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.github.kittinunf.fuel.core.FuelManager
 import com.github.kittinunf.fuel.core.Headers.Companion.CONTENT_TYPE
 import com.github.kittinunf.fuel.httpPost
+import java.net.InetSocketAddress
+import java.net.Proxy
 
 object GooglePlayReviewService {
 
     private const val requestUrl : String = "https://play.google.com/_/PlayStoreUi/data/batchexecute?rpcids=UsvDTd&f.sid=-2417434988450146470&bl=boq_playuiserver_20200303.10_p0&hl=%s&authuser&soc-app=121&soc-platform=1&soc-device=1&_reqid=1080551"
-    private const val initialRequestBody : String = "f.req=[[[\"UsvDTd\",\"[null,null,[2,%d,[%d,null,null],null,[]],[\\\"%s\\\",7]]\",null,\"generic\"]]]"
+    private const val initialRequestBody : String =   "f.req=[[[\"UsvDTd\",\"[null,null,[2,%d,[%d,null,null],null,[]],[\\\"%s\\\",7]]\",null,\"generic\"]]]"
     private const val requestBodyWithToken : String = "f.req=[[[\"UsvDTd\",\"[null,null,[2,null,[%d,null,\\\"%s\\\"],null,[]],[\\\"%s\\\",7]]\",null,\"generic\"]]]"
     private const val reviewUrl : String = "https://play.google.com/store/apps/details?id=%s&hl=%s&reviewId=%s"
 
@@ -30,14 +31,21 @@ object GooglePlayReviewService {
     private val REPLY_COMMENT_INDEX = arrayOf(7, 1)
     private val REPLY_SUBMIT_TIME_INDEX = arrayOf(7, 2, 0)
 
-    fun getReviewsByAppId(appId : String, request : GooglePlayReviewRequest) : GooglePlayReviewsResult {
+    init {
+//        HttpUtils.setProxy("localhost", 1080)
+    }
 
+    fun getReviewsByAppId(appId : String, request : GooglePlayReviewRequest) : GooglePlayReviewsResult {
         var requestBody : String
-        if (request.token != null && request.token.isNotEmpty()) {
+        if (request.token != null && request.token!!.isNotEmpty()) {
             requestBody = requestBodyWithToken.format(request.size, request.token, appId)
         } else {
             requestBody = initialRequestBody.format(request.sort, request.size, appId)
         }
+
+//        HttpUtils.setProxy("127.0.0.1", 1080)
+        val addr = InetSocketAddress("127.0.0.1", 1080)
+        FuelManager.instance.proxy = Proxy(Proxy.Type.HTTP, addr)
 
         val requestUrl = requestUrl.format(request.language)
         val (httpRequest, response, result) = requestUrl

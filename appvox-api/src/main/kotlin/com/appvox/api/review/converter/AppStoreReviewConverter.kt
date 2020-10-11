@@ -1,4 +1,4 @@
-package com.appvox.api.converter
+package com.appvox.api.review.converter
 
 import com.appvox.core.review.domain.response.ReviewResponse
 import com.appvox.core.review.domain.response.ReviewsResponse
