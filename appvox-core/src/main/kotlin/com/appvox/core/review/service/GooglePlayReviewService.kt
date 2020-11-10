@@ -1,5 +1,6 @@
 package com.appvox.core.review.service
 
+import com.appvox.core.config.Configuration
 import com.appvox.core.review.domain.request.GooglePlayReviewRequest
 import com.appvox.core.review.domain.result.GooglePlayReviewResult
 import com.appvox.core.review.domain.result.GooglePlayReviewsResult
@@ -7,18 +8,15 @@ import com.appvox.core.utils.HttpUtils
 import com.appvox.core.utils.JsonUtils.getJsonNodeByIndex
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.github.kittinunf.fuel.core.FuelManager
 import com.github.kittinunf.fuel.core.Headers.Companion.CONTENT_TYPE
 import com.github.kittinunf.fuel.httpPost
-import java.net.InetSocketAddress
-import java.net.Proxy
 
-object GooglePlayReviewService {
+class GooglePlayReviewService {
 
-    private const val requestUrl : String = "https://play.google.com/_/PlayStoreUi/data/batchexecute?rpcids=UsvDTd&f.sid=-2417434988450146470&bl=boq_playuiserver_20200303.10_p0&hl=%s&authuser&soc-app=121&soc-platform=1&soc-device=1&_reqid=1080551"
-    private const val initialRequestBody : String =   "f.req=[[[\"UsvDTd\",\"[null,null,[2,%d,[%d,null,null],null,[]],[\\\"%s\\\",7]]\",null,\"generic\"]]]"
-    private const val requestBodyWithToken : String = "f.req=[[[\"UsvDTd\",\"[null,null,[2,null,[%d,null,\\\"%s\\\"],null,[]],[\\\"%s\\\",7]]\",null,\"generic\"]]]"
-    private const val reviewUrl : String = "https://play.google.com/store/apps/details?id=%s&hl=%s&reviewId=%s"
+    private val requestUrl : String = "https://play.google.com/_/PlayStoreUi/data/batchexecute?rpcids=UsvDTd&f.sid=-2417434988450146470&bl=boq_playuiserver_20200303.10_p0&hl=%s&authuser&soc-app=121&soc-platform=1&soc-device=1&_reqid=1080551"
+    private val initialRequestBody : String =   "f.req=[[[\"UsvDTd\",\"[null,null,[2,%d,[%d,null,null],null,[]],[\\\"%s\\\",7]]\",null,\"generic\"]]]"
+    private val requestBodyWithToken : String = "f.req=[[[\"UsvDTd\",\"[null,null,[2,null,[%d,null,\\\"%s\\\"],null,[]],[\\\"%s\\\",7]]\",null,\"generic\"]]]"
+    private val reviewUrl : String = "https://play.google.com/store/apps/details?id=%s&hl=%s&reviewId=%s"
 
     private val REVIEW_ID_INDEX = arrayOf(0)
     private val USER_NAME_INDEX = arrayOf(1, 0)
@@ -30,6 +28,8 @@ object GooglePlayReviewService {
     private val APP_VERSION_INDEX = arrayOf(10)
     private val REPLY_COMMENT_INDEX = arrayOf(7, 1)
     private val REPLY_SUBMIT_TIME_INDEX = arrayOf(7, 2, 0)
+
+    private var config : Configuration? = null
 
     init {
 //        HttpUtils.setProxy("localhost", 1080)
@@ -43,9 +43,11 @@ object GooglePlayReviewService {
             requestBody = initialRequestBody.format(request.sort, request.size, appId)
         }
 
-//        HttpUtils.setProxy("127.0.0.1", 1080)
-        val addr = InetSocketAddress("127.0.0.1", 1080)
-        FuelManager.instance.proxy = Proxy(Proxy.Type.HTTP, addr)
+        if (null != config) {
+            HttpUtils.setProxy(config?.proxyHost!!, config?.proxyPort!!)
+        }
+//        val addr = InetSocketAddress("127.0.0.1", 1080)
+//        FuelManager.instance.proxy = Proxy(Proxy.Type.HTTP, addr)
 
         val requestUrl = requestUrl.format(request.language)
         val (httpRequest, response, result) = requestUrl
@@ -86,5 +88,29 @@ object GooglePlayReviewService {
         val gplaySubArrayAsJsonString = gplaySubArray.textValue()
         val gplayReviews = ObjectMapper().readTree(gplaySubArrayAsJsonString)
         return gplayReviews[0]
+    }
+
+    companion object {
+
+        @Volatile private var INSTANCE: GooglePlayReviewService? = null
+
+        fun getInstance(config: Configuration): GooglePlayReviewService =
+                INSTANCE ?: synchronized(this) {
+                    INSTANCE ?: buildService(config).also { INSTANCE = it }
+                }
+
+        fun getInstance(): GooglePlayReviewService =
+                INSTANCE ?: synchronized(this) {
+                    INSTANCE ?: buildService(null).also { INSTANCE = it }
+            }
+
+        private fun buildService(config: Configuration?) : GooglePlayReviewService {
+            val googlePlayReviewService = GooglePlayReviewService();
+            if (null != config) {
+                googlePlayReviewService.config = config
+            }
+            return googlePlayReviewService;
+        }
+
     }
 }
