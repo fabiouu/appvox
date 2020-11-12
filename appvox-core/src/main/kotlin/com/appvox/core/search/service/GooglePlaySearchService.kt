@@ -8,8 +8,11 @@ import com.appvox.core.utils.JsonUtils
 import com.appvox.core.utils.JsonUtils.getJsonNodeByIndex
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.github.kittinunf.fuel.core.FuelManager
 import com.github.kittinunf.fuel.core.Headers.Companion.CONTENT_TYPE
 import com.github.kittinunf.fuel.httpPost
+import java.net.InetSocketAddress
+import java.net.Proxy
 
 object GooglePlaySearchService {
     private const val requestUrl : String = "https://play.google.com/_/PlayStoreUi/data/batchexecute?rpcids=lGYRle&f.sid=845909587187715220&bl=boq_playuiserver_20200722.03_p0&hl=%s&soc-app=121&soc-platform=1&soc-device=1&authuser=&_reqid=841251&rt=c"
@@ -39,6 +42,9 @@ object GooglePlaySearchService {
         } else {
             requestBody = initialRequestBody.format(request.appName)
         }
+
+        val addr = InetSocketAddress("localhost", 1080)
+        FuelManager.instance.proxy = Proxy(Proxy.Type.HTTP, addr)
 
         val requestUrl = requestUrl.format(request.language)
         val (request, response, result) = requestUrl
