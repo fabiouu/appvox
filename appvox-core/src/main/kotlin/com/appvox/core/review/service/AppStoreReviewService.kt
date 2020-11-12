@@ -11,7 +11,7 @@ object AppStoreReviewService {
 
     private const val requestUrlPattern : String = "https://amp-api.apps.apple.com/v1/catalog/%s/apps/%s/reviews?offset=%d&platform=web&additionalPlatforms=appletv,ipad,iphone,mac"
     private const val requestUrlWithNext : String = "https://amp-api.apps.apple.com%s&platform=web&additionalPlatforms=appletv,ipad,iphone,mac"
-    private const val bearerToken : String = "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IkNSRjVITkJHUFEifQ.eyJpc3MiOiI4Q1UyNk1LTFM0IiwiaWF0IjoxNjAwODczNDk5LCJleHAiOjE2MDM4OTc0OTl9.W-S6C_gH0v5Te1I-KubieahD03fQHK8peHHVLfCl7YDAO1Yxa4aHULrCv2YDriPR9WErUXqqAc6_kyoFJ4wbUQ";
+    private const val bearerToken : String = "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IkNSRjVITkJHUFEifQ.eyJpc3MiOiI4Q1UyNk1LTFM0IiwiaWF0IjoxNjA0NDIzNjk4LCJleHAiOjE2MDc0NDc2OTh9.lNJUIJvv99NIs1ea_qiv5lJyEsBNrppZMJiex4drI_dGWzkT5HB-DBYyw8aaYwlea8CkQVAqNLe3790UiD6XoQ";
 
     fun getReviewsByAppId(appId : String, request : AppStoreReviewRequest) : AppStoreReviewsResult? {
 

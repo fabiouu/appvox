@@ -11,7 +11,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.github.kittinunf.fuel.core.Headers.Companion.CONTENT_TYPE
 import com.github.kittinunf.fuel.httpPost
 
-class GooglePlayReviewService {
+object GooglePlayReviewService {
 
     private val requestUrl : String = "https://play.google.com/_/PlayStoreUi/data/batchexecute?rpcids=UsvDTd&f.sid=-2417434988450146470&bl=boq_playuiserver_20200303.10_p0&hl=%s&authuser&soc-app=121&soc-platform=1&soc-device=1&_reqid=1080551"
     private val initialRequestBody : String =   "f.req=[[[\"UsvDTd\",\"[null,null,[2,%d,[%d,null,null],null,[]],[\\\"%s\\\",7]]\",null,\"generic\"]]]"
@@ -44,7 +44,7 @@ class GooglePlayReviewService {
         }
 
         if (null != config) {
-            HttpUtils.setProxy(config?.proxyHost!!, config?.proxyPort!!)
+//            HttpUtils.setProxy(config?.proxyHost!!, config?.proxyPort!!)
         }
 //        val addr = InetSocketAddress("127.0.0.1", 1080)
 //        FuelManager.instance.proxy = Proxy(Proxy.Type.HTTP, addr)
@@ -58,7 +58,7 @@ class GooglePlayReviewService {
 
         var reviewResults = ArrayList<GooglePlayReviewResult>()
         val gplayReviews = extractReviewsFromResponse(result.get())
-        for (gplayReview in gplayReviews) {
+        for (gplayReview in gplayReviews[0]) {
             val review = GooglePlayReviewResult(
                 reviewId = getJsonNodeByIndex(gplayReview, REVIEW_ID_INDEX).asText(),
                 userName = getJsonNodeByIndex(gplayReview, USER_NAME_INDEX).asText(),
@@ -87,30 +87,30 @@ class GooglePlayReviewService {
         val gplaySubArray : JsonNode = gplayRootArray[0][2]
         val gplaySubArrayAsJsonString = gplaySubArray.textValue()
         val gplayReviews = ObjectMapper().readTree(gplaySubArrayAsJsonString)
-        return gplayReviews[0]
+        return gplayReviews
     }
 
-    companion object {
-
-        @Volatile private var INSTANCE: GooglePlayReviewService? = null
-
-        fun getInstance(config: Configuration): GooglePlayReviewService =
-                INSTANCE ?: synchronized(this) {
-                    INSTANCE ?: buildService(config).also { INSTANCE = it }
-                }
-
-        fun getInstance(): GooglePlayReviewService =
-                INSTANCE ?: synchronized(this) {
-                    INSTANCE ?: buildService(null).also { INSTANCE = it }
-            }
-
-        private fun buildService(config: Configuration?) : GooglePlayReviewService {
-            val googlePlayReviewService = GooglePlayReviewService();
-            if (null != config) {
-                googlePlayReviewService.config = config
-            }
-            return googlePlayReviewService;
-        }
-
-    }
+//    companion object {
+//
+//        @Volatile private var INSTANCE: GooglePlayReviewService? = null
+//
+//        fun getInstance(config: Configuration): GooglePlayReviewService =
+//                INSTANCE ?: synchronized(this) {
+//                    INSTANCE ?: buildService(config).also { INSTANCE = it }
+//                }
+//
+//        fun getInstance(): GooglePlayReviewService =
+//                INSTANCE ?: synchronized(this) {
+//                    INSTANCE ?: buildService(null).also { INSTANCE = it }
+//            }
+//
+//        private fun buildService(config: Configuration?) : GooglePlayReviewService {
+//            val googlePlayReviewService = GooglePlayReviewService();
+//            if (null != config) {
+//                googlePlayReviewService.config = config
+//            }
+//            return googlePlayReviewService;
+//        }
+//
+//    }
 }
