@@ -1,6 +1,6 @@
 package com.appvox.core.review.service
 
-import com.appvox.core.config.Configuration
+import com.appvox.core.configuration.Configuration
 import com.appvox.core.review.domain.request.GooglePlayReviewRequest
 import com.appvox.core.review.domain.result.GooglePlayReviewResult
 import com.appvox.core.review.domain.result.GooglePlayReviewsResult
@@ -8,10 +8,15 @@ import com.appvox.core.utils.HttpUtils
 import com.appvox.core.utils.JsonUtils.getJsonNodeByIndex
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.github.kittinunf.fuel.core.FuelManager
 import com.github.kittinunf.fuel.core.Headers.Companion.CONTENT_TYPE
 import com.github.kittinunf.fuel.httpPost
+import java.net.InetSocketAddress
+import java.net.Proxy
 
-object GooglePlayReviewService {
+internal class GooglePlayReviewService(
+    val configuration : Configuration? = null
+) {
 
     private val requestUrl : String = "https://play.google.com/_/PlayStoreUi/data/batchexecute?rpcids=UsvDTd&f.sid=-2417434988450146470&bl=boq_playuiserver_20200303.10_p0&hl=%s&authuser&soc-app=121&soc-platform=1&soc-device=1&_reqid=1080551"
     private val initialRequestBody : String =   "f.req=[[[\"UsvDTd\",\"[null,null,[2,%d,[%d,null,null],null,[]],[\\\"%s\\\",7]]\",null,\"generic\"]]]"
@@ -29,25 +34,18 @@ object GooglePlayReviewService {
     private val REPLY_COMMENT_INDEX = arrayOf(7, 1)
     private val REPLY_SUBMIT_TIME_INDEX = arrayOf(7, 2, 0)
 
-    private var config : Configuration? = null
-
-    init {
-//        HttpUtils.setProxy("localhost", 1080)
-    }
-
     fun getReviewsByAppId(appId : String, request : GooglePlayReviewRequest) : GooglePlayReviewsResult {
         var requestBody : String
         if (request.token != null && request.token!!.isNotEmpty()) {
             requestBody = requestBodyWithToken.format(request.size, request.token, appId)
         } else {
-            requestBody = initialRequestBody.format(request.sort, request.size, appId)
+            requestBody = initialRequestBody.format(request.sortType, request.size, appId)
         }
 
-        if (null != config) {
-//            HttpUtils.setProxy(config?.proxyHost!!, config?.proxyPort!!)
+        if (null != configuration) {
+            val addr = InetSocketAddress(configuration.proxy?.host!!, configuration.proxy?.port!!)
+            FuelManager.instance.proxy = Proxy(Proxy.Type.HTTP, addr)
         }
-//        val addr = InetSocketAddress("127.0.0.1", 1080)
-//        FuelManager.instance.proxy = Proxy(Proxy.Type.HTTP, addr)
 
         val requestUrl = requestUrl.format(request.language)
         val (httpRequest, response, result) = requestUrl
@@ -89,28 +87,4 @@ object GooglePlayReviewService {
         val gplayReviews = ObjectMapper().readTree(gplaySubArrayAsJsonString)
         return gplayReviews
     }
-
-//    companion object {
-//
-//        @Volatile private var INSTANCE: GooglePlayReviewService? = null
-//
-//        fun getInstance(config: Configuration): GooglePlayReviewService =
-//                INSTANCE ?: synchronized(this) {
-//                    INSTANCE ?: buildService(config).also { INSTANCE = it }
-//                }
-//
-//        fun getInstance(): GooglePlayReviewService =
-//                INSTANCE ?: synchronized(this) {
-//                    INSTANCE ?: buildService(null).also { INSTANCE = it }
-//            }
-//
-//        private fun buildService(config: Configuration?) : GooglePlayReviewService {
-//            val googlePlayReviewService = GooglePlayReviewService();
-//            if (null != config) {
-//                googlePlayReviewService.config = config
-//            }
-//            return googlePlayReviewService;
-//        }
-//
-//    }
 }

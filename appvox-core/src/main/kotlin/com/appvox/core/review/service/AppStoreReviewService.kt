@@ -7,11 +7,11 @@ import com.github.kittinunf.fuel.gson.responseObject
 import com.github.kittinunf.fuel.httpGet
 import com.github.kittinunf.result.getAs
 
-object AppStoreReviewService {
+internal class AppStoreReviewService {
 
-    private const val requestUrlPattern : String = "https://amp-api.apps.apple.com/v1/catalog/%s/apps/%s/reviews?offset=%d&platform=web&additionalPlatforms=appletv,ipad,iphone,mac"
-    private const val requestUrlWithNext : String = "https://amp-api.apps.apple.com%s&platform=web&additionalPlatforms=appletv,ipad,iphone,mac"
-    private const val bearerToken : String = "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IkNSRjVITkJHUFEifQ.eyJpc3MiOiI4Q1UyNk1LTFM0IiwiaWF0IjoxNjA0NDIzNjk4LCJleHAiOjE2MDc0NDc2OTh9.lNJUIJvv99NIs1ea_qiv5lJyEsBNrppZMJiex4drI_dGWzkT5HB-DBYyw8aaYwlea8CkQVAqNLe3790UiD6XoQ";
+    private val requestUrlPattern : String = "https://amp-api.apps.apple.com/v1/catalog/%s/apps/%s/reviews?offset=%d&platform=web&additionalPlatforms=appletv,ipad,iphone,mac"
+    private val requestUrlWithNext : String = "https://amp-api.apps.apple.com%s&platform=web&additionalPlatforms=appletv,ipad,iphone,mac"
+    private val bearerToken : String = "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IkNSRjVITkJHUFEifQ.eyJpc3MiOiI4Q1UyNk1LTFM0IiwiaWF0IjoxNjA1MDQyMTIwLCJleHAiOjE2MDgwNjYxMjB9.bsgT71SiC_b9YEJp08xuoV1WtuVnukHGjNxAOBrN7IsVE-fEu7t_1gaOudctv5rWjebfG7e9to-JBjeE96jIEQ";
 
     fun getReviewsByAppId(appId : String, request : AppStoreReviewRequest) : AppStoreReviewsResult? {
 

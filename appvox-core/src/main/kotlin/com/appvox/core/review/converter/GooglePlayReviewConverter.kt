@@ -1,18 +1,16 @@
-package com.appvox.api.review.converter
+package com.appvox.core.review.converter
 
-import com.appvox.core.review.domain.response.ReviewResponse
+import com.appvox.core.review.domain.response.ReviewDTO
 import com.appvox.core.review.domain.response.ReviewsResponse
 import com.appvox.core.review.domain.result.GooglePlayReviewsResult
-import org.springframework.stereotype.Component
 
-@Component
 class GooglePlayReviewConverter {
-
-    fun toResponse(reviewResult: GooglePlayReviewsResult, nextCursor: String?) : ReviewsResponse {
-        var reviews = ArrayList<ReviewResponse>()
-        val googlePlayReviews = reviewResult.reviews
-        for (googlePlayReview in googlePlayReviews) {
-            val reviewResponse = ReviewResponse(
+    companion object {
+        fun toResponse(reviewResult: GooglePlayReviewsResult, nextCursor: String?): ReviewsResponse {
+            var reviews = ArrayList<ReviewDTO>()
+            val googlePlayReviews = reviewResult.reviews
+            for (googlePlayReview in googlePlayReviews) {
+                val reviewResponse = ReviewDTO(
                     type = "GooglePlay",
                     id = googlePlayReview.reviewId,
                     userName = googlePlayReview.userName,
@@ -26,13 +24,14 @@ class GooglePlayReviewConverter {
                     likeCount = googlePlayReview.likeCount,
                     appVersion = googlePlayReview.appVersion,
                     url = googlePlayReview.reviewUrl
-            )
-            reviews.add(reviewResponse)
-        }
+                )
+                reviews.add(reviewResponse)
+            }
 
-        return ReviewsResponse(
+            return ReviewsResponse(
                 nextCursor = nextCursor,
                 reviews = reviews
-        )
+            )
+        }
     }
 }

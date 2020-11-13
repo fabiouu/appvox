@@ -1,6 +1,6 @@
 package com.appvox.core.review.domain.response
 
-data class ReviewResponse(
+data class ReviewDTO(
         val type: String,
         val id: String,
         val userName: String,
