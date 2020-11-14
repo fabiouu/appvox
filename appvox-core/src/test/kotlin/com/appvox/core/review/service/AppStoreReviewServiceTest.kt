@@ -1,4 +1,4 @@
-package com.appvox.core.review
+package com.appvox.core.review.service
 
 import com.appvox.core.review.domain.request.AppStoreReviewRequest
 import com.appvox.core.review.service.AppStoreReviewService
@@ -15,7 +15,10 @@ class AppStoreReviewServiceSpec {
     fun `Get app store reviews`(
         appId : String, region : String, sort : Int, size : Int, expectedResponseCode : Int, expectedSize : Int) {
         val request = AppStoreReviewRequest(region, size, "", "")
-        val response = AppStoreReviewService.getReviewsByAppId(appId, request)
+
+        val service = AppStoreReviewService()
+        val response = service.getReviewsByAppId(appId, request)
+
         Assertions.assertEquals(response?.data?.size, expectedSize)
     }
 }

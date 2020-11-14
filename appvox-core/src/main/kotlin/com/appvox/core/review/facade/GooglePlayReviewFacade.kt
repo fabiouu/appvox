@@ -1,17 +1,14 @@
-package com.appvox.api.review.facade
+package com.appvox.core.review.facade
 
-import com.appvox.api.review.converter.GooglePlayReviewConverter
+import com.appvox.core.configuration.Configuration
+import com.appvox.core.review.converter.GooglePlayReviewConverter
+import com.appvox.core.review.helper.CursorHelper
 import com.appvox.core.review.domain.request.GooglePlayReviewRequest
 import com.appvox.core.review.domain.response.ReviewsResponse
-import com.appvox.api.helper.CursorHelper
 import com.appvox.core.review.service.GooglePlayReviewService
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.stereotype.Service
 
-@Service
 class GooglePlayReviewFacade(
-        @Autowired
-        private val googlePlayReviewConverter: GooglePlayReviewConverter
+    val configuration : Configuration? = null
 ) {
     fun getReviewsByAppId(appId : String, request: GooglePlayReviewRequest) : ReviewsResponse {
 
@@ -21,22 +18,23 @@ class GooglePlayReviewFacade(
             facadeRequest = GooglePlayReviewRequest(
                     size = (queryParameters["size"] ?: error("")).toInt(),
                     language = queryParameters["language"] ?: error(""),
-                    sort = (queryParameters["sort"] ?: error("")).toInt(),
+                    sortType = (queryParameters["sort"] ?: error("")).toInt(),
                     token = queryParameters["token"] ?: error("")
             )
         }
 
-        val reviews = GooglePlayReviewService.getReviewsByAppId(
+        val service = GooglePlayReviewService(configuration)
+        val reviews = service.getReviewsByAppId(
                 appId = appId,
                 request = facadeRequest
         )
 
         var nextCursor : String? = null
         if (reviews.token != null && reviews.token!!.isNotEmpty()) {
-            nextCursor = buildGooglePlayCursor(request.language, request.size, request.sort, reviews.token!!)
+            nextCursor = buildGooglePlayCursor(request.language, request.size, request.sortType, reviews.token!!)
         }
 
-        return googlePlayReviewConverter.toResponse(reviews, nextCursor)
+        return GooglePlayReviewConverter.toResponse(reviews, nextCursor)
     }
 
     fun buildGooglePlayCursor(language : String, size : Int, sort : Int, token : String) : String {

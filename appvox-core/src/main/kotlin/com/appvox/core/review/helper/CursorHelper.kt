@@ -1,13 +1,21 @@
-package com.appvox.api.helper
+package com.appvox.core.review.helper
 
-import org.springframework.util.Base64Utils
 import java.nio.charset.Charset
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.Map
+import kotlin.collections.forEach
+import kotlin.collections.hashMapOf
+import kotlin.collections.joinToString
+import kotlin.collections.listOf
+import kotlin.collections.set
+
 
 class CursorHelper {
     companion object {
-        fun decodeCursorToParameters(encodedCursor : String) : Map<String, String> {
+        fun decodeCursorToParameters(encodedCursor: String) : Map<String, String> {
             var parameters = hashMapOf<String, String>()
-            val decodedCursor = Base64Utils.decodeFromString(encodedCursor)
+            val decodedCursor: ByteArray = Base64.getDecoder().decode(encodedCursor)
             val decodedCursorAsString = decodedCursor.toString(Charset.defaultCharset())
             val kvParameters = decodedCursorAsString.split("|")
             kvParameters.forEach {
@@ -25,7 +33,8 @@ class CursorHelper {
                 kvParameters.add(kvParameter)
             }
             val unencodedCursor = kvParameters.joinToString("|")
-            val encodedCursor = Base64Utils.encodeToUrlSafeString(unencodedCursor.toByteArray(Charset.defaultCharset()))
+            val encodedCursor: String = Base64.getEncoder().encodeToString(
+                unencodedCursor.toByteArray(Charset.defaultCharset()))
             return encodedCursor
         }
     }
