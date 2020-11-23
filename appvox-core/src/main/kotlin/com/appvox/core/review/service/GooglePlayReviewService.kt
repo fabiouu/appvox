@@ -3,8 +3,6 @@ package com.appvox.core.review.service
 import com.appvox.core.configuration.Configuration
 import com.appvox.core.review.domain.request.GooglePlayReviewRequest
 import com.appvox.core.review.domain.result.GooglePlayReviewResult
-import com.appvox.core.review.domain.result.GooglePlayReviewsResult
-import com.appvox.core.utils.HttpUtils
 import com.appvox.core.utils.JsonUtils.getJsonNodeByIndex
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper
@@ -34,7 +32,7 @@ internal class GooglePlayReviewService(
     private val REPLY_COMMENT_INDEX = arrayOf(7, 1)
     private val REPLY_SUBMIT_TIME_INDEX = arrayOf(7, 2, 0)
 
-    fun getReviewsByAppId(appId : String, request : GooglePlayReviewRequest) : GooglePlayReviewsResult {
+    fun getReviewsByAppId(appId : String, request : GooglePlayReviewRequest) : GooglePlayReviewResult {
         var requestBody : String
         if (request.token != null && request.token!!.isNotEmpty()) {
             requestBody = requestBodyWithToken.format(request.size, request.token, appId)
@@ -54,29 +52,29 @@ internal class GooglePlayReviewService(
                 .header(CONTENT_TYPE,  "application/x-www-form-urlencoded")
                 .responseString()
 
-        var reviewResults = ArrayList<GooglePlayReviewResult>()
+        var reviewResults = ArrayList<GooglePlayReviewResult.GooglePlayReview>()
         val gplayReviews = extractReviewsFromResponse(result.get())
         for (gplayReview in gplayReviews[0]) {
-            val review = GooglePlayReviewResult(
-                reviewId = getJsonNodeByIndex(gplayReview, REVIEW_ID_INDEX).asText(),
-                userName = getJsonNodeByIndex(gplayReview, USER_NAME_INDEX).asText(),
-                userProfilePicUrl = getJsonNodeByIndex(gplayReview, USER_PROFILE_PIC_INDEX).asText(),
-                rating = getJsonNodeByIndex(gplayReview, RATING_INDEX).asInt(),
-                comment = getJsonNodeByIndex(gplayReview, COMMENT_INDEX).asText(),
-                submitTime = getJsonNodeByIndex(gplayReview, SUBMIT_TIME_INDEX).asLong(),
-                likeCount = getJsonNodeByIndex(gplayReview, LIKE_COUNT_INDEX).asInt(),
-                appVersion = getJsonNodeByIndex(gplayReview, APP_VERSION_INDEX).asText(),
-                reviewUrl = reviewUrl.format(
-                        appId, request.language, getJsonNodeByIndex(gplayReview, REVIEW_ID_INDEX).asText()),
-                replyComment = getJsonNodeByIndex(gplayReview, REPLY_COMMENT_INDEX).asText(),
-                replySubmitTime = getJsonNodeByIndex(gplayReview, REPLY_SUBMIT_TIME_INDEX).asLong()
+            val review = GooglePlayReviewResult.GooglePlayReview(
+                    reviewId = getJsonNodeByIndex(gplayReview, REVIEW_ID_INDEX).asText(),
+                    userName = getJsonNodeByIndex(gplayReview, USER_NAME_INDEX).asText(),
+                    userProfilePicUrl = getJsonNodeByIndex(gplayReview, USER_PROFILE_PIC_INDEX).asText(),
+                    rating = getJsonNodeByIndex(gplayReview, RATING_INDEX).asInt(),
+                    comment = getJsonNodeByIndex(gplayReview, COMMENT_INDEX).asText(),
+                    submitTime = getJsonNodeByIndex(gplayReview, SUBMIT_TIME_INDEX).asLong(),
+                    likeCount = getJsonNodeByIndex(gplayReview, LIKE_COUNT_INDEX).asInt(),
+                    appVersion = getJsonNodeByIndex(gplayReview, APP_VERSION_INDEX).asText(),
+                    reviewUrl = reviewUrl.format(
+                            appId, request.language, getJsonNodeByIndex(gplayReview, REVIEW_ID_INDEX).asText()),
+                    replyComment = getJsonNodeByIndex(gplayReview, REPLY_COMMENT_INDEX).asText(),
+                    replySubmitTime = getJsonNodeByIndex(gplayReview, REPLY_SUBMIT_TIME_INDEX).asLong()
             )
             reviewResults.add(review)
         }
 
         val token = if (!gplayReviews.isEmpty && !gplayReviews[1].isEmpty) gplayReviews[1][1] else null
 
-        return GooglePlayReviewsResult(token = token?.asText(), reviews = reviewResults)
+        return GooglePlayReviewResult(token = token?.asText(), reviews = reviewResults)
     }
 
     private fun extractReviewsFromResponse(gplayResponse: String): JsonNode {

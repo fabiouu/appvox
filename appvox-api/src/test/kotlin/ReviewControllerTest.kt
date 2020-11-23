@@ -1,5 +1,5 @@
 import com.appvox.api.AppVoxApplication
-import com.appvox.core.review.domain.response.ReviewsResponse
+import com.appvox.core.review.domain.response.ReviewResponse
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.extension.ExtendWith
 import org.junit.jupiter.params.ParameterizedTest
@@ -24,7 +24,7 @@ class ReviewControllerTest(
         expectedResponseStatus: Int, expectedSize: Int) {
         val url = "/store/google-play/app/$appId/reviews?language=$language&sortType=$sort&size=$size"
 
-        val response = restTemplate.getForEntity(url, ReviewsResponse::class.java)
+        val response = restTemplate.getForEntity(url, ReviewResponse::class.java)
 
         Assertions.assertEquals(response.statusCodeValue, expectedResponseStatus)
         Assertions.assertEquals(response.body?.reviews?.size, expectedSize)
@@ -39,11 +39,11 @@ class ReviewControllerTest(
         expectedResponseStatus: Int, expectedSize: Int) {
         val url = "/store/google-play/app/$appId/reviews?language=$language&sortType=$sort&size=$size"
 
-        val initialResponse = restTemplate.getForEntity(url, ReviewsResponse::class.java)
+        val initialResponse = restTemplate.getForEntity(url, ReviewResponse::class.java)
         val nextCursor = initialResponse.body?.nextCursor
 
         val urlWithCursor = "/store/google-play/app/$appId/reviews?cursor=$nextCursor"
-        val response = restTemplate.getForEntity(urlWithCursor, ReviewsResponse::class.java)
+        val response = restTemplate.getForEntity(urlWithCursor, ReviewResponse::class.java)
 
         Assertions.assertEquals(response.statusCodeValue, expectedResponseStatus)
         Assertions.assertEquals(response.body?.reviews?.size, expectedSize)
@@ -57,7 +57,7 @@ class ReviewControllerTest(
         appId: String, region: String,sort: Int, page : Int, expectedResponseStatus: Int, expectedSize: Int) {
         val url = "/store/app-store/app/$appId/reviews?region=$region&page=$page"
 
-        val response = restTemplate.getForEntity(url, ReviewsResponse::class.java)
+        val response = restTemplate.getForEntity(url, ReviewResponse::class.java)
 
         Assertions.assertEquals(response.statusCodeValue, expectedResponseStatus)
         Assertions.assertEquals(response.body?.reviews?.size, expectedSize)
@@ -72,11 +72,11 @@ class ReviewControllerTest(
         expectedResponseStatus: Int, expectedSize: Int) {
         val url = "/store/app-store/app/$appId/reviews?region=$region&page=$page"
 
-        val initialResponse = restTemplate.getForEntity(url, ReviewsResponse::class.java)
+        val initialResponse = restTemplate.getForEntity(url, ReviewResponse::class.java)
         val nextCursor = initialResponse.body?.nextCursor
 
         val urlWithCursor = "/store/app-store/app/$appId/reviews?cursor=$nextCursor"
-        val response = restTemplate.getForEntity(urlWithCursor, ReviewsResponse::class.java)
+        val response = restTemplate.getForEntity(urlWithCursor, ReviewResponse::class.java)
 
         Assertions.assertEquals(response.statusCodeValue, expectedResponseStatus)
         Assertions.assertEquals(response.body?.reviews?.size, expectedSize)

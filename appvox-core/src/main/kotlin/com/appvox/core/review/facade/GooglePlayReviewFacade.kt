@@ -4,13 +4,13 @@ import com.appvox.core.configuration.Configuration
 import com.appvox.core.review.converter.GooglePlayReviewConverter
 import com.appvox.core.review.helper.CursorHelper
 import com.appvox.core.review.domain.request.GooglePlayReviewRequest
-import com.appvox.core.review.domain.response.ReviewsResponse
+import com.appvox.core.review.domain.response.ReviewResponse
 import com.appvox.core.review.service.GooglePlayReviewService
 
 class GooglePlayReviewFacade(
     val configuration : Configuration? = null
 ) {
-    fun getReviewsByAppId(appId : String, request: GooglePlayReviewRequest) : ReviewsResponse {
+    fun getReviewsByAppId(appId : String, request: GooglePlayReviewRequest) : ReviewResponse {
 
         var facadeRequest = request
         if (null != request.cursor && request.cursor!!.isNotEmpty()) {
