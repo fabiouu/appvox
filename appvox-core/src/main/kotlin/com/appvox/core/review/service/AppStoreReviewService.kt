@@ -1,6 +1,6 @@
 package com.appvox.core.review.service
 
-import com.appvox.core.configuration.Configuration
+import com.appvox.core.configuration.ProxyConfiguration
 import com.appvox.core.review.domain.request.AppStoreReviewRequest
 import com.appvox.core.review.domain.result.AppStoreReviewResult
 import com.github.kittinunf.fuel.core.FuelManager
@@ -12,7 +12,7 @@ import java.net.InetSocketAddress
 import java.net.Proxy
 
 internal class AppStoreReviewService(
-        val configuration: Configuration? = null
+        val configuration: ProxyConfiguration? = null
 ) {
 
     private val requestUrlPattern : String = "https://amp-api.apps.apple.com/v1/catalog/%s/apps/%s/reviews?offset=%d&platform=web&additionalPlatforms=appletv,ipad,iphone,mac"
@@ -27,7 +27,7 @@ internal class AppStoreReviewService(
         }
 
         if (null != configuration) {
-            val addr = InetSocketAddress(configuration.proxy?.host!!, configuration.proxy?.port!!)
+            val addr = InetSocketAddress(configuration.host!!, configuration.port!!)
             FuelManager.instance.proxy = Proxy(Proxy.Type.HTTP, addr)
         }
 
@@ -44,7 +44,7 @@ internal class AppStoreReviewService(
     fun getBearerToken(appId: String, region: String): String {
 
         if (null != configuration) {
-            val addr = InetSocketAddress(configuration.proxy?.host!!, configuration.proxy?.port!!)
+            val addr = InetSocketAddress(configuration.host!!, configuration.port!!)
             FuelManager.instance.proxy = Proxy(Proxy.Type.HTTP, addr)
         }
 

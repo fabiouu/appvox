@@ -1,5 +1,6 @@
 package com.appvox.core.query
 
+import com.appvox.core.configuration.ProxyConfiguration
 import com.appvox.core.review.domain.request.AppStoreReviewRequest
 import com.appvox.core.review.service.AppStoreReviewService
 import org.junit.jupiter.api.Assertions
@@ -16,13 +17,14 @@ class AppVoxTest {
             appId : String, region : String, sort : Int, size : Int, expectedResponseCode : Int, expectedSize : Int) {
         val request = AppStoreReviewRequest(region, size, "", "")
 
-//        val appVox = AppVox(proxyHost = "127.0.0.1", proxyPort = 1090)
-//        appVox
-//                .reviews(appId = "785385147")
-//                .forEach {
-//                    review ->
-//                    println("Comment: " + review.comment)
-//                }
+        val proxyConfig = ProxyConfiguration(host = "127.0.0.1", port = 1090)
+        val appVox = AppVox(proxyConfig)
+        appVox
+                .reviews(appId = "785385147")
+                .forEach {
+                    review ->
+                    println("Comment: " + review.comment)
+                }
 
 //        Assertions.assertEquals(expectedSize, response?.data?.size)
     }

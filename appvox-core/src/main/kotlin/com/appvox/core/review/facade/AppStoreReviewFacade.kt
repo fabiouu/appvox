@@ -8,7 +8,7 @@ import com.appvox.core.review.domain.response.ReviewResponse
 import com.appvox.core.review.service.AppStoreReviewService
 
 class AppStoreReviewFacade(
-        val configuration: ProxyConfiguration = null
+        val configuration: ProxyConfiguration? = null
 ) {
     fun getReviewsByAppId(appId : String, request: AppStoreReviewRequest) : ReviewResponse {
 

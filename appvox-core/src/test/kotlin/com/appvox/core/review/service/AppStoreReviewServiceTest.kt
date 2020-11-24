@@ -5,7 +5,6 @@ import com.appvox.core.review.domain.request.AppStoreReviewRequest
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
-import java.lang.module.Configuration
 
 class AppStoreReviewServiceSpec {
 
@@ -28,13 +27,13 @@ class AppStoreReviewServiceSpec {
             "333903271, us"
     )
     fun `Get app store authentication token`(appId : String, region : String) {
-        val configuration = com.appvox.core.configuration.Configuration.Builder()
-                .proxy(ProxyConfiguration.Builder()
-                        .host("127.0.0.1")
-                        .port(1090)
-                        .build()).build();
-        val service = AppStoreReviewService(configuration)
-        val bearerToken = service.getBearerToken(appId, region)
-        println(bearerToken)
+//        val configuration = com.appvox.core.configuration.Configuration.Builder()
+//                .proxy(ProxyConfiguration.Builder()
+//                        .host("127.0.0.1")
+//                        .port(1090)
+//                        .build()).build();
+//        val service = AppStoreReviewService(configuration)
+//        val bearerToken = service.getBearerToken(appId, region)
+//        println(bearerToken)
     }
 }
