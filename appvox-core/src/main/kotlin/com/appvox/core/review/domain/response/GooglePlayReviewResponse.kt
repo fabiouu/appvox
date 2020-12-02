@@ -1,12 +1,10 @@
 package com.appvox.core.review.domain.response
 
-import com.appvox.core.PaginatedResponse
-
-open class ReviewResponse(
-        val reviews: List<Review>,
-        nextCursor: String? = null
-) : PaginatedResponse(nextCursor) {
-    data class Review(
+data class GooglePlayReviewResponse(
+        val reviews: List<GooglePlayReview>,
+        val next: String?
+) {  //: PaginatedResponse(nextCursor)
+    data class GooglePlayReview(
             val type: String,
             val id: String,
             val userName: String,

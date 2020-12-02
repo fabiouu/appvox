@@ -1,8 +1,10 @@
 package com.appvox.core.query
 
 import com.appvox.core.configuration.ProxyConfiguration
-import com.appvox.core.review.iterator.AppReviewIterator
 import com.appvox.core.review.facade.AppStoreReviewFacade
+import com.appvox.core.review.facade.GooglePlayReviewFacade
+import com.appvox.core.review.iterator.AppStoreReviewIterator
+import com.appvox.core.review.iterator.GooglePlayReviewIterator
 
 class AppVox {
 
@@ -15,8 +17,14 @@ class AppVox {
     constructor() {
     }
 
-    fun reviews(appId:String) : AppReviewIterator {
+    fun appStoreReviews(appId: String) : AppStoreReviewIterator {
         val facade = AppStoreReviewFacade(config)
-        return AppReviewIterator(facade, appId)
+        return AppStoreReviewIterator(facade, appId)
     }
+
+    fun googlePlayReviews(appId: String) : GooglePlayReviewIterator {
+        val facade = GooglePlayReviewFacade(config)
+        return GooglePlayReviewIterator(facade, appId)
+    }
+
 }

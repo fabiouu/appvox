@@ -1,15 +1,15 @@
 package com.appvox.core.review.converter
 
-import com.appvox.core.review.domain.response.ReviewResponse
+import com.appvox.core.review.domain.response.GooglePlayReviewResponse
 import com.appvox.core.review.domain.result.GooglePlayReviewResult
 
 class GooglePlayReviewConverter {
     companion object {
-        fun toResponse(reviewResult: GooglePlayReviewResult, nextCursor: String?): ReviewResponse {
-            var reviews = ArrayList<ReviewResponse.Review>()
+        fun toResponse(reviewResult: GooglePlayReviewResult): GooglePlayReviewResponse {
+            var reviews = ArrayList<GooglePlayReviewResponse.GooglePlayReview>()
             val googlePlayReviews = reviewResult.reviews
             for (googlePlayReview in googlePlayReviews) {
-                val reviewResponse = ReviewResponse.Review(
+                val reviewResponse = GooglePlayReviewResponse.GooglePlayReview(
                         type = "GooglePlay",
                         id = googlePlayReview.reviewId,
                         userName = googlePlayReview.userName,
@@ -27,9 +27,9 @@ class GooglePlayReviewConverter {
                 reviews.add(reviewResponse)
             }
 
-            return ReviewResponse(
-                nextCursor = nextCursor,
-                reviews = reviews
+            return GooglePlayReviewResponse(
+                reviews = reviews,
+                    next = reviewResult.token
             )
         }
     }

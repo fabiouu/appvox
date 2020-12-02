@@ -1,6 +1,6 @@
 package com.appvox.core.review.service
 
-import com.appvox.core.configuration.Configuration
+import com.appvox.core.configuration.ProxyConfiguration
 import com.appvox.core.review.domain.request.GooglePlayReviewRequest
 import com.appvox.core.review.domain.result.GooglePlayReviewResult
 import com.appvox.core.utils.JsonUtils.getJsonNodeByIndex
@@ -13,13 +13,14 @@ import java.net.InetSocketAddress
 import java.net.Proxy
 
 internal class GooglePlayReviewService(
-    val configuration : Configuration? = null
+        val configuration: ProxyConfiguration? = null
 ) {
 
-    private val requestUrl : String = "https://play.google.com/_/PlayStoreUi/data/batchexecute?rpcids=UsvDTd&f.sid=-2417434988450146470&bl=boq_playuiserver_20200303.10_p0&hl=%s&authuser&soc-app=121&soc-platform=1&soc-device=1&_reqid=1080551"
-    private val initialRequestBody : String =   "f.req=[[[\"UsvDTd\",\"[null,null,[2,%d,[%d,null,null],null,[]],[\\\"%s\\\",7]]\",null,\"generic\"]]]"
-    private val requestBodyWithToken : String = "f.req=[[[\"UsvDTd\",\"[null,null,[2,null,[%d,null,\\\"%s\\\"],null,[]],[\\\"%s\\\",7]]\",null,\"generic\"]]]"
-    private val reviewUrl : String = "https://play.google.com/store/apps/details?id=%s&hl=%s&reviewId=%s"
+    private val requestUrl = "https://play.google.com/_/PlayStoreUi/data/batchexecute?rpcids=UsvDTd&f.sid=-2417434988450146470&bl=boq_playuiserver_20200303.10_p0&hl=%s&authuser&soc-app=121&soc-platform=1&soc-device=1&_reqid=1080551"
+    private val requestBodyWithParams = "f.req=[[[\"UsvDTd\",\"[null,null,[2,%d,[%d,null,null],null,[]],[\\\"%s\\\",7]]\",null,\"generic\"]]]"
+    private val requestBodyWithParamsAndToken = "f.req=[[[\"UsvDTd\",\"[null,null,[2,null,[%d,null,\\\"%s\\\"],null,[]],[\\\"%s\\\",7]]\",null,\"generic\"]]]"
+    private val reviewUrl = "https://play.google.com/store/apps/details?id=%s&hl=%s&reviewId=%s"
+    private val URL_FORM_CONTENT_TYPE = "application/x-www-form-urlencoded"
 
     private val REVIEW_ID_INDEX = arrayOf(0)
     private val USER_NAME_INDEX = arrayOf(1, 0)
@@ -32,16 +33,15 @@ internal class GooglePlayReviewService(
     private val REPLY_COMMENT_INDEX = arrayOf(7, 1)
     private val REPLY_SUBMIT_TIME_INDEX = arrayOf(7, 2, 0)
 
-    fun getReviewsByAppId(appId : String, request : GooglePlayReviewRequest) : GooglePlayReviewResult {
-        var requestBody : String
-        if (request.token != null && request.token!!.isNotEmpty()) {
-            requestBody = requestBodyWithToken.format(request.size, request.token, appId)
+    fun getReviewsByAppId(appId: String, request: GooglePlayReviewRequest): GooglePlayReviewResult {
+        val requestBody = if (request.token.isNullOrEmpty()) {
+            requestBodyWithParams.format(request.sortType, request.size, appId)
         } else {
-            requestBody = initialRequestBody.format(request.sortType, request.size, appId)
+            requestBodyWithParamsAndToken.format(request.size, request.token, appId)
         }
 
         if (null != configuration) {
-            val addr = InetSocketAddress(configuration.proxy?.host!!, configuration.proxy?.port!!)
+            val addr = InetSocketAddress(configuration.host!!, configuration.port!!)
             FuelManager.instance.proxy = Proxy(Proxy.Type.HTTP, addr)
         }
 
@@ -49,7 +49,7 @@ internal class GooglePlayReviewService(
         val (httpRequest, response, result) = requestUrl
                 .httpPost()
                 .body(requestBody)
-                .header(CONTENT_TYPE,  "application/x-www-form-urlencoded")
+                .header(CONTENT_TYPE, URL_FORM_CONTENT_TYPE)
                 .responseString()
 
         var reviewResults = ArrayList<GooglePlayReviewResult.GooglePlayReview>()
@@ -80,7 +80,7 @@ internal class GooglePlayReviewService(
     private fun extractReviewsFromResponse(gplayResponse: String): JsonNode {
         val cleanGplayResponse = gplayResponse.substring(5)
         val gplayRootArray = ObjectMapper().readTree(cleanGplayResponse)
-        val gplaySubArray : JsonNode = gplayRootArray[0][2]
+        val gplaySubArray: JsonNode = gplayRootArray[0][2]
         val gplaySubArrayAsJsonString = gplaySubArray.textValue()
         val gplayReviews = ObjectMapper().readTree(gplaySubArrayAsJsonString)
         return gplayReviews

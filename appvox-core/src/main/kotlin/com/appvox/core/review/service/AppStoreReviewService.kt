@@ -15,15 +15,18 @@ internal class AppStoreReviewService(
         val configuration: ProxyConfiguration? = null
 ) {
 
-    private val requestUrlPattern : String = "https://amp-api.apps.apple.com/v1/catalog/%s/apps/%s/reviews?offset=%d&platform=web&additionalPlatforms=appletv,ipad,iphone,mac"
-    private val requestUrlWithNext : String = "https://amp-api.apps.apple.com%s&platform=web&additionalPlatforms=appletv,ipad,iphone,mac"
+    private val requestReviewSize = 10
+    private val appHomepageUrlPattern = "https://apps.apple.com/%s/app/id%s"
+    private val requestUrlWithParams = "https://amp-api.apps.apple.com/v1/catalog/%s/apps/%s/reviews?offset=%d&platform=web&additionalPlatforms=appletv,ipad,iphone,mac"
+    private val requestUrlWithNext = "https://amp-api.apps.apple.com%s&platform=web&additionalPlatforms=appletv,ipad,iphone,mac"
+    private val bearerTokenRegexPattern = "token%22%3A%22(.+?)%22"
 
     fun getReviewsByAppId(appId : String, request : AppStoreReviewRequest) : AppStoreReviewResult? {
-        var requestUrl : String
-        if (request.next != null && request.next.isNotEmpty()) {
-            requestUrl = requestUrlWithNext.format(request.next)
+
+        val requestUrl = if (request.next.isNullOrEmpty()) {
+            requestUrlWithParams.format(request.region, appId, requestReviewSize)
         } else {
-            requestUrl = requestUrlPattern.format(request.region, appId, request.size)
+            requestUrlWithNext.format(request.next)
         }
 
         if (null != configuration) {
@@ -37,23 +40,22 @@ internal class AppStoreReviewService(
                 .bearer(request.bearerToken)
                 .responseObject<AppStoreReviewResult>()
 
-        val appStoreResult = result.getAs<AppStoreReviewResult>()
-        return appStoreResult
+        return result.getAs<AppStoreReviewResult>()
     }
 
     fun getBearerToken(appId: String, region: String): String {
-
         if (null != configuration) {
             val addr = InetSocketAddress(configuration.host!!, configuration.port!!)
             FuelManager.instance.proxy = Proxy(Proxy.Type.HTTP, addr)
         }
 
-        val url = "https://apps.apple.com/us/app/twitter/id333903271"
+        val url = appHomepageUrlPattern.format(region, appId)
         val (request, response, result) = url.httpGet().responseString()
         val body = result.get()
-        val regex = "token%22%3A%22(.+?)%22".toRegex()
+        val regex = bearerTokenRegexPattern.toRegex()
         val tokenMatches = regex.find(body)
         val tokenMatch = tokenMatches?.groupValues?.get(1)
+
         return tokenMatch.orEmpty()
     }
 }
