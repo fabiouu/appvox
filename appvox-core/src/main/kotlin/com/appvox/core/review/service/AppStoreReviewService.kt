@@ -1,18 +1,18 @@
 package com.appvox.core.review.service
 
+//import com.github.kittinunf.fuel.core.extensions.authentication
+//import com.github.kittinunf.fuel.gson.responseObject
 import com.appvox.core.configuration.ProxyConfiguration
 import com.appvox.core.review.domain.request.AppStoreReviewRequest
 import com.appvox.core.review.domain.result.AppStoreReviewResult
-import com.github.kittinunf.fuel.core.FuelManager
-import com.github.kittinunf.fuel.core.extensions.authentication
-import com.github.kittinunf.fuel.gson.responseObject
-import com.github.kittinunf.fuel.httpGet
-import com.github.kittinunf.result.getAs
-import java.net.InetSocketAddress
-import java.net.Proxy
+import com.google.gson.Gson
+import java.io.BufferedReader
+import java.io.InputStreamReader
+import java.net.*
+
 
 internal class AppStoreReviewService(
-        val configuration: ProxyConfiguration? = null
+    val configuration: ProxyConfiguration? = null
 ) {
 
     private val requestReviewSize = 10
@@ -21,7 +21,7 @@ internal class AppStoreReviewService(
     private val requestUrlWithNext = "https://amp-api.apps.apple.com%s&platform=web&additionalPlatforms=appletv,ipad,iphone,mac"
     private val bearerTokenRegexPattern = "token%22%3A%22(.+?)%22"
 
-    fun getReviewsByAppId(appId : String, request : AppStoreReviewRequest) : AppStoreReviewResult? {
+    fun getReviewsByAppId(appId: String, request: AppStoreReviewRequest) : AppStoreReviewResult? {
 
         val requestUrl = if (request.next.isNullOrEmpty()) {
             requestUrlWithParams.format(request.region, appId, requestReviewSize)
@@ -29,29 +29,60 @@ internal class AppStoreReviewService(
             requestUrlWithNext.format(request.next)
         }
 
-        if (null != configuration) {
-            val addr = InetSocketAddress(configuration.host!!, configuration.port!!)
-            FuelManager.instance.proxy = Proxy(Proxy.Type.HTTP, addr)
+//        if (null != configuration) {
+//            val addr = InetSocketAddress(configuration.host!!, configuration.port!!)
+//            FuelManager.instance.proxy = Proxy(Proxy.Type.HTTP, addr)
+//        }
+
+        val conn = URL(requestUrl).openConnection();
+        conn.setRequestProperty("Authorization", "Bearer " + request.bearerToken)
+        conn.setRequestProperty("Content-Type", "application/json")
+
+        var response = StringBuffer()
+        val reader = BufferedReader(InputStreamReader(conn.getInputStream()));
+        while (true) {
+            val line = reader.readLine() ?: break
+            response.append(line);
         }
+        reader.close()
 
-        val (request, response, result) = requestUrl
-                .httpGet()
-                .authentication()
-                .bearer(request.bearerToken)
-                .responseObject<AppStoreReviewResult>()
-
-        return result.getAs<AppStoreReviewResult>()
+        val result = Gson().fromJson(response.toString(), AppStoreReviewResult::class.java)
+        return result
     }
 
     fun getBearerToken(appId: String, region: String): String {
+        val requestUrl = appHomepageUrlPattern.format(region, appId)
+
+        var conn : URLConnection
         if (null != configuration) {
-            val addr = InetSocketAddress(configuration.host!!, configuration.port!!)
-            FuelManager.instance.proxy = Proxy(Proxy.Type.HTTP, addr)
+            val proxy = Proxy(Proxy.Type.HTTP, InetSocketAddress(configuration.host!!, configuration.port!!.toInt()))
+            conn = URL(requestUrl).openConnection(proxy)
+            if (null != configuration.user && null != configuration.password) {
+                val authenticator: Authenticator = object : Authenticator() {
+                    override fun getPasswordAuthentication(): PasswordAuthentication? {
+                        return PasswordAuthentication(configuration.user, configuration.password.toCharArray())
+                    }
+                }
+                Authenticator.setDefault(authenticator)
+            }
+        } else {
+            conn = URL(requestUrl).openConnection()
         }
 
-        val url = appHomepageUrlPattern.format(region, appId)
-        val (request, response, result) = url.httpGet().responseString()
-        val body = result.get()
+
+        var response = StringBuffer()
+        val reader = BufferedReader(InputStreamReader(conn.getInputStream()));
+        while (true) {
+            val line = reader.readLine() ?: break
+            response.append(line);
+        }
+        reader.close()
+
+        val body = response.toString()
+//        val result = Gson().fromJson(response.toString(), AppStoreReviewResult::class.java)
+
+//        val (request, response, result) = url.httpGet().responseString()
+//        val body = result.get()
         val regex = bearerTokenRegexPattern.toRegex()
         val tokenMatches = regex.find(body)
         val tokenMatch = tokenMatches?.groupValues?.get(1)

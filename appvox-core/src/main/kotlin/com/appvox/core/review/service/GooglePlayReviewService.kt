@@ -34,10 +34,10 @@ internal class GooglePlayReviewService(
     private val REPLY_SUBMIT_TIME_INDEX = arrayOf(7, 2, 0)
 
     fun getReviewsByAppId(appId: String, request: GooglePlayReviewRequest): GooglePlayReviewResult {
-        val requestBody = if (request.token.isNullOrEmpty()) {
+        val requestBody = if (request.nextToken.isNullOrEmpty()) {
             requestBodyWithParams.format(request.sortType, request.size, appId)
         } else {
-            requestBodyWithParamsAndToken.format(request.size, request.token, appId)
+            requestBodyWithParamsAndToken.format(request.size, request.nextToken, appId)
         }
 
         if (null != configuration) {

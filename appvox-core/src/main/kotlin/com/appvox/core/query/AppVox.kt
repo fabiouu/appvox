@@ -1,30 +1,29 @@
 package com.appvox.core.query
 
 import com.appvox.core.configuration.ProxyConfiguration
+import com.appvox.core.review.domain.request.AppStoreReviewRequest
+import com.appvox.core.review.domain.request.GooglePlayReviewRequest
 import com.appvox.core.review.facade.AppStoreReviewFacade
 import com.appvox.core.review.facade.GooglePlayReviewFacade
 import com.appvox.core.review.iterator.AppStoreReviewIterator
 import com.appvox.core.review.iterator.GooglePlayReviewIterator
 
-class AppVox {
-
-    lateinit var config: ProxyConfiguration
-
-    constructor(config : ProxyConfiguration) {
-        this.config = config
+class AppVox(
+    private val config: ProxyConfiguration? = null
+) {
+    fun appStoreReviews(appId: String, region: String) : AppStoreReviewIterator {
+        val facade = AppStoreReviewFacade(configuration = config)
+        val request = AppStoreReviewRequest(region = region)
+        return AppStoreReviewIterator(facade, appId, request)
     }
 
-    constructor() {
+    fun googlePlayReviews(appId: String, language: String, sortType: Int, size: Int) : GooglePlayReviewIterator {
+        val facade = GooglePlayReviewFacade(configuration = config)
+        val request = GooglePlayReviewRequest(
+            language = language,
+            sortType = sortType,
+            size = size
+        )
+        return GooglePlayReviewIterator(facade, appId, request)
     }
-
-    fun appStoreReviews(appId: String) : AppStoreReviewIterator {
-        val facade = AppStoreReviewFacade(config)
-        return AppStoreReviewIterator(facade, appId)
-    }
-
-    fun googlePlayReviews(appId: String) : GooglePlayReviewIterator {
-        val facade = GooglePlayReviewFacade(config)
-        return GooglePlayReviewIterator(facade, appId)
-    }
-
 }

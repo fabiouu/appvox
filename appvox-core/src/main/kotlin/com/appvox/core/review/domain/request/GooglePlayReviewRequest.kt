@@ -6,6 +6,6 @@ open class GooglePlayReviewRequest(
         val language: String,
         val sortType: Int,
         val size: Int,
-        var token: String? = "",
-        cursor: String? = null
-) : PaginatedRequest(cursor)
+        var nextToken: String? = null
+//        cursor: String? = null
+)// : PaginatedRequest(cursor)

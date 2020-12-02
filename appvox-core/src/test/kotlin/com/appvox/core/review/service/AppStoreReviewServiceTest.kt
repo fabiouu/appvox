@@ -10,30 +10,29 @@ class AppStoreReviewServiceSpec {
 
     @ParameterizedTest
     @CsvSource(
-        "333903271, us, 1, 0, 200, 10"
+        "333903271, us, 200, 10"
     )
     fun `Get app store reviews`(
-        appId : String, region : String, sort : Int, size : Int, expectedResponseCode : Int, expectedSize : Int) {
-        val request = AppStoreReviewRequest(region, size, "", "")
+        appId : String, region : String, expectedResponseCode : Int, expectedSize : Int) {
 
-        val service = AppStoreReviewService()
+        val proxy = ProxyConfiguration(
+            host = "127.0.0.1",
+            port = 1087
+        )
+        val service = AppStoreReviewService(proxy)
+
+//        val service = AppStoreReviewService()
+        val bearerToken = service.getBearerToken(
+            appId = appId,
+            region = region
+        )
+        val request = AppStoreReviewRequest(
+            region = region,
+            bearerToken = bearerToken
+        )
+
         val response = service.getReviewsByAppId(appId, request)
 
         Assertions.assertEquals(expectedSize, response?.data?.size)
-    }
-
-    @ParameterizedTest
-    @CsvSource(
-            "333903271, us"
-    )
-    fun `Get app store authentication token`(appId : String, region : String) {
-//        val configuration = com.appvox.core.configuration.Configuration.Builder()
-//                .proxy(ProxyConfiguration.Builder()
-//                        .host("127.0.0.1")
-//                        .port(1090)
-//                        .build()).build();
-//        val service = AppStoreReviewService(configuration)
-//        val bearerToken = service.getBearerToken(appId, region)
-//        println(bearerToken)
     }
 }

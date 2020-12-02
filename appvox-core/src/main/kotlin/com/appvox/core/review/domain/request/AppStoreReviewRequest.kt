@@ -2,9 +2,9 @@ package com.appvox.core.review.domain.request
 
 import com.appvox.core.PaginatedRequest
 
-open class AppStoreReviewRequest(
-    val region: String,
-    val bearerToken: String,
-    val next: String?,
-    cursor : String? = null
-) : PaginatedRequest(cursor)
+ class AppStoreReviewRequest(
+     val region: String,
+     var bearerToken: String? = null,
+     val next: String? = null
+//    cursor : String? = null
+)// : PaginatedRequest(cursor)

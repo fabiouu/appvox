@@ -14,6 +14,11 @@ class AppStoreReviewFacade(
 
         val service = AppStoreReviewService(configuration)
 
+        if (null == request.bearerToken) {
+            val bearerToken = service.getBearerToken(appId, request.region)
+            request.bearerToken = bearerToken
+        }
+
         var reviews = service.getReviewsByAppId(
             appId = appId,
             request = request
