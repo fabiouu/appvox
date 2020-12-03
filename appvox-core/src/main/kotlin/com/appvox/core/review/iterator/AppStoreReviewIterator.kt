@@ -14,16 +14,15 @@ class AppStoreReviewIterator(
         return object : Iterator<AppStoreReviewResponse.AppStoreReview> {
 
             var iterator: Iterator<AppStoreReviewResponse.AppStoreReview>
-            var next : String?
 
             init {
                 val response = facade.getReviewsByAppId(appId, request)
                 iterator = response.reviews.iterator()
-                next = response?.next
+                request.nextToken = response?.nextToken
             }
 
             override fun hasNext(): Boolean {
-                if (next == null && !iterator.hasNext()) {
+                if (request.nextToken == null && !iterator.hasNext()) {
                     return false
                 }
 
@@ -34,7 +33,7 @@ class AppStoreReviewIterator(
                         return false
                     }
                     iterator = response.reviews.iterator()
-                    next = response?.next
+                    request.nextToken = response?.nextToken
                 }
 
                 return true
@@ -42,16 +41,6 @@ class AppStoreReviewIterator(
 
             override fun next(): AppStoreReviewResponse.AppStoreReview {
                 return iterator.next()
-//                if (currentIndex == response?.reviews?.size || response == null) {
-//                    Thread.sleep(3000)
-//                    response = facade.getReviewsByAppId(appId, request)
-//                    next = response?.next!!
-//                    currentIndex = 0
-//                }
-//                val review = response?.reviews?.iterator()
-//                println("CURINDEX = $currentIndex")
-//                currentIndex++
-//                return review!!
             }
         }
     }

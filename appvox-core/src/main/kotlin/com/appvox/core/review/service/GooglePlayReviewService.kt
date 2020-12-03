@@ -6,14 +6,14 @@ import com.appvox.core.review.domain.result.GooglePlayReviewResult
 import com.appvox.core.utils.JsonUtils.getJsonNodeByIndex
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.github.kittinunf.fuel.core.FuelManager
-import com.github.kittinunf.fuel.core.Headers.Companion.CONTENT_TYPE
-import com.github.kittinunf.fuel.httpPost
-import java.net.InetSocketAddress
-import java.net.Proxy
+import java.io.BufferedReader
+import java.io.InputStreamReader
+import java.io.OutputStreamWriter
+import java.net.*
+
 
 internal class GooglePlayReviewService(
-        val configuration: ProxyConfiguration? = null
+    val configuration: ProxyConfiguration? = null
 ) {
 
     private val requestUrl = "https://play.google.com/_/PlayStoreUi/data/batchexecute?rpcids=UsvDTd&f.sid=-2417434988450146470&bl=boq_playuiserver_20200303.10_p0&hl=%s&authuser&soc-app=121&soc-platform=1&soc-device=1&_reqid=1080551"
@@ -35,39 +35,71 @@ internal class GooglePlayReviewService(
 
     fun getReviewsByAppId(appId: String, request: GooglePlayReviewRequest): GooglePlayReviewResult {
         val requestBody = if (request.nextToken.isNullOrEmpty()) {
-            requestBodyWithParams.format(request.sortType, request.size, appId)
+            requestBodyWithParams.format(request.sortType.sortType, request.batchSize, appId)
         } else {
-            requestBodyWithParamsAndToken.format(request.size, request.nextToken, appId)
-        }
-
-        if (null != configuration) {
-            val addr = InetSocketAddress(configuration.host!!, configuration.port!!)
-            FuelManager.instance.proxy = Proxy(Proxy.Type.HTTP, addr)
+            requestBodyWithParamsAndToken.format(request.batchSize, request.nextToken, appId)
         }
 
         val requestUrl = requestUrl.format(request.language)
-        val (httpRequest, response, result) = requestUrl
-                .httpPost()
-                .body(requestBody)
-                .header(CONTENT_TYPE, URL_FORM_CONTENT_TYPE)
-                .responseString()
+
+        var conn : URLConnection
+        if (null != configuration) {
+            val proxy = Proxy(Proxy.Type.HTTP, InetSocketAddress(configuration.host!!, configuration.port!!.toInt()))
+            conn = URL(requestUrl).openConnection(proxy)
+            if (null != configuration.user && null != configuration.password) {
+                val authenticator: Authenticator = object : Authenticator() {
+                    override fun getPasswordAuthentication(): PasswordAuthentication? {
+                        return PasswordAuthentication(configuration.user, configuration.password.toCharArray())
+                    }
+                }
+                Authenticator.setDefault(authenticator)
+            }
+        } else {
+            conn = URL(requestUrl).openConnection()
+        }
+
+        conn.setRequestProperty("Content-Type", URL_FORM_CONTENT_TYPE);
+        conn.doOutput = true
+
+        val writer = OutputStreamWriter(conn.getOutputStream())
+
+        writer.write(requestBody)
+        writer.flush()
+
+        var response = StringBuffer()
+        val reader = BufferedReader(InputStreamReader(conn.getInputStream()))
+        while (true) {
+            val line = reader.readLine() ?: break
+            response.append(line);
+        }
+        writer.close()
+        reader.close()
+
+        //////////
+
+
+//        val (httpRequest, response, result) = requestUrl
+//                .httpPost()
+//                .body(requestBody)
+//                .header(CONTENT_TYPE, URL_FORM_CONTENT_TYPE)
+//                .responseString()
 
         var reviewResults = ArrayList<GooglePlayReviewResult.GooglePlayReview>()
-        val gplayReviews = extractReviewsFromResponse(result.get())
+        val gplayReviews = extractReviewsFromResponse(response.toString())
         for (gplayReview in gplayReviews[0]) {
             val review = GooglePlayReviewResult.GooglePlayReview(
-                    reviewId = getJsonNodeByIndex(gplayReview, REVIEW_ID_INDEX).asText(),
-                    userName = getJsonNodeByIndex(gplayReview, USER_NAME_INDEX).asText(),
-                    userProfilePicUrl = getJsonNodeByIndex(gplayReview, USER_PROFILE_PIC_INDEX).asText(),
-                    rating = getJsonNodeByIndex(gplayReview, RATING_INDEX).asInt(),
-                    comment = getJsonNodeByIndex(gplayReview, COMMENT_INDEX).asText(),
-                    submitTime = getJsonNodeByIndex(gplayReview, SUBMIT_TIME_INDEX).asLong(),
-                    likeCount = getJsonNodeByIndex(gplayReview, LIKE_COUNT_INDEX).asInt(),
-                    appVersion = getJsonNodeByIndex(gplayReview, APP_VERSION_INDEX).asText(),
-                    reviewUrl = reviewUrl.format(
-                            appId, request.language, getJsonNodeByIndex(gplayReview, REVIEW_ID_INDEX).asText()),
-                    replyComment = getJsonNodeByIndex(gplayReview, REPLY_COMMENT_INDEX).asText(),
-                    replySubmitTime = getJsonNodeByIndex(gplayReview, REPLY_SUBMIT_TIME_INDEX).asLong()
+                reviewId = getJsonNodeByIndex(gplayReview, REVIEW_ID_INDEX).asText(),
+                userName = getJsonNodeByIndex(gplayReview, USER_NAME_INDEX).asText(),
+                userProfilePicUrl = getJsonNodeByIndex(gplayReview, USER_PROFILE_PIC_INDEX).asText(),
+                rating = getJsonNodeByIndex(gplayReview, RATING_INDEX).asInt(),
+                comment = getJsonNodeByIndex(gplayReview, COMMENT_INDEX).asText(),
+                submitTime = getJsonNodeByIndex(gplayReview, SUBMIT_TIME_INDEX).asLong(),
+                likeCount = getJsonNodeByIndex(gplayReview, LIKE_COUNT_INDEX).asInt(),
+                appVersion = getJsonNodeByIndex(gplayReview, APP_VERSION_INDEX).asText(),
+                reviewUrl = reviewUrl.format(
+                    appId, request.language, getJsonNodeByIndex(gplayReview, REVIEW_ID_INDEX).asText()),
+                replyComment = getJsonNodeByIndex(gplayReview, REPLY_COMMENT_INDEX).asText(),
+                replySubmitTime = getJsonNodeByIndex(gplayReview, REPLY_SUBMIT_TIME_INDEX).asLong()
             )
             reviewResults.add(review)
         }
@@ -78,7 +110,7 @@ internal class GooglePlayReviewService(
     }
 
     private fun extractReviewsFromResponse(gplayResponse: String): JsonNode {
-        val cleanGplayResponse = gplayResponse.substring(5)
+        val cleanGplayResponse = gplayResponse.substring(4)
         val gplayRootArray = ObjectMapper().readTree(cleanGplayResponse)
         val gplaySubArray: JsonNode = gplayRootArray[0][2]
         val gplaySubArrayAsJsonString = gplaySubArray.textValue()

@@ -5,6 +5,6 @@ import com.appvox.core.PaginatedRequest
  class AppStoreReviewRequest(
      val region: String,
      var bearerToken: String? = null,
-     val next: String? = null
+     var nextToken: String? = null
 //    cursor : String? = null
 )// : PaginatedRequest(cursor)

@@ -17,9 +17,9 @@ class GooglePlayReviewConverter {
                         rating = googlePlayReview.rating,
 //                title = googlePlayReview.,
                         comment = googlePlayReview.comment,
-                        submitTime = googlePlayReview.submitTime,
+                        commentTime = googlePlayReview.submitTime,
                         replyComment = googlePlayReview.replyComment,
-                        replySubmitTime = googlePlayReview.replySubmitTime,
+                        replyTime = googlePlayReview.replySubmitTime,
                         likeCount = googlePlayReview.likeCount,
                         appVersion = googlePlayReview.appVersion,
                         url = googlePlayReview.reviewUrl
@@ -29,7 +29,7 @@ class GooglePlayReviewConverter {
 
             return GooglePlayReviewResponse(
                 reviews = reviews,
-                    next = reviewResult.token
+                    nextToken = reviewResult.token
             )
         }
     }

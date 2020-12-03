@@ -1,9 +1,7 @@
 package com.appvox.core.query
 
 import com.appvox.core.configuration.ProxyConfiguration
-import com.appvox.core.review.domain.request.AppStoreReviewRequest
-import com.appvox.core.review.service.AppStoreReviewService
-import org.junit.jupiter.api.Assertions
+import com.appvox.core.review.constant.GooglePlaySortType
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
 
@@ -37,15 +35,15 @@ class AppVoxTest {
     fun `Get google play reviews using iterator`(
         appId: String,
         language: String,
-        sort: Int,
-        size: Int,
+        sortType: Int,
+        batchSize: Int,
         expectedResponseStatus: Int,
         expectedSize: Int) {
 
         val proxy = ProxyConfiguration(host = "127.0.0.1", port = 1087)
         val appVox = AppVox(proxy)
         appVox
-            .googlePlayReviews(appId = appId, language = language, sortType = sort, size = size)
+            .googlePlayReviews(appId = appId, language = language, sortType = GooglePlaySortType.RELEVANT, batchSize = batchSize)
             .forEach { review ->
                 println("Review Text: " + review.comment)
             }

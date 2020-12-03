@@ -1,7 +1,6 @@
 package com.appvox.core.review.converter
 
 import com.appvox.core.review.domain.response.AppStoreReviewResponse
-import com.appvox.core.review.domain.response.GooglePlayReviewResponse
 import com.appvox.core.review.domain.result.AppStoreReviewResult
 import java.time.Instant
 
@@ -19,7 +18,7 @@ class AppStoreReviewConverter {
                         rating = appStoreReview.attributes.rating,
                         title = appStoreReview.attributes.title,
                         comment = appStoreReview.attributes.review,
-                        submitTime = Instant.parse(appStoreReview.attributes.date).toEpochMilli()
+                        commentTime = Instant.parse(appStoreReview.attributes.date).toEpochMilli()
 //                    replyComment = appStoreReview.attributes.developerResponse?.body,
 //                    replySubmitTime = Instant.parse(appStoreReview.attributes.developerResponse?.modified?:"").toEpochMilli()
 //                    url = appStoreReview.reviewUrl
@@ -29,7 +28,7 @@ class AppStoreReviewConverter {
 
             return AppStoreReviewResponse(
                     reviews = reviews,
-                    next = reviewResult.next
+                    nextToken = reviewResult.next
             )
         }
     }
