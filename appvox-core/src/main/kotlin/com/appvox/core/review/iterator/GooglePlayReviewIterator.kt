@@ -13,6 +13,8 @@ class GooglePlayReviewIterator(
     override fun iterator(): Iterator<GooglePlayReviewResponse.GooglePlayReview> {
         return object : Iterator<GooglePlayReviewResponse.GooglePlayReview> {
 
+            var reviewIndex : Int = 0
+
             var iterator: Iterator<GooglePlayReviewResponse.GooglePlayReview>
 
             init {
@@ -22,6 +24,11 @@ class GooglePlayReviewIterator(
             }
 
             override fun hasNext(): Boolean {
+
+                if (request.fetchCountLimit != 0 && reviewIndex == request.fetchCountLimit) {
+                    return false
+                }
+
                 if (request.nextToken == null && !iterator.hasNext()) {
                     return false
                 }
@@ -40,6 +47,7 @@ class GooglePlayReviewIterator(
             }
 
             override fun next(): GooglePlayReviewResponse.GooglePlayReview {
+                reviewIndex++
                 return iterator.next()
             }
         }

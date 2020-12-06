@@ -1,10 +1,8 @@
 package com.appvox.core.review.domain.request
 
-import com.appvox.core.PaginatedRequest
-
- class AppStoreReviewRequest(
-     val region: String,
-     var bearerToken: String? = null,
-     var nextToken: String? = null
-//    cursor : String? = null
-)// : PaginatedRequest(cursor)
+class AppStoreReviewRequest(
+         val region: String,
+         var bearerToken: String? = null,
+         val fetchCountLimit: Int = 0,
+         var nextToken: String? = null
+)

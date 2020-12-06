@@ -3,93 +3,39 @@ package com.appvox.core.review.service
 import com.appvox.core.configuration.ProxyConfiguration
 import com.appvox.core.review.domain.request.AppStoreReviewRequest
 import com.appvox.core.review.domain.result.AppStoreReviewResult
+import com.appvox.core.utils.HttpUtils
 import com.fasterxml.jackson.databind.ObjectMapper
-import java.io.BufferedReader
-import java.io.InputStreamReader
-import java.net.*
 
 
 internal class AppStoreReviewService(
-    val configuration: ProxyConfiguration? = null
+        private val proxyConfig: ProxyConfiguration? = null
 ) {
 
-    private val requestReviewSize = 10
-    private val appHomepageUrlPattern = "https://apps.apple.com/%s/app/id%s"
-    private val requestUrlWithParams = "https://amp-api.apps.apple.com/v1/catalog/%s/apps/%s/reviews?offset=%d&platform=web&additionalPlatforms=appletv,ipad,iphone,mac"
-    private val requestUrlWithNext = "https://amp-api.apps.apple.com%s&platform=web&additionalPlatforms=appletv,ipad,iphone,mac"
-    private val bearerTokenRegexPattern = "token%22%3A%22(.+?)%22"
+    companion object {
+        private const val REQUEST_REVIEW_SIZE = 10
+        private const val APP_HP_URL_PATTERN = "https://apps.apple.com/%s/app/id%s"
+        private const val REQUEST_URL_WITH_PARAMETERS = "https://amp-api.apps.apple.com/v1/catalog/%s/apps/%s/reviews?offset=%d&platform=web&additionalPlatforms=appletv,ipad,iphone,mac"
+        private const val REQUEST_URL_WITH_NEXT = "https://amp-api.apps.apple.com%s&platform=web&additionalPlatforms=appletv,ipad,iphone,mac"
+        private const val BEARER_TOKEN_REGEX_PATTERN = "token%22%3A%22(.+?)%22"
+    }
 
     fun getReviewsByAppId(appId: String, request: AppStoreReviewRequest) : AppStoreReviewResult? {
-
         val requestUrl = if (request.nextToken.isNullOrEmpty()) {
-            requestUrlWithParams.format(request.region, appId, requestReviewSize)
+            REQUEST_URL_WITH_PARAMETERS.format(request.region, appId, REQUEST_REVIEW_SIZE)
         } else {
-            requestUrlWithNext.format(request.nextToken)
+            REQUEST_URL_WITH_NEXT.format(request.nextToken)
         }
-
-        var conn : URLConnection
-        if (null != configuration) {
-            val proxy = Proxy(Proxy.Type.HTTP, InetSocketAddress(configuration.host!!, configuration.port!!.toInt()))
-            conn = URL(requestUrl).openConnection(proxy)
-            if (null != configuration.user && null != configuration.password) {
-                val authenticator: Authenticator = object : Authenticator() {
-                    override fun getPasswordAuthentication(): PasswordAuthentication? {
-                        return PasswordAuthentication(configuration.user, configuration.password.toCharArray())
-                    }
-                }
-                Authenticator.setDefault(authenticator)
-            }
-        } else {
-            conn = URL(requestUrl).openConnection()
-        }
-
-        conn.setRequestProperty("Authorization", "Bearer " + request.bearerToken)
-        conn.setRequestProperty("Content-Type", "application/json")
-
-        var response = StringBuffer()
-        val reader = BufferedReader(InputStreamReader(conn.getInputStream()));
-        while (true) {
-            val line = reader.readLine() ?: break
-            response.append(line);
-        }
-        reader.close()
-
-        val result = ObjectMapper().readValue(response.toString(), AppStoreReviewResult::class.java)
+        val responseContent = HttpUtils.getRequest(requestUrl, request.bearerToken, proxyConfig)
+        val result = ObjectMapper().readValue(responseContent, AppStoreReviewResult::class.java)
         return result
     }
 
     fun getBearerToken(appId: String, region: String): String {
-        val requestUrl = appHomepageUrlPattern.format(region, appId)
-
-        var conn : URLConnection
-        if (null != configuration) {
-            val proxy = Proxy(Proxy.Type.HTTP, InetSocketAddress(configuration.host!!, configuration.port!!.toInt()))
-            conn = URL(requestUrl).openConnection(proxy)
-            if (null != configuration.user && null != configuration.password) {
-                val authenticator: Authenticator = object : Authenticator() {
-                    override fun getPasswordAuthentication(): PasswordAuthentication? {
-                        return PasswordAuthentication(configuration.user, configuration.password.toCharArray())
-                    }
-                }
-                Authenticator.setDefault(authenticator)
-            }
-        } else {
-            conn = URL(requestUrl).openConnection()
-        }
-
-        var response = StringBuffer()
-        val reader = BufferedReader(InputStreamReader(conn.getInputStream()));
-        while (true) {
-            val line = reader.readLine() ?: break
-            response.append(line);
-        }
-        reader.close()
-
-        val body = response.toString()
-        val regex = bearerTokenRegexPattern.toRegex()
-        val tokenMatches = regex.find(body)
+        val requestUrl = APP_HP_URL_PATTERN.format(region, appId)
+        val responseContent = HttpUtils.getRequest(requestUrl = requestUrl, proxyConfig = proxyConfig)
+        val regex = BEARER_TOKEN_REGEX_PATTERN.toRegex()
+        val tokenMatches = regex.find(responseContent)
         val tokenMatch = tokenMatches?.groupValues?.get(1)
-
         return tokenMatch.orEmpty()
     }
 }

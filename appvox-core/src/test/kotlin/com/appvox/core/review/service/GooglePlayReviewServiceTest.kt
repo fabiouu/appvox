@@ -1,6 +1,7 @@
 package com.appvox.core.review.service
 
 import com.appvox.core.configuration.ProxyConfiguration
+import com.appvox.core.review.constant.GooglePlayLanguage
 import com.appvox.core.review.constant.GooglePlaySortType
 import com.appvox.core.review.domain.request.GooglePlayReviewRequest
 import org.junit.jupiter.api.Assertions
@@ -23,7 +24,7 @@ class GooglePlayReviewServiceSpec {
         val service = GooglePlayReviewService(proxy)
 
 //        val service = GooglePlayReviewService()
-        val request = GooglePlayReviewRequest(language, GooglePlaySortType.NEWEST, size)
+        val request = GooglePlayReviewRequest(GooglePlayLanguage.ENGLISH_UK, GooglePlaySortType.NEWEST, size, size)
 
         val response = service.getReviewsByAppId(appId, request)
 

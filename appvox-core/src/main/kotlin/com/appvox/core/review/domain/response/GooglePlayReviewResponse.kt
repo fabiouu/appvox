@@ -5,7 +5,6 @@ data class GooglePlayReviewResponse(
         val nextToken: String?
 ) {
     data class GooglePlayReview(
-        val type: String,
         val id: String,
         val userName: String,
         val userProfile: String? = null,

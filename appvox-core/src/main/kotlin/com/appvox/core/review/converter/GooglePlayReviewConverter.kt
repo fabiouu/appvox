@@ -10,7 +10,6 @@ class GooglePlayReviewConverter {
             val googlePlayReviews = reviewResult.reviews
             for (googlePlayReview in googlePlayReviews) {
                 val reviewResponse = GooglePlayReviewResponse.GooglePlayReview(
-                        type = "GooglePlay",
                         id = googlePlayReview.reviewId,
                         userName = googlePlayReview.userName,
                         userProfile = googlePlayReview.userProfilePicUrl,

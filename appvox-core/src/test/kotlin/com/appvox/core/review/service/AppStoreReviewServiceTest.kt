@@ -27,8 +27,8 @@ class AppStoreReviewServiceSpec {
             region = region
         )
         val request = AppStoreReviewRequest(
-            region = region,
-            bearerToken = bearerToken
+                region = region,
+                bearerToken = bearerToken
         )
 
         val response = service.getReviewsByAppId(appId, request)

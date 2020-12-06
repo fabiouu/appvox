@@ -13,6 +13,8 @@ class AppStoreReviewIterator(
     override fun iterator(): Iterator<AppStoreReviewResponse.AppStoreReview> {
         return object : Iterator<AppStoreReviewResponse.AppStoreReview> {
 
+            var reviewIndex : Int = 0
+
             var iterator: Iterator<AppStoreReviewResponse.AppStoreReview>
 
             init {
@@ -22,6 +24,11 @@ class AppStoreReviewIterator(
             }
 
             override fun hasNext(): Boolean {
+
+                if (request.fetchCountLimit != 0 && reviewIndex == request.fetchCountLimit) {
+                    return false
+                }
+
                 if (request.nextToken == null && !iterator.hasNext()) {
                     return false
                 }
@@ -40,6 +47,7 @@ class AppStoreReviewIterator(
             }
 
             override fun next(): AppStoreReviewResponse.AppStoreReview {
+                reviewIndex++
                 return iterator.next()
             }
         }
