@@ -34,7 +34,7 @@ class GooglePlayReviewIterator(
                 }
 
                 if (!iterator.hasNext()) {
-                    Thread.sleep(3000)
+                    Thread.sleep(facade.configuration.requestDelay)
                     val response = facade.getReviewsByAppId(appId, request)
                     if (response?.reviews == null || response.reviews.isEmpty()) {
                         return false

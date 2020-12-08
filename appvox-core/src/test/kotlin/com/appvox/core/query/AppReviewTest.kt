@@ -1,9 +1,9 @@
 package com.appvox.core.query
 
+import com.appvox.core.configuration.Configuration
 import com.appvox.core.configuration.ProxyConfiguration
 import com.appvox.core.review.constant.GooglePlayLanguage
 import com.appvox.core.review.constant.GooglePlayLanguage.*
-import com.appvox.core.review.constant.GooglePlaySortType
 import com.appvox.core.review.constant.GooglePlaySortType.*
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
@@ -20,8 +20,13 @@ class AppReviewTest {
             fetchCountLimit: Int,
             expectedResponseCode: Int,
             expectedSize: Int) {
-        val proxy = ProxyConfiguration(host = "127.0.0.1", port = 1090)
-        val appReview = AppReview(proxy)
+        val config = Configuration(
+            proxy = ProxyConfiguration(
+                host = "127.0.0.1",
+                port = 1087),
+            requestDelay = 3000
+        )
+        val appReview = AppReview(config)
         appReview
                 .appStore(
                         appId = "785385147",
@@ -56,8 +61,13 @@ class AppReviewTest {
             fetchCountLimit: Int,
             expectedResponseStatus: Int,
             expectedSize: Int) {
-        val proxy = ProxyConfiguration(host = "127.0.0.1", port = 1090)
-        val appReview = AppReview(proxy)
+        val config = Configuration(
+            proxy = ProxyConfiguration(
+                host = "127.0.0.1",
+                port = 1087),
+            requestDelay = 3000
+        )
+        val appReview = AppReview(config)
         appReview
                 .googlePlay(
                         appId = appId,
@@ -86,7 +96,7 @@ class AppReviewTest {
 
     @ParameterizedTest
     @CsvSource(
-            "com.twitter.android, en-US, 1, 50, 100, 200"
+            "com.twitter.android, en-US, 1, 44, 50, 100, 200"
     )
     fun `Get most relevant Google Play reviews using iterator by batch of N reviews`(
             appId: String,
@@ -96,8 +106,13 @@ class AppReviewTest {
             fetchCountLimit: Int,
             expectedResponseStatus: Int) {
 
-        val proxy = ProxyConfiguration(host = "127.0.0.1", port = 1090)
-        val appReview = AppReview(proxy)
+        val config = Configuration(
+            proxy = ProxyConfiguration(
+                host = "127.0.0.1",
+                port = 1087),
+            requestDelay = 3000
+        )
+        val appReview = AppReview(config)
         appReview
                 .googlePlay(
                         appId = appId,

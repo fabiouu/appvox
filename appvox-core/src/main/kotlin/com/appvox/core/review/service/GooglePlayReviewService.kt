@@ -1,5 +1,6 @@
 package com.appvox.core.review.service
 
+import com.appvox.core.configuration.Configuration
 import com.appvox.core.configuration.ProxyConfiguration
 import com.appvox.core.review.domain.request.GooglePlayReviewRequest
 import com.appvox.core.review.domain.result.GooglePlayReviewResult
@@ -10,7 +11,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 
 
 internal class GooglePlayReviewService(
-        private val proxyConfig: ProxyConfiguration? = null
+        private val config: Configuration? = null
 ) {
 
     companion object {
@@ -39,7 +40,7 @@ internal class GooglePlayReviewService(
         }
 
         val requestUrl = REQUEST_URL.format(request.language.langCode)
-        val responseContent = HttpUtils.postRequest(requestUrl, requestBody, proxyConfig)
+        val responseContent = HttpUtils.postRequest(requestUrl, requestBody, config?.proxy)
 
         var reviewResults = ArrayList<GooglePlayReviewResult.GooglePlayReview>()
         val gplayReviews = extractReviewsFromResponse(responseContent)

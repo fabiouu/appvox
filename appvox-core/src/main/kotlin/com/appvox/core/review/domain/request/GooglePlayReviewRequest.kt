@@ -8,7 +8,6 @@ open class GooglePlayReviewRequest(
         val language: GooglePlayLanguage,
         val sortType: GooglePlaySortType,
         val batchSize: Int,
-        val fetchCountLimit: Int,
+        val fetchCountLimit: Int = 0,
         var nextToken: String? = null
-//        cursor: String? = null
-)// : PaginatedRequest(cursor)
+)
