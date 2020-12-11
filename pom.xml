@@ -12,8 +12,7 @@
 
 	<modules>
 		<module>appvox-core</module>
-		<module>appvox-api</module>
-        <module>appvox-samples</module>
+        <module>appvox-examples</module>
     </modules>
 
 	<properties>

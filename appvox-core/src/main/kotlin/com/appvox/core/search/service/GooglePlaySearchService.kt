@@ -8,29 +8,24 @@
 //import com.appvox.core.utils.JsonUtils.getJsonNodeByIndex
 //import com.fasterxml.jackson.databind.JsonNode
 //import com.fasterxml.jackson.databind.ObjectMapper
-//import com.github.kittinunf.fuel.core.FuelManager
-//import com.github.kittinunf.fuel.core.Headers.Companion.CONTENT_TYPE
-//import com.github.kittinunf.fuel.httpPost
 //import java.net.InetSocketAddress
 //import java.net.Proxy
 //
-//object GooglePlaySearchService {
-//    private const val requestUrl : String = "https://play.google.com/_/PlayStoreUi/data/batchexecute?rpcids=lGYRle&f.sid=845909587187715220&bl=boq_playuiserver_20200722.03_p0&hl=%s&soc-app=121&soc-platform=1&soc-device=1&authuser=&_reqid=841251&rt=c"
-//    private const val initialRequestBody = "f.req=[[[\"lGYRle\",\"[[[],[[10,[10,50]],true,null,[96,27,4,8,57,30,110,11,16,49,1,3,9,12,104,55,56,51,10,34,31,77,145],[null,null,null,[[[[7,31],[[1,52,43,112,92,58,69,31,19,96,103]]]]]]],[\\\"%s\\\"],4,[null,1],null,null,[]]]\",null,\"2\"]]]"
+//internal class GooglePlaySearchService {
+//
+//    companion object {
+//        private const val requestUrl: String = "https://play.google.com/_/PlayStoreUi/data/batchexecute?rpcids=lGYRle&f.sid=845909587187715220&bl=boq_playuiserver_20200722.03_p0&hl=%s&soc-app=121&soc-platform=1&soc-device=1&authuser=&_reqid=841251&rt=c"
+//        private const val initialRequestBody = "f.req=[[[\"lGYRle\",\"[[[],[[10,[10,50]],true,null,[96,27,4,8,57,30,110,11,16,49,1,3,9,12,104,55,56,51,10,34,31,77,145],[null,null,null,[[[[7,31],[[1,52,43,112,92,58,69,31,19,96,103]]]]]]],[\\\"%s\\\"],4,[null,1],null,null,[]]]\",null,\"2\"]]]"
 ////    private const val requestBodyWithToken : String = "f.req=[[[\"UsvDTd\",\"[null,null,[2,null,[%d,null,\\\"%s\\\"],null,[]],[\\\"%s\\\",7]]\",null,\"generic\"]]]"
-//
-//    private val APP_NAME_INDEX = arrayOf(2)
-//    private val APP_PIC_INDEX = arrayOf(1, 1, 0, 3, 2)
-//    private val APP_DESCRIPTION_INDEX = arrayOf(4,1,1,1,1)
-//    private val APP_DEVELOPER_LINK_INDEX = arrayOf(4,0,0,1)
-//    private val APP_DEVELOPER_NAME_INDEX = arrayOf(4,0,0,0)
-//    private val APP_LINK_INDEX = arrayOf(9,4,2)
-//    private val APP_ID_INDEX = arrayOf(12, 0)
-//    private val APP_RATING_INDEX = arrayOf(6, 0, 2, 1, 0)
-//    private val APP_RATING_DETAILS_INDEX = arrayOf(6, 0, 2, 1, 1)
-//
-//    init {
-//        HttpUtils.setProxy("localhost", 1080)
+//        private val APP_NAME_INDEX = arrayOf(2)
+//        private val APP_PIC_INDEX = arrayOf(1, 1, 0, 3, 2)
+//        private val APP_DESCRIPTION_INDEX = arrayOf(4, 1, 1, 1, 1)
+//        private val APP_DEVELOPER_LINK_INDEX = arrayOf(4, 0, 0, 1)
+//        private val APP_DEVELOPER_NAME_INDEX = arrayOf(4, 0, 0, 0)
+//        private val APP_LINK_INDEX = arrayOf(9, 4, 2)
+//        private val APP_ID_INDEX = arrayOf(12, 0)
+//        private val APP_RATING_INDEX = arrayOf(6, 0, 2, 1, 0)
+//        private val APP_RATING_DETAILS_INDEX = arrayOf(6, 0, 2, 1, 1)
 //    }
 //
 //    fun searchAppByName(request: GooglePlaySearchRequest): GooglePlaySearchResults {
@@ -43,15 +38,15 @@
 //            requestBody = initialRequestBody.format(request.appName)
 //        }
 //
-//        val addr = InetSocketAddress("localhost", 1080)
-//        FuelManager.instance.proxy = Proxy(Proxy.Type.HTTP, addr)
+////        val addr = InetSocketAddress("localhost", 1080)
+////        FuelManager.instance.proxy = Proxy(Proxy.Type.HTTP, addr)
 //
-//        val requestUrl = requestUrl.format(request.language)
-//        val (request, response, result) = requestUrl
-//                .httpPost()
-//                .body(requestBody)
-//                .header(CONTENT_TYPE,  "application/x-www-form-urlencoded")
-//                .responseString()
+////        val requestUrl = requestUrl.format(request.language)
+////        val (request, response, result) = requestUrl
+////                .httpPost()
+////                .body(requestBody)
+////                .header(CONTENT_TYPE,  "application/x-www-form-urlencoded")
+////                .responseString()
 //
 //        val gplaySearchResults = extractSearchFromResponse(result.get())
 //

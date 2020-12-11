@@ -5,6 +5,7 @@ import com.appvox.core.configuration.ProxyConfiguration
 import com.appvox.core.review.constant.GooglePlayLanguage
 import com.appvox.core.review.constant.GooglePlayLanguage.*
 import com.appvox.core.review.constant.GooglePlaySortType.*
+import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
 
@@ -53,45 +54,30 @@ class AppReviewTest {
 
     @ParameterizedTest
     @CsvSource(
-            "com.twitter.android, 50, 200, 40"
+            "com.twitter.android, 50, 50"
     )
     fun `Get Google Play reviews using iterator and minimal parameters`(
             appId: String,
-            language: String,
-            fetchCountLimit: Int,
-            expectedResponseStatus: Int,
-            expectedSize: Int) {
+            requestedFetchReviewCount: Int,
+            expectedFetchedReviewCount: Int) {
         val config = Configuration(
             proxy = ProxyConfiguration(
                 host = "127.0.0.1",
                 port = 1087),
             requestDelay = 3000
         )
+        var fetchedReviewCount = 0
         val appReview = AppReview(config)
         appReview
                 .googlePlay(
                         appId = appId,
                         language = ENGLISH_US,
-                        fetchCountlimit = fetchCountLimit)
-                .forEach { review ->
-                    val formattedReview =
-                            """
-                            Id: ${review.id}
-                            Rating: ${review.rating}
-                            User Name: ${review.userName}
-                            User Profile: ${review.userProfile}
-                            Title: ${review.title}
-                            Comment: ${review.comment}
-                            Comment Time: ${review.commentTime}
-                            App Version: ${review.appVersion}
-                            Like Count: ${review.likeCount}
-                            Reply Comment: ${review.replyComment}
-                            Reply Time: ${review.replyTime}
-                            Review Url: ${review.url}
-                            
-                        """.trimIndent()
-                    println(formattedReview)
+                        fetchCountlimit = requestedFetchReviewCount)
+                .forEach {
+                    fetchedReviewCount++
                 }
+
+        Assertions.assertEquals(expectedFetchedReviewCount, requestedFetchReviewCount)
     }
 
     @ParameterizedTest
@@ -120,24 +106,8 @@ class AppReviewTest {
                         sortType = RELEVANT,
                         fetchCountlimit = fetchCountLimit,
                         batchSize = batchSize)
-                .forEach { review ->
-                    val formattedReview =
-                        """
-                            Id: ${review.id}
-                            Rating: ${review.rating}
-                            User Name: ${review.userName}
-                            User Profile: ${review.userProfile}
-                            Title: ${review.title}
-                            Comment: ${review.comment}
-                            Comment Time: ${review.commentTime}
-                            App Version: ${review.appVersion}
-                            Like Count: ${review.likeCount}
-                            Reply Comment: ${review.replyComment}
-                            Reply Time: ${review.replyTime}
-                            Review Url: ${review.url}
-                            
-                        """.trimIndent()
-                    println(formattedReview)
+                .forEach {
+
                 }
     }
 }

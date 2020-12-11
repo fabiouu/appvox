@@ -8,7 +8,7 @@ import java.net.*
 
 object HttpUtils {
 
-    private val URL_FORM_CONTENT_TYPE = "application/x-www-form-urlencoded"
+    private const val URL_FORM_CONTENT_TYPE = "application/x-www-form-urlencoded"
 
     fun getRequest(requestUrl: String, bearerToken: String? = null, proxyConfig: ProxyConfiguration? = null) : String {
         var conn : URLConnection

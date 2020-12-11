@@ -9,7 +9,6 @@ import com.appvox.core.utils.JsonUtils.getJsonNodeByIndex
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper
 
-
 internal class GooglePlayReviewService(
         private val config: Configuration? = null
 ) {
