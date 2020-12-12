@@ -10,7 +10,7 @@
         <img src="https://api.codeclimate.com/v1/badges/6f0c3287d031b4f431ea/maintainability" alt="Maintainability" />
     </a>
     <a href="https://codecov.io/gh/fabiouu/AppVox">
-        <img src="https://codecov.io/gh/fabiouu/AppVox/branch/master/graph/badge.svg" alt="Coverage" />
+        <img src="https://codecov.io/gh/fabiouu/AppVox/branch/master/graph/badge.svg?token=AVB2DO0H4J" alt="Coverage" />
     </a>
 </p>
 
@@ -18,16 +18,21 @@
   Capture the voice of your App users from Google Play / App Store
 </h3>
 
+## Getting Started
 
 ## Features
-- [ ] Scraper Core
-    - [x] User Reviews
-        - [ ] Automatic reviews translation
-        - [ ] Sentiment Analysis
-    - [ ] Application Details
-    - [ ] Search App by name
-- [ ] Cursor-based paginated REST API to query App Store / Google Play data
-    - [x] User Reviews
-    - [ ] Application Details
-    - [ ] Search App by name
-- [ ] CLI tool to quickly retrieve a list of reviews and save them locally
+### Reviews
+#### Google Play
+
+#### App Store
+
+
+## Roadmap
+- Scrapper Core
+    - Reviews
+        - [ ] Review Translation
+        - [ ] Review Analysis
+    - [ ] Get Application Details
+    - [ ] Search
+        - [ ] Get basic App info by name
+        - [ ] Get App details
