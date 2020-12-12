@@ -1,7 +1,6 @@
 package com.appvox.core.review.service
 
 import com.appvox.core.configuration.Configuration
-import com.appvox.core.configuration.ProxyConfiguration
 import com.appvox.core.review.domain.request.GooglePlayReviewRequest
 import com.appvox.core.review.domain.result.GooglePlayReviewResult
 import com.appvox.core.utils.HttpUtils
@@ -66,12 +65,12 @@ internal class GooglePlayReviewService(
         return GooglePlayReviewResult(token = token?.asText(), reviews = reviewResults)
     }
 
-    private fun extractReviewsFromResponse(gplayResponse: String): JsonNode {
-        val cleanGplayResponse = gplayResponse.substring(4)
-        val gplayRootArray = ObjectMapper().readTree(cleanGplayResponse)
-        val gplaySubArray: JsonNode = gplayRootArray[0][2]
-        val gplaySubArrayAsJsonString = gplaySubArray.textValue()
-        val gplayReviews = ObjectMapper().readTree(gplaySubArrayAsJsonString)
-        return gplayReviews
+    private fun extractReviewsFromResponse(gPlayResponse: String): JsonNode {
+        val cleanResponse = gPlayResponse.substring(4)
+        val rootArray = ObjectMapper().readTree(cleanResponse)
+        val subArray: JsonNode = rootArray[0][2]
+        val subArrayAsJsonString = subArray.textValue()
+        val reviews = ObjectMapper().readTree(subArrayAsJsonString)
+        return reviews
     }
 }

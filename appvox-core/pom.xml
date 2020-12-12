@@ -12,7 +12,6 @@
     <artifactId>appvox-core</artifactId>
 
     <properties>
-        <fuel.version>2.2.3</fuel.version>
     </properties>
 
     <dependencies>
@@ -58,10 +57,4 @@
             </plugin>
         </plugins>
     </build>
-    <repositories>
-        <repository>
-            <id>jcenter</id>
-            <url>https://jcenter.bintray.com/</url>
-        </repository>
-    </repositories>
 </project>

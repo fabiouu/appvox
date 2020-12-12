@@ -13,26 +13,22 @@ class GooglePlayReviewServiceTest {
 
     @ParameterizedTest
     @CsvSource(
-        "com.twitter.android, en, 1, 40, 200, 40"
+        "com.twitter.android, en, newest, 40, 40"
     )
     fun `Get Google Play reviews`(
         appId: String,
         language: String,
-        sortType: Int, batchSize: Int, expectedResponseStatus: Int, expectedBatchSize: Int) {
-        val config = Configuration(
-            proxy = ProxyConfiguration(
-                host = "127.0.0.1",
-                port = 1087),
-            requestDelay = 3000
-        )
-        val service = GooglePlayReviewService(config)
+        sortType: String,
+        batchSize: Int,
+        requestedSize: Int) {
+        val service = GooglePlayReviewService()
         val request = GooglePlayReviewRequest(
-            language = GooglePlayLanguage.ENGLISH_UK,
-            sortType = GooglePlaySortType.NEWEST,
+            language = GooglePlayLanguage.fromValue(language),
+            sortType = GooglePlaySortType.fromValue(sortType),
             batchSize = batchSize)
 
         val response = service.getReviewsByAppId(appId, request)
 
-        Assertions.assertEquals(expectedBatchSize, response.reviews.size)
+        Assertions.assertEquals(requestedSize, response.reviews.size)
     }
 }

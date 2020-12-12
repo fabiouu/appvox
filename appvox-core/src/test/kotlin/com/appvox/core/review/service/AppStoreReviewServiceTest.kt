@@ -11,17 +11,12 @@ class AppStoreReviewServiceTest {
 
     @ParameterizedTest
     @CsvSource(
-        "333903271, us, 200, 10"
+        "333903271, us, 10"
     )
     fun `Get app store reviews`(
-        appId : String, region : String, expectedResponseCode : Int, expectedSize : Int) {
-        val config = Configuration(
-            proxy = ProxyConfiguration(
-                host = "127.0.0.1",
-                port = 1087),
-            requestDelay = 3000
-        )
-        val service = AppStoreReviewService(config)
+        appId : String, region : String, requestedSize : Int) {
+
+        val service = AppStoreReviewService()
         val bearerToken = service.getBearerToken(
             appId = appId,
             region = region
@@ -33,6 +28,6 @@ class AppStoreReviewServiceTest {
 
         val response = service.getReviewsByAppId(appId, request)
 
-        Assertions.assertEquals(expectedSize, response?.data?.size)
+        Assertions.assertEquals(requestedSize, response?.data?.size)
     }
 }
