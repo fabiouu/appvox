@@ -1,2 +1,4 @@
+codecov:
+  token: dc0c2996-677c-42d7-ac02-432982da4cb1
 ignore:
   - "src/main/kotlin/com/appvox/core/review/domain"
