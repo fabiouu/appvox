@@ -1,36 +1,34 @@
 package com.appvox.core.review.converter
 
-import com.appvox.core.review.domain.response.ReviewDTO
-import com.appvox.core.review.domain.response.ReviewsResponse
-import com.appvox.core.review.domain.result.GooglePlayReviewsResult
+import com.appvox.core.review.domain.response.GooglePlayReviewResponse
+import com.appvox.core.review.domain.result.GooglePlayReviewResult
 
 class GooglePlayReviewConverter {
     companion object {
-        fun toResponse(reviewResult: GooglePlayReviewsResult, nextCursor: String?): ReviewsResponse {
-            var reviews = ArrayList<ReviewDTO>()
+        fun toResponse(reviewResult: GooglePlayReviewResult): GooglePlayReviewResponse {
+            var reviews = ArrayList<GooglePlayReviewResponse.GooglePlayReview>()
             val googlePlayReviews = reviewResult.reviews
             for (googlePlayReview in googlePlayReviews) {
-                val reviewResponse = ReviewDTO(
-                    type = "GooglePlay",
-                    id = googlePlayReview.reviewId,
-                    userName = googlePlayReview.userName,
-                    userProfile = googlePlayReview.userProfilePicUrl,
-                    rating = googlePlayReview.rating,
+                val reviewResponse = GooglePlayReviewResponse.GooglePlayReview(
+                        id = googlePlayReview.reviewId,
+                        userName = googlePlayReview.userName,
+                        userProfile = googlePlayReview.userProfilePicUrl,
+                        rating = googlePlayReview.rating,
 //                title = googlePlayReview.,
-                    comment = googlePlayReview.comment,
-                    submitTime = googlePlayReview.submitTime,
-                    replyComment = googlePlayReview.replyComment,
-                    replySubmitTime = googlePlayReview.replySubmitTime,
-                    likeCount = googlePlayReview.likeCount,
-                    appVersion = googlePlayReview.appVersion,
-                    url = googlePlayReview.reviewUrl
+                        comment = googlePlayReview.comment,
+                        commentTime = googlePlayReview.submitTime,
+                        replyComment = googlePlayReview.replyComment,
+                        replyTime = googlePlayReview.replySubmitTime,
+                        likeCount = googlePlayReview.likeCount,
+                        appVersion = googlePlayReview.appVersion,
+                        url = googlePlayReview.reviewUrl
                 )
                 reviews.add(reviewResponse)
             }
 
-            return ReviewsResponse(
-                nextCursor = nextCursor,
-                reviews = reviews
+            return GooglePlayReviewResponse(
+                reviews = reviews,
+                    nextToken = reviewResult.token
             )
         }
     }
