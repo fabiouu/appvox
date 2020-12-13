@@ -1,5 +1,7 @@
 package com.appvox.core.review.iterator
 
+import com.appvox.core.exception.AppVoxErrorCode
+import com.appvox.core.exception.AppVoxException
 import com.appvox.core.review.domain.request.GooglePlayReviewRequest
 import com.appvox.core.review.domain.response.GooglePlayReviewResponse
 import com.appvox.core.review.facade.GooglePlayReviewFacade
@@ -10,6 +12,7 @@ class GooglePlayReviewIterator(
     val request: GooglePlayReviewRequest
 ) : Iterable<GooglePlayReviewResponse.GooglePlayReview> {
 
+    @Throws(AppVoxException::class)
     override fun iterator(): Iterator<GooglePlayReviewResponse.GooglePlayReview> {
         return object : Iterator<GooglePlayReviewResponse.GooglePlayReview> {
 
@@ -24,6 +27,10 @@ class GooglePlayReviewIterator(
             }
 
             override fun hasNext(): Boolean {
+
+                if (facade.configuration.requestDelay < 500) {
+                    throw AppVoxException(AppVoxErrorCode.REQ_DELAY_TOO_SHORT)
+                }
 
                 if (request.fetchCountLimit != 0 && reviewIndex == request.fetchCountLimit) {
                     return false

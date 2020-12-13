@@ -1,6 +1,7 @@
 package com.appvox.core.review.service
 
 import com.appvox.core.configuration.Configuration
+import com.appvox.core.exception.AppVoxException
 import com.appvox.core.review.domain.request.AppStoreReviewRequest
 import com.appvox.core.review.domain.result.AppStoreReviewResult
 import com.appvox.core.utils.HttpUtils
@@ -19,6 +20,7 @@ internal class AppStoreReviewService(
         private const val BEARER_TOKEN_REGEX_PATTERN = "token%22%3A%22(.+?)%22"
     }
 
+    @Throws(AppVoxException::class)
     fun getReviewsByAppId(appId: String, request: AppStoreReviewRequest): AppStoreReviewResult {
         val requestUrl = if (request.nextToken.isNullOrEmpty()) {
             REQUEST_URL_WITH_PARAMETERS.format(request.region, appId, REQUEST_REVIEW_SIZE)

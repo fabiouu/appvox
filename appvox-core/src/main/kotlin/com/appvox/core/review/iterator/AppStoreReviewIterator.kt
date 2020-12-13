@@ -1,5 +1,7 @@
 package com.appvox.core.review.iterator
 
+import com.appvox.core.exception.AppVoxErrorCode
+import com.appvox.core.exception.AppVoxException
 import com.appvox.core.review.domain.request.AppStoreReviewRequest
 import com.appvox.core.review.domain.response.AppStoreReviewResponse
 import com.appvox.core.review.facade.AppStoreReviewFacade
@@ -10,6 +12,7 @@ class AppStoreReviewIterator(
     var request: AppStoreReviewRequest
 ) : Iterable<AppStoreReviewResponse.AppStoreReview> {
 
+    @Throws(AppVoxException::class)
     override fun iterator(): Iterator<AppStoreReviewResponse.AppStoreReview> {
         return object : Iterator<AppStoreReviewResponse.AppStoreReview> {
 
@@ -24,6 +27,10 @@ class AppStoreReviewIterator(
             }
 
             override fun hasNext(): Boolean {
+
+                if (facade.configuration.requestDelay < 500) {
+                    throw AppVoxException(AppVoxErrorCode.REQ_DELAY_TOO_SHORT)
+                }
 
                 if (request.fetchCountLimit != 0 && reviewIndex == request.fetchCountLimit) {
                     return false

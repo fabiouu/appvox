@@ -1,6 +1,8 @@
 package com.appvox.core.review.service
 
 import com.appvox.core.configuration.Configuration
+import com.appvox.core.exception.AppVoxErrorCode
+import com.appvox.core.exception.AppVoxException
 import com.appvox.core.review.domain.request.GooglePlayReviewRequest
 import com.appvox.core.review.domain.result.GooglePlayReviewResult
 import com.appvox.core.utils.HttpUtils
@@ -30,7 +32,11 @@ internal class GooglePlayReviewService(
         private val REPLY_SUBMIT_TIME_INDEX = arrayOf(7, 2, 0)
     }
 
+    @Throws(AppVoxException::class)
     fun getReviewsByAppId(appId: String, request: GooglePlayReviewRequest): GooglePlayReviewResult {
+
+        validateRequest(appId, request)
+
         val requestBody = if (request.nextToken.isNullOrEmpty()) {
             REQUEST_BODY_WITH_PARAMS.format(request.sortType.sortType, request.batchSize, appId)
         } else {
@@ -63,6 +69,12 @@ internal class GooglePlayReviewService(
         val token = if (!gplayReviews.isEmpty && !gplayReviews[1].isEmpty) gplayReviews[1][1] else null
 
         return GooglePlayReviewResult(token = token?.asText(), reviews = reviewResults)
+    }
+
+    private fun validateRequest(appId: String, request: GooglePlayReviewRequest) {
+        if (request.batchSize < 1 || request.batchSize > 100) {
+            throw AppVoxException(AppVoxErrorCode.INVALID_ARGUMENT)
+        }
     }
 
     private fun extractReviewsFromResponse(gPlayResponse: String): JsonNode {
