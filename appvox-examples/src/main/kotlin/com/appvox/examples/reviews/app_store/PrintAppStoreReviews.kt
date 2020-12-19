@@ -2,6 +2,7 @@ package com.appvox.examples.reviews.app_store
 
 import com.appvox.core.configuration.Configuration
 import com.appvox.core.configuration.ProxyConfiguration
+import com.appvox.core.review.constant.AppStoreSortType
 import com.appvox.core.review.query.AppReview
 
 /*
@@ -19,22 +20,23 @@ fun main(args: Array<String>) {
     val requestReviewCount = 100
 
     val config = Configuration(
-            proxy = ProxyConfiguration(
-                    host = "",
-                    port = 0
-            ),
-            requestDelay = 3000L
+        proxy = ProxyConfiguration(
+            host = "",
+            port = 0
+        ),
+        requestDelay = 3000L
     )
     val appReview = AppReview(config)
 
     appReview
-            .appStore(
-                    appId = appId,
-                    region = userRegion,
-                    fetchCountLimit = requestReviewCount)
-            .forEach { review ->
-                val formattedReview =
-                        """
+        .appStore(
+            appId = appId,
+            region = userRegion,
+            sortType = AppStoreSortType.RECENT,
+            fetchCountLimit = requestReviewCount)
+        .forEach { review ->
+            val formattedReview =
+                """
                             Id: ${review.id}
                             Rating: ${review.rating}
                             User Name: ${review.userName}
@@ -46,6 +48,6 @@ fun main(args: Array<String>) {
                             Review Url: ${review.url}
                             
                         """.trimIndent()
-                println(formattedReview)
-            }
+            println(formattedReview)
+        }
 }

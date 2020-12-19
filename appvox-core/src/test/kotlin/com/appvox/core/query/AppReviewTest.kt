@@ -2,6 +2,7 @@ package com.appvox.core.query
 
 import com.appvox.core.configuration.Configuration
 import com.appvox.core.configuration.ProxyConfiguration
+import com.appvox.core.review.constant.AppStoreSortType
 import com.appvox.core.review.constant.GooglePlayLanguage
 import com.appvox.core.review.constant.GooglePlayLanguage.*
 import com.appvox.core.review.constant.GooglePlaySortType.*
@@ -16,26 +17,47 @@ class AppReviewTest {
     @CsvSource(
             "333903271, us, 50"
     )
-    fun `Get App Store reviews using iterator`(
+    fun `Get most relevant App Store reviews using iterator`(
             appId: String,
             region: String,
             requestedFetchReviewCount: Int) {
-        val config = Configuration(
-                proxy = ProxyConfiguration(
-                        host = "127.0.0.1",
-                        port = 1087),
-                requestDelay = 3000
-        )
+        val config = Configuration(requestDelay = 3000)
         var fetchedReviewCount = 0
         val appReview = AppReview(config)
         appReview
                 .appStore(
                         appId = "785385147",
                         region = region,
+                        sortType = AppStoreSortType.RELEVANT,
                         fetchCountLimit = requestedFetchReviewCount)
                 .forEach {
                     fetchedReviewCount++
                 }
+
+        Assertions.assertEquals(requestedFetchReviewCount, fetchedReviewCount)
+    }
+
+    @ParameterizedTest
+    @CsvSource(
+        "333903271, us, 50"
+    )
+    fun `Get most recent App Store reviews using iterator`(
+        appId: String,
+        region: String,
+        requestedFetchReviewCount: Int) {
+        var fetchedReviewCount = 0
+        val config = Configuration(requestDelay = 3000)
+        val appReview = AppReview(config)
+        appReview
+            .appStore(
+                appId = "785385147",
+                region = region,
+                sortType = AppStoreSortType.RECENT,
+                fetchCountLimit = requestedFetchReviewCount)
+            .forEach {
+                fetchedReviewCount++
+            }
+
         Assertions.assertEquals(requestedFetchReviewCount, fetchedReviewCount)
     }
 

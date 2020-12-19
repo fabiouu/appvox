@@ -5,11 +5,11 @@ data class AppStoreReviewResponse(
         val nextToken: String?
 ) {
     data class AppStoreReview(
-            val type: String,
             val id: String,
             val userName: String,
             val rating: Int,
             val title: String? = null,
+            val version: String? = null,
             val comment: String,
             val commentTime: Long? = 0,
             val replyComment: String? = null,
