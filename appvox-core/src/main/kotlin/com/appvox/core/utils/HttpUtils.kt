@@ -11,7 +11,6 @@ object HttpUtils {
 
     private const val URL_FORM_CONTENT_TYPE = "application/x-www-form-urlencoded"
 
-    @Throws(AppVoxException::class)
     fun getRequest(requestUrl: String, bearerToken: String? = null, proxyConfig: ProxyConfiguration? = null) : String {
         var conn: URLConnection
         var reader: BufferedReader? = null
@@ -59,7 +58,6 @@ object HttpUtils {
         return response
     }
 
-    @Throws(AppVoxException::class)
     fun postRequest(requestUrl: String, requestBody: String, configuration: ProxyConfiguration? = null) : String {
         var response: String = ""
         var conn: URLConnection
