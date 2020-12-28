@@ -1,6 +1,7 @@
 package com.appvox.core.review.query
 
 import com.appvox.core.configuration.Configuration
+import com.appvox.core.review.constant.AppStoreSortType
 import com.appvox.core.review.constant.GooglePlayLanguage
 import com.appvox.core.review.constant.GooglePlaySortType
 import com.appvox.core.review.domain.request.AppStoreReviewRequest
@@ -13,21 +14,22 @@ import com.appvox.core.review.iterator.GooglePlayReviewIterator
 class AppReview(
     private val configuration: Configuration = Configuration()
 ) {
-    fun appStore(appId: String, region: String, fetchCountLimit: Int = 0) : AppStoreReviewIterator {
+    fun appStore(appId: String, sortType: AppStoreSortType, region: String, fetchCountLimit: Int = 0) : AppStoreReviewIterator {
         val facade = AppStoreReviewFacade(configuration)
         val request = AppStoreReviewRequest(
                 region = region,
-                fetchCountLimit = fetchCountLimit
+                sortType = sortType,
+                countLimit = fetchCountLimit
         )
         return AppStoreReviewIterator(facade, appId, request)
     }
 
     fun googlePlay(
-            appId: String,
-            language: GooglePlayLanguage,
-            sortType: GooglePlaySortType = GooglePlaySortType.NEWEST,
-            fetchCountLimit: Int = 0,
-            batchSize: Int = 40) : GooglePlayReviewIterator {
+        appId: String,
+        language: GooglePlayLanguage,
+        sortType: GooglePlaySortType = GooglePlaySortType.RECENT,
+        fetchCountLimit: Int = 0,
+        batchSize: Int = 40) : GooglePlayReviewIterator {
         val facade = GooglePlayReviewFacade(configuration)
         val request = GooglePlayReviewRequest(
             language = language,

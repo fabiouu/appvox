@@ -1,6 +1,7 @@
 package com.appvox.core.review.converter
 
 import com.appvox.core.review.domain.response.AppStoreReviewResponse
+import com.appvox.core.review.domain.result.AppStoreRecentReviewResult
 import com.appvox.core.review.domain.result.AppStoreReviewResult
 import java.time.Instant
 
@@ -12,7 +13,6 @@ class AppStoreReviewConverter {
             for (appStoreReview in appStoreReviews) {
 
                 val reviewResponse = AppStoreReviewResponse.AppStoreReview(
-                        type = "AppStore",
                         id = appStoreReview.id,
                         userName = appStoreReview.attributes.userName,
                         rating = appStoreReview.attributes.rating,
@@ -29,6 +29,34 @@ class AppStoreReviewConverter {
             return AppStoreReviewResponse(
                     reviews = reviews,
                     nextToken = reviewResult.next
+            )
+        }
+
+        internal fun toResponse(reviewResult: AppStoreRecentReviewResult): AppStoreReviewResponse {
+            var reviews = ArrayList<AppStoreReviewResponse.AppStoreReview>()
+            val appStoreReviews = reviewResult.entry
+            for (appStoreReview in appStoreReviews!!) {
+                val reviewResponse = AppStoreReviewResponse.AppStoreReview(
+                    id = appStoreReview.id!!,
+                    userName = appStoreReview.author?.name!!,
+                    rating = appStoreReview.rating!!,
+                    title = appStoreReview.title,
+                    comment = appStoreReview.content?.find { it.type == "text" }?.content!!,
+//                    commentTime = appStoreReview.updated.
+                    version = appStoreReview.version,
+                    url = appStoreReview.link?.href//,
+//                    likeCount = appStoreReview.voteCount,
+//                    likeCount = appStoreReview.voteSum,
+//                    replyComment = appStoreReview.attributes.developerResponse?.body,
+//                    replySubmitTime = Instant.parse(appStoreReview.attributes.developerResponse?.modified?:"").toEpochMilli()
+//                    url = appStoreReview.reviewUrl
+                )
+                reviews.add(reviewResponse)
+            }
+
+            return AppStoreReviewResponse(
+                reviews = reviews,
+                nextToken = reviewResult.link!!.find { it.rel == "next" }?.href!!
             )
         }
     }

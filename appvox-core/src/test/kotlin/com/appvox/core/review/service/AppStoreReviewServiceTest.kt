@@ -1,7 +1,6 @@
 package com.appvox.core.review.service
 
-import com.appvox.core.configuration.Configuration
-import com.appvox.core.configuration.ProxyConfiguration
+import com.appvox.core.review.constant.AppStoreSortType
 import com.appvox.core.review.domain.request.AppStoreReviewRequest
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.params.ParameterizedTest
@@ -23,6 +22,7 @@ class AppStoreReviewServiceTest {
         )
         val request = AppStoreReviewRequest(
                 region = region,
+                sortType = AppStoreSortType.RELEVANT,
                 bearerToken = bearerToken
         )
 
