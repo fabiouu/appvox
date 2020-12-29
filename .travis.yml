@@ -16,4 +16,4 @@ cache:
     - $HOME/.gradle/wrapper/
 
 script:
-  - chmod +x ./gradlew build --scan -s
+  - chmod +x ./gradlew build
