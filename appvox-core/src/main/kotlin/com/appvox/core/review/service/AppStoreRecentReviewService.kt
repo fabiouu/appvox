@@ -6,6 +6,7 @@ import com.appvox.core.exception.AppVoxException
 import com.appvox.core.review.domain.request.AppStoreReviewRequest
 import com.appvox.core.review.domain.result.AppStoreRecentReviewResult
 import com.appvox.core.utils.HttpUtils
+import com.appvox.core.utils.impl.HttpUtilsImpl
 import java.io.StringReader
 import javax.xml.bind.JAXBContext
 import javax.xml.bind.JAXBException
@@ -16,11 +17,12 @@ import javax.xml.stream.XMLStreamReader
 internal class AppStoreRecentReviewService(
     private val config: Configuration? = null
 ) {
-
     companion object {
-        private const val RSS_REQUEST_URL  = "https://itunes.apple.com/%s/rss/customerreviews" +
+        internal const val RSS_REQUEST_URL  = "https://itunes.apple.com/%s/rss/customerreviews" +
             "/page=%d/id=%s/sortby=mostrecent/xml?urlDesc=/customerreviews/id=%s/mostrecent/xml"
     }
+
+    private var httpUtils : HttpUtils = HttpUtilsImpl
 
     @Throws(AppVoxException::class)
     fun getReviewsByAppId(appId: String, request: AppStoreReviewRequest): AppStoreRecentReviewResult {
@@ -30,10 +32,10 @@ internal class AppStoreRecentReviewService(
         }
 
         val requestUrl = request.nextToken ?: RSS_REQUEST_URL.format(request.region, request.pageNo, appId, appId)
-        var responseContent = HttpUtils.getRequest(requestUrl, null, config?.proxy)
-        var result: AppStoreRecentReviewResult
+        var responseContent = httpUtils.getRequest(requestUrl = requestUrl, proxyConfig = config?.proxy)
+        val result: AppStoreRecentReviewResult
         try {
-            val jaxbContext: JAXBContext = JAXBContext.newInstance(AppStoreRecentReviewResult::class.java)
+            val jaxbContext:  JAXBContext = JAXBContext.newInstance(AppStoreRecentReviewResult::class.java)
             val xif = XMLInputFactory.newFactory()
             xif.setProperty(XMLInputFactory.IS_NAMESPACE_AWARE, false)
             responseContent = responseContent.replace("&", "&amp;")

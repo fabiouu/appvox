@@ -51,7 +51,6 @@ fun main(args: Array<String>) {
                             Reply Comment: ${review.replyComment}
                             Reply Time: ${review.replyTime}
                             Review Url: ${review.url}
-                            
                         """.trimIndent()
                 println(formattedReview)
             }

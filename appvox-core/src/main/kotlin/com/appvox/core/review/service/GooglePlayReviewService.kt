@@ -7,13 +7,13 @@ import com.appvox.core.review.domain.request.GooglePlayReviewRequest
 import com.appvox.core.review.domain.result.GooglePlayReviewResult
 import com.appvox.core.utils.HttpUtils
 import com.appvox.core.utils.JsonUtils.getJsonNodeByIndex
+import com.appvox.core.utils.impl.HttpUtilsImpl
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper
 
 internal class GooglePlayReviewService(
         private val config: Configuration? = null
 ) {
-
     companion object {
         private const val REQUEST_URL = "https://play.google.com/_/PlayStoreUi/data/batchexecute?rpcids=UsvDTd&f.sid=-2417434988450146470&bl=boq_playuiserver_20200303.10_p0&hl=%s&authuser&soc-app=121&soc-platform=1&soc-device=1&_reqid=1080551"
         private const val REQUEST_BODY_WITH_PARAMS = "f.req=[[[\"UsvDTd\",\"[null,null,[2,%d,[%d,null,null],null,[]],[\\\"%s\\\",7]]\",null,\"generic\"]]]"
@@ -32,10 +32,14 @@ internal class GooglePlayReviewService(
         private val REPLY_SUBMIT_TIME_INDEX = arrayOf(7, 2, 0)
     }
 
+    private var httpUtils : HttpUtils = HttpUtilsImpl
+
     @Throws(AppVoxException::class)
     fun getReviewsByAppId(appId: String, request: GooglePlayReviewRequest): GooglePlayReviewResult {
 
-        validateRequest(appId, request)
+        if (request.batchSize < 1 || request.batchSize > 100) {
+            throw AppVoxException(AppVoxErrorCode.INVALID_ARGUMENT)
+        }
 
         val requestBody = if (request.nextToken.isNullOrEmpty()) {
             REQUEST_BODY_WITH_PARAMS.format(request.sortType.sortType, request.batchSize, appId)
@@ -44,9 +48,9 @@ internal class GooglePlayReviewService(
         }
 
         val requestUrl = REQUEST_URL.format(request.language.langCode)
-        val responseContent = HttpUtils.postRequest(requestUrl, requestBody, config?.proxy)
+        val responseContent = httpUtils.postRequest(requestUrl, requestBody, config?.proxy)
 
-        var reviewResults = ArrayList<GooglePlayReviewResult.GooglePlayReview>()
+        val reviewResults = ArrayList<GooglePlayReviewResult.GooglePlayReview>()
         val gplayReviews = extractReviewsFromResponse(responseContent)
         for (gplayReview in gplayReviews[0]) {
             val review = GooglePlayReviewResult.GooglePlayReview(
@@ -69,12 +73,6 @@ internal class GooglePlayReviewService(
         val token = if (!gplayReviews.isEmpty && !gplayReviews[1].isEmpty) gplayReviews[1][1] else null
 
         return GooglePlayReviewResult(token = token?.asText(), reviews = reviewResults)
-    }
-
-    private fun validateRequest(appId: String, request: GooglePlayReviewRequest) {
-        if (request.batchSize < 1 || request.batchSize > 100) {
-            throw AppVoxException(AppVoxErrorCode.INVALID_ARGUMENT)
-        }
     }
 
     private fun extractReviewsFromResponse(gPlayResponse: String): JsonNode {

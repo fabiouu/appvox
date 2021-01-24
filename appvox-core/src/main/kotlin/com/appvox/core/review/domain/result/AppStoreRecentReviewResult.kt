@@ -6,7 +6,7 @@ import javax.xml.datatype.XMLGregorianCalendar
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = ["id", "title", "updated", "link", "icon", "author", "rights", "entry"])
 @XmlRootElement(name = "feed")
-internal class AppStoreRecentReviewResult {
+internal class AppStoreRecentReviewResult() {
     @XmlAttribute(name = "xmlns")
     var uri: String? = null
 

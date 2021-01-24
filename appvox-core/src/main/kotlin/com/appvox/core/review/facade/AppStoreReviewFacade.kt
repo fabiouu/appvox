@@ -9,19 +9,16 @@ import com.appvox.core.review.service.AppStoreRecentReviewService
 import com.appvox.core.review.service.AppStoreReviewService
 
 class AppStoreReviewFacade(
-        val configuration: Configuration
+        val config: Configuration
 ) {
     fun getReviewsByAppId(appId : String, request: AppStoreReviewRequest) : AppStoreReviewResponse {
-        if (request.sortType == AppStoreSortType.RECENT) {
-            val reviewService = AppStoreRecentReviewService(configuration)
-            var reviews = reviewService.getReviewsByAppId(
-                appId = appId,
-                request = request
-            )
-            return AppStoreReviewConverter.toResponse(reviews!!)
+        return if (request.sortType == AppStoreSortType.RECENT) {
+            val reviewService = AppStoreRecentReviewService(config)
+            var reviews = reviewService.getReviewsByAppId(appId = appId, request = request)
+            AppStoreReviewConverter.toResponse(reviews)
         } else {
-            val reviewService = AppStoreReviewService(configuration)
-            if (null == request.bearerToken) {
+            val reviewService = AppStoreReviewService(config)
+            if (request.bearerToken == null) {
                 val bearerToken = reviewService.getBearerToken(appId, request.region)
                 request.bearerToken = bearerToken
             }
@@ -29,7 +26,7 @@ class AppStoreReviewFacade(
                 appId = appId,
                 request = request
             )
-            return AppStoreReviewConverter.toResponse(reviews!!)
+            AppStoreReviewConverter.toResponse(reviews)
         }
     }
 }

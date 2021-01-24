@@ -23,12 +23,12 @@ class GooglePlayReviewIterator(
             init {
                 val response = facade.getReviewsByAppId(appId, request)
                 iterator = response.reviews.iterator()
-                request.nextToken = response?.nextToken
+                request.nextToken = response.nextToken
             }
 
             override fun hasNext(): Boolean {
 
-                if (facade.configuration.requestDelay < 500) {
+                if (facade.config.requestDelay < 500) {
                     throw AppVoxException(AppVoxErrorCode.REQ_DELAY_TOO_SHORT)
                 }
 
@@ -41,13 +41,13 @@ class GooglePlayReviewIterator(
                 }
 
                 if (!iterator.hasNext()) {
-                    Thread.sleep(facade.configuration.requestDelay)
+                    Thread.sleep(facade.config.requestDelay)
                     val response = facade.getReviewsByAppId(appId, request)
-                    if (response?.reviews == null || response.reviews.isEmpty()) {
+                    if (response.reviews.isEmpty()) {
                         return false
                     }
                     iterator = response.reviews.iterator()
-                    request.nextToken = response?.nextToken
+                    request.nextToken = response.nextToken
                 }
 
                 return true

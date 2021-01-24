@@ -28,8 +28,8 @@ Gradle
 
 ## Features
 ### Reviews
-Network requests are made through a proxy with a delay of 3 seconds between each request.
-AppVox is polite by default, request delay cannot be inferior to 500 ms
+Network requests can be made through a proxy (optional).
+AppVox is polite by default, request delay cannot be less than 500 ms
 
 #### Google Play
 
@@ -43,13 +43,16 @@ That's why the tool offer a second way of getting the most recent App Store revi
 The RSS Feed returns the 500 most recent reviews at most and include more metadata such as app version and like count
 
 Using both implementation is totally transparent for the user, just specify sortType to MOST_RECENT or MOST_RELEVANT to switch between the two methods
+ 
 
-## Roadmap
-- AppVox-Core
-    - Reviews
-        - [ ] Review Translation
-        - [ ] Review Analysis
-    - [ ] Get Application Details
-    - [ ] Search
-        - [ ] Get basic App info by name
-        - [ ] Get App details
+### Build
+
+
+### Thread Safety
+
+
+### Dependencies
+The library only depends on Jackson Kotlin module for JSON deserialization. Java SE 7 UrlConnection superclass handle http calls and JAXB deserializes iTunes XML Feed.
+
+### Roadmap
+The Roadmap and tasks in-progress of the project can be found in the upper "Projects" GitHub section

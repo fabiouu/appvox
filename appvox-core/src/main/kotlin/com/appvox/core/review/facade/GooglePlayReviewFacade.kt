@@ -8,15 +8,12 @@ import com.appvox.core.review.domain.response.GooglePlayReviewResponse
 import com.appvox.core.review.service.GooglePlayReviewService
 
 class GooglePlayReviewFacade(
-    val configuration : Configuration = Configuration()
+    val config : Configuration = Configuration()
 ) {
-    fun getReviewsByAppId(appId: String, request: GooglePlayReviewRequest) : GooglePlayReviewResponse {
-        val service = GooglePlayReviewService(configuration)
-        val reviews = service.getReviewsByAppId(
-                appId = appId,
-                request = request
-        )
+    private var service = GooglePlayReviewService(config)
 
+    fun getReviewsByAppId(appId: String, request: GooglePlayReviewRequest) : GooglePlayReviewResponse {
+        val reviews = service.getReviewsByAppId(appId = appId, request = request)
         return GooglePlayReviewConverter.toResponse(reviews)
     }
 }

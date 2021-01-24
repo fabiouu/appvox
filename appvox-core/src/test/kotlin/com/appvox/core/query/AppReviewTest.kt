@@ -48,8 +48,7 @@ class AppReviewTest {
         var fetchedReviewCount = 0
         val config = Configuration(requestDelay = 3000)
         val appReview = AppReview(config)
-        appReview
-            .appStore(
+        appReview.appStore(
                 appId = "785385147",
                 region = region,
                 sortType = AppStoreSortType.RECENT,
@@ -70,8 +69,7 @@ class AppReviewTest {
             requestedFetchReviewCount: Int) {
 
         var fetchedReviewCount = 0
-        AppReview()
-                .googlePlay(
+        AppReview().googlePlay(
                         appId = appId,
                         language = ENGLISH_US,
                         fetchCountLimit = requestedFetchReviewCount)
@@ -94,8 +92,7 @@ class AppReviewTest {
             requestedFetchReviewCount: Int) {
 
         var fetchedReviewCount = 0
-        AppReview()
-                .googlePlay(
+        AppReview().googlePlay(
                         appId = appId,
                         language = GooglePlayLanguage.fromValue(language),
                         sortType = RELEVANT,
