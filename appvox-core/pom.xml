@@ -46,6 +46,13 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+    <distributionManagement>
+        <repository>
+            <id>bintray-fabiouu-AppVox</id>
+            <name>fabiouu-AppVox</name>
+            <url>https://api.bintray.com/maven/fabiouu/AppVox/appvox-core/;publish=1</url>
+        </repository>
+    </distributionManagement>
     <build>
         <sourceDirectory>src/main/kotlin</sourceDirectory>
         <testSourceDirectory>src/test/kotlin</testSourceDirectory>
