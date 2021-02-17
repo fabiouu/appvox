@@ -1,8 +1,9 @@
-package com.appvox.examples.reviews.app_store
+package dev.fabiou.appvox.examples.reviews.app_store
 
-import com.appvox.core.configuration.Configuration
-import com.appvox.core.configuration.ProxyConfiguration
-import com.appvox.core.review.query.AppReview
+import dev.fabiou.appvox.core.configuration.Configuration
+import dev.fabiou.appvox.core.configuration.ProxyConfiguration
+import dev.fabiou.appvox.core.review.constant.AppStoreSortType
+import dev.fabiou.appvox.core.review.query.AppReview
 
 /*
     In this example, we print the 100 most relevant App Store Reviews of the Twitter App
@@ -28,13 +29,14 @@ fun main(args: Array<String>) {
     val appReview = AppReview(config)
 
     appReview
-            .appStore(
-                    appId = appId,
-                    region = userRegion,
-                    fetchCountLimit = requestReviewCount)
-            .forEach { review ->
-                val formattedReview =
-                        """
+        .appStore(
+            appId = appId,
+            region = userRegion,
+            sortType = AppStoreSortType.RECENT,
+            fetchCountLimit = requestReviewCount)
+        .forEach { review ->
+            val formattedReview =
+                """
                             Id: ${review.id}
                             Rating: ${review.rating}
                             User Name: ${review.userName}
@@ -44,8 +46,7 @@ fun main(args: Array<String>) {
                             Reply Comment: ${review.replyComment}
                             Reply Time: ${review.replyTime}
                             Review Url: ${review.url}
-                            
                         """.trimIndent()
-                println(formattedReview)
-            }
+            println(formattedReview)
+        }
 }

@@ -1,10 +1,9 @@
-package com.appvox.examples.reviews.app_store
+package dev.fabiou.appvox.examples.reviews.app_store
 
-import com.appvox.core.configuration.Configuration
-import com.appvox.core.configuration.ProxyConfiguration
-import com.appvox.core.review.query.AppReview
-import com.appvox.core.review.constant.GooglePlayLanguage
-import com.appvox.core.review.constant.GooglePlaySortType
+import dev.fabiou.appvox.core.configuration.Configuration
+import dev.fabiou.appvox.core.configuration.ProxyConfiguration
+import dev.fabiou.appvox.core.review.constant.AppStoreSortType
+import dev.fabiou.appvox.core.review.query.AppReview
 import com.opencsv.CSVWriter
 import java.io.FileWriter
 import java.io.IOException
@@ -16,26 +15,26 @@ fun main(args: Array<String>) {
     val requestReviewCount = 100
 
     val fileName =
-            "${appId}" +
-                    "_${userRegion.toLowerCase()}" +
-                    "_${requestReviewCount}.csv"
+        "${appId}" +
+            "_${userRegion.toLowerCase()}" +
+            "_${requestReviewCount}.csv"
     var fileWriter = FileWriter(fileName)
 
     try {
         var csvWriter = CSVWriter(
-                fileWriter,
-                CSVWriter.DEFAULT_SEPARATOR,
-                CSVWriter.DEFAULT_QUOTE_CHARACTER,
-                CSVWriter.DEFAULT_ESCAPE_CHARACTER,
-                CSVWriter.DEFAULT_LINE_END
+            fileWriter,
+            CSVWriter.DEFAULT_SEPARATOR,
+            CSVWriter.DEFAULT_QUOTE_CHARACTER,
+            CSVWriter.DEFAULT_ESCAPE_CHARACTER,
+            CSVWriter.DEFAULT_LINE_END
         )
         val columns: Array<String> =
-                arrayOf("id", "rating", "userName",
-                        "title", "comment", "commentTime",
-                        "replyComment", "replyTime", "url")
+            arrayOf("id", "rating", "userName",
+                "title", "comment", "commentTime",
+                "replyComment", "replyTime", "url")
         csvWriter.writeNext(columns)
 
-        val config = Configuration(
+        val config = dev.fabiou.appvox.core.configuration.Configuration(
                 proxy = ProxyConfiguration(
                         host = "",
                         port = 0
@@ -44,24 +43,25 @@ fun main(args: Array<String>) {
         )
 
         AppReview(config)
-                .appStore(
-                        appId = appId,
-                        region = userRegion,
-                        fetchCountLimit = requestReviewCount)
-                .forEach { review ->
-                    val csvReview: Array<String?> = arrayOf(
-                            review.id,
-                            review.rating.toString(),
-                            review.userName,
-                            review.title,
-                            review.comment,
-                            review.commentTime.toString(),
-                            review.replyComment,
-                            review.replyTime.toString(),
-                            review.url
-                    )
-                    csvWriter.writeNext(csvReview)
-                }
+            .appStore(
+                appId = appId,
+                region = userRegion,
+                sortType = AppStoreSortType.RECENT,
+                fetchCountLimit = requestReviewCount)
+            .forEach { review ->
+                val csvReview: Array<String?> = arrayOf(
+                    review.id,
+                    review.rating.toString(),
+                    review.userName,
+                    review.title,
+                    review.comment,
+                    review.commentTime.toString(),
+                    review.replyComment,
+                    review.replyTime.toString(),
+                    review.url
+                )
+                csvWriter.writeNext(csvReview)
+            }
     } catch (e: Exception) {
         e.printStackTrace()
     } finally {

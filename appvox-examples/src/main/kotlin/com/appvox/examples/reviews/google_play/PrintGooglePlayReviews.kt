@@ -1,10 +1,10 @@
-package com.appvox.examples.reviews.google_play
+package dev.fabiou.appvox.examples.reviews.google_play
 
-import com.appvox.core.configuration.Configuration
-import com.appvox.core.configuration.ProxyConfiguration
-import com.appvox.core.review.query.AppReview
-import com.appvox.core.review.constant.GooglePlayLanguage.ENGLISH_US
-import com.appvox.core.review.constant.GooglePlaySortType.RELEVANT
+import dev.fabiou.appvox.core.configuration.Configuration
+import dev.fabiou.appvox.core.configuration.ProxyConfiguration
+import dev.fabiou.appvox.core.review.query.AppReview
+import dev.fabiou.appvox.core.review.constant.GooglePlayLanguage.ENGLISH_US
+import dev.fabiou.appvox.core.review.constant.GooglePlaySortType.RELEVANT
 
 /*
     In this example, we print the 100 most relevant Google Play Reviews of the Twitter App
@@ -51,7 +51,6 @@ fun main(args: Array<String>) {
                             Reply Comment: ${review.replyComment}
                             Reply Time: ${review.replyTime}
                             Review Url: ${review.url}
-                            
                         """.trimIndent()
                 println(formattedReview)
             }
