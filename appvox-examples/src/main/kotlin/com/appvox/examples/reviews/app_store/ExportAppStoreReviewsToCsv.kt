@@ -1,9 +1,9 @@
-package com.appvox.examples.reviews.app_store
+package dev.fabiou.appvox.examples.reviews.app_store
 
-import com.appvox.core.configuration.Configuration
-import com.appvox.core.configuration.ProxyConfiguration
-import com.appvox.core.review.constant.AppStoreSortType
-import com.appvox.core.review.query.AppReview
+import dev.fabiou.appvox.core.configuration.Configuration
+import dev.fabiou.appvox.core.configuration.ProxyConfiguration
+import dev.fabiou.appvox.core.review.constant.AppStoreSortType
+import dev.fabiou.appvox.core.review.query.AppReview
 import com.opencsv.CSVWriter
 import java.io.FileWriter
 import java.io.IOException
@@ -34,12 +34,12 @@ fun main(args: Array<String>) {
                 "replyComment", "replyTime", "url")
         csvWriter.writeNext(columns)
 
-        val config = Configuration(
-            proxy = ProxyConfiguration(
-                host = "",
-                port = 0
-            ),
-            requestDelay = 3000L
+        val config = dev.fabiou.appvox.core.configuration.Configuration(
+                proxy = ProxyConfiguration(
+                        host = "",
+                        port = 0
+                ),
+                requestDelay = 3000L
         )
 
         AppReview(config)

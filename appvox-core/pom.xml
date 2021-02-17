@@ -3,8 +3,8 @@
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>AppVox</artifactId>
-        <groupId>com.appvox</groupId>
+        <groupId>dev.fabiou.appvox</groupId>
+        <artifactId>appvox-parent</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
 
@@ -46,13 +46,6 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-    <distributionManagement>
-        <repository>
-            <id>bintray-fabiouu-AppVox</id>
-            <name>fabiouu-AppVox</name>
-            <url>https://api.bintray.com/maven/fabiouu/AppVox/appvox-core/;publish=1</url>
-        </repository>
-    </distributionManagement>
     <build>
         <sourceDirectory>src/main/kotlin</sourceDirectory>
         <testSourceDirectory>src/test/kotlin</testSourceDirectory>

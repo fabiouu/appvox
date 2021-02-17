@@ -1,9 +1,9 @@
-package com.appvox.examples.reviews.app_store
+package dev.fabiou.appvox.examples.reviews.app_store
 
-import com.appvox.core.configuration.Configuration
-import com.appvox.core.configuration.ProxyConfiguration
-import com.appvox.core.review.constant.AppStoreSortType
-import com.appvox.core.review.query.AppReview
+import dev.fabiou.appvox.core.configuration.Configuration
+import dev.fabiou.appvox.core.configuration.ProxyConfiguration
+import dev.fabiou.appvox.core.review.constant.AppStoreSortType
+import dev.fabiou.appvox.core.review.query.AppReview
 
 /*
     In this example, we print the 100 most relevant App Store Reviews of the Twitter App
@@ -20,11 +20,11 @@ fun main(args: Array<String>) {
     val requestReviewCount = 100
 
     val config = Configuration(
-        proxy = ProxyConfiguration(
-            host = "",
-            port = 0
-        ),
-        requestDelay = 3000L
+            proxy = ProxyConfiguration(
+                    host = "",
+                    port = 0
+            ),
+            requestDelay = 3000L
     )
     val appReview = AppReview(config)
 

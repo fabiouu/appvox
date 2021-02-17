@@ -4,11 +4,35 @@
     <modelVersion>4.0.0</modelVersion>
     <packaging>pom</packaging>
 
-    <groupId>com.appvox</groupId>
-    <artifactId>AppVox</artifactId>
+    <groupId>dev.fabiou.appvox</groupId>
+    <artifactId>appvox-parent</artifactId>
     <version>1.0.0-SNAPSHOT</version>
-    <name>AppVox</name>
-    <description>AppVox</description>
+    <name>appvox-parent</name>
+    <description>Capture the voice of your App users</description>
+    <url>https://github.com/fabiouu/appvox</url>
+
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+            <comments>A business-friendly OSS license</comments>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>Fabiou</name>
+            <organizationUrl>https://github.com/fabiouu</organizationUrl>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:git@github.com:fabiouu/appvox.git</connection>
+        <developerConnection>scm:git:git@github.com:fabiouu/appvox.git</developerConnection>
+        <tag>HEAD</tag>
+        <url>git@github.com:fabiouu/appvox.git</url>
+    </scm>
 
     <modules>
         <module>appvox-core</module>
@@ -21,25 +45,27 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <java.version>1.8</java.version>
         <kotlin.version>1.4.21</kotlin.version>
+        <junit.version>5.7.0</junit.version>
         <mockito.version>3.7.7</mockito.version>
+        <kotlin.compiler.incremental>true</kotlin.compiler.incremental>
     </properties>
 
     <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>org.jetbrains.kotlin</groupId>
-                <artifactId>kotlin-reflect</artifactId>
+                <artifactId>kotlin-stdlib-jdk8</artifactId>
                 <version>${kotlin.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.jetbrains.kotlin</groupId>
-                <artifactId>kotlin-stdlib-jdk8</artifactId>
+                <artifactId>kotlin-reflect</artifactId>
                 <version>${kotlin.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.junit</groupId>
                 <artifactId>junit-bom</artifactId>
-                <version>5.7.0</version>
+                <version>${junit.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -57,6 +83,7 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+
     <build>
         <pluginManagement>
             <plugins>
