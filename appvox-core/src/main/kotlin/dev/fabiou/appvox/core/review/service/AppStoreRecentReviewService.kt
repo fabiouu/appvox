@@ -15,7 +15,7 @@ import javax.xml.stream.XMLInputFactory
 import javax.xml.stream.XMLStreamReader
 
 internal class AppStoreRecentReviewService(
-    private val config: dev.fabiou.appvox.core.configuration.Configuration? = null
+    private val config: Configuration? = null
 ) {
     companion object {
         internal const val RSS_REQUEST_URL  = "https://itunes.apple.com/%s/rss/customerreviews" +

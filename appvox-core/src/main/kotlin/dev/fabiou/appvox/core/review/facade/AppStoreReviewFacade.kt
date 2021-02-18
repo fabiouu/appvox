@@ -9,20 +9,20 @@ import dev.fabiou.appvox.core.review.service.AppStoreRecentReviewService
 import dev.fabiou.appvox.core.review.service.AppStoreReviewService
 
 class AppStoreReviewFacade(
-        val config: dev.fabiou.appvox.core.configuration.Configuration
+        val config: Configuration
 ) {
+    private var reviewService = AppStoreReviewService(config)
+
     fun getReviewsByAppId(appId : String, request: AppStoreReviewRequest) : AppStoreReviewResponse {
         return if (request.sortType == AppStoreSortType.RECENT) {
-            val reviewService = AppStoreRecentReviewService(config)
             var reviews = reviewService.getReviewsByAppId(appId = appId, request = request)
             AppStoreReviewConverter.toResponse(reviews)
         } else {
-            val reviewService = AppStoreReviewService(config)
             if (request.bearerToken == null) {
                 val bearerToken = reviewService.getBearerToken(appId, request.region)
                 request.bearerToken = bearerToken
             }
-            var reviews = reviewService.getReviewsByAppId(
+            val reviews = reviewService.getReviewsByAppId(
                 appId = appId,
                 request = request
             )

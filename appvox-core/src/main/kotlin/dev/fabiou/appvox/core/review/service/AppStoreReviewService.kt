@@ -9,8 +9,8 @@ import dev.fabiou.appvox.core.utils.impl.HttpUtilsImpl
 import com.fasterxml.jackson.databind.ObjectMapper
 
 
-internal class AppStoreReviewService(
-    private val config: dev.fabiou.appvox.core.configuration.Configuration? = null
+open class AppStoreReviewService(
+    private val config: Configuration? = null
 ) {
     companion object {
         internal const val REQUEST_REVIEW_SIZE = 10

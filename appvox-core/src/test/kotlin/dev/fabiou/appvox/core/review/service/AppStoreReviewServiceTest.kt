@@ -21,7 +21,7 @@ class AppStoreReviewServiceTest {
     private var httpUtils: HttpUtils = HttpUtilsImpl
 
     @InjectMocks
-    private var service = AppStoreReviewService(dev.fabiou.appvox.core.configuration.Configuration(requestDelay = 3000L))
+    private var service = AppStoreReviewService(Configuration(requestDelay = 3000L))
 
     @ParameterizedTest
     @CsvSource(

@@ -1,10 +1,16 @@
 <h1 align="center">
-  App Vox
+  AppVox
 </h1>
 
 <p align="center">
     <a href="https://travis-ci.com/fabiouu/AppVox">
         <img src="https://travis-ci.com/fabiouu/AppVox.svg?branch=master" alt="Build Status" />
+    </a>
+    <a href="https://kotlinlang.org">
+        <img src="https://maven-badges.herokuapp.com/maven-central/dev.fabiou.appvox/appvox-parent/badge.svg" alt="Coverage" />
+    </a>
+    <a href="Kotlin">
+        <img src="https://img.shields.io/badge/Kotlin-1.4.21-blue.svg" alt="Coverage" />
     </a>
     <a href="https://codeclimate.com/github/fabiouu/AppVox/maintainability">
         <img src="https://api.codeclimate.com/v1/badges/6f0c3287d031b4f431ea/maintainability" alt="Maintainability" />
@@ -21,10 +27,26 @@
 ## Overview
 
 ## Getting Started
-Maven
+### Maven
+```xml
+<dependency>
+    <groupId>dev.fabiou.appvox</groupId>
+    <artifactId>appvox-core</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+</dependency>
+```
 
-Gradle
+### Gradle
+```groovy
+compile "dev.fabiou.appvox:appvox-core:1.0.0-SNAPSHOT"
+```
 
+Only `appvox-core` package is mandatory
+
+| Package | Description |
+|----------|---------|
+| [`appvox-core`](./appvox-core) | Core package containing Google Play and App Store scrapers |
+| [`appvox-examples`](./appvox-examples) | AppVox usage examples |
 
 ## Features
 ### Reviews
@@ -44,7 +66,6 @@ The RSS Feed returns the 500 most recent reviews at most and include more metada
 
 Using both implementation is totally transparent for the user, just specify sortType to MOST_RECENT or MOST_RELEVANT to switch between the two methods
  
-
 ### Build
 
 
