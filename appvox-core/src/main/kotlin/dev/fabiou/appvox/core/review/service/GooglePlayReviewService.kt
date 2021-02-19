@@ -12,7 +12,7 @@ import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper
 
 internal class GooglePlayReviewService(
-        private val config: dev.fabiou.appvox.core.configuration.Configuration? = null
+        private val config: Configuration? = null
 ) {
     companion object {
         private const val REQUEST_URL = "https://play.google.com/_/PlayStoreUi/data/batchexecute?rpcids=UsvDTd&f.sid=-2417434988450146470&bl=boq_playuiserver_20200303.10_p0&hl=%s&authuser&soc-app=121&soc-platform=1&soc-device=1&_reqid=1080551"
