@@ -16,27 +16,27 @@ class AppReview(
 ) {
     private var appStoreFacade = AppStoreReviewFacade(configuration)
 
-    fun appStore(appId: String, sortType: AppStoreSortType, region: String, fetchCountLimit: Int = 0) : AppStoreReviewIterator {
+    fun appStore(appId: String, sortType: AppStoreSortType, region: String, maxCount: Int = 0) : AppStoreReviewIterator {
 
         val request = AppStoreReviewRequest(
                 region = region,
                 sortType = sortType,
-                countLimit = fetchCountLimit
+                maxCount = maxCount
         )
         return AppStoreReviewIterator(appStoreFacade, appId, request)
     }
 
     fun googlePlay(
-        appId: String,
-        language: GooglePlayLanguage,
-        sortType: GooglePlaySortType = GooglePlaySortType.RECENT,
-        fetchCountLimit: Int = 0,
-        batchSize: Int = 40) : GooglePlayReviewIterator {
+            appId: String,
+            language: GooglePlayLanguage,
+            sortType: GooglePlaySortType = GooglePlaySortType.RECENT,
+            maxCount: Int = 0,
+            batchSize: Int = 40) : GooglePlayReviewIterator {
         val facade = GooglePlayReviewFacade(configuration)
         val request = GooglePlayReviewRequest(
             language = language,
             sortType = sortType,
-            fetchCountLimit = fetchCountLimit,
+            maxCount = maxCount,
             batchSize = batchSize
         )
         return GooglePlayReviewIterator(facade, appId, request)

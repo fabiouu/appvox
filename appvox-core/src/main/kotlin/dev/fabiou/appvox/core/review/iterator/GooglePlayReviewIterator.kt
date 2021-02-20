@@ -32,7 +32,7 @@ class GooglePlayReviewIterator(
                     throw AppVoxException(AppVoxErrorCode.REQ_DELAY_TOO_SHORT)
                 }
 
-                if (request.fetchCountLimit != 0 && reviewIndex == request.fetchCountLimit) {
+                if (request.maxCount != 0 && reviewIndex == request.maxCount) {
                     return false
                 }
 

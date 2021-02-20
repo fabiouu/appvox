@@ -11,11 +11,13 @@ import dev.fabiou.appvox.core.review.service.AppStoreReviewService
 class AppStoreReviewFacade(
         val config: Configuration
 ) {
+    private var recentReviewService = AppStoreRecentReviewService(config)
+
     private var reviewService = AppStoreReviewService(config)
 
     fun getReviewsByAppId(appId : String, request: AppStoreReviewRequest) : AppStoreReviewResponse {
         return if (request.sortType == AppStoreSortType.RECENT) {
-            var reviews = reviewService.getReviewsByAppId(appId = appId, request = request)
+            var reviews = recentReviewService.getReviewsByAppId(appId = appId, request = request)
             AppStoreReviewConverter.toResponse(reviews)
         } else {
             if (request.bearerToken == null) {

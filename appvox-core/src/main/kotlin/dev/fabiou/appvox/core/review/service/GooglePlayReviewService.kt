@@ -10,12 +10,15 @@ import dev.fabiou.appvox.core.utils.JsonUtils.getJsonNodeByIndex
 import dev.fabiou.appvox.core.utils.impl.HttpUtilsImpl
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper
+import dev.fabiou.appvox.core.utils.UrlUtils
 
 internal class GooglePlayReviewService(
         private val config: Configuration? = null
 ) {
     companion object {
-        private const val REQUEST_URL = "https://play.google.com/_/PlayStoreUi/data/batchexecute?rpcids=UsvDTd&f.sid=-2417434988450146470&bl=boq_playuiserver_20200303.10_p0&hl=%s&authuser&soc-app=121&soc-platform=1&soc-device=1&_reqid=1080551"
+        internal const val REQUEST_URL_DOMAIN = "https://play.google.com"
+        internal const val REQUEST_URL_PATH = "/_/PlayStoreUi/data/batchexecute"
+        private const val REQUEST_URL_PARAMS = "?rpcids=UsvDTd&f.sid=-2417434988450146470&bl=boq_playuiserver_20200303.10_p0&hl=%s&authuser&soc-app=121&soc-platform=1&soc-device=1&_reqid=1080551"
         private const val REQUEST_BODY_WITH_PARAMS = "f.req=[[[\"UsvDTd\",\"[null,null,[2,%d,[%d,null,null],null,[]],[\\\"%s\\\",7]]\",null,\"generic\"]]]"
         private const val REQUEST_BODY_WITH_PARAMS_AND_BODY = "f.req=[[[\"UsvDTd\",\"[null,null,[2,null,[%d,null,\\\"%s\\\"],null,[]],[\\\"%s\\\",7]]\",null,\"generic\"]]]"
         private const val REVIEW_URL = "https://play.google.com/store/apps/details?id=%s&hl=%s&reviewId=%s"
@@ -42,12 +45,13 @@ internal class GooglePlayReviewService(
         }
 
         val requestBody = if (request.nextToken.isNullOrEmpty()) {
-            REQUEST_BODY_WITH_PARAMS.format(request.sortType.sortType, request.batchSize, appId)
+             REQUEST_BODY_WITH_PARAMS.format(request.sortType.sortType, request.batchSize, appId)
         } else {
             REQUEST_BODY_WITH_PARAMS_AND_BODY.format(request.batchSize, request.nextToken, appId)
         }
 
-        val requestUrl = REQUEST_URL.format(request.language.langCode)
+        val requestUrl =
+                UrlUtils.getUrlDomainByEnv(REQUEST_URL_DOMAIN) + REQUEST_URL_PATH + REQUEST_URL_PARAMS.format(request.language.langCode)
         val responseContent = httpUtils.postRequest(requestUrl, requestBody, config?.proxy)
 
         val reviewResults = ArrayList<GooglePlayReviewResult.GooglePlayReview>()
