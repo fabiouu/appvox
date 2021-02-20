@@ -8,7 +8,6 @@ import dev.fabiou.appvox.core.review.domain.result.AppStoreRecentReviewResult
 import dev.fabiou.appvox.core.utils.HttpUtils
 import dev.fabiou.appvox.core.utils.UrlUtils
 import dev.fabiou.appvox.core.utils.impl.HttpUtilsImpl
-import jdk.internal.util.EnvUtils
 import java.io.StringReader
 import javax.xml.bind.JAXBContext
 import javax.xml.bind.JAXBException
