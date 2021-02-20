@@ -32,7 +32,7 @@ class AppStoreReviewIterator(
                     throw AppVoxException(AppVoxErrorCode.REQ_DELAY_TOO_SHORT)
                 }
 
-                if (request.countLimit != 0 && reviewIndex == request.countLimit) {
+                if (request.maxCount != 0 && reviewIndex == request.maxCount) {
                     return false
                 }
 

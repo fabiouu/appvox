@@ -33,7 +33,7 @@ fun main(args: Array<String>) {
             appId = appId,
             region = userRegion,
             sortType = AppStoreSortType.RECENT,
-            fetchCountLimit = requestReviewCount)
+            maxCount = requestReviewCount)
         .forEach { review ->
             val formattedReview =
                 """

@@ -7,6 +7,6 @@ open class GooglePlayReviewRequest(
         val language: GooglePlayLanguage,
         val sortType: GooglePlaySortType,
         val batchSize: Int,
-        val fetchCountLimit: Int = 0,
+        val maxCount: Int = 0,
         var nextToken: String? = null
 )

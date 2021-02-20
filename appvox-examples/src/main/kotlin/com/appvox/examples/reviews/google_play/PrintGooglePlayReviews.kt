@@ -35,7 +35,7 @@ fun main(args: Array<String>) {
                     appId = appId,
                     sortType = sortType,
                     language = reviewLanguage,
-                    fetchCountLimit = requestReviewCount)
+                    maxCount = requestReviewCount)
             .forEach { review ->
                 val formattedReview =
                         """

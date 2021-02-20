@@ -12,29 +12,31 @@ import dev.fabiou.appvox.core.review.iterator.AppStoreReviewIterator
 import dev.fabiou.appvox.core.review.iterator.GooglePlayReviewIterator
 
 class AppReview(
-    private val configuration: dev.fabiou.appvox.core.configuration.Configuration = dev.fabiou.appvox.core.configuration.Configuration()
+    private val configuration: Configuration = Configuration()
 ) {
-    fun appStore(appId: String, sortType: AppStoreSortType, region: String, fetchCountLimit: Int = 0) : AppStoreReviewIterator {
-        val facade = AppStoreReviewFacade(configuration)
+    private var appStoreFacade = AppStoreReviewFacade(configuration)
+
+    fun appStore(appId: String, sortType: AppStoreSortType, region: String, maxCount: Int = 0) : AppStoreReviewIterator {
+
         val request = AppStoreReviewRequest(
                 region = region,
                 sortType = sortType,
-                countLimit = fetchCountLimit
+                maxCount = maxCount
         )
-        return AppStoreReviewIterator(facade, appId, request)
+        return AppStoreReviewIterator(appStoreFacade, appId, request)
     }
 
     fun googlePlay(
-        appId: String,
-        language: GooglePlayLanguage,
-        sortType: GooglePlaySortType = GooglePlaySortType.RECENT,
-        fetchCountLimit: Int = 0,
-        batchSize: Int = 40) : GooglePlayReviewIterator {
+            appId: String,
+            language: GooglePlayLanguage,
+            sortType: GooglePlaySortType = GooglePlaySortType.RECENT,
+            maxCount: Int = 0,
+            batchSize: Int = 40) : GooglePlayReviewIterator {
         val facade = GooglePlayReviewFacade(configuration)
         val request = GooglePlayReviewRequest(
             language = language,
             sortType = sortType,
-            fetchCountLimit = fetchCountLimit,
+            maxCount = maxCount,
             batchSize = batchSize
         )
         return GooglePlayReviewIterator(facade, appId, request)

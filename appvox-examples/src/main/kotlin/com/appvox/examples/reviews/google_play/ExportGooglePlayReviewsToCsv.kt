@@ -1,6 +1,5 @@
 package dev.fabiou.appvox.examples.reviews.google_play
 
-import dev.fabiou.appvox.core.configuration.Configuration
 import dev.fabiou.appvox.core.configuration.ProxyConfiguration
 import dev.fabiou.appvox.core.review.query.AppReview
 import dev.fabiou.appvox.core.review.constant.GooglePlayLanguage
@@ -50,7 +49,7 @@ fun main(args: Array<String>) {
                         appId = appId,
                         sortType = sortType,
                         language = reviewLanguage,
-                        fetchCountLimit = requestReviewCount)
+                        maxCount = requestReviewCount)
                 .forEach { review ->
                     val csvReview: Array<String?> = arrayOf(
                             review.id,
@@ -73,7 +72,7 @@ fun main(args: Array<String>) {
         e.printStackTrace()
     } finally {
         try {
-            fileWriter!!.flush()
+            fileWriter.flush()
             fileWriter.close()
         } catch (e: IOException) {
             e.printStackTrace()

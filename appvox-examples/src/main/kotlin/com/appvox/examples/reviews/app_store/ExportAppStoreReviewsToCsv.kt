@@ -14,10 +14,7 @@ fun main(args: Array<String>) {
     val userRegion = "us"
     val requestReviewCount = 100
 
-    val fileName =
-        "${appId}" +
-            "_${userRegion.toLowerCase()}" +
-            "_${requestReviewCount}.csv"
+    val fileName = "${appId}_${userRegion.toLowerCase()}_${requestReviewCount}.csv"
     var fileWriter = FileWriter(fileName)
 
     try {
@@ -34,7 +31,7 @@ fun main(args: Array<String>) {
                 "replyComment", "replyTime", "url")
         csvWriter.writeNext(columns)
 
-        val config = dev.fabiou.appvox.core.configuration.Configuration(
+        val config = Configuration(
                 proxy = ProxyConfiguration(
                         host = "",
                         port = 0
@@ -47,7 +44,7 @@ fun main(args: Array<String>) {
                 appId = appId,
                 region = userRegion,
                 sortType = AppStoreSortType.RECENT,
-                fetchCountLimit = requestReviewCount)
+                maxCount = requestReviewCount)
             .forEach { review ->
                 val csvReview: Array<String?> = arrayOf(
                     review.id,
