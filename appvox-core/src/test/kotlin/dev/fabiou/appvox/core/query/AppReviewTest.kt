@@ -20,12 +20,12 @@ class AppReviewTest : BaseStoreServiceTest() {
 
     @ParameterizedTest
     @CsvSource(
-            "333903271, us, 50"
+            "333903271, us, 10"
     )
     fun `Get most relevant App Store reviews using iterator`(
             appId: String,
             region: String,
-            requestedFetchReviewCount: Int) {
+            requestedReviewCount: Int) {
 
         stubHttpUrl(AppStoreReviewService.APP_HP_URL_PATH.format(region, appId), "mock-bearer-token")
         val mockData = javaClass.getResource("/appstore_reviews_mock_data.json").readText()
@@ -37,12 +37,12 @@ class AppReviewTest : BaseStoreServiceTest() {
                         appId = appId,
                         region = region,
                         sortType = AppStoreSortType.RELEVANT,
-                        maxCount = requestedFetchReviewCount)
+                        maxCount = requestedReviewCount)
                 .forEach { _ ->
                     fetchedReviewCount++
                 }
 
-        Assertions.assertEquals(requestedFetchReviewCount, fetchedReviewCount)
+        Assertions.assertEquals(requestedReviewCount, fetchedReviewCount)
     }
 
     @ParameterizedTest
