@@ -19,7 +19,7 @@ fun main(args: Array<String>) {
     val appId = "com.twitter.android"
     val sortType = RELEVANT
     val reviewLanguage = ENGLISH_US
-    val requestReviewCount = 100
+    val maxReviewCount = 100
 
     val config = Configuration(
             proxy = ProxyConfiguration(
@@ -35,7 +35,7 @@ fun main(args: Array<String>) {
                     appId = appId,
                     sortType = sortType,
                     language = reviewLanguage,
-                    maxCount = requestReviewCount)
+                    maxCount = maxReviewCount)
             .forEach { review ->
                 val formattedReview =
                         """

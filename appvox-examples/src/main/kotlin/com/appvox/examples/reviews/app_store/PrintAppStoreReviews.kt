@@ -17,7 +17,7 @@ fun main(args: Array<String>) {
 
     val appId = "333903271"
     val userRegion = "us"
-    val requestReviewCount = 100
+    val maxReviewCount = 100
 
     val config = Configuration(
             proxy = ProxyConfiguration(
@@ -33,7 +33,7 @@ fun main(args: Array<String>) {
             appId = appId,
             region = userRegion,
             sortType = AppStoreSortType.RECENT,
-            maxCount = requestReviewCount)
+            maxCount = maxReviewCount)
         .forEach { review ->
             val formattedReview =
                 """

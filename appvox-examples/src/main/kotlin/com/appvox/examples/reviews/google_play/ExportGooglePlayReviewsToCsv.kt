@@ -13,13 +13,13 @@ fun main(args: Array<String>) {
     val appId = "com.twitter.android"
     val sortType = GooglePlaySortType.RELEVANT
     val reviewLanguage = GooglePlayLanguage.ENGLISH_US
-    val requestReviewCount = 100
+    val maxReviewCount = 100
 
     val fileName =
             "${appId}" +
                     "_${sortType.name.toLowerCase()}" +
                     "_${reviewLanguage.name.toLowerCase()}" +
-                    "_${requestReviewCount}.csv"
+                    "_${maxReviewCount}.csv"
     var fileWriter = FileWriter(fileName)
 
     try {
@@ -49,7 +49,7 @@ fun main(args: Array<String>) {
                         appId = appId,
                         sortType = sortType,
                         language = reviewLanguage,
-                        maxCount = requestReviewCount)
+                        maxCount = maxReviewCount)
                 .forEach { review ->
                     val csvReview: Array<String?> = arrayOf(
                             review.id,

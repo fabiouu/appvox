@@ -11,17 +11,16 @@ class AppStoreReviewConverter {
             var reviews = ArrayList<AppStoreReviewResponse.AppStoreReview>()
             val appStoreReviews = reviewResult.data
             for (appStoreReview in appStoreReviews) {
-
                 val reviewResponse = AppStoreReviewResponse.AppStoreReview(
                         id = appStoreReview.id,
                         userName = appStoreReview.attributes.userName,
                         rating = appStoreReview.attributes.rating,
                         title = appStoreReview.attributes.title,
                         comment = appStoreReview.attributes.review,
-                        commentTime = Instant.parse(appStoreReview.attributes.date).toEpochMilli()
-//                    replyComment = appStoreReview.attributes.developerResponse?.body,
-//                    replySubmitTime = Instant.parse(appStoreReview.attributes.developerResponse?.modified?:"").toEpochMilli()
-//                    url = appStoreReview.reviewUrl
+                        commentTime = Instant.parse(appStoreReview.attributes.date).toEpochMilli(),
+                        replyComment = appStoreReview.attributes.developerResponse?.body,
+                        replyTime = Instant.parse(appStoreReview.attributes.developerResponse?.modified?:"").toEpochMilli(),
+//                        url = appStoreReview.reviewUrl
                 )
                 reviews.add(reviewResponse)
             }
@@ -44,7 +43,7 @@ class AppStoreReviewConverter {
                     comment = appStoreReview.content?.find { it.type == "text" }?.content!!,
 //                    commentTime = appStoreReview.updated.
                     version = appStoreReview.version,
-                    url = appStoreReview.link?.href//,
+                    url = appStoreReview.link?.href,
 //                    likeCount = appStoreReview.voteCount,
 //                    likeCount = appStoreReview.voteSum,
 //                    replyComment = appStoreReview.attributes.developerResponse?.body,

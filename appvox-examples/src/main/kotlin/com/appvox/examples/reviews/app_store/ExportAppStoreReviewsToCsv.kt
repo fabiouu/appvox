@@ -12,9 +12,9 @@ fun main(args: Array<String>) {
 
     val appId = "333903271"
     val userRegion = "us"
-    val requestReviewCount = 100
+    val maxReviewCount = 100
 
-    val fileName = "${appId}_${userRegion.toLowerCase()}_${requestReviewCount}.csv"
+    val fileName = "${appId}_${userRegion.toLowerCase()}_${maxReviewCount}.csv"
     var fileWriter = FileWriter(fileName)
 
     try {
@@ -44,7 +44,7 @@ fun main(args: Array<String>) {
                 appId = appId,
                 region = userRegion,
                 sortType = AppStoreSortType.RECENT,
-                maxCount = requestReviewCount)
+                maxCount = maxReviewCount)
             .forEach { review ->
                 val csvReview: Array<String?> = arrayOf(
                     review.id,
@@ -63,7 +63,7 @@ fun main(args: Array<String>) {
         e.printStackTrace()
     } finally {
         try {
-            fileWriter!!.flush()
+            fileWriter.flush()
             fileWriter.close()
         } catch (e: IOException) {
             e.printStackTrace()

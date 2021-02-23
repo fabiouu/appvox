@@ -11,6 +11,7 @@ data class AppStoreReviewResponse(
             val title: String? = null,
             val version: String? = null,
             val comment: String,
+            var translatedComment: String? = null,
             val commentTime: Long? = 0,
             val replyComment: String? = null,
             val replyTime: Long? = 0,

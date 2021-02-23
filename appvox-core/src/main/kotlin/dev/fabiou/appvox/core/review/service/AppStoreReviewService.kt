@@ -21,10 +21,8 @@ open class AppStoreReviewService(
 
         internal const val REQUEST_URL_DOMAIN = "https://amp-api.apps.apple.com"
         internal const val REQUEST_URL_PATH = "/v1/catalog/%s/apps/%s/reviews"
-        internal const val REQUEST_URL_PARAMS = "?offset=%d&platform=web&additionalPlatforms=appletv,ipad,iphone,mac"
-
-        internal const val NEXT_REQUEST_URL_DOMAIN = "https://amp-api.apps.apple.com%s&platform=web&additionalPlatforms=appletv,ipad,iphone,mac"
-        internal const val NEXT_REQUEST_URL_PARAMS = "&platform=web&additionalPlatforms=appletv,ipad,iphone,mac"
+        internal const val REQUEST_URL_PARAMS_PREFIX = "?offset=%d"
+        internal const val REQUEST_URL_PARAMS = "&platform=web&additionalPlatforms=appletv,ipad,iphone,mac"
 
         private const val BEARER_TOKEN_REGEX_PATTERN = "token%22%3A%22(.+?)%22"
     }
@@ -34,9 +32,9 @@ open class AppStoreReviewService(
     @Throws(AppVoxException::class)
     fun getReviewsByAppId(appId: String, request: AppStoreReviewRequest): AppStoreReviewResult {
         val requestUrl = if (request.nextToken.isNullOrEmpty()) {
-            UrlUtils.getUrlDomainByEnv(REQUEST_URL_DOMAIN) + REQUEST_URL_PATH.format(request.region, appId) + REQUEST_URL_PARAMS.format(REQUEST_REVIEW_SIZE)
+            UrlUtils.getUrlDomainByEnv(REQUEST_URL_DOMAIN) + REQUEST_URL_PATH.format(request.region, appId) + REQUEST_URL_PARAMS_PREFIX.format(REQUEST_REVIEW_SIZE) + REQUEST_URL_PARAMS
         } else {
-            UrlUtils.getUrlDomainByEnv(REQUEST_URL_DOMAIN) + request.nextToken + NEXT_REQUEST_URL_PARAMS
+            UrlUtils.getUrlDomainByEnv(REQUEST_URL_DOMAIN) + request.nextToken + REQUEST_URL_PARAMS
         }
         val responseContent = httpUtils.getRequest(
                 requestUrl = requestUrl, bearerToken = request.bearerToken, proxyConfig = config?.proxy)
