@@ -4,6 +4,7 @@ import dev.fabiou.appvox.core.review.domain.response.AppStoreReviewResponse
 import dev.fabiou.appvox.core.review.domain.result.AppStoreRecentReviewResult
 import dev.fabiou.appvox.core.review.domain.result.AppStoreReviewResult
 import java.time.Instant
+import java.time.ZonedDateTime
 
 class AppStoreReviewConverter {
     companion object {
@@ -17,10 +18,10 @@ class AppStoreReviewConverter {
                         rating = appStoreReview.attributes.rating,
                         title = appStoreReview.attributes.title,
                         comment = appStoreReview.attributes.review,
-                        commentTime = Instant.parse(appStoreReview.attributes.date).toEpochMilli(),
+                        commentTime = ZonedDateTime.parse(appStoreReview.attributes.date),
                         replyComment = appStoreReview.attributes.developerResponse?.body,
-                        replyTime = Instant.parse(appStoreReview.attributes.developerResponse?.modified?:"").toEpochMilli(),
-//                        url = appStoreReview.reviewUrl
+                        replyTime = ZonedDateTime.parse(appStoreReview.attributes.developerResponse?.modified),
+//                        url =
                 )
                 reviews.add(reviewResponse)
             }
@@ -41,14 +42,12 @@ class AppStoreReviewConverter {
                     rating = appStoreReview.rating!!,
                     title = appStoreReview.title,
                     comment = appStoreReview.content?.find { it.type == "text" }?.content!!,
-//                    commentTime = appStoreReview.updated.,
+                    commentTime = appStoreReview.updated?.toGregorianCalendar()?.toZonedDateTime(),
                     appVersion = appStoreReview.version,
                     url = appStoreReview.link?.href,
-//                    likeCount = appStoreReview.voteCount,
-//                    likeCount = appStoreReview.voteSum,
-//                    replyComment = appStoreReview.attributes.developerResponse?.body,
-//                    replySubmitTime = Instant.parse(appStoreReview.attributes.developerResponse?.modified?:"").toEpochMilli()
-//                    url = appStoreReview.reviewUrl
+                    likeCount = appStoreReview.voteCount,
+//                    replyComment =
+//                    replySubmitTime =
                 )
                 reviews.add(reviewResponse)
             }
