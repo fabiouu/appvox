@@ -16,7 +16,7 @@ fun main(args: Array<String>) {
     val maxReviewCount = 100
 
     val fileName =
-            "${appId}" +
+            "$appId" +
                     "_${sortType.name.toLowerCase()}" +
                     "_${reviewLanguage.name.toLowerCase()}" +
                     "_${maxReviewCount}.csv"
@@ -55,7 +55,7 @@ fun main(args: Array<String>) {
                             review.id,
                             review.rating.toString(),
                             review.userName,
-                            review.userProfile,
+                            review.userAvatar,
                             review.title,
                             review.comment,
                             review.commentTime.toString(),

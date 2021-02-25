@@ -12,9 +12,9 @@ class GooglePlayReviewConverter {
                 val reviewResponse = GooglePlayReviewResponse.GooglePlayReview(
                         id = googlePlayReview.reviewId,
                         userName = googlePlayReview.userName,
-                        userProfile = googlePlayReview.userProfilePicUrl,
+                        userAvatar = googlePlayReview.userProfilePicUrl,
                         rating = googlePlayReview.rating,
-//                title = googlePlayReview.,
+//                      title = googlePlayReview.,
                         comment = googlePlayReview.comment,
                         commentTime = googlePlayReview.submitTime,
                         replyComment = googlePlayReview.replyComment,
@@ -28,7 +28,7 @@ class GooglePlayReviewConverter {
 
             return GooglePlayReviewResponse(
                 reviews = reviews,
-                    nextToken = reviewResult.token
+                nextToken = reviewResult.token
             )
         }
     }

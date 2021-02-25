@@ -41,8 +41,8 @@ class AppStoreReviewConverter {
                     rating = appStoreReview.rating!!,
                     title = appStoreReview.title,
                     comment = appStoreReview.content?.find { it.type == "text" }?.content!!,
-//                    commentTime = appStoreReview.updated.
-                    version = appStoreReview.version,
+//                    commentTime = appStoreReview.updated.,
+                    appVersion = appStoreReview.version,
                     url = appStoreReview.link?.href,
 //                    likeCount = appStoreReview.voteCount,
 //                    likeCount = appStoreReview.voteSum,

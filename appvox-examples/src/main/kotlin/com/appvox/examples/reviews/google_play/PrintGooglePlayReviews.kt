@@ -42,7 +42,7 @@ fun main(args: Array<String>) {
                             Id: ${review.id}
                             Rating: ${review.rating}
                             User Name: ${review.userName}
-                            User Profile: ${review.userProfile}
+                            User Avatar: ${review.userAvatar}
                             Title: ${review.title}
                             Comment: ${review.comment}
                             Comment Time: ${review.commentTime}
