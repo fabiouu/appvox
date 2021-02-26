@@ -31,15 +31,17 @@ open class AppStoreReviewService(
 
     @Throws(AppVoxException::class)
     fun getReviewsByAppId(appId: String, request: AppStoreReviewRequest): AppStoreReviewResult {
-        val requestUrl = if (request.nextToken.isNullOrEmpty()) {
-            UrlUtils.getUrlDomainByEnv(REQUEST_URL_DOMAIN) + REQUEST_URL_PATH.format(request.region, appId) + REQUEST_URL_PARAMS_PREFIX.format(REQUEST_REVIEW_SIZE) + REQUEST_URL_PARAMS
+
+        val requestUrl = UrlUtils.getUrlDomainByEnv(REQUEST_URL_DOMAIN) + if (request.nextToken.isNullOrEmpty()) {
+            REQUEST_URL_PATH.format(request.region, appId) +
+                REQUEST_URL_PARAMS_PREFIX.format(REQUEST_REVIEW_SIZE) + REQUEST_URL_PARAMS
         } else {
-            UrlUtils.getUrlDomainByEnv(REQUEST_URL_DOMAIN) + request.nextToken + REQUEST_URL_PARAMS
+            request.nextToken + REQUEST_URL_PARAMS
         }
         val responseContent = httpUtils.getRequest(
                 requestUrl = requestUrl, bearerToken = request.bearerToken, proxyConfig = config?.proxy)
-        val result = ObjectMapper().readValue(responseContent, AppStoreReviewResult::class.java)
-        return result
+
+        return ObjectMapper().readValue(responseContent, AppStoreReviewResult::class.java)
     }
 
     @Throws(AppVoxException::class)

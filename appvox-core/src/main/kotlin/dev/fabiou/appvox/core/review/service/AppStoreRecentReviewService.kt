@@ -19,34 +19,41 @@ internal class AppStoreRecentReviewService(
     private val config: Configuration? = null
 ) {
     companion object {
-        internal const val RSS_REQUEST_URL_DOMAIN  = "https://itunes.apple.com"
-        internal const val RSS_REQUEST_URL_PATH  = "/%s/rss/customerreviews/page=%d/id=%s/sortby=mostrecent/xml"
-        internal const val RSS_REQUEST_URL_PARAMS  = "?urlDesc=/customerreviews/id=%s/mostrecent/xml"
+        internal const val RSS_REQUEST_URL_DOMAIN = "https://itunes.apple.com"
+        internal const val RSS_REQUEST_URL_PATH = "/%s/rss/customerreviews/page=%d/id=%s/sortby=mostrecent/xml"
+        internal const val RSS_REQUEST_URL_PARAMS = "?urlDesc=/customerreviews/id=%s/mostrecent/xml"
     }
 
-    private var httpUtils : HttpUtils = HttpUtilsImpl
+    private var xif: XMLInputFactory = XMLInputFactory.newFactory()
+
+    private var httpUtils: HttpUtils = HttpUtilsImpl
+
+    init {
+        xif.setProperty(XMLInputFactory.IS_NAMESPACE_AWARE, false)
+    }
 
     @Throws(AppVoxException::class)
     fun getReviewsByAppId(appId: String, request: AppStoreReviewRequest): AppStoreRecentReviewResult {
 
-        if (request.pageNo < 1 || request.pageNo > 10) {
+        if (request.pageNo !in 1..10) {
             throw AppVoxException(AppVoxErrorCode.INVALID_ARGUMENT)
         }
 
-        val requestUrl = request.nextToken ?: UrlUtils.getUrlDomainByEnv(RSS_REQUEST_URL_DOMAIN) + RSS_REQUEST_URL_PATH.format(request.region, request.pageNo, appId) + RSS_REQUEST_URL_PARAMS.format(appId)
+        val requestUrl = request.nextToken ?: UrlUtils.getUrlDomainByEnv(RSS_REQUEST_URL_DOMAIN) +
+        RSS_REQUEST_URL_PATH.format(request.region, request.pageNo, appId) +
+        RSS_REQUEST_URL_PARAMS.format(appId)
         var responseContent = httpUtils.getRequest(requestUrl = requestUrl, proxyConfig = config?.proxy)
+
         val result: AppStoreRecentReviewResult
         try {
-            val jaxbContext:  JAXBContext = JAXBContext.newInstance(AppStoreRecentReviewResult::class.java)
-            val xif = XMLInputFactory.newFactory()
-            xif.setProperty(XMLInputFactory.IS_NAMESPACE_AWARE, false)
+            val jaxbContext: JAXBContext = JAXBContext.newInstance(AppStoreRecentReviewResult::class.java)
             responseContent = responseContent.replace("&", "&amp;")
             val sr = StringReader(responseContent)
             val xsr: XMLStreamReader = xif.createXMLStreamReader(sr)
             val jaxbUnmarshaller: Unmarshaller = jaxbContext.createUnmarshaller()
             result = jaxbUnmarshaller.unmarshal(xsr) as AppStoreRecentReviewResult
         } catch (e: JAXBException) {
-           throw AppVoxException(AppVoxErrorCode.NETWORK)
+            throw AppVoxException(AppVoxErrorCode.SERIALIZATION)
         }
 
         return result

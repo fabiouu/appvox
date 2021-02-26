@@ -13,7 +13,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import dev.fabiou.appvox.core.utils.UrlUtils
 
 internal class GooglePlayReviewService(
-        private val config: Configuration? = null
+    private val config: Configuration? = null
 ) {
     companion object {
         internal const val REQUEST_URL_DOMAIN = "https://play.google.com"
@@ -35,23 +35,24 @@ internal class GooglePlayReviewService(
         private val REPLY_SUBMIT_TIME_INDEX = arrayOf(7, 2, 0)
     }
 
-    private var httpUtils : HttpUtils = HttpUtilsImpl
+    private var httpUtils: HttpUtils = HttpUtilsImpl
 
     @Throws(AppVoxException::class)
     fun getReviewsByAppId(appId: String, request: GooglePlayReviewRequest): GooglePlayReviewResult {
 
-        if (request.batchSize < 1 || request.batchSize > 100) {
+        if (request.batchSize !in 1..100) {
             throw AppVoxException(AppVoxErrorCode.INVALID_ARGUMENT)
         }
 
         val requestBody = if (request.nextToken.isNullOrEmpty()) {
-             REQUEST_BODY_WITH_PARAMS.format(request.sortType.sortType, request.batchSize, appId)
+            REQUEST_BODY_WITH_PARAMS.format(request.sortType.sortType, request.batchSize, appId)
         } else {
             REQUEST_BODY_WITH_PARAMS_AND_BODY.format(request.batchSize, request.nextToken, appId)
         }
 
-        val requestUrl =
-                UrlUtils.getUrlDomainByEnv(REQUEST_URL_DOMAIN) + REQUEST_URL_PATH + REQUEST_URL_PARAMS.format(request.language.langCode)
+        val requestUrl = UrlUtils.getUrlDomainByEnv(REQUEST_URL_DOMAIN) +
+            REQUEST_URL_PATH +
+            REQUEST_URL_PARAMS.format(request.language.langCode)
         val responseContent = httpUtils.postRequest(requestUrl, requestBody, config?.proxy)
 
         val reviewResults = ArrayList<GooglePlayReviewResult.GooglePlayReview>()
