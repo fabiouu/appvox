@@ -1,12 +1,13 @@
 package dev.fabiou.appvox.core.review.domain.result
 
+import dev.fabiou.appvox.core.review.domain.response.ReviewResponse
 import javax.xml.bind.annotation.*
 import javax.xml.datatype.XMLGregorianCalendar
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = ["id", "title", "updated", "link", "icon", "author", "rights", "entry"])
 @XmlRootElement(name = "feed")
-internal class AppStoreRecentReviewResult() {
+internal class AppStoreRecentReviewResult {
     @XmlAttribute(name = "xmlns")
     var uri: String? = null
 
@@ -109,5 +110,31 @@ internal class AppStoreRecentReviewResult() {
 
         @XmlElement(required = true)
         var uri: String? = null
+    }
+
+    fun toResponse() : ReviewResponse {
+        var reviews = ArrayList<ReviewResponse.StoreReview>()
+        val appStoreReviews = this.entry
+        for (appStoreReview in appStoreReviews!!) {
+            val reviewResponse = ReviewResponse.StoreReview(
+                id = appStoreReview.id!!,
+                userName = appStoreReview.author?.name!!,
+                rating = appStoreReview.rating!!,
+                title = appStoreReview.title,
+                comment = appStoreReview.content?.find { it.type == "text" }?.content!!,
+                commentTime = appStoreReview.updated?.toGregorianCalendar()?.toZonedDateTime(),
+                appVersion = appStoreReview.version,
+                url = appStoreReview.link?.href,
+                likeCount = appStoreReview.voteCount,
+//                    replyComment =
+//                    replySubmitTime =
+            )
+            reviews.add(reviewResponse)
+        }
+
+        return ReviewResponse(
+            reviews = reviews,
+            nextToken = this.link!!.find { it.rel == "next" }?.href!!
+        )
     }
 }

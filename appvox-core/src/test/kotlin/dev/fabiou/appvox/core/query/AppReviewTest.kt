@@ -32,8 +32,7 @@ class AppReviewTest : BaseStoreServiceTest() {
         stubHttpUrl(AppStoreReviewService.REQUEST_URL_PATH.format(region, appId, AppStoreReviewService.REQUEST_REVIEW_SIZE), mockData)
 
         var fetchedReviewCount = 0
-        appReview
-                .appStore(
+        appReview.appStore(
                         appId = appId,
                         region = region,
                         sortType = AppStoreSortType.RELEVANT,
@@ -53,7 +52,7 @@ class AppReviewTest : BaseStoreServiceTest() {
         appId: String,
         region: String,
         pageNo: Int,
-        requestedFetchReviewCount: Int) {
+        requestedReviewCount: Int) {
 
         val mockData = javaClass.getResource("/appstore_recent_reviews_rss_mock_data.xml").readText()
         stubHttpUrl(AppStoreRecentReviewService.RSS_REQUEST_URL_PATH.format(region, pageNo, appId), mockData)
@@ -65,12 +64,12 @@ class AppReviewTest : BaseStoreServiceTest() {
                 appId = appId,
                 region = region,
                 sortType = AppStoreSortType.RECENT,
-                maxCount = requestedFetchReviewCount)
+                maxCount = requestedReviewCount)
             .forEach { _ ->
                 fetchedReviewCount++
             }
 
-        Assertions.assertEquals(requestedFetchReviewCount, fetchedReviewCount)
+        Assertions.assertEquals(requestedReviewCount, fetchedReviewCount)
     }
 
     @ParameterizedTest
@@ -78,8 +77,8 @@ class AppReviewTest : BaseStoreServiceTest() {
             "com.twitter.android, 50"
     )
     fun `Get Google Play reviews using iterator and minimal parameters`(
-            appId: String,
-            requestedFetchReviewCount: Int) {
+        appId: String,
+        requestedReviewCount: Int) {
 
         val mockData = javaClass.getResource("/googleplay_reviews_mock_data.json").readText()
         stubHttpUrl(GooglePlayReviewService.REQUEST_URL_PATH, mockData)
@@ -88,12 +87,12 @@ class AppReviewTest : BaseStoreServiceTest() {
         AppReview().googlePlay(
                         appId = appId,
                         language = ENGLISH_US,
-                        maxCount = requestedFetchReviewCount)
+                        maxCount = requestedReviewCount)
                 .forEach { _ ->
                     fetchedReviewCount++
                 }
 
-        Assertions.assertEquals(requestedFetchReviewCount, fetchedReviewCount)
+        Assertions.assertEquals(requestedReviewCount, fetchedReviewCount)
     }
 
     @ParameterizedTest
@@ -105,7 +104,7 @@ class AppReviewTest : BaseStoreServiceTest() {
             language: String,
             sortType: Int,
             batchSize: Int,
-            requestedFetchReviewCount: Int) {
+            requestedReviewCount: Int) {
 
         val mockData = javaClass.getResource("/googleplay_reviews_mock_data.json").readText()
         stubHttpUrl(GooglePlayReviewService.REQUEST_URL_PATH, mockData)
@@ -115,12 +114,12 @@ class AppReviewTest : BaseStoreServiceTest() {
                         appId = appId,
                         language = GooglePlayLanguage.fromValue(language),
                         sortType = RELEVANT,
-                        maxCount = requestedFetchReviewCount,
+                        maxCount = requestedReviewCount,
                         batchSize = batchSize)
                 .forEach { _ ->
                     fetchedReviewCount++
                 }
 
-        Assertions.assertEquals(requestedFetchReviewCount, fetchedReviewCount)
+        Assertions.assertEquals(requestedReviewCount, fetchedReviewCount)
     }
 }

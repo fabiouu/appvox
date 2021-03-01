@@ -1,9 +1,8 @@
 package dev.fabiou.appvox.core.review.facade
 
 import dev.fabiou.appvox.core.configuration.Configuration
-import dev.fabiou.appvox.core.review.converter.GooglePlayReviewConverter
 import dev.fabiou.appvox.core.review.domain.request.GooglePlayReviewRequest
-import dev.fabiou.appvox.core.review.domain.response.GooglePlayReviewResponse
+import dev.fabiou.appvox.core.review.domain.response.ReviewResponse
 import dev.fabiou.appvox.core.review.service.GooglePlayReviewService
 
 class GooglePlayReviewFacade(
@@ -11,8 +10,8 @@ class GooglePlayReviewFacade(
 ) {
     private var service = GooglePlayReviewService(config)
 
-    fun getReviewsByAppId(appId: String, request: GooglePlayReviewRequest) : GooglePlayReviewResponse {
+    fun getReviewsByAppId(appId: String, request: GooglePlayReviewRequest) : ReviewResponse {
         val reviews = service.getReviewsByAppId(appId = appId, request = request)
-        return GooglePlayReviewConverter.toResponse(reviews)
+        return reviews.toResponse()
     }
 }

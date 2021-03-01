@@ -2,9 +2,8 @@ package dev.fabiou.appvox.core.review.facade
 
 import dev.fabiou.appvox.core.configuration.Configuration
 import dev.fabiou.appvox.core.review.constant.AppStoreSortType
-import dev.fabiou.appvox.core.review.converter.AppStoreReviewConverter
 import dev.fabiou.appvox.core.review.domain.request.AppStoreReviewRequest
-import dev.fabiou.appvox.core.review.domain.response.AppStoreReviewResponse
+import dev.fabiou.appvox.core.review.domain.response.ReviewResponse
 import dev.fabiou.appvox.core.review.service.AppStoreRecentReviewService
 import dev.fabiou.appvox.core.review.service.AppStoreReviewService
 import dev.fabiou.appvox.core.translation.TranslationService
@@ -27,11 +26,11 @@ class AppStoreReviewFacade(
         }
     }
 
-    fun getReviewsByAppId(appId : String, request: AppStoreReviewRequest) : AppStoreReviewResponse {
-        var response : AppStoreReviewResponse
+    fun getReviewsByAppId(appId : String, request: AppStoreReviewRequest) : ReviewResponse {
+        var response : ReviewResponse
         if (request.sortType == AppStoreSortType.RECENT) {
             var reviews = recentReviewService.getReviewsByAppId(appId = appId, request = request)
-            response = AppStoreReviewConverter.toResponse(reviews)
+            response = reviews.toResponse()
         } else {
             if (request.bearerToken == null) {
                 val bearerToken = reviewService.getBearerToken(appId, request.region)
@@ -41,7 +40,7 @@ class AppStoreReviewFacade(
                 appId = appId,
                 request = request
             )
-            response = AppStoreReviewConverter.toResponse(reviews)
+            response = reviews.toResponse()
         }
 
         for (review in response.reviews) {

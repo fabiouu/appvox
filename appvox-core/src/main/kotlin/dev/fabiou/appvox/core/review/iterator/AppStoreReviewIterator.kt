@@ -3,22 +3,22 @@ package dev.fabiou.appvox.core.review.iterator
 import dev.fabiou.appvox.core.exception.AppVoxErrorCode
 import dev.fabiou.appvox.core.exception.AppVoxException
 import dev.fabiou.appvox.core.review.domain.request.AppStoreReviewRequest
-import dev.fabiou.appvox.core.review.domain.response.AppStoreReviewResponse
+import dev.fabiou.appvox.core.review.domain.response.ReviewResponse
 import dev.fabiou.appvox.core.review.facade.AppStoreReviewFacade
 
 class AppStoreReviewIterator(
     val facade: AppStoreReviewFacade,
     val appId: String,
     var request: AppStoreReviewRequest
-) : Iterable<AppStoreReviewResponse.AppStoreReview> {
+) : Iterable<ReviewResponse.StoreReview> {
 
     @Throws(AppVoxException::class)
-    override fun iterator(): Iterator<AppStoreReviewResponse.AppStoreReview> {
-        return object : Iterator<AppStoreReviewResponse.AppStoreReview> {
+    override fun iterator(): Iterator<ReviewResponse.StoreReview> {
+        return object : Iterator<ReviewResponse.StoreReview> {
 
             var reviewIndex : Int = 0
 
-            var iterator: Iterator<AppStoreReviewResponse.AppStoreReview>
+            var iterator: Iterator<ReviewResponse.StoreReview>
 
             init {
                 val response = facade.getReviewsByAppId(appId, request)
@@ -53,7 +53,7 @@ class AppStoreReviewIterator(
                 return true
             }
 
-            override fun next(): AppStoreReviewResponse.AppStoreReview {
+            override fun next(): ReviewResponse.StoreReview {
                 reviewIndex++
                 return iterator.next()
             }
