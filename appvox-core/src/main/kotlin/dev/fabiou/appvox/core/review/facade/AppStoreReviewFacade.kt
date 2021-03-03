@@ -26,27 +26,18 @@ class AppStoreReviewFacade(
         }
     }
 
-    fun getReviewsByAppId(appId : String, request: AppStoreReviewRequest) : ReviewResponse {
+    fun getReviewsByAppId(request: AppStoreReviewRequest) : ReviewResponse {
         var response : ReviewResponse
         if (request.sortType == AppStoreSortType.RECENT) {
-            var reviews = recentReviewService.getReviewsByAppId(appId = appId, request = request)
+            var reviews = recentReviewService.getReviewsByAppId(request)
             response = reviews.toResponse()
         } else {
             if (request.bearerToken == null) {
-                val bearerToken = reviewService.getBearerToken(appId, request.region)
+                val bearerToken = reviewService.getBearerToken(request.appId, request.region)
                 request.bearerToken = bearerToken
             }
-            val reviews = reviewService.getReviewsByAppId(
-                appId = appId,
-                request = request
-            )
+            val reviews = reviewService.getReviewsByAppId(request)
             response = reviews.toResponse()
-        }
-
-        for (review in response.reviews) {
-            val translatedComment = translationService.translate(review.comment)
-            review.translatedComment = translatedComment
-//            Thread.sleep(3000)
         }
 
         return response

@@ -29,12 +29,13 @@ class AppStoreReviewServiceTest : BaseStoreServiceTest() {
         )
 
         val request = AppStoreReviewRequest(
+                appId  = appId,
                 region = region,
                 sortType = AppStoreSortType.RELEVANT,
                 bearerToken = bearerToken
         )
 
-        val response = service.getReviewsByAppId(appId, request)
+        val response = service.getReviewsByAppId(request)
 
         Assertions.assertNotNull(response.data)
         Assertions.assertEquals(requestedSize, response.data.size)

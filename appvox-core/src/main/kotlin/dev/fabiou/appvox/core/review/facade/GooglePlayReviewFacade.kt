@@ -10,8 +10,8 @@ class GooglePlayReviewFacade(
 ) {
     private var service = GooglePlayReviewService(config)
 
-    fun getReviewsByAppId(appId: String, request: GooglePlayReviewRequest) : ReviewResponse {
-        val reviews = service.getReviewsByAppId(appId = appId, request = request)
+    fun getReviewsByAppId(request: GooglePlayReviewRequest) : ReviewResponse {
+        val reviews = service.getReviewsByAppId(request)
         return reviews.toResponse()
     }
 }

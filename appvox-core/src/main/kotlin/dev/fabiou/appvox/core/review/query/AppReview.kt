@@ -18,27 +18,11 @@ class AppReview(
 
     private var googlePlayFacade = GooglePlayReviewFacade(configuration)
 
-    fun appStore(appId: String, sortType: AppStoreSortType, region: String, maxCount: Int = 0) : AppStoreReviewIterator {
-        val request = AppStoreReviewRequest(
-                region = region,
-                sortType = sortType,
-                maxCount = maxCount
-        )
-        return AppStoreReviewIterator(appStoreFacade, appId, request)
+    fun appStore(request: AppStoreReviewRequest) : AppStoreReviewIterator {
+        return AppStoreReviewIterator(appStoreFacade, request)
     }
 
-    fun googlePlay(
-            appId: String,
-            language: GooglePlayLanguage,
-            sortType: GooglePlaySortType = GooglePlaySortType.RECENT,
-            maxCount: Int = 0,
-            batchSize: Int = 40) : GooglePlayReviewIterator {
-        val request = GooglePlayReviewRequest(
-            language = language,
-            sortType = sortType,
-            maxCount = maxCount,
-            batchSize = batchSize
-        )
-        return GooglePlayReviewIterator(googlePlayFacade, appId, request)
+    fun googlePlay(request: GooglePlayReviewRequest) : GooglePlayReviewIterator {
+        return GooglePlayReviewIterator(googlePlayFacade, request)
     }
 }

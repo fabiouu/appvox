@@ -8,7 +8,6 @@ import dev.fabiou.appvox.core.review.facade.GooglePlayReviewFacade
 
 class GooglePlayReviewIterator(
     val facade: GooglePlayReviewFacade,
-    val appId: String,
     val request: GooglePlayReviewRequest
 ) : Iterable<ReviewResponse.StoreReview> {
 
@@ -21,7 +20,7 @@ class GooglePlayReviewIterator(
             var iterator: Iterator<ReviewResponse.StoreReview>
 
             init {
-                val response = facade.getReviewsByAppId(appId, request)
+                val response = facade.getReviewsByAppId(request)
                 iterator = response.reviews.iterator()
                 request.nextToken = response.nextToken
             }
@@ -42,7 +41,7 @@ class GooglePlayReviewIterator(
 
                 if (!iterator.hasNext()) {
                     Thread.sleep(facade.config.requestDelay)
-                    val response = facade.getReviewsByAppId(appId, request)
+                    val response = facade.getReviewsByAppId(request)
                     if (response.reviews.isEmpty()) {
                         return false
                     }

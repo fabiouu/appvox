@@ -28,11 +28,12 @@ class GooglePlayReviewServiceTest : BaseStoreServiceTest() {
         stubHttpUrl(GooglePlayReviewService.REQUEST_URL_PATH, mockData)
 
         val request = GooglePlayReviewRequest(
+            appId = appId,
             language = GooglePlayLanguage.fromValue(language),
             sortType = GooglePlaySortType.fromValue(sortType),
             batchSize = batchSize)
 
-        val response = service.getReviewsByAppId(appId, request)
+        val response = service.getReviewsByAppId(request)
 
         Assertions.assertEquals(requestedSize, response.reviews.size)
     }

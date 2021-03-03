@@ -30,10 +30,10 @@ open class AppStoreReviewService(
     private var httpUtils : HttpUtils = HttpUtilsImpl
 
     @Throws(AppVoxException::class)
-    fun getReviewsByAppId(appId: String, request: AppStoreReviewRequest): AppStoreReviewResult {
+    fun getReviewsByAppId(request: AppStoreReviewRequest): AppStoreReviewResult {
 
         val requestUrl = UrlUtils.getUrlDomainByEnv(REQUEST_URL_DOMAIN) + if (request.nextToken.isNullOrEmpty()) {
-            REQUEST_URL_PATH.format(request.region, appId) +
+            REQUEST_URL_PATH.format(request.region, request.appId) +
                 REQUEST_URL_PARAMS_PREFIX.format(REQUEST_REVIEW_SIZE) + REQUEST_URL_PARAMS
         } else {
             request.nextToken + REQUEST_URL_PARAMS

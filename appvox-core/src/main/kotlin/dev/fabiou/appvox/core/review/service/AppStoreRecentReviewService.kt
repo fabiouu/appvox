@@ -33,15 +33,15 @@ internal class AppStoreRecentReviewService(
     }
 
     @Throws(AppVoxException::class)
-    fun getReviewsByAppId(appId: String, request: AppStoreReviewRequest): AppStoreRecentReviewResult {
+    fun getReviewsByAppId(request: AppStoreReviewRequest): AppStoreRecentReviewResult {
 
         if (request.pageNo !in 1..10) {
             throw AppVoxException(AppVoxErrorCode.INVALID_ARGUMENT)
         }
 
         val requestUrl = request.nextToken ?: UrlUtils.getUrlDomainByEnv(RSS_REQUEST_URL_DOMAIN) +
-        RSS_REQUEST_URL_PATH.format(request.region, request.pageNo, appId) +
-        RSS_REQUEST_URL_PARAMS.format(appId)
+        RSS_REQUEST_URL_PATH.format(request.region, request.pageNo, request.appId) +
+        RSS_REQUEST_URL_PARAMS.format(request.appId)
         var responseContent = httpUtils.getRequest(requestUrl = requestUrl, proxyConfig = config?.proxy)
 
         val result: AppStoreRecentReviewResult

@@ -22,12 +22,13 @@ class AppStoreRecentReviewServiceTest : BaseStoreServiceTest() {
         stubHttpUrl(AppStoreRecentReviewService.RSS_REQUEST_URL_PATH.format(region, pageNo, appId), mockData)
 
         val request = AppStoreReviewRequest(
+            appId = appId,
             region = region,
             sortType = AppStoreSortType.RECENT,
             pageNo = 1
         )
 
-        val response = service.getReviewsByAppId(appId, request)
+        val response = service.getReviewsByAppId(request)
 
         Assertions.assertEquals(requestedSize, response.entry?.size)
     }

@@ -38,16 +38,16 @@ internal class GooglePlayReviewService(
     private var httpUtils: HttpUtils = HttpUtilsImpl
 
     @Throws(AppVoxException::class)
-    fun getReviewsByAppId(appId: String, request: GooglePlayReviewRequest): GooglePlayReviewResult {
+    fun getReviewsByAppId(request: GooglePlayReviewRequest): GooglePlayReviewResult {
 
         if (request.batchSize !in 1..100) {
             throw AppVoxException(AppVoxErrorCode.INVALID_ARGUMENT)
         }
 
         val requestBody = if (request.nextToken.isNullOrEmpty()) {
-            REQUEST_BODY_WITH_PARAMS.format(request.sortType.sortType, request.batchSize, appId)
+            REQUEST_BODY_WITH_PARAMS.format(request.sortType.sortType, request.batchSize, request.appId)
         } else {
-            REQUEST_BODY_WITH_PARAMS_AND_BODY.format(request.batchSize, request.nextToken, appId)
+            REQUEST_BODY_WITH_PARAMS_AND_BODY.format(request.batchSize, request.nextToken, request.appId)
         }
 
         val requestUrl = UrlUtils.getUrlDomainByEnv(REQUEST_URL_DOMAIN) +
@@ -68,7 +68,7 @@ internal class GooglePlayReviewService(
                 likeCount = getJsonNodeByIndex(gplayReview, LIKE_COUNT_INDEX).asInt(),
                 appVersion = getJsonNodeByIndex(gplayReview, APP_VERSION_INDEX).asText(),
                 reviewUrl = REVIEW_URL.format(
-                    appId, request.language.langCode, getJsonNodeByIndex(gplayReview, REVIEW_ID_INDEX).asText()),
+                    request.appId, request.language.langCode, getJsonNodeByIndex(gplayReview, REVIEW_ID_INDEX).asText()),
                 replyComment = getJsonNodeByIndex(gplayReview, REPLY_COMMENT_INDEX).asText(),
                 replySubmitTime = getJsonNodeByIndex(gplayReview, REPLY_SUBMIT_TIME_INDEX).asLong()
             )
