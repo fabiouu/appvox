@@ -10,7 +10,6 @@ import dev.fabiou.appvox.core.utils.JsonUtils.getJsonNodeByIndex
 import dev.fabiou.appvox.core.utils.impl.HttpUtilsImpl
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper
-import dev.fabiou.appvox.core.review.domain.request.ReviewRequest
 import dev.fabiou.appvox.core.utils.UrlUtils
 
 internal class GooglePlayReviewRepository(
@@ -39,15 +38,15 @@ internal class GooglePlayReviewRepository(
     private var httpUtils: HttpUtils = HttpUtilsImpl
 
     @Throws(AppVoxException::class)
-    fun getReviewsByAppId(request: ReviewRequest, nextToken: String? = null): GooglePlayReviewResult {
+    fun getReviewsByAppId(request: GooglePlayReviewRequest): GooglePlayReviewResult {
         if (request.batchSize !in 1..100) {
             throw AppVoxException(AppVoxErrorCode.INVALID_ARGUMENT)
         }
 
-        val requestBody = if (nextToken.isNullOrEmpty()) {
+        val requestBody = if (request.nextToken.isNullOrEmpty()) {
             REQUEST_BODY_WITH_PARAMS.format(request.sortType.sortType, request.batchSize, request.appId)
         } else {
-            REQUEST_BODY_WITH_PARAMS_AND_BODY.format(request.batchSize, nextToken, request.appId)
+            REQUEST_BODY_WITH_PARAMS_AND_BODY.format(request.batchSize, request.nextToken, request.appId)
         }
 
         val requestUrl = UrlUtils.getUrlDomainByEnv(REQUEST_URL_DOMAIN) +

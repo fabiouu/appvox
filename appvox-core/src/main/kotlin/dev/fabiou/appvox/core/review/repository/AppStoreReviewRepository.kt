@@ -7,7 +7,6 @@ import dev.fabiou.appvox.core.review.domain.result.AppStoreReviewResult
 import dev.fabiou.appvox.core.utils.HttpUtils
 import dev.fabiou.appvox.core.utils.impl.HttpUtilsImpl
 import com.fasterxml.jackson.databind.ObjectMapper
-import dev.fabiou.appvox.core.review.domain.request.ReviewRequest
 import dev.fabiou.appvox.core.utils.UrlUtils
 
 
@@ -31,16 +30,16 @@ open class AppStoreReviewRepository(
     private var httpUtils: HttpUtils = HttpUtilsImpl
 
     @Throws(AppVoxException::class)
-    fun getReviewsByAppId(request: ReviewRequest, bearerToken: String? = null, nextToken: String? = null): AppStoreReviewResult {
-        val requestUrl = UrlUtils.getUrlDomainByEnv(REQUEST_URL_DOMAIN) + if (nextToken.isNullOrEmpty()) {
+    fun getReviewsByAppId(request: AppStoreReviewRequest): AppStoreReviewResult {
+        val requestUrl = UrlUtils.getUrlDomainByEnv(REQUEST_URL_DOMAIN) + if (request.nextToken.isNullOrEmpty()) {
             REQUEST_URL_PATH.format(request.region, request.appId) +
                     REQUEST_URL_PARAMS_PREFIX.format(REQUEST_REVIEW_SIZE) + REQUEST_URL_PARAMS
         } else {
-            nextToken + REQUEST_URL_PARAMS
+            request.nextToken + REQUEST_URL_PARAMS
         }
         val responseContent = httpUtils.getRequest(
                 requestUrl = requestUrl,
-                bearerToken = bearerToken,
+                bearerToken = request.bearerToken,
                 proxyConfig = config?.proxy)
 
         return ObjectMapper().readValue(responseContent, AppStoreReviewResult::class.java)

@@ -3,7 +3,7 @@ package dev.fabiou.appvox.core.review.domain.request
 import dev.fabiou.appvox.core.review.constant.AppReviewSortType
 import dev.fabiou.appvox.core.review.constant.GooglePlayLanguage
 
-open class ReviewRequest(
+open class AppReviewRequest(
         val appId: String,
         val region: String,
         val language: GooglePlayLanguage = GooglePlayLanguage.ENGLISH_US,

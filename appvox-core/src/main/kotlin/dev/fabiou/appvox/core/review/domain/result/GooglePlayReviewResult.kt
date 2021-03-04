@@ -1,6 +1,6 @@
 package dev.fabiou.appvox.core.review.domain.result
 
-import dev.fabiou.appvox.core.review.domain.response.ReviewResponse
+import dev.fabiou.appvox.core.review.domain.response.AppReviewResponse
 import java.time.Instant
 import java.time.ZoneOffset
 import java.time.ZonedDateTime
@@ -24,11 +24,11 @@ data class GooglePlayReviewResult(
         val replySubmitTime: Long?
     )
 
-    fun toResponse(): ReviewResponse {
-        var reviews = ArrayList<ReviewResponse.StoreReview>()
+    fun toResponse(): AppReviewResponse {
+        var reviews = ArrayList<AppReviewResponse.AppReview>()
         val googlePlayReviews = this.reviews
         for (googlePlayReview in googlePlayReviews) {
-            val reviewResponse = ReviewResponse.StoreReview(
+            val reviewResponse = AppReviewResponse.AppReview(
                 id = googlePlayReview.reviewId,
                 userName = googlePlayReview.userName,
                 userAvatar = googlePlayReview.userProfilePicUrl,
@@ -44,7 +44,7 @@ data class GooglePlayReviewResult(
             reviews.add(reviewResponse)
         }
 
-        return ReviewResponse(
+        return AppReviewResponse(
             reviews = reviews,
             nextToken = this.token
         )

@@ -2,13 +2,13 @@ package dev.fabiou.appvox.core.review.iterator
 
 import dev.fabiou.appvox.core.exception.AppVoxErrorCode
 import dev.fabiou.appvox.core.exception.AppVoxException
-import dev.fabiou.appvox.core.review.domain.request.AppStoreReviewRequest
+import dev.fabiou.appvox.core.review.domain.request.AppReviewRequest
 import dev.fabiou.appvox.core.review.domain.response.AppReviewResponse
-import dev.fabiou.appvox.core.review.service.AppStoreReviewService
+import dev.fabiou.appvox.core.review.service.AppReviewService
 
-class AppStoreReviewIterator(
-        val service: AppStoreReviewService,
-        var request: AppStoreReviewRequest
+class AppReviewIterator(
+    val service: AppReviewService,
+    val request: AppReviewRequest
 ) : Iterable<AppReviewResponse.AppReview> {
 
     @Throws(AppVoxException::class)

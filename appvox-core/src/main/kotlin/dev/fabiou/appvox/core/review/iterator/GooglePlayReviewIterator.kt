@@ -3,21 +3,21 @@ package dev.fabiou.appvox.core.review.iterator
 import dev.fabiou.appvox.core.exception.AppVoxErrorCode
 import dev.fabiou.appvox.core.exception.AppVoxException
 import dev.fabiou.appvox.core.review.domain.request.GooglePlayReviewRequest
-import dev.fabiou.appvox.core.review.domain.response.ReviewResponse
+import dev.fabiou.appvox.core.review.domain.response.AppReviewResponse
 import dev.fabiou.appvox.core.review.service.GooglePlayReviewService
 
 class GooglePlayReviewIterator(
         val service: GooglePlayReviewService,
         val request: GooglePlayReviewRequest
-) : Iterable<ReviewResponse.StoreReview> {
+) : Iterable<AppReviewResponse.AppReview> {
 
     @Throws(AppVoxException::class)
-    override fun iterator(): Iterator<ReviewResponse.StoreReview> {
-        return object : Iterator<ReviewResponse.StoreReview> {
+    override fun iterator(): Iterator<AppReviewResponse.AppReview> {
+        return object : Iterator<AppReviewResponse.AppReview> {
 
             var reviewIndex : Int = 0
 
-            var iterator: Iterator<ReviewResponse.StoreReview>
+            var iterator: Iterator<AppReviewResponse.AppReview>
 
             init {
                 val response = service.getReviewsByAppId(request)
@@ -52,7 +52,7 @@ class GooglePlayReviewIterator(
                 return true
             }
 
-            override fun next(): ReviewResponse.StoreReview {
+            override fun next(): AppReviewResponse.AppReview {
                 reviewIndex++
                 return iterator.next()
             }

@@ -1,7 +1,7 @@
 package dev.fabiou.appvox.core.review.domain.result
 
 import com.fasterxml.jackson.annotation.JsonProperty
-import dev.fabiou.appvox.core.review.domain.response.ReviewResponse
+import dev.fabiou.appvox.core.review.domain.response.AppReviewResponse
 import java.time.ZonedDateTime
 
 data class AppStoreReviewResult(
@@ -31,11 +31,11 @@ data class AppStoreReviewResult(
         }
     }
 
-    fun toResponse() : ReviewResponse {
-        var reviews = ArrayList<ReviewResponse.StoreReview>()
+    fun toResponse() : AppReviewResponse {
+        var reviews = ArrayList<AppReviewResponse.AppReview>()
         val appStoreReviews = this.data
         for (appStoreReview in appStoreReviews) {
-            val reviewResponse = ReviewResponse.StoreReview(
+            val reviewResponse = AppReviewResponse.AppReview(
                 id = appStoreReview.id,
                 userName = appStoreReview.attributes.userName,
                 rating = appStoreReview.attributes.rating,
@@ -49,7 +49,7 @@ data class AppStoreReviewResult(
             reviews.add(reviewResponse)
         }
 
-        return ReviewResponse(
+        return AppReviewResponse(
             reviews = reviews,
             nextToken = this.next
         )

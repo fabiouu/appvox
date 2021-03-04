@@ -2,11 +2,11 @@ package dev.fabiou.appvox.core.review.domain.response
 
 import java.time.ZonedDateTime
 
-data class ReviewResponse(
-    val reviews: List<StoreReview>,
+data class AppReviewResponse(
+    val reviews: List<AppReview>,
     val nextToken: String?
 ) {
-    data class StoreReview(
+    data class AppReview(
 
         val id: String,
 
