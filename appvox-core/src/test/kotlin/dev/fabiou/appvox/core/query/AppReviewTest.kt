@@ -8,10 +8,10 @@ import dev.fabiou.appvox.core.review.constant.GooglePlayLanguage.ENGLISH_US
 import dev.fabiou.appvox.core.review.constant.GooglePlaySortType.RELEVANT
 import dev.fabiou.appvox.core.review.domain.request.AppStoreReviewRequest
 import dev.fabiou.appvox.core.review.domain.request.GooglePlayReviewRequest
-import dev.fabiou.appvox.core.review.query.AppReview
-import dev.fabiou.appvox.core.review.service.AppStoreRecentReviewService
-import dev.fabiou.appvox.core.review.service.AppStoreReviewService
-import dev.fabiou.appvox.core.review.service.GooglePlayReviewService
+import dev.fabiou.appvox.core.review.facade.AppReview
+import dev.fabiou.appvox.core.review.repository.ItunesRssReviewRepository
+import dev.fabiou.appvox.core.review.repository.AppStoreReviewRepository
+import dev.fabiou.appvox.core.review.repository.GooglePlayReviewRepository
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
@@ -29,9 +29,9 @@ class AppReviewTest : BaseStoreServiceTest() {
         region: String,
         requestedReviewCount: Int) {
 
-        stubHttpUrl(AppStoreReviewService.APP_HP_URL_PATH.format(region, appId), "mock-bearer-token")
+        stubHttpUrl(AppStoreReviewRepository.APP_HP_URL_PATH.format(region, appId), "mock-bearer-token")
         val mockData = javaClass.getResource("/appstore_reviews_mock_data.json").readText()
-        stubHttpUrl(AppStoreReviewService.REQUEST_URL_PATH.format(region, appId, AppStoreReviewService.REQUEST_REVIEW_SIZE), mockData)
+        stubHttpUrl(AppStoreReviewRepository.REQUEST_URL_PATH.format(region, appId, AppStoreReviewRepository.REQUEST_REVIEW_SIZE), mockData)
 
         val request = AppStoreReviewRequest(
             appId = appId,
@@ -59,7 +59,7 @@ class AppReviewTest : BaseStoreServiceTest() {
         requestedReviewCount: Int) {
 
         val mockData = javaClass.getResource("/appstore_recent_reviews_rss_mock_data.xml").readText()
-        stubHttpUrl(AppStoreRecentReviewService.RSS_REQUEST_URL_PATH.format(region, pageNo, appId), mockData)
+        stubHttpUrl(ItunesRssReviewRepository.RSS_REQUEST_URL_PATH.format(region, pageNo, appId), mockData)
 
         val request = AppStoreReviewRequest(
             appId = appId,
@@ -85,7 +85,7 @@ class AppReviewTest : BaseStoreServiceTest() {
         requestedReviewCount: Int) {
 
         val mockData = javaClass.getResource("/googleplay_reviews_mock_data.json").readText()
-        stubHttpUrl(GooglePlayReviewService.REQUEST_URL_PATH, mockData)
+        stubHttpUrl(GooglePlayReviewRepository.REQUEST_URL_PATH, mockData)
 
         val request = GooglePlayReviewRequest(
             appId = appId,
@@ -113,7 +113,7 @@ class AppReviewTest : BaseStoreServiceTest() {
         requestedReviewCount: Int) {
 
         val mockData = javaClass.getResource("/googleplay_reviews_mock_data.json").readText()
-        stubHttpUrl(GooglePlayReviewService.REQUEST_URL_PATH, mockData)
+        stubHttpUrl(GooglePlayReviewRepository.REQUEST_URL_PATH, mockData)
 
         val request = GooglePlayReviewRequest(
             appId = appId,

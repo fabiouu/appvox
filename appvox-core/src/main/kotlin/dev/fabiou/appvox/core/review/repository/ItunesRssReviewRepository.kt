@@ -1,9 +1,10 @@
-package dev.fabiou.appvox.core.review.service
+package dev.fabiou.appvox.core.review.repository
 
 import dev.fabiou.appvox.core.configuration.Configuration
 import dev.fabiou.appvox.core.exception.AppVoxErrorCode
 import dev.fabiou.appvox.core.exception.AppVoxException
 import dev.fabiou.appvox.core.review.domain.request.AppStoreReviewRequest
+import dev.fabiou.appvox.core.review.domain.request.ReviewRequest
 import dev.fabiou.appvox.core.review.domain.result.AppStoreRecentReviewResult
 import dev.fabiou.appvox.core.utils.HttpUtils
 import dev.fabiou.appvox.core.utils.UrlUtils
@@ -15,7 +16,7 @@ import javax.xml.bind.Unmarshaller
 import javax.xml.stream.XMLInputFactory
 import javax.xml.stream.XMLStreamReader
 
-internal class AppStoreRecentReviewService(
+internal class ItunesRssReviewRepository(
     private val config: Configuration? = null
 ) {
     companion object {
@@ -33,14 +34,13 @@ internal class AppStoreRecentReviewService(
     }
 
     @Throws(AppVoxException::class)
-    fun getReviewsByAppId(request: AppStoreReviewRequest): AppStoreRecentReviewResult {
-
-        if (request.pageNo !in 1..10) {
+    fun getReviewsByAppId(request: ReviewRequest, pageNo: Int = 1, nextToken: String? = null): AppStoreRecentReviewResult {
+        if (pageNo !in 1..10) {
             throw AppVoxException(AppVoxErrorCode.INVALID_ARGUMENT)
         }
 
-        val requestUrl = request.nextToken ?: UrlUtils.getUrlDomainByEnv(RSS_REQUEST_URL_DOMAIN) +
-        RSS_REQUEST_URL_PATH.format(request.region, request.pageNo, request.appId) +
+        val requestUrl = nextToken ?: UrlUtils.getUrlDomainByEnv(RSS_REQUEST_URL_DOMAIN) +
+        RSS_REQUEST_URL_PATH.format(request.region, pageNo, request.appId) +
         RSS_REQUEST_URL_PARAMS.format(request.appId)
         var responseContent = httpUtils.getRequest(requestUrl = requestUrl, proxyConfig = config?.proxy)
 

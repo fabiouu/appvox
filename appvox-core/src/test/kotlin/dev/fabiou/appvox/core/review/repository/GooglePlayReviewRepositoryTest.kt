@@ -1,4 +1,4 @@
-package dev.fabiou.appvox.core.review.service
+package dev.fabiou.appvox.core.review.repository
 
 import dev.fabiou.appvox.core.BaseStoreServiceTest
 import dev.fabiou.appvox.core.configuration.Configuration
@@ -9,9 +9,9 @@ import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
 
-class GooglePlayReviewServiceTest : BaseStoreServiceTest() {
+class GooglePlayReviewRepositoryTest : BaseStoreServiceTest() {
 
-    private var service = GooglePlayReviewService(Configuration(requestDelay = 3000L))
+    private var service = GooglePlayReviewRepository(Configuration(requestDelay = 3000L))
 
     @ParameterizedTest
     @CsvSource(
@@ -25,7 +25,7 @@ class GooglePlayReviewServiceTest : BaseStoreServiceTest() {
         requestedSize: Int) {
 
         val mockData = javaClass.getResource("/googleplay_reviews_mock_data.json").readText()
-        stubHttpUrl(GooglePlayReviewService.REQUEST_URL_PATH, mockData)
+        stubHttpUrl(GooglePlayReviewRepository.REQUEST_URL_PATH, mockData)
 
         val request = GooglePlayReviewRequest(
             appId = appId,

@@ -3,7 +3,7 @@ package dev.fabiou.appvox.examples.reviews.app_store
 import dev.fabiou.appvox.core.configuration.Configuration
 import dev.fabiou.appvox.core.configuration.ProxyConfiguration
 import dev.fabiou.appvox.core.review.constant.AppStoreSortType
-import dev.fabiou.appvox.core.review.query.AppReview
+import dev.fabiou.appvox.core.review.facade.AppReview
 
 /*
     In this example, we print the 100 most relevant App Store Reviews of the Twitter App

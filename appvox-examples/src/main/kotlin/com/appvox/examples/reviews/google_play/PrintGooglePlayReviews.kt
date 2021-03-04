@@ -2,7 +2,7 @@ package dev.fabiou.appvox.examples.reviews.google_play
 
 import dev.fabiou.appvox.core.configuration.Configuration
 import dev.fabiou.appvox.core.configuration.ProxyConfiguration
-import dev.fabiou.appvox.core.review.query.AppReview
+import dev.fabiou.appvox.core.review.facade.AppReview
 import dev.fabiou.appvox.core.review.constant.GooglePlayLanguage.ENGLISH_US
 import dev.fabiou.appvox.core.review.constant.GooglePlaySortType.RELEVANT
 

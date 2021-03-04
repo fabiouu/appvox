@@ -4,11 +4,11 @@ import dev.fabiou.appvox.core.exception.AppVoxErrorCode
 import dev.fabiou.appvox.core.exception.AppVoxException
 import dev.fabiou.appvox.core.review.domain.request.AppStoreReviewRequest
 import dev.fabiou.appvox.core.review.domain.response.ReviewResponse
-import dev.fabiou.appvox.core.review.facade.AppStoreReviewFacade
+import dev.fabiou.appvox.core.review.service.AppStoreReviewService
 
 class AppStoreReviewIterator(
-    val facade: AppStoreReviewFacade,
-    var request: AppStoreReviewRequest
+        val service: AppStoreReviewService,
+        var request: AppStoreReviewRequest
 ) : Iterable<ReviewResponse.StoreReview> {
 
     @Throws(AppVoxException::class)
@@ -20,14 +20,14 @@ class AppStoreReviewIterator(
             var iterator: Iterator<ReviewResponse.StoreReview>
 
             init {
-                val response = facade.getReviewsByAppId(request)
+                val response = service.getReviewsByAppId(request)
                 iterator = response.reviews.iterator()
                 request.nextToken = response.nextToken
             }
 
             override fun hasNext(): Boolean {
 
-                if (facade.config.requestDelay < 500) {
+                if (service.config.requestDelay < 500) {
                     throw AppVoxException(AppVoxErrorCode.REQ_DELAY_TOO_SHORT)
                 }
 
@@ -40,8 +40,8 @@ class AppStoreReviewIterator(
                 }
 
                 if (!iterator.hasNext()) {
-                    Thread.sleep(facade.config.requestDelay)
-                    val response = facade.getReviewsByAppId(request)
+                    Thread.sleep(service.config.requestDelay)
+                    val response = service.getReviewsByAppId(request)
                     if (response.reviews.isEmpty()) {
                         return false
                     }

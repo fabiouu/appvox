@@ -1,7 +1,7 @@
 package dev.fabiou.appvox.examples.reviews.google_play
 
 import dev.fabiou.appvox.core.configuration.ProxyConfiguration
-import dev.fabiou.appvox.core.review.query.AppReview
+import dev.fabiou.appvox.core.review.facade.AppReview
 import dev.fabiou.appvox.core.review.constant.GooglePlayLanguage
 import dev.fabiou.appvox.core.review.constant.GooglePlaySortType
 import com.opencsv.CSVWriter
