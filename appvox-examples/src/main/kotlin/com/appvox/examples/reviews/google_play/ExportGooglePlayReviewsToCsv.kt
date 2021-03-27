@@ -1,9 +1,9 @@
 package dev.fabiou.appvox.examples.reviews.google_play
 
 import dev.fabiou.appvox.core.configuration.ProxyConfiguration
-import dev.fabiou.appvox.core.review.facade.AppReview
-import dev.fabiou.appvox.core.review.constant.GooglePlayLanguage
-import dev.fabiou.appvox.core.review.constant.GooglePlaySortType
+import dev.fabiou.appvox.core.googleplay.review.facade.AppReview
+import dev.fabiou.appvox.core.googleplay.review.constant.GooglePlayLanguage
+import dev.fabiou.appvox.core.googleplay.review.constant.GooglePlaySortType
 import com.opencsv.CSVWriter
 import java.io.FileWriter
 import java.io.IOException
@@ -36,7 +36,7 @@ fun main(args: Array<String>) {
                         "likeCount", "replyComment", "replyTime", "url")
         csvWriter.writeNext(columns)
 
-        val config = dev.fabiou.appvox.core.configuration.Configuration(
+        val config = dev.fabiou.appvox.core.configuration.RequestConfiguration(
                 proxy = ProxyConfiguration(
                         host = "",
                         port = 0

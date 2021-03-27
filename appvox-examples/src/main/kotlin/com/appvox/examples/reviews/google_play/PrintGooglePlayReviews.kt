@@ -1,10 +1,10 @@
 package dev.fabiou.appvox.examples.reviews.google_play
 
-import dev.fabiou.appvox.core.configuration.Configuration
+import dev.fabiou.appvox.core.configuration.RequestConfiguration
 import dev.fabiou.appvox.core.configuration.ProxyConfiguration
-import dev.fabiou.appvox.core.review.facade.AppReview
-import dev.fabiou.appvox.core.review.constant.GooglePlayLanguage.ENGLISH_US
-import dev.fabiou.appvox.core.review.constant.GooglePlaySortType.RELEVANT
+import dev.fabiou.appvox.core.googleplay.review.constant.GooglePlayLanguage.ENGLISH_US
+import dev.fabiou.appvox.core.googleplay.review.constant.GooglePlaySortType.RELEVANT
+import dev.fabiou.appvox.core.GooglePlay
 
 /*
     In this example, we print the 100 most relevant Google Play Reviews of the Twitter App
@@ -21,17 +21,18 @@ fun main(args: Array<String>) {
     val reviewLanguage = ENGLISH_US
     val maxReviewCount = 100
 
-    val config = Configuration(
+    val config = RequestConfiguration(
             proxy = ProxyConfiguration(
                     host = "",
                     port = 0
             ),
             requestDelay = 3000L
     )
-    val appReview = AppReview(config)
+    val appVox = GooglePlay(config)
 
-    appReview
-            .googlePlay(
+
+
+    appVox.reviews(
                     appId = appId,
                     sortType = sortType,
                     language = reviewLanguage,
