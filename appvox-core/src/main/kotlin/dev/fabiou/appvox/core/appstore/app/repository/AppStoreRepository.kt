@@ -1,4 +1,4 @@
-package dev.fabiou.appvox.core.appstore.app
+package dev.fabiou.appvox.core.appstore.app.repository
 
 import dev.fabiou.appvox.core.configuration.RequestConfiguration
 import dev.fabiou.appvox.core.exception.AppVoxException

@@ -1,10 +1,10 @@
-package dev.fabiou.appvox.core.facade
+package dev.fabiou.appvox.core.appstore
 
 import dev.fabiou.appvox.core.BaseRepositoryTest
 import dev.fabiou.appvox.core.configuration.RequestConfiguration
-import dev.fabiou.appvox.core.appstore.review.AppStoreSortType
-import dev.fabiou.appvox.core.appstore.review.ItunesRssReviewRequest
-import dev.fabiou.appvox.core.appstore.review.ItunesRssReviewRepository
+import dev.fabiou.appvox.core.appstore.review.constant.AppStoreSortType
+import dev.fabiou.appvox.core.appstore.review.domain.ItunesRssReviewRequest
+import dev.fabiou.appvox.core.appstore.review.repository.ItunesRssReviewRepository
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource

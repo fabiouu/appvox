@@ -2,20 +2,18 @@ package dev.fabiou.appvox.core.googleplay.review
 
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper
-import dev.fabiou.appvox.core.archive.ReviewRepository
 import dev.fabiou.appvox.core.configuration.RequestConfiguration
 import dev.fabiou.appvox.core.exception.AppVoxErrorCode
 import dev.fabiou.appvox.core.exception.AppVoxException
 import dev.fabiou.appvox.core.googleplay.review.domain.GooglePlayReviewRequest
 import dev.fabiou.appvox.core.googleplay.review.domain.GooglePlayReviewResult
-import dev.fabiou.appvox.core.archive.ReviewResult
 import dev.fabiou.appvox.core.util.HttpUtil
 import dev.fabiou.appvox.core.util.JsonUtil.getJsonNodeByIndex
 import dev.fabiou.appvox.core.util.UrlUtil
 
 internal class GooglePlayReviewRepository(
         private val config: RequestConfiguration? = null
-) : ReviewRepository<GooglePlayReviewRequest, GooglePlayReviewResult> {
+) {
     companion object {
         internal const val REQUEST_URL_DOMAIN = "https://play.google.com"
         internal const val REQUEST_URL_PATH = "/_/PlayStoreUi/data/batchexecute"
@@ -39,7 +37,7 @@ internal class GooglePlayReviewRepository(
     private var httpUtils = HttpUtil
 
     @Throws(AppVoxException::class)
-    override fun getReviewsByAppId(request: GooglePlayReviewRequest): ReviewResult<GooglePlayReviewResult> {
+    fun getReviewsByAppId(request: GooglePlayReviewRequest): GooglePlayReviewResult {
         if (request.batchSize !in 1..100) {
             throw AppVoxException(AppVoxErrorCode.INVALID_ARGUMENT)
         }
@@ -54,8 +52,8 @@ internal class GooglePlayReviewRepository(
                 REQUEST_URL_PATH + REQUEST_URL_PARAMS.format(request.language.langCode)
         val responseContent = httpUtils.postRequest(requestUrl, requestBody, config?.proxy)
 
-        val reviewResults = ArrayList<GooglePlayReviewResult.GooglePlayReview>()
-        val gplayReviews = extractReviewsFromResponse(responseContent)
+        val reviews = ArrayList<GooglePlayReviewResult.GooglePlayReview>()
+        val gplayReviews = parseReviewsFromResponse(responseContent)
         for (gplayReview in gplayReviews[0]) {
             val review = GooglePlayReviewResult.GooglePlayReview(
                     reviewId = getJsonNodeByIndex(gplayReview, REVIEW_ID_INDEX).asText(),
@@ -71,15 +69,14 @@ internal class GooglePlayReviewRepository(
                     replyComment = getJsonNodeByIndex(gplayReview, REPLY_COMMENT_INDEX).asText(),
                     replySubmitTime = getJsonNodeByIndex(gplayReview, REPLY_SUBMIT_TIME_INDEX).asLong()
             )
-            reviewResults.add(review)
+            reviews.add(review)
         }
 
         val token = if (!gplayReviews.isEmpty && !gplayReviews[1].isEmpty) gplayReviews[1][1] else null
-
-        return ReviewResult(result = GooglePlayReviewResult(reviewResults), nextToken = token?.asText())
+        return GooglePlayReviewResult(reviews = reviews, nextToken = token?.asText())
     }
 
-    private fun extractReviewsFromResponse(gPlayResponse: String): JsonNode {
+    private fun parseReviewsFromResponse(gPlayResponse: String): JsonNode {
         val cleanResponse = gPlayResponse.substring(4)
         val rootArray = ObjectMapper().readTree(cleanResponse)
         val subArray: JsonNode = rootArray[0][2]

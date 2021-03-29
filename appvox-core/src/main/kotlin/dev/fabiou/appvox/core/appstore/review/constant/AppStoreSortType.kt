@@ -1,4 +1,4 @@
-package dev.fabiou.appvox.core.appstore.review
+package dev.fabiou.appvox.core.appstore.review.constant
 
 enum class AppStoreSortType(val sortType: Int) {
     RELEVANT(1),

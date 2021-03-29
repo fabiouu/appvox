@@ -1,4 +1,4 @@
-package dev.fabiou.appvox.core.appstore.review
+package dev.fabiou.appvox.core.appstore.review.domain
 
 import javax.xml.bind.annotation.*
 import javax.xml.datatype.XMLGregorianCalendar
@@ -6,7 +6,7 @@ import javax.xml.datatype.XMLGregorianCalendar
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = ["id", "title", "updated", "link", "icon", "author", "rights", "entry"])
 @XmlRootElement(name = "feed")
-internal class ItunesRssReviewResult {
+ class ItunesRssReviewResult {
 
     @XmlAttribute(name = "xmlns")
     var uri: String? = null

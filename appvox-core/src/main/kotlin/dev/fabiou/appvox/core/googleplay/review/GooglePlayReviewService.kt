@@ -1,11 +1,11 @@
 package dev.fabiou.appvox.core.googleplay.review
 
 import dev.fabiou.appvox.core.configuration.RequestConfiguration
-import dev.fabiou.appvox.core.archive.AppReviewRequest
-import dev.fabiou.appvox.core.archive.AppReviewResponse
-import dev.fabiou.appvox.core.appstore.review.AppStoreReviewRepository
+import dev.fabiou.appvox.core.appstore.review.repository.AppStoreReviewRepository
 import dev.fabiou.appvox.core.googleplay.review.GooglePlayReviewRepository
-import dev.fabiou.appvox.core.appstore.review.ItunesRssReviewRepository
+import dev.fabiou.appvox.core.appstore.review.repository.ItunesRssReviewRepository
+import dev.fabiou.appvox.core.googleplay.review.domain.GooglePlayReviewRequest
+import dev.fabiou.appvox.core.googleplay.review.domain.GooglePlayReviewResult
 
 class GooglePlayReviewService(
     val config : RequestConfiguration = RequestConfiguration()
@@ -16,10 +16,10 @@ class GooglePlayReviewService(
 
     private var appStoreReviewRepository = AppStoreReviewRepository(config)
 
-    fun getReviewsByAppId(request: AppReviewRequest, nextToken: String? = null) : AppReviewResponse {
-        return AppReviewResponse(ArrayList())
-//        return itunesRssReviewRepository.getReviewsByAppId(request)
-    }
+//    fun getReviewsByAppId(request: AppReviewRequest, nextToken: String? = null) : AppReviewResponse {
+//        return AppReviewResponse(ArrayList())
+////        return itunesRssReviewRepository.getReviewsByAppId(request)
+//    }
 
 //    fun getReviewsByAppId(request: ItunesRssReviewRequest) : ItunesRssReviewResult {
 //        return itunesRssReviewRepository.getReviewsByAppId(request)
@@ -30,11 +30,11 @@ class GooglePlayReviewService(
 //        return appStoreReviewRepository.getReviewsByAppId(request)
 //    }
 //
-//    fun getReviewsByAppId(request: GooglePlayReviewRequest) : GooglePlayReviewResult {
-//        return googlePlayReviewRepository.getReviewsByAppId(request)
-//    }
+    fun getReviewsByAppId(request: GooglePlayReviewRequest) : GooglePlayReviewResult {
+        return googlePlayReviewRepository.getReviewsByAppId(request)
+    }
 
-//    fun createIterator(request: AppReviewRequest) : AppReviewIterator {
-//        return AppReviewIterator(this, request)
-//    }
+    fun createIterator(request: GooglePlayReviewRequest) : GooglePlayReviewIterator {
+        return GooglePlayReviewIterator(this, request)
+    }
 }

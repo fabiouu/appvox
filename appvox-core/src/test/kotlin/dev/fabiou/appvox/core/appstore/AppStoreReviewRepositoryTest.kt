@@ -1,17 +1,20 @@
-package dev.fabiou.appvox.core.facade
+package dev.fabiou.appvox.core.appstore
 
 import dev.fabiou.appvox.core.BaseRepositoryTest
+import dev.fabiou.appvox.core.appstore.app.repository.AppStoreRepository
+import dev.fabiou.appvox.core.appstore.review.constant.AppStoreSortType
+import dev.fabiou.appvox.core.appstore.review.domain.AppStoreReviewRequest
+import dev.fabiou.appvox.core.appstore.review.repository.AppStoreReviewRepository
 import dev.fabiou.appvox.core.configuration.RequestConfiguration
-import dev.fabiou.appvox.core.appstore.review.AppStoreSortType
-import dev.fabiou.appvox.core.appstore.review.AppStoreReviewRequest
-import dev.fabiou.appvox.core.appstore.review.AppStoreReviewRepository
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
 
 class AppStoreReviewRepositoryTest : BaseRepositoryTest() {
 
-    private var service = AppStoreReviewRepository(RequestConfiguration(requestDelay = 3000L))
+    private var appStoreReviewRepository = AppStoreReviewRepository(RequestConfiguration(requestDelay = 3000L))
+
+    private var appStoreRepository = AppStoreRepository(RequestConfiguration(requestDelay = 3000L))
 
     @ParameterizedTest
     @CsvSource(
@@ -27,7 +30,7 @@ class AppStoreReviewRepositoryTest : BaseRepositoryTest() {
                 AppStoreReviewRepository.REQUEST_REVIEW_SIZE
             ), mockData)
 
-        val bearerToken = service.getBearerToken(
+        val bearerToken = appStoreRepository.getBearerToken(
                 appId = appId,
                 region = region
         )
@@ -39,7 +42,7 @@ class AppStoreReviewRepositoryTest : BaseRepositoryTest() {
                 bearerToken = bearerToken
         )
 
-        val response = service.getReviewsByAppId(request)
+        val response = appStoreReviewRepository.getReviewsByAppId(request)
 
         Assertions.assertNotNull(response.data)
         Assertions.assertEquals(requestedSize, response.data.size)

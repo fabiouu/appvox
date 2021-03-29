@@ -1,4 +1,4 @@
-package dev.fabiou.appvox.core.facade
+package dev.fabiou.appvox.core.googleplay
 
 import dev.fabiou.appvox.core.BaseRepositoryTest
 import dev.fabiou.appvox.core.configuration.RequestConfiguration
@@ -12,18 +12,18 @@ import org.junit.jupiter.params.provider.CsvSource
 
 class GooglePlayReviewRepositoryTest : BaseRepositoryTest() {
 
-    private var service = GooglePlayReviewRepository(RequestConfiguration(requestDelay = 3000L))
+    private var repository = GooglePlayReviewRepository(RequestConfiguration(requestDelay = 3000L))
 
     @ParameterizedTest
     @CsvSource(
-        "com.twitter.android, en, newest, 40, 40"
+        "com.twitter.android, en, 1, 40, 40"
     )
     fun `Get Google Play reviews`(
         appId: String,
         language: String,
-        sortType: String,
+        sortType: Int,
         batchSize: Int,
-        requestedSize: Int) {
+        maxReviewCount: Int) {
 
         val mockData = javaClass.getResource("/googleplay_reviews_mock_data.json").readText()
         stubHttpUrl(GooglePlayReviewRepository.REQUEST_URL_PATH, mockData)
@@ -32,11 +32,12 @@ class GooglePlayReviewRepositoryTest : BaseRepositoryTest() {
             appId = appId,
             language = GooglePlayLanguage.fromValue(language),
             sortType = GooglePlaySortType.fromValue(sortType),
-            batchSize = batchSize
+            batchSize = batchSize,
+            maxCount = maxReviewCount
         )
 
-        val response = service.getReviewsByAppId(request)
+        val response = repository.getReviewsByAppId(request)
 
-        Assertions.assertEquals(requestedSize, response.reviews.size)
+        Assertions.assertEquals(maxReviewCount, response.reviews.size)
     }
 }

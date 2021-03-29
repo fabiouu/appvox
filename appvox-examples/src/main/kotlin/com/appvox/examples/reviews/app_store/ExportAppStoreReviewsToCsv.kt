@@ -2,7 +2,7 @@ package dev.fabiou.appvox.examples.reviews.app_store
 
 import dev.fabiou.appvox.core.configuration.RequestConfiguration
 import dev.fabiou.appvox.core.configuration.ProxyConfiguration
-import dev.fabiou.appvox.core.appstore.review.AppStoreSortType
+import dev.fabiou.appvox.core.appstore.review.constant.AppStoreSortType
 import dev.fabiou.appvox.core.googleplay.review.facade.AppReview
 import com.opencsv.CSVWriter
 import java.io.FileWriter
