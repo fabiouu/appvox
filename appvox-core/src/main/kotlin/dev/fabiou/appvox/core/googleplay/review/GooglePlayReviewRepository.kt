@@ -2,6 +2,8 @@ package dev.fabiou.appvox.core.googleplay.review
 
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper
+import dev.fabiou.appvox.core.common.ReviewRepository
+import dev.fabiou.appvox.core.common.ReviewResult
 import dev.fabiou.appvox.core.configuration.RequestConfiguration
 import dev.fabiou.appvox.core.exception.AppVoxErrorCode
 import dev.fabiou.appvox.core.exception.AppVoxException
@@ -13,7 +15,7 @@ import dev.fabiou.appvox.core.util.UrlUtil
 
 internal class GooglePlayReviewRepository(
         private val config: RequestConfiguration? = null
-) {
+) : ReviewRepository<GooglePlayReviewRequest, GooglePlayReviewResult> {
     companion object {
         internal const val REQUEST_URL_DOMAIN = "https://play.google.com"
         internal const val REQUEST_URL_PATH = "/_/PlayStoreUi/data/batchexecute"
@@ -37,7 +39,7 @@ internal class GooglePlayReviewRepository(
     private var httpUtils = HttpUtil
 
     @Throws(AppVoxException::class)
-    fun getReviewsByAppId(request: GooglePlayReviewRequest): GooglePlayReviewResult {
+    override fun getReviewsByAppId(request: GooglePlayReviewRequest): ReviewResult<GooglePlayReviewResult> {
         if (request.batchSize !in 1..100) {
             throw AppVoxException(AppVoxErrorCode.INVALID_ARGUMENT)
         }
@@ -73,7 +75,10 @@ internal class GooglePlayReviewRepository(
         }
 
         val token = if (!gplayReviews.isEmpty && !gplayReviews[1].isEmpty) gplayReviews[1][1] else null
-        return GooglePlayReviewResult(reviews = reviews, nextToken = token?.asText())
+        return ReviewResult(
+            result = GooglePlayReviewResult(reviews),
+            nextToken = token?.asText()
+        )
     }
 
     private fun parseReviewsFromResponse(gPlayResponse: String): JsonNode {

@@ -1,7 +1,7 @@
 package dev.fabiou.appvox.core.appstore
 
 import dev.fabiou.appvox.core.BaseRepositoryTest
-import dev.fabiou.appvox.core.appstore.app.repository.AppStoreRepository
+import dev.fabiou.appvox.core.appstore.app.AppStoreRepository
 import dev.fabiou.appvox.core.appstore.review.constant.AppStoreSortType
 import dev.fabiou.appvox.core.appstore.review.domain.AppStoreReviewRequest
 import dev.fabiou.appvox.core.appstore.review.repository.AppStoreReviewRepository
@@ -44,9 +44,7 @@ class AppStoreReviewRepositoryTest : BaseRepositoryTest() {
 
         val response = appStoreReviewRepository.getReviewsByAppId(request)
 
-        Assertions.assertNotNull(response.data)
-        Assertions.assertEquals(requestedSize, response.data.size)
+        Assertions.assertNotNull(response.result.data)
+        Assertions.assertEquals(requestedSize, response.result.data.size)
     }
-
-
 }

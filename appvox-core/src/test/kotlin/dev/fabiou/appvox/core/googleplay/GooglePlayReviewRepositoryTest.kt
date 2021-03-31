@@ -38,6 +38,6 @@ class GooglePlayReviewRepositoryTest : BaseRepositoryTest() {
 
         val response = repository.getReviewsByAppId(request)
 
-        Assertions.assertEquals(maxReviewCount, response.reviews.size)
+        Assertions.assertEquals(maxReviewCount, response.result.reviews.size)
     }
 }

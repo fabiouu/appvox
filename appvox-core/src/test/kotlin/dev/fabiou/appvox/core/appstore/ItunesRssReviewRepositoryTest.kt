@@ -31,6 +31,6 @@ class ItunesRssReviewRepositoryTest : BaseRepositoryTest() {
 
         val response = repository.getReviewsByAppId(request)
 
-        Assertions.assertEquals(requestedSize, response.entry?.size)
+        Assertions.assertEquals(requestedSize, response.result.entry!!.size)
     }
 }

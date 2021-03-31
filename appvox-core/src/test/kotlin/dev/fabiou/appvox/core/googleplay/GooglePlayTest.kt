@@ -26,7 +26,7 @@ class GooglePlayTest : BaseRepositoryTest() {
         var fetchedReviewCount = 0
         val googlePlay = GooglePlay()
         googlePlay.reviews(appId)
-                .forEach { test ->
+                .forEach { _ ->
                     fetchedReviewCount++
                 }
 

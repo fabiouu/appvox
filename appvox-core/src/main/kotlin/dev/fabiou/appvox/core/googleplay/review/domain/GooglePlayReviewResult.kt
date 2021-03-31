@@ -1,8 +1,7 @@
 package dev.fabiou.appvox.core.googleplay.review.domain
 
 data class GooglePlayReviewResult(
-    val reviews: List<GooglePlayReview>,
-    var nextToken: String? = null
+    val reviews: List<GooglePlayReview>
 ) {
     data class GooglePlayReview(
         val reviewId: String,

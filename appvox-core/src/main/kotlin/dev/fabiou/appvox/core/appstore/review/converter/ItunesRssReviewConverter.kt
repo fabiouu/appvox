@@ -1,64 +1,49 @@
 package dev.fabiou.appvox.core.appstore.review.converter
 
+import dev.fabiou.appvox.core.appstore.review.domain.AppStoreReviewResponse
+import dev.fabiou.appvox.core.appstore.review.domain.ItunesRssReviewResponse
 import dev.fabiou.appvox.core.appstore.review.domain.ItunesRssReviewResult
-import dev.fabiou.appvox.core.review.domain.response.AppStoreReviewResponse
-import dev.fabiou.appvox.core.review.domain.result.AppStoreRecentReviewResult
-import dev.fabiou.appvox.core.review.domain.result.AppStoreReviewResult
-import java.time.Instant
 
-class ItunesRssReviewConverter {
+internal class ItunesRssReviewConverter {
     companion object {
-        fun toResponse(reviewResult: ItunesRssReviewResult): ItunesRssReviewResponse {
-            var reviews = ArrayList<AppStoreReviewResponse.AppStoreReview>()
-            val appStoreReviews = reviewResult.data
-            for (appStoreReview in appStoreReviews) {
-
-                val reviewResponse = AppStoreReviewResponse.AppStoreReview(
-                        id = appStoreReview.id,
-                        userName = appStoreReview.attributes.userName,
-                        rating = appStoreReview.attributes.rating,
-                        title = appStoreReview.attributes.title,
-                        comment = appStoreReview.attributes.review,
-                        commentTime = Instant.parse(appStoreReview.attributes.date).toEpochMilli()
-//                    replyComment = appStoreReview.attributes.developerResponse?.body,
-//                    replySubmitTime = Instant.parse(appStoreReview.attributes.developerResponse?.modified?:"").toEpochMilli()
-//                    url = appStoreReview.reviewUrl
-                )
-                reviews.add(reviewResponse)
-            }
-
-            return AppStoreReviewResponse(
-                    reviews = reviews,
-                    nextToken = reviewResult.next
+        fun toResponse(reviewResult: ItunesRssReviewResult.Entry): ItunesRssReviewResponse {
+            val reviewResponse = ItunesRssReviewResponse(
+                id = reviewResult.id!!,
+                userName = reviewResult.author?.name!!,
+                rating = reviewResult.rating!!,
+                title = reviewResult.title,
+                comment = reviewResult.content?.find { it.type == "text" }?.content!!,
+                commentTime = reviewResult.updated?.toGregorianCalendar()?.toZonedDateTime(),
+                appVersion = reviewResult.version,
+                url = reviewResult.link?.href,
+                likeCount = reviewResult.voteCount,
+//                    replyComment =
+//                    replySubmitTime =
             )
+            return reviewResponse
         }
 
-        internal fun toResponse(reviewResult: AppStoreRecentReviewResult): AppStoreReviewResponse {
-            var reviews = ArrayList<AppStoreReviewResponse.AppStoreReview>()
-            val appStoreReviews = reviewResult.entry
-            for (appStoreReview in appStoreReviews!!) {
-                val reviewResponse = AppStoreReviewResponse.AppStoreReview(
-                        id = appStoreReview.id!!,
-                        userName = appStoreReview.author?.name!!,
-                        rating = appStoreReview.rating!!,
-                        title = appStoreReview.title,
-                        comment = appStoreReview.content?.find { it.type == "text" }?.content!!,
-//                    commentTime = appStoreReview.updated.
-                        version = appStoreReview.version,
-                        url = appStoreReview.link?.href//,
-//                    likeCount = appStoreReview.voteCount,
-//                    likeCount = appStoreReview.voteSum,
-//                    replyComment = appStoreReview.attributes.developerResponse?.body,
-//                    replySubmitTime = Instant.parse(appStoreReview.attributes.developerResponse?.modified?:"").toEpochMilli()
-//                    url = appStoreReview.reviewUrl
-                )
+        fun toResponse(reviewResults: List<ItunesRssReviewResult.Entry>): List<ItunesRssReviewResponse> {
+            var reviews = ArrayList<ItunesRssReviewResponse>()
+            for (reviewResult in reviewResults!!) {
+                val reviewResponse = ItunesRssReviewResponse(
+                id = reviewResult.id!!,
+                userName = reviewResult.author?.name!!,
+                rating = reviewResult.rating!!,
+                title = reviewResult.title,
+                comment = reviewResult.content?.find { it.type == "text" }?.content!!,
+                commentTime = reviewResult.updated?.toGregorianCalendar()?.toZonedDateTime(),
+                appVersion = reviewResult.version,
+                url = reviewResult.link?.href,
+                likeCount = reviewResult.voteCount,
+//                    replyComment =
+//                    replySubmitTime =
+            )
                 reviews.add(reviewResponse)
             }
 
-            return AppStoreReviewResponse(
-                    reviews = reviews,
-                    nextToken = reviewResult.link!!.find { it.rel == "next" }?.href!!
-            )
+            return reviews
+//            return reviewResponse
         }
     }
 }

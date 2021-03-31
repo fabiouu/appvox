@@ -4,6 +4,7 @@ import dev.fabiou.appvox.core.configuration.RequestConfiguration
 import dev.fabiou.appvox.core.appstore.review.repository.AppStoreReviewRepository
 import dev.fabiou.appvox.core.googleplay.review.GooglePlayReviewRepository
 import dev.fabiou.appvox.core.appstore.review.repository.ItunesRssReviewRepository
+import dev.fabiou.appvox.core.common.ReviewResult
 import dev.fabiou.appvox.core.googleplay.review.domain.GooglePlayReviewRequest
 import dev.fabiou.appvox.core.googleplay.review.domain.GooglePlayReviewResult
 
@@ -30,7 +31,7 @@ class GooglePlayReviewService(
 //        return appStoreReviewRepository.getReviewsByAppId(request)
 //    }
 //
-    fun getReviewsByAppId(request: GooglePlayReviewRequest) : GooglePlayReviewResult {
+    fun getReviewsByAppId(request: GooglePlayReviewRequest) : ReviewResult<GooglePlayReviewResult> {
         return googlePlayReviewRepository.getReviewsByAppId(request)
     }
 

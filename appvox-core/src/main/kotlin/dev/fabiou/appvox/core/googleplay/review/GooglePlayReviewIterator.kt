@@ -17,7 +17,7 @@ class GooglePlayReviewIterator(
 
     init {
         val response = service.getReviewsByAppId(request)
-        iterator = response.reviews.iterator()
+        iterator = response.result.reviews.iterator()
         request.nextToken = response.nextToken
     }
 
@@ -38,10 +38,10 @@ class GooglePlayReviewIterator(
         if (!iterator.hasNext()) {
             Thread.sleep(service.config.requestDelay)
             val response = service.getReviewsByAppId(request)
-            if (response.reviews.isEmpty()) {
+            if (response.result.reviews.isEmpty()) {
                 return false
             }
-            iterator = response.reviews.iterator()
+            iterator = response.result.reviews.iterator()
             request.nextToken = response.nextToken
         }
 

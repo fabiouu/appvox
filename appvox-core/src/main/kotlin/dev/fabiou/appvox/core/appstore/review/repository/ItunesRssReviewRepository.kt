@@ -2,6 +2,8 @@ package dev.fabiou.appvox.core.appstore.review.repository
 
 import dev.fabiou.appvox.core.appstore.review.domain.ItunesRssReviewRequest
 import dev.fabiou.appvox.core.appstore.review.domain.ItunesRssReviewResult
+import dev.fabiou.appvox.core.common.ReviewRepository
+import dev.fabiou.appvox.core.common.ReviewResult
 import dev.fabiou.appvox.core.configuration.RequestConfiguration
 import dev.fabiou.appvox.core.exception.AppVoxErrorCode
 import dev.fabiou.appvox.core.exception.AppVoxException
@@ -16,7 +18,7 @@ import javax.xml.stream.XMLStreamReader
 
 internal class ItunesRssReviewRepository(
     private val config: RequestConfiguration? = null
-) {
+) : ReviewRepository<ItunesRssReviewRequest, ItunesRssReviewResult> {
     companion object {
         internal const val RSS_REQUEST_URL_DOMAIN = "https://itunes.apple.com"
         internal const val RSS_REQUEST_URL_PATH = "/%s/rss/customerreviews/page=%d/id=%s/sortby=mostrecent/xml"
@@ -32,7 +34,7 @@ internal class ItunesRssReviewRepository(
     }
 
     @Throws(AppVoxException::class)
-    fun getReviewsByAppId(request: ItunesRssReviewRequest): ItunesRssReviewResult {
+    override fun getReviewsByAppId(request: ItunesRssReviewRequest): ReviewResult<ItunesRssReviewResult> {
         if (request.pageNo !in 1..10) {
             throw AppVoxException(AppVoxErrorCode.INVALID_ARGUMENT)
         }
@@ -54,6 +56,9 @@ internal class ItunesRssReviewRepository(
             throw AppVoxException(AppVoxErrorCode.SERIALIZATION)
         }
 
-        return result
+        return ReviewResult(
+            result = result,
+            nextToken = result.link!!.find { it.rel == "next" }?.href!!
+        )
     }
 }

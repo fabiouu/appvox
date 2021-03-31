@@ -3,7 +3,6 @@ package dev.fabiou.appvox.core.appstore.review.domain
 import java.time.ZonedDateTime
 
 data class AppStoreReviewResponse(
-
     val id: String,
 
     val userName: String,
