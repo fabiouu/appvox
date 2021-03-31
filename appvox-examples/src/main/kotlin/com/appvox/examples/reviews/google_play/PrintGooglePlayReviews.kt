@@ -2,9 +2,9 @@
 //
 //import dev.fabiou.appvox.core.configuration.RequestConfiguration
 //import dev.fabiou.appvox.core.configuration.ProxyConfiguration
-//import dev.fabiou.appvox.core.googleplay.review.constant.GooglePlayLanguage.ENGLISH_US
-//import dev.fabiou.appvox.core.googleplay.review.constant.GooglePlaySortType.RELEVANT
-//import dev.fabiou.appvox.core.googleplay.GooglePlay
+//import dev.fabiou.appvox.core.review.googleplay.GooglePlayLanguage.ENGLISH_US
+//import dev.fabiou.appvox.core.review.googleplay.GooglePlaySortType.RELEVANT
+//import dev.fabiou.appvox.core.GooglePlay
 //
 ///*
 //    In this example, we print the 100 most relevant Google Play Reviews of the Twitter App
