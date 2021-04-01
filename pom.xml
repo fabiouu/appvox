@@ -69,6 +69,12 @@
                 <version>${kotlin.coroutines.version}</version>
             </dependency>
             <dependency>
+                <groupId>org.jetbrains.kotlinx</groupId>
+                <artifactId>kotlinx-coroutines-test</artifactId>
+                <version>${kotlin.coroutines.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
                 <groupId>org.junit</groupId>
                 <artifactId>junit-bom</artifactId>
                 <version>${junit.version}</version>
@@ -106,7 +112,6 @@
                     <configuration>
                         <args>
                             <arg>-Xjsr305=strict</arg>
-                            <arg>-Xcoroutines=enable</arg>
                         </args>
                     </configuration>
                     <dependencies>

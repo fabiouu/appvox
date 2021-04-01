@@ -2,7 +2,7 @@ package dev.fabiou.appvox.core.review.googleplay.domain
 
 import java.time.ZonedDateTime
 
-data class GooglePlayReviewResponse(
+data class GooglePlayReview(
     val reviews: List<GooglePlayReview>
 ) {
     data class GooglePlayReview(

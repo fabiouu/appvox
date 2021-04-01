@@ -1,14 +1,17 @@
-package dev.fabiou.appvox.examples.reviews.app_store
+package com.appvox.examples.review.appstore
 
-import dev.fabiou.appvox.core.configuration.RequestConfiguration
-import dev.fabiou.appvox.core.configuration.ProxyConfiguration
-import dev.fabiou.appvox.core.appstore.review.constant.AppStoreSortType
-import dev.fabiou.appvox.core.review.googleplay.review.facade.AppReview
 import com.opencsv.CSVWriter
+import dev.fabiou.appvox.core.AppStore
+import dev.fabiou.appvox.core.configuration.ProxyConfiguration
+import dev.fabiou.appvox.core.configuration.RequestConfiguration
+import dev.fabiou.appvox.core.review.itunesrss.constant.AppStoreSortType
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.take
+import kotlinx.coroutines.runBlocking
 import java.io.FileWriter
 import java.io.IOException
 
-fun main(args: Array<String>) {
+fun main(args: Array<String>) = runBlocking {
 
     val appId = "333903271"
     val userRegion = "us"
@@ -26,26 +29,25 @@ fun main(args: Array<String>) {
             CSVWriter.DEFAULT_LINE_END
         )
         val columns: Array<String> =
-            arrayOf("id", "rating", "userName",
+            arrayOf(
+                "id", "rating", "userName",
                 "title", "comment", "commentTime",
-                "replyComment", "replyTime", "url")
+                "replyComment", "replyTime", "url"
+            )
         csvWriter.writeNext(columns)
 
         val config = RequestConfiguration(
-                proxy = ProxyConfiguration(
-                        host = "",
-                        port = 0
-                ),
-                requestDelay = 3000L
+            requestDelay = 3000L
         )
 
-        AppReview(config)
-            .appStore(
+        val appStore = AppStore(config)
+        appStore.reviews(
                 appId = appId,
                 region = userRegion,
-                sortType = AppStoreSortType.RECENT,
-                maxCount = maxReviewCount)
-            .forEach { review ->
+                sortType = AppStoreSortType.RECENT
+            )
+            .take(maxReviewCount)
+            .collect { review ->
                 val csvReview: Array<String?> = arrayOf(
                     review.id,
                     review.rating.toString(),
@@ -55,6 +57,7 @@ fun main(args: Array<String>) {
                     review.commentTime.toString(),
                     review.replyComment,
                     review.replyTime.toString(),
+                    review.likeCount.toString(),
                     review.url
                 )
                 csvWriter.writeNext(csvReview)

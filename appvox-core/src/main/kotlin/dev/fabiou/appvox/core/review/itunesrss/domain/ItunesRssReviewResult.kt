@@ -38,8 +38,10 @@ internal class ItunesRssReviewResult {
     var entry: List<Entry>? = null
 
     @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name = "", propOrder = [
-        "updated", "id", "title", "content", "voteSum", "voteCount", "rating", "version", "author", "link"])
+    @XmlType(
+        name = "", propOrder = [
+            "updated", "id", "title", "content", "voteSum", "voteCount", "rating", "version", "author", "link"]
+    )
     @XmlRootElement(name = "entry")
     internal class Entry {
         @XmlElement(required = true)
@@ -53,7 +55,7 @@ internal class ItunesRssReviewResult {
         var title: String? = null
 
         @XmlElement(required = true)
-        var content: List<Content>?= null
+        var content: List<Content>? = null
 
         @XmlElement(required = true, name = "im:voteSum")
         var voteSum: Int? = 0

@@ -2,7 +2,7 @@ package dev.fabiou.appvox.core.review.itunesrss.domain
 
 import java.time.ZonedDateTime
 
-data class ItunesRssReviewResponse(
+data class ItunesRssReview(
 
     val id: String,
 

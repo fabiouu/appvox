@@ -2,6 +2,7 @@ package dev.fabiou.appvox.core.review.googleplay
 
 import dev.fabiou.appvox.core.BaseRepositoryTest
 import dev.fabiou.appvox.core.configuration.RequestConfiguration
+import dev.fabiou.appvox.core.review.ReviewRequest
 import dev.fabiou.appvox.core.review.googleplay.constant.GooglePlayLanguage
 import dev.fabiou.appvox.core.review.googleplay.constant.GooglePlaySortType
 import dev.fabiou.appvox.core.review.googleplay.domain.GooglePlayReviewRequest
@@ -24,7 +25,7 @@ class GooglePlayReviewRepositoryTest : BaseRepositoryTest() {
         batchSize: Int,
         maxReviewCount: Int) {
 
-        val mockData = javaClass.getResource("/googleplay_reviews_mock_data.json").readText()
+        val mockData = javaClass.getResource("/review/googleplay_reviews_mock_data.json").readText()
         stubHttpUrl(GooglePlayReviewRepository.REQUEST_URL_PATH, mockData)
 
         val request = GooglePlayReviewRequest(
@@ -32,11 +33,10 @@ class GooglePlayReviewRepositoryTest : BaseRepositoryTest() {
             language = GooglePlayLanguage.fromValue(language),
             sortType = GooglePlaySortType.fromValue(sortType),
             batchSize = batchSize,
-            maxCount = maxReviewCount
         )
 
-        val response = repository.getReviewsByAppId(request)
+        val response = repository.getReviewsByAppId(ReviewRequest(request))
 
-        Assertions.assertEquals(maxReviewCount, response.result.reviews.size)
+        Assertions.assertEquals(maxReviewCount, response.results.size)
     }
 }

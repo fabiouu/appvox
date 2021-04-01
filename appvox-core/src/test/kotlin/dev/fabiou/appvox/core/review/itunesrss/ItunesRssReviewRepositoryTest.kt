@@ -2,7 +2,9 @@ package dev.fabiou.appvox.core.review.itunesrss
 
 import dev.fabiou.appvox.core.BaseRepositoryTest
 import dev.fabiou.appvox.core.configuration.RequestConfiguration
-import dev.fabiou.appvox.core.appstore.review.domain.ItunesRssReviewRequest
+import dev.fabiou.appvox.core.review.ReviewRequest
+import dev.fabiou.appvox.core.review.itunesrss.constant.AppStoreSortType
+import dev.fabiou.appvox.core.review.itunesrss.domain.ItunesRssReviewRequest
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
@@ -17,7 +19,7 @@ class ItunesRssReviewRepositoryTest : BaseRepositoryTest() {
     )
     fun `Get most recent App Store reviews from itunes RSS Feed`(appId: String, region: String, requestedSize: Int, pageNo: Int) {
 
-        val mockData = javaClass.getResource("/appstore_recent_reviews_rss_mock_data.xml").readText()
+        val mockData = javaClass.getResource("/review/itunes_rss_reviews_mock_data.xml").readText()
         stubHttpUrl(ItunesRssReviewRepository.RSS_REQUEST_URL_PATH.format(region, pageNo, appId), mockData)
 
         val request = ItunesRssReviewRequest(
@@ -27,8 +29,8 @@ class ItunesRssReviewRepositoryTest : BaseRepositoryTest() {
             pageNo = 1
         )
 
-        val response = repository.getReviewsByAppId(request)
+        val response = repository.getReviewsByAppId(ReviewRequest(request))
 
-        Assertions.assertEquals(requestedSize, response.result.entry!!.size)
+        Assertions.assertEquals(requestedSize, response.results.size)
     }
 }

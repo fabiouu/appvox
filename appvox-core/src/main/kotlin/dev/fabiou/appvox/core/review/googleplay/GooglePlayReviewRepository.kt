@@ -7,6 +7,7 @@ import dev.fabiou.appvox.core.review.ReviewResult
 import dev.fabiou.appvox.core.configuration.RequestConfiguration
 import dev.fabiou.appvox.core.exception.AppVoxErrorCode
 import dev.fabiou.appvox.core.exception.AppVoxException
+import dev.fabiou.appvox.core.review.ReviewRequest
 import dev.fabiou.appvox.core.review.googleplay.domain.GooglePlayReviewRequest
 import dev.fabiou.appvox.core.review.googleplay.domain.GooglePlayReviewResult
 import dev.fabiou.appvox.core.util.HttpUtil
@@ -15,7 +16,7 @@ import dev.fabiou.appvox.core.util.UrlUtil
 
 internal class GooglePlayReviewRepository(
         private val config: RequestConfiguration? = null
-) : ReviewRepository<GooglePlayReviewRequest, GooglePlayReviewResult> {
+) : ReviewRepository<GooglePlayReviewRequest, GooglePlayReviewResult.GooglePlayReview> {
     companion object {
         internal const val REQUEST_URL_DOMAIN = "https://play.google.com"
         internal const val REQUEST_URL_PATH = "/_/PlayStoreUi/data/batchexecute"
@@ -39,19 +40,23 @@ internal class GooglePlayReviewRepository(
     private var httpUtils = HttpUtil
 
     @Throws(AppVoxException::class)
-    override fun getReviewsByAppId(request: GooglePlayReviewRequest): ReviewResult<GooglePlayReviewResult> {
-        if (request.batchSize !in 1..100) {
+    override fun getReviewsByAppId(request: ReviewRequest<GooglePlayReviewRequest>): ReviewResult<GooglePlayReviewResult.GooglePlayReview> {
+        if (request.parameters.batchSize !in 1..100) {
             throw AppVoxException(AppVoxErrorCode.INVALID_ARGUMENT)
         }
 
+//        if (config.requestDelay < 500) {
+//            throw AppVoxException(AppVoxErrorCode.REQ_DELAY_TOO_SHORT)
+//        }
+
         val requestBody = if (request.nextToken.isNullOrEmpty()) {
-            REQUEST_BODY_WITH_PARAMS.format(request.sortType.sortType, request.batchSize, request.appId)
+            REQUEST_BODY_WITH_PARAMS.format(request.parameters.sortType.sortType, request.parameters.batchSize, request.parameters.appId)
         } else {
-            REQUEST_BODY_WITH_PARAMS_AND_BODY.format(request.batchSize, request.nextToken, request.appId)
+            REQUEST_BODY_WITH_PARAMS_AND_BODY.format(request.parameters.batchSize, request.nextToken, request.parameters.appId)
         }
 
         val requestUrl = UrlUtil.getUrlDomainByEnv(REQUEST_URL_DOMAIN) +
-                REQUEST_URL_PATH + REQUEST_URL_PARAMS.format(request.language.langCode)
+                REQUEST_URL_PATH + REQUEST_URL_PARAMS.format(request.parameters.language.langCode)
         val responseContent = httpUtils.postRequest(requestUrl, requestBody, config?.proxy)
 
         val reviews = ArrayList<GooglePlayReviewResult.GooglePlayReview>()
@@ -67,7 +72,7 @@ internal class GooglePlayReviewRepository(
                     likeCount = getJsonNodeByIndex(gplayReview, LIKE_COUNT_INDEX).asInt(),
                     appVersion = getJsonNodeByIndex(gplayReview, APP_VERSION_INDEX).asText(),
                     reviewUrl = REVIEW_URL.format(
-                            request.appId, request.language.langCode, getJsonNodeByIndex(gplayReview, REVIEW_ID_INDEX).asText()),
+                            request.parameters.appId, request.parameters.language.langCode, getJsonNodeByIndex(gplayReview, REVIEW_ID_INDEX).asText()),
                     replyComment = getJsonNodeByIndex(gplayReview, REPLY_COMMENT_INDEX).asText(),
                     replySubmitTime = getJsonNodeByIndex(gplayReview, REPLY_SUBMIT_TIME_INDEX).asLong()
             )
@@ -76,7 +81,7 @@ internal class GooglePlayReviewRepository(
 
         val token = if (!gplayReviews.isEmpty && !gplayReviews[1].isEmpty) gplayReviews[1][1] else null
         return ReviewResult(
-            result = GooglePlayReviewResult(reviews),
+            results = reviews,
             nextToken = token?.asText()
         )
     }

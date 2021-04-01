@@ -6,7 +6,6 @@ import dev.fabiou.appvox.core.exception.AppVoxException
 import java.io.*
 import java.net.*
 
-
 object HttpUtil {
 
     private const val URL_FORM_CONTENT_TYPE = "application/x-www-form-urlencoded"
