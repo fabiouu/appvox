@@ -8,13 +8,13 @@ import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.flow.collect
 
-/*
-    In this example, we print the 100 most relevant App Store Reviews of the Twitter App
-    Link: https://apps.apple.com/us/app/twitter/id333903271
-
-    Network requests are made through a proxy with a delay of 3 seconds between each request.
-    The proxy is optional and can be removed from AppReview constructor.
-    AppVox is polite by default, request delay cannot be inferior to 500 ms
+/**
+ * In this example, we print the 100 most relevant App Store Reviews of the Twitter App
+ * Link: https://apps.apple.com/us/app/twitter/id333903271
+ *
+ * Network requests are made through a proxy with a delay of 3 seconds between each request.
+ * The proxy is optional and can be removed from AppReview constructor.
+ * AppVox is polite by default, request delay cannot be inferior to 500 ms
  */
 fun main(args: Array<String>) = runBlocking {
 
