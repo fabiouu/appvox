@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import dev.fabiou.appvox.core.review.ReviewRepository
 import dev.fabiou.appvox.core.review.ReviewResult
 import dev.fabiou.appvox.core.configuration.RequestConfiguration
-import dev.fabiou.appvox.core.exception.AppVoxErrorCode
+import dev.fabiou.appvox.core.exception.AppVoxError
 import dev.fabiou.appvox.core.exception.AppVoxException
 import dev.fabiou.appvox.core.review.ReviewRequest
 import dev.fabiou.appvox.core.review.googleplay.domain.GooglePlayReviewRequest
@@ -15,7 +15,7 @@ import dev.fabiou.appvox.core.util.JsonUtil.getJsonNodeByIndex
 import dev.fabiou.appvox.core.util.UrlUtil
 
 internal class GooglePlayReviewRepository(
-        private val config: RequestConfiguration? = null
+        private val config: RequestConfiguration
 ) : ReviewRepository<GooglePlayReviewRequest, GooglePlayReviewResult.GooglePlayReview> {
     companion object {
         internal const val REQUEST_URL_DOMAIN = "https://play.google.com"
@@ -42,12 +42,8 @@ internal class GooglePlayReviewRepository(
     @Throws(AppVoxException::class)
     override fun getReviewsByAppId(request: ReviewRequest<GooglePlayReviewRequest>): ReviewResult<GooglePlayReviewResult.GooglePlayReview> {
         if (request.parameters.batchSize !in 1..100) {
-            throw AppVoxException(AppVoxErrorCode.INVALID_ARGUMENT)
+            throw AppVoxException(AppVoxError.INVALID_ARGUMENT)
         }
-
-//        if (config.requestDelay < 500) {
-//            throw AppVoxException(AppVoxErrorCode.REQ_DELAY_TOO_SHORT)
-//        }
 
         val requestBody = if (request.nextToken.isNullOrEmpty()) {
             REQUEST_BODY_WITH_PARAMS.format(request.parameters.sortType.sortType, request.parameters.batchSize, request.parameters.appId)

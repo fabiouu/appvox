@@ -2,6 +2,7 @@ package dev.fabiou.appvox.core
 
 import dev.fabiou.appvox.core.configuration.RequestConfiguration
 import dev.fabiou.appvox.core.review.itunesrss.ItunesRssReviewRepository
+import dev.fabiou.appvox.core.review.itunesrss.constant.AppStoreRegion
 import dev.fabiou.appvox.core.review.itunesrss.constant.AppStoreSortType
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
@@ -32,7 +33,7 @@ class AppStoreTest : BaseRepositoryTest() {
         val appStore = AppStore(RequestConfiguration(requestDelay = 3000))
         appStore.reviews(
             appId = appId,
-            region = "us",
+            region = AppStoreRegion.fromValue(region),
             sortType = AppStoreSortType.RECENT
         )
             .take(maxReviewCount)

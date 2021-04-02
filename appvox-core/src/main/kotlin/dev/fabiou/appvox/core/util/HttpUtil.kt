@@ -1,7 +1,7 @@
 package dev.fabiou.appvox.core.util
 
 import dev.fabiou.appvox.core.configuration.ProxyConfiguration
-import dev.fabiou.appvox.core.exception.AppVoxErrorCode
+import dev.fabiou.appvox.core.exception.AppVoxError
 import dev.fabiou.appvox.core.exception.AppVoxException
 import java.io.*
 import java.net.*
@@ -45,13 +45,13 @@ object HttpUtil {
             }
             response = responseBuffer.toString()
         } catch (e : Exception) {
-            throw AppVoxException(e, AppVoxErrorCode.NETWORK)
+            throw AppVoxException(e, AppVoxError.NETWORK)
         } finally {
             try {
                 inputStream?.close()
                 reader?.close()
             } catch (e: IOException) {
-                throw AppVoxException(e, AppVoxErrorCode.NETWORK)
+                throw AppVoxException(e, AppVoxError.NETWORK)
             }
         }
         return response

@@ -13,13 +13,10 @@ import dev.fabiou.appvox.core.util.UrlUtil
 
 
 internal class AppStoreReviewRepository(
-        private val config: RequestConfiguration? = null
+        private val config: RequestConfiguration
 ) : ReviewRepository<AppStoreReviewRequest, AppStoreReviewResult.AppStoreReview> {
     companion object {
         internal const val REQUEST_REVIEW_SIZE = 10
-
-        internal const val APP_HP_URL_PATH = "/%s/app/id%s"
-
         internal const val REQUEST_URL_DOMAIN = "https://amp-api.apps.apple.com"
         internal const val REQUEST_URL_PATH = "/v1/catalog/%s/apps/%s/reviews"
         internal const val REQUEST_URL_PARAMS_PREFIX = "?offset=%d"
@@ -31,7 +28,7 @@ internal class AppStoreReviewRepository(
     @Throws(AppVoxException::class)
     override fun getReviewsByAppId(request: ReviewRequest<AppStoreReviewRequest>): ReviewResult<AppStoreReviewResult.AppStoreReview> {
         val requestUrl = UrlUtil.getUrlDomainByEnv(REQUEST_URL_DOMAIN) + if (request.nextToken.isNullOrEmpty()) {
-            REQUEST_URL_PATH.format(request.parameters.region, request.parameters.appId) +
+            REQUEST_URL_PATH.format(request.parameters.region.code, request.parameters.appId) +
                     REQUEST_URL_PARAMS_PREFIX.format(REQUEST_REVIEW_SIZE) + REQUEST_URL_PARAMS
         } else {
             request.nextToken + REQUEST_URL_PARAMS
@@ -40,7 +37,7 @@ internal class AppStoreReviewRepository(
         val responseContent = httpUtils.getRequest(
                 requestUrl = requestUrl,
                 bearerToken = request.parameters.bearerToken,
-                proxyConfig = config?.proxy)
+                proxyConfig = config.proxy)
 
         val result = ObjectMapper().readValue(responseContent, AppStoreReviewResult::class.java)
         return ReviewResult(

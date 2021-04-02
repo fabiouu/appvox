@@ -9,7 +9,7 @@ import dev.fabiou.appvox.core.review.itunesrss.domain.ItunesRssReviewRequest
 import dev.fabiou.appvox.core.review.itunesrss.domain.ItunesRssReviewResult
 
 internal class ItunesRssReviewService(
-    val config : RequestConfiguration = RequestConfiguration()
+    val config : RequestConfiguration
 ) : ReviewService<ItunesRssReviewRequest, ItunesRssReviewResult.Entry> {
 
     private var itunesRssReviewRepository = ItunesRssReviewRepository(config)
@@ -17,8 +17,4 @@ internal class ItunesRssReviewService(
     override fun getReviewsByAppId(request: ReviewRequest<ItunesRssReviewRequest>): ReviewResult<ItunesRssReviewResult.Entry> {
         return itunesRssReviewRepository.getReviewsByAppId(request)
     }
-
-//    override fun createIterator(request: ItunesRssReviewRequest) : ItunesRssReviewIterator {
-////        return ItunesRssReviewIterator(this, request)
-//    }
 }

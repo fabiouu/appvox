@@ -1,6 +1,9 @@
 package dev.fabiou.appvox.core
 
+import dev.fabiou.appvox.core.configuration.Constant.MIN_REQUEST_DELAY
 import dev.fabiou.appvox.core.configuration.RequestConfiguration
+import dev.fabiou.appvox.core.exception.AppVoxError
+import dev.fabiou.appvox.core.exception.AppVoxException
 import dev.fabiou.appvox.core.review.ReviewIterator
 import dev.fabiou.appvox.core.review.ReviewRequest
 import dev.fabiou.appvox.core.review.googleplay.GooglePlayReviewConverter
@@ -14,7 +17,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
 class GooglePlay(
-    val config: RequestConfiguration = RequestConfiguration()
+    val config: RequestConfiguration = RequestConfiguration(requestDelay = MIN_REQUEST_DELAY)
 ) {
     private var googlePlayReviewService = GooglePlayReviewService(config)
 
@@ -26,6 +29,10 @@ class GooglePlay(
         sortType: GooglePlaySortType = GooglePlaySortType.RECENT,
         batchSize: Int = 44
     ): Flow<GooglePlayReview.GooglePlayReview> = flow {
+
+        if (config.requestDelay < MIN_REQUEST_DELAY) {
+            throw AppVoxException(AppVoxError.REQ_DELAY_TOO_SHORT)
+        }
 
         val iterator = ReviewIterator(
             converter = googlePlayReviewConverter,

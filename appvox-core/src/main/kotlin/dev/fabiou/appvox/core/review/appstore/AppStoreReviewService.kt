@@ -10,7 +10,7 @@ import dev.fabiou.appvox.core.review.appstore.domain.AppStoreReviewRequest
 import dev.fabiou.appvox.core.review.appstore.domain.AppStoreReviewResult
 
 internal class AppStoreReviewService(
-    val config : RequestConfiguration = RequestConfiguration()
+    val config : RequestConfiguration
 ) : ReviewService<AppStoreReviewRequest, AppStoreReviewResult.AppStoreReview> {
 
     private var appStoreReviewRepository = AppStoreReviewRepository(config)

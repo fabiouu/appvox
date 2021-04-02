@@ -5,25 +5,25 @@ package dev.fabiou.appvox.core.exception
  * @author fabiouu
  */
 class AppVoxException : Exception {
-    private val code: AppVoxErrorCode
+    private val code: AppVoxError
 
-    constructor(code: AppVoxErrorCode) : super() {
+    constructor(code: AppVoxError) : super() {
         this.code = code
     }
 
-    constructor(message: String?, cause: Throwable?, code: AppVoxErrorCode) : super(message, cause) {
+    constructor(message: String?, cause: Throwable?, code: AppVoxError) : super(message, cause) {
         this.code = code
     }
 
-    constructor(message: String?, code: AppVoxErrorCode) : super(message) {
+    constructor(message: String?, code: AppVoxError) : super(message) {
         this.code = code
     }
 
-    constructor(cause: Throwable?, code: AppVoxErrorCode) : super(cause) {
+    constructor(cause: Throwable?, code: AppVoxError) : super(cause) {
         this.code = code
     }
 
-    fun getCode(): AppVoxErrorCode {
+    fun getCode(): AppVoxError {
         return code
     }
 }
