@@ -1,9 +1,5 @@
 package dev.fabiou.appvox.core.exception
 
-/**
- *
- * @author fabiouu
- */
 class AppVoxException : Exception {
     private val code: AppVoxError
 

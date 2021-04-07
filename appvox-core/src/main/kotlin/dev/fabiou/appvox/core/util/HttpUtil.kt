@@ -11,14 +11,14 @@ object HttpUtil {
     private const val URL_FORM_CONTENT_TYPE = "application/x-www-form-urlencoded"
 
     fun getRequest(requestUrl: String, bearerToken: String? = null, proxyConfig: ProxyConfiguration? = null) : String {
-        val conn: URLConnection
+        val conn: HttpURLConnection
         var reader: BufferedReader? = null
         var inputStream: InputStream? = null
         var response: String
         try {
             if (null != proxyConfig) {
                 val proxy = Proxy(Proxy.Type.HTTP, InetSocketAddress(proxyConfig.host!!, proxyConfig.port!!.toInt()))
-                conn = URL(requestUrl).openConnection(proxy)
+                conn = URL(requestUrl).openConnection(proxy) as HttpURLConnection
                 if (null != proxyConfig.user && null != proxyConfig.password) {
                     val authenticator: Authenticator = object : Authenticator() {
                         override fun getPasswordAuthentication(): PasswordAuthentication? {
@@ -28,7 +28,7 @@ object HttpUtil {
                     Authenticator.setDefault(authenticator)
                 }
             } else {
-                conn = URL(requestUrl).openConnection()
+                conn = URL(requestUrl).openConnection() as HttpURLConnection
             }
 
             if (null != bearerToken) {
@@ -51,22 +51,21 @@ object HttpUtil {
                 inputStream?.close()
                 reader?.close()
             } catch (e: IOException) {
-                throw AppVoxException(e, AppVoxError.NETWORK)
             }
         }
         return response
     }
 
     fun postRequest(requestUrl: String, requestBody: String, configuration: ProxyConfiguration?) : String {
-        var response: String = ""
-        var conn: URLConnection
+        var response = ""
+        var conn: HttpURLConnection
         var outputStream: OutputStream? = null
         var writer: OutputStreamWriter? = null
         var reader: BufferedReader? = null
          try {
             if (null != configuration) {
                 val proxy = Proxy(Proxy.Type.HTTP, InetSocketAddress(configuration.host!!, configuration.port!!.toInt()))
-                conn = URL(requestUrl).openConnection(proxy)
+                conn = URL(requestUrl).openConnection(proxy) as HttpURLConnection
                 if (null != configuration.user && null != configuration.password) {
                     val authenticator: Authenticator = object : Authenticator() {
                         override fun getPasswordAuthentication(): PasswordAuthentication? {
@@ -76,19 +75,19 @@ object HttpUtil {
                     Authenticator.setDefault(authenticator)
                 }
             } else {
-                conn = URL(requestUrl).openConnection()
+                conn = URL(requestUrl).openConnection() as HttpURLConnection
             }
 
             conn.setRequestProperty("Content-Type", URL_FORM_CONTENT_TYPE);
             conn.doOutput = true
-            outputStream = conn.getOutputStream()
+            outputStream = conn.outputStream
             writer = OutputStreamWriter(outputStream)
 
             writer.write(requestBody)
             writer.flush()
 
             val responseBuffer = StringBuffer()
-            reader = BufferedReader(InputStreamReader(conn.getInputStream()))
+            reader = BufferedReader(InputStreamReader(conn.inputStream))
             while (true) {
                 val line = reader.readLine() ?: break
                 responseBuffer.append(line)

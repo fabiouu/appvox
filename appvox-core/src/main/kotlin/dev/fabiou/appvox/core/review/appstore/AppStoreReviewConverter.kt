@@ -3,7 +3,6 @@ package dev.fabiou.appvox.core.review.appstore
 import dev.fabiou.appvox.core.review.ReviewConverter
 import dev.fabiou.appvox.core.review.appstore.domain.AppStoreReview
 import dev.fabiou.appvox.core.review.appstore.domain.AppStoreReviewResult
-import dev.fabiou.appvox.core.review.googleplay.domain.GooglePlayReview
 import java.time.ZonedDateTime
 
 internal class AppStoreReviewConverter : ReviewConverter<AppStoreReviewResult.AppStoreReview, AppStoreReview> {

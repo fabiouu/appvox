@@ -4,6 +4,8 @@ import com.opencsv.CSVWriter
 import dev.fabiou.appvox.core.AppStore
 import dev.fabiou.appvox.core.configuration.ProxyConfiguration
 import dev.fabiou.appvox.core.configuration.RequestConfiguration
+import dev.fabiou.appvox.core.exception.AppVoxException
+import dev.fabiou.appvox.core.review.itunesrss.constant.AppStoreRegion
 import dev.fabiou.appvox.core.review.itunesrss.constant.AppStoreSortType
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.take
@@ -11,17 +13,17 @@ import kotlinx.coroutines.runBlocking
 import java.io.FileWriter
 import java.io.IOException
 
-fun main(args: Array<String>) = runBlocking {
+fun main() = runBlocking {
 
     val appId = "333903271"
     val userRegion = "us"
     val maxReviewCount = 100
 
-    val fileName = "${appId}_${userRegion.toLowerCase()}_${maxReviewCount}.csv"
-    var fileWriter = FileWriter(fileName)
+    val fileName = "${appId}_${userRegion.toLowerCase()}_$maxReviewCount.csv"
+    val fileWriter = FileWriter(fileName)
 
     try {
-        var csvWriter = CSVWriter(
+        val csvWriter = CSVWriter(
             fileWriter,
             CSVWriter.DEFAULT_SEPARATOR,
             CSVWriter.DEFAULT_QUOTE_CHARACTER,
@@ -43,7 +45,7 @@ fun main(args: Array<String>) = runBlocking {
         val appStore = AppStore(config)
         appStore.reviews(
                 appId = appId,
-                region = userRegion,
+                region = AppStoreRegion.fromValue(userRegion),
                 sortType = AppStoreSortType.RECENT
             )
             .take(maxReviewCount)
@@ -62,7 +64,7 @@ fun main(args: Array<String>) = runBlocking {
                 )
                 csvWriter.writeNext(csvReview)
             }
-    } catch (e: Exception) {
+    } catch (e: AppVoxException) {
         e.printStackTrace()
     } finally {
         try {

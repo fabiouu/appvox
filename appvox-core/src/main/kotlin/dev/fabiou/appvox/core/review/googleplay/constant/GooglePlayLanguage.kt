@@ -55,7 +55,7 @@ enum class GooglePlayLanguage(val langCode: String) {
     ZULU("zu");
 
     companion object {
-        fun fromValue(langCode: String) : GooglePlayLanguage {
+        fun fromValue(langCode: String): GooglePlayLanguage {
             for (googlePlayLanguage in values()) {
                 if (langCode.equals(googlePlayLanguage)) {
                     return googlePlayLanguage

@@ -7,9 +7,12 @@ import java.time.Instant
 import java.time.ZoneOffset
 import java.time.ZonedDateTime
 
-class GooglePlayReviewConverter : ReviewConverter<GooglePlayReviewResult.GooglePlayReview, GooglePlayReview.GooglePlayReview> {
+internal class GooglePlayReviewConverter :
+    ReviewConverter<GooglePlayReviewResult.GooglePlayReview, GooglePlayReview.GooglePlayReview> {
 
-        override fun toResponse(reviewResults: List<GooglePlayReviewResult.GooglePlayReview>): List<GooglePlayReview.GooglePlayReview> {
+        override fun toResponse(
+            reviewResults: List<GooglePlayReviewResult.GooglePlayReview>
+        ): List<GooglePlayReview.GooglePlayReview> {
             val response = ArrayList<GooglePlayReview.GooglePlayReview>()
             for (reviewResult in reviewResults) {
                 val reviewResponse = GooglePlayReview.GooglePlayReview(

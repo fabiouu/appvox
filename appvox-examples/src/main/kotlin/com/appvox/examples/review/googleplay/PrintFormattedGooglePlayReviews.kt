@@ -1,7 +1,6 @@
 package com.appvox.examples.review.googleplay
 
 import dev.fabiou.appvox.core.GooglePlay
-import dev.fabiou.appvox.core.configuration.ProxyConfiguration
 import dev.fabiou.appvox.core.configuration.RequestConfiguration
 import dev.fabiou.appvox.core.review.googleplay.constant.GooglePlayLanguage
 import dev.fabiou.appvox.core.review.googleplay.constant.GooglePlaySortType
@@ -16,7 +15,7 @@ import kotlinx.coroutines.runBlocking
  *   The proxy is optional and can be added to GooglePlay constructor.
  *   AppVox is polite by default, request delay cannot be inferior to 500 ms
  */
-fun main(args: Array<String>) = runBlocking {
+fun main() = runBlocking {
 
     val appId = "com.twitter.android"
     val sortType = GooglePlaySortType.RELEVANT

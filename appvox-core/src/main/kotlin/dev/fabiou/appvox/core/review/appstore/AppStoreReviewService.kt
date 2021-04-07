@@ -10,15 +10,18 @@ import dev.fabiou.appvox.core.review.appstore.domain.AppStoreReviewRequest
 import dev.fabiou.appvox.core.review.appstore.domain.AppStoreReviewResult
 
 internal class AppStoreReviewService(
-    val config : RequestConfiguration
+    val config: RequestConfiguration
 ) : ReviewService<AppStoreReviewRequest, AppStoreReviewResult.AppStoreReview> {
 
     private var appStoreReviewRepository = AppStoreReviewRepository(config)
 
     private var appStoreRepository = AppStoreRepository(config)
 
-    override fun getReviewsByAppId(request: ReviewRequest<AppStoreReviewRequest>) : ReviewResult<AppStoreReviewResult.AppStoreReview> {
-        request.parameters.bearerToken = request.parameters.bearerToken ?: appStoreRepository.getBearerToken(request.parameters.appId, request.parameters.region)
+    override fun getReviewsByAppId(
+        request: ReviewRequest<AppStoreReviewRequest>
+    ): ReviewResult<AppStoreReviewResult.AppStoreReview> {
+        request.parameters.bearerToken = request.parameters.bearerToken
+            ?: appStoreRepository.getBearerToken(request.parameters.appId, request.parameters.region)
         return appStoreReviewRepository.getReviewsByAppId(request)
     }
 }

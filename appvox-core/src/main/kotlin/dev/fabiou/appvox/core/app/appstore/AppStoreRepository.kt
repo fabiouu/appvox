@@ -6,14 +6,12 @@ import dev.fabiou.appvox.core.review.itunesrss.constant.AppStoreRegion
 import dev.fabiou.appvox.core.util.HttpUtil
 import dev.fabiou.appvox.core.util.UrlUtil
 
-
 internal class AppStoreRepository(
-        private val config: RequestConfiguration
+    private val config: RequestConfiguration
 ) {
     companion object {
         internal const val APP_HP_URL_DOMAIN = "https://apps.apple.com"
         internal const val APP_HP_URL_PATH = "/%s/app/id%s"
-        internal const val REQUEST_URL_DOMAIN = "https://amp-api.apps.apple.com"
         private const val BEARER_TOKEN_REGEX_PATTERN = "token%22%3A%22(.+?)%22"
     }
 

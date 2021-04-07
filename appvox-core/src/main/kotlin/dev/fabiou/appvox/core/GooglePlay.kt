@@ -19,6 +19,11 @@ import kotlinx.coroutines.flow.flow
 class GooglePlay(
     val config: RequestConfiguration = RequestConfiguration(requestDelay = MIN_REQUEST_DELAY)
 ) {
+
+    companion object {
+        private const val DEFAULT_BATCH_SIZE = 44
+    }
+
     private var googlePlayReviewService = GooglePlayReviewService(config)
 
     private var googlePlayReviewConverter = GooglePlayReviewConverter()
@@ -27,7 +32,7 @@ class GooglePlay(
         appId: String,
         language: GooglePlayLanguage = GooglePlayLanguage.ENGLISH_US,
         sortType: GooglePlaySortType = GooglePlaySortType.RECENT,
-        batchSize: Int = 44
+        batchSize: Int = DEFAULT_BATCH_SIZE
     ): Flow<GooglePlayReview.GooglePlayReview> = flow {
 
         if (config.requestDelay < MIN_REQUEST_DELAY) {
