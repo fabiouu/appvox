@@ -43,7 +43,7 @@ internal class GooglePlayReviewRepository(
         private const val MAX_BATCH_SIZE = 100
     }
 
-    private var httpUtils = HttpUtil
+    private val httpUtils = HttpUtil
 
     @Throws(AppVoxException::class)
     override fun getReviewsByAppId(

@@ -24,9 +24,9 @@ class GooglePlay(
         private const val DEFAULT_BATCH_SIZE = 44
     }
 
-    private var googlePlayReviewService = GooglePlayReviewService(config)
+    private val googlePlayReviewService = GooglePlayReviewService(config)
 
-    private var googlePlayReviewConverter = GooglePlayReviewConverter()
+    private val googlePlayReviewConverter = GooglePlayReviewConverter()
 
     fun reviews(
         appId: String,

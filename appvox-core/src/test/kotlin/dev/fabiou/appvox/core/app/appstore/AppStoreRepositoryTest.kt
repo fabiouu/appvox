@@ -9,7 +9,7 @@ import org.junit.jupiter.params.provider.CsvSource
 
 class AppStoreRepositoryTest : BaseRepositoryTest() {
 
-    private var appStoreRepository = AppStoreRepository(RequestConfiguration(requestDelay = 3000L))
+    private val appStoreRepository = AppStoreRepository(RequestConfiguration(requestDelay = 3000L))
 
     @ParameterizedTest
     @CsvSource(

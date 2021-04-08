@@ -1,5 +1,5 @@
 package dev.fabiou.appvox.core.review
 
- interface ReviewConverter<Source, Target> {
-    fun toResponse(reviewResults: List<Source>): List<Target>
+internal interface ReviewConverter<Source, Target> {
+    fun toResponse(results: List<Source>): List<Target>
 }

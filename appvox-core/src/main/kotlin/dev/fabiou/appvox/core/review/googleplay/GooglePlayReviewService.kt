@@ -10,7 +10,8 @@ import dev.fabiou.appvox.core.review.googleplay.domain.GooglePlayReviewResult
 internal class GooglePlayReviewService(
     val config: RequestConfiguration
 ) : ReviewService<GooglePlayReviewRequest, GooglePlayReviewResult.GooglePlayReview> {
-    private var googlePlayReviewRepository = GooglePlayReviewRepository(config)
+
+    private val googlePlayReviewRepository = GooglePlayReviewRepository(config)
 
     override fun getReviewsByAppId(
         request: ReviewRequest<GooglePlayReviewRequest>

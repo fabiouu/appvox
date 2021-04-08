@@ -14,7 +14,7 @@ import org.junit.jupiter.params.provider.CsvSource
 
 class ItunesRssReviewRepositoryTest : BaseRepositoryTest() {
 
-    private var repository = ItunesRssReviewRepository(RequestConfiguration(requestDelay = 3000L))
+    private val repository = ItunesRssReviewRepository(RequestConfiguration(requestDelay = 3000L))
 
     @ExperimentalCoroutinesApi
     @ParameterizedTest
@@ -22,7 +22,11 @@ class ItunesRssReviewRepositoryTest : BaseRepositoryTest() {
         "333903271, us, 50, 1"
     )
     fun `Get most recent App Store reviews from itunes RSS Feed`(
-        appId: String, regionCode: String, requestedSize: Int, pageNo: Int) = runBlockingTest {
+        appId: String,
+        regionCode: String,
+        requestedSize: Int,
+        pageNo: Int
+    ) = runBlockingTest {
 
         val region = AppStoreRegion.fromValue(regionCode)
 

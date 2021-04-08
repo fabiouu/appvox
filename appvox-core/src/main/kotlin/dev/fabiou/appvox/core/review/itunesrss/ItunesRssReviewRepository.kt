@@ -26,16 +26,12 @@ internal class ItunesRssReviewRepository(
         internal const val RSS_REQUEST_URL_PARAMS = "?urlDesc=/customerreviews/id=%s/mostrecent/xml"
     }
 
-    private var xif = XMLInputFactory.newFactory()
+    private val xif = XMLInputFactory.newFactory()
 
     private val httpUtils = HttpUtil
 
     init {
         xif.setProperty(XMLInputFactory.IS_NAMESPACE_AWARE, false)
-
-        if (config!!.requestDelay < 500) {
-            throw AppVoxException(AppVoxError.REQ_DELAY_TOO_SHORT)
-        }
     }
 
     @Throws(AppVoxException::class)
@@ -47,13 +43,13 @@ internal class ItunesRssReviewRepository(
         val requestUrl = request.nextToken ?: UrlUtil.getUrlDomainByEnv(RSS_REQUEST_URL_DOMAIN) +
         RSS_REQUEST_URL_PATH.format(request.parameters.region.code, request.parameters.pageNo, request.parameters.appId) +
         RSS_REQUEST_URL_PARAMS.format(request.parameters.appId)
-        var responseContent = httpUtils.getRequest(requestUrl = requestUrl, proxyConfig = config.proxy)
+        val responseContent = httpUtils.getRequest(requestUrl = requestUrl, proxyConfig = config.proxy)
 
         val result: ItunesRssReviewResult
         try {
             val jaxbContext: JAXBContext = JAXBContext.newInstance(ItunesRssReviewResult::class.java)
-            responseContent = responseContent.replace("&", "&amp;")
-            val sr = StringReader(responseContent)
+            val cleanResponseContent = responseContent.replace("&", "&amp;")
+            val sr = StringReader(cleanResponseContent)
             val xsr: XMLStreamReader = xif.createXMLStreamReader(sr)
             val jaxbUnmarshaller: Unmarshaller = jaxbContext.createUnmarshaller()
             result = jaxbUnmarshaller.unmarshal(xsr) as ItunesRssReviewResult

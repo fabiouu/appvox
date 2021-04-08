@@ -1,9 +1,9 @@
 package dev.fabiou.appvox.core.review
 
 internal class ReviewIterator<Request, Result, Response>(
-        private val service: ReviewService<Request, Result>,
-        private val converter: ReviewConverter<Result, Response>,
-        private val request: ReviewRequest<Request>
+    private val service: ReviewService<Request, Result>,
+    private val converter: ReviewConverter<Result, Response>,
+    private var request: ReviewRequest<Request>
 ) : Iterator<List<Response>> {
 
     private var results: List<Result>
@@ -11,7 +11,7 @@ internal class ReviewIterator<Request, Result, Response>(
     init {
         val response = service.getReviewsByAppId(request)
         results = response.results
-        request.nextToken = response.nextToken
+        request = request.copy(request.parameters, response.nextToken)
     }
 
     override fun hasNext(): Boolean {
@@ -23,9 +23,8 @@ internal class ReviewIterator<Request, Result, Response>(
         if (response.results.isEmpty()) {
             return false
         }
-
         results = response.results
-        request.nextToken = response.nextToken
+        request = request.copy(request.parameters, response.nextToken)
 
         return true
     }

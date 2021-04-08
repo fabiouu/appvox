@@ -13,15 +13,27 @@ internal class AppStoreReviewService(
     val config: RequestConfiguration
 ) : ReviewService<AppStoreReviewRequest, AppStoreReviewResult.AppStoreReview> {
 
-    private var appStoreReviewRepository = AppStoreReviewRepository(config)
+    private val appStoreReviewRepository = AppStoreReviewRepository(config)
 
-    private var appStoreRepository = AppStoreRepository(config)
+    private val appStoreRepository = AppStoreRepository(config)
 
     override fun getReviewsByAppId(
         request: ReviewRequest<AppStoreReviewRequest>
     ): ReviewResult<AppStoreReviewResult.AppStoreReview> {
-        request.parameters.bearerToken = request.parameters.bearerToken
-            ?: appStoreRepository.getBearerToken(request.parameters.appId, request.parameters.region)
-        return appStoreReviewRepository.getReviewsByAppId(request)
+        val bearerToken = appStoreRepository.getBearerToken(request.parameters.appId, request.parameters.region)
+        val requestCopy = if (request.parameters.bearerToken == null) {
+            request.copy(
+                parameters = request.parameters.copy(
+                    appId = request.parameters.appId,
+                    region = request.parameters.region,
+                    bearerToken = bearerToken
+                ),
+                nextToken = request.nextToken
+            )
+        } else {
+            request.copy()
+        }
+
+        return appStoreReviewRepository.getReviewsByAppId(requestCopy)
     }
 }

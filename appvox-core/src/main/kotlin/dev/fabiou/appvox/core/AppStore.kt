@@ -19,9 +19,9 @@ import kotlinx.coroutines.flow.flow
 class AppStore(
     val config: RequestConfiguration = RequestConfiguration(requestDelay = MIN_REQUEST_DELAY)
 ) {
-    private var itunesRssReviewService = ItunesRssReviewService(config)
+    private val itunesRssReviewService = ItunesRssReviewService(config)
 
-    private var itunesRssReviewConverter = ItunesRssReviewConverter()
+    private val itunesRssReviewConverter = ItunesRssReviewConverter()
 
     fun reviews(
         appId: String,

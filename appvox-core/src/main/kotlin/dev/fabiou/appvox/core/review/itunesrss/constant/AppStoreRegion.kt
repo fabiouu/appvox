@@ -3,7 +3,6 @@ package dev.fabiou.appvox.core.review.itunesrss.constant
 /**
  * https://www.apple.com/ios/feature-availability/#app-store-apps
  * App Store supports 175 regions
- *
  */
 enum class AppStoreRegion(val code: String) {
     AE("ae"),
@@ -251,9 +250,9 @@ enum class AppStoreRegion(val code: String) {
     ZIMBABWE("zw");
 
     companion object {
-        fun fromValue(regionCode: String) : AppStoreRegion {
+        fun fromValue(regionCode: String): AppStoreRegion {
             for (appStoreRegion in values()) {
-                if (regionCode.equals(appStoreRegion.code)) {
+                if (regionCode == appStoreRegion.code) {
                     return appStoreRegion
                 }
             }
@@ -261,4 +260,3 @@ enum class AppStoreRegion(val code: String) {
         }
     }
 }
-

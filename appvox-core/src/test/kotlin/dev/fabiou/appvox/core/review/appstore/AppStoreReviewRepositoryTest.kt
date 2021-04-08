@@ -9,15 +9,14 @@ import dev.fabiou.appvox.core.review.itunesrss.constant.AppStoreRegion
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.jupiter.api.Assertions
-import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
 
 class AppStoreReviewRepositoryTest : BaseRepositoryTest() {
 
-    private var appStoreReviewRepository = AppStoreReviewRepository(RequestConfiguration(requestDelay = 3000L))
+    private val appStoreReviewRepository = AppStoreReviewRepository(RequestConfiguration(requestDelay = 3000L))
 
-    private var appStoreRepository = AppStoreRepository(RequestConfiguration(requestDelay = 3000L))
+    private val appStoreRepository = AppStoreRepository(RequestConfiguration(requestDelay = 3000L))
 
     @ExperimentalCoroutinesApi
     @ParameterizedTest

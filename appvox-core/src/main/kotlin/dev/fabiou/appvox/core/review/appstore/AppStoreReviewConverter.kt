@@ -8,7 +8,7 @@ import java.time.ZonedDateTime
 internal class AppStoreReviewConverter : ReviewConverter<AppStoreReviewResult.AppStoreReview, AppStoreReview> {
     override fun toResponse(results: List<AppStoreReviewResult.AppStoreReview>): List<AppStoreReview> {
         val response = ArrayList<AppStoreReview>()
-        for (result in results) {
+        results.forEach { result ->
             val review = AppStoreReview(
                 id = result.id,
                 userName = result.attributes.userName,
