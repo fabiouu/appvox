@@ -1,5 +1,6 @@
 package dev.fabiou.appvox.core
 
+import com.sun.deploy.net.HttpUtils
 import dev.fabiou.appvox.core.configuration.Constant.MIN_REQUEST_DELAY
 import dev.fabiou.appvox.core.configuration.RequestConfiguration
 import dev.fabiou.appvox.core.exception.AppVoxError
@@ -12,6 +13,7 @@ import dev.fabiou.appvox.core.review.googleplay.constant.GooglePlayLanguage
 import dev.fabiou.appvox.core.review.googleplay.constant.GooglePlaySortType
 import dev.fabiou.appvox.core.review.googleplay.domain.GooglePlayReview
 import dev.fabiou.appvox.core.review.googleplay.domain.GooglePlayReviewRequest
+import dev.fabiou.appvox.core.util.HttpUtil
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -27,6 +29,12 @@ class GooglePlay(
     private val googlePlayReviewService = GooglePlayReviewService(config)
 
     private val googlePlayReviewConverter = GooglePlayReviewConverter()
+
+    init {
+        if (config.proxy?.user != null && config.proxy.password != null) {
+            HttpUtil.setAuthenticator(config.proxy.user, config.proxy.password)
+        }
+    }
 
     fun reviews(
         appId: String,
