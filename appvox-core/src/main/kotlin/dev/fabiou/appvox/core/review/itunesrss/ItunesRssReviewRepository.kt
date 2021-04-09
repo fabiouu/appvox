@@ -24,6 +24,8 @@ internal class ItunesRssReviewRepository(
         internal const val RSS_REQUEST_URL_DOMAIN = "https://itunes.apple.com"
         internal const val RSS_REQUEST_URL_PATH = "/%s/rss/customerreviews/page=%d/id=%s/sortby=mostrecent/xml"
         internal const val RSS_REQUEST_URL_PARAMS = "?urlDesc=/customerreviews/id=%s/mostrecent/xml"
+        internal const val MIN_PAGE_NO = 1
+        internal const val MAX_PAGE_NO = 10
     }
 
     private val xif = XMLInputFactory.newFactory()
@@ -35,8 +37,10 @@ internal class ItunesRssReviewRepository(
     }
 
     @Throws(AppVoxException::class)
-    override fun getReviewsByAppId(request: ReviewRequest<ItunesRssReviewRequest>): ReviewResult<ItunesRssReviewResult.Entry> {
-        if (request.parameters.pageNo !in 1..10) {
+    override fun getReviewsByAppId(
+        request: ReviewRequest<ItunesRssReviewRequest>
+    ): ReviewResult<ItunesRssReviewResult.Entry> {
+        if (request.parameters.pageNo !in MIN_PAGE_NO..MAX_PAGE_NO) {
             throw AppVoxException(AppVoxError.INVALID_ARGUMENT)
         }
 

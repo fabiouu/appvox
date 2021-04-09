@@ -6,11 +6,11 @@ internal class ReviewIterator<Request, Result, Response>(
     private var request: ReviewRequest<Request>
 ) : Iterator<List<Response>> {
 
-    private var results: List<Result>
+    private val results: MutableList<Result>
 
     init {
         val response = service.getReviewsByAppId(request)
-        results = response.results
+        results = response.results.toMutableList()
         request = request.copy(request.parameters, response.nextToken)
     }
 
@@ -23,7 +23,8 @@ internal class ReviewIterator<Request, Result, Response>(
         if (response.results.isEmpty()) {
             return false
         }
-        results = response.results
+        results.clear()
+        results.addAll(response.results)
         request = request.copy(request.parameters, response.nextToken)
 
         return true

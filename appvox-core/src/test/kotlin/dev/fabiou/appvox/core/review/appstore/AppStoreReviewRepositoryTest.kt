@@ -23,7 +23,7 @@ class AppStoreReviewRepositoryTest : BaseRepositoryTest() {
     @CsvSource(
         "333903271, us, 10"
     )
-    fun `Get app store reviews`(appId: String, regionCode: String, requestedSize: Int) = runBlockingTest {
+    fun `Get app store reviews`(appId: String, regionCode: String, requestedSize: Int) {
 
         val region = AppStoreRegion.fromValue(regionCode)
 

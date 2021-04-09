@@ -32,7 +32,7 @@ class AppStore(
 
     fun reviews(
         appId: String,
-        region: AppStoreRegion = AppStoreRegion.ESTADOS_UNIDOS,
+        region: AppStoreRegion = AppStoreRegion.UNITED_STATES,
         sortType: AppStoreSortType = AppStoreSortType.RELEVANT
     ): Flow<ItunesRssReview> = flow {
 

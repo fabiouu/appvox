@@ -1,6 +1,5 @@
 package dev.fabiou.appvox.core
 
-import com.sun.deploy.net.HttpUtils
 import dev.fabiou.appvox.core.configuration.Constant.MIN_REQUEST_DELAY
 import dev.fabiou.appvox.core.configuration.RequestConfiguration
 import dev.fabiou.appvox.core.exception.AppVoxError

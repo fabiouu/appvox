@@ -27,7 +27,7 @@ class GooglePlayReviewRepositoryTest : BaseRepositoryTest() {
         sortType: Int,
         batchSize: Int,
         maxReviewCount: Int
-    ) = runBlockingTest {
+    ) {
 
         val mockData = javaClass.getResource("/review/googleplay_reviews_mock_data.json").readText()
         stubHttpUrl(GooglePlayReviewRepository.REQUEST_URL_PATH, mockData)

@@ -231,7 +231,7 @@ enum class AppStoreRegion(val code: String) {
     UA("ua"),
     UGANDA("ug"),
     UNITED_STATES_MINOR_OUTLYING_ISLANDS("um"),
-    ESTADOS_UNIDOS("us"),
+    UNITED_STATES("us"),
     URUGUAY("uy"),
     UZBEKISTAN("uz"),
     VATICAN("va"),
@@ -256,7 +256,7 @@ enum class AppStoreRegion(val code: String) {
                     return appStoreRegion
                 }
             }
-            return ESTADOS_UNIDOS
+            return UNITED_STATES
         }
     }
 }

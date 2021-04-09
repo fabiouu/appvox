@@ -5,9 +5,9 @@ import com.github.tomakehurst.wiremock.client.WireMock
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 
-abstract class BaseRepositoryTest {
+open class BaseRepositoryTest {
 
-    protected val wireMockServer = WireMockServer()
+    private val wireMockServer = WireMockServer()
 
     @BeforeEach
     fun initWireMockServer() {

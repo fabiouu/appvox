@@ -13,36 +13,37 @@ import javax.xml.datatype.XMLGregorianCalendar
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = ["id", "title", "updated", "link", "icon", "author", "rights", "entry"])
 @XmlRootElement(name = "feed")
-internal class ItunesRssReviewResult {
+internal data class ItunesRssReviewResult(
 
     @XmlAttribute(name = "xmlns")
-    var uri: String? = null
+    val uri: String? = null,
 
     @XmlElement(required = true)
-    var id: String? = null
+    val id: String? = null,
 
     @XmlElement(required = true)
-    var title: String? = null
+    val title: String? = null,
 
     @XmlElement(required = true)
     @XmlSchemaType(name = "dateTime")
-    var updated: XMLGregorianCalendar? = null
+    val updated: XMLGregorianCalendar? = null,
 
     @XmlElement(required = true)
-    var link: List<Link>? = null
+    val link: List<Link>? = null,
 
     @XmlElement(required = true)
     @XmlSchemaType(name = "anyURI")
-    var icon: String? = null
+    val icon: String? = null,
 
     @XmlElement(required = true)
-    var author: Author? = null
+    val author: Author? = null,
 
     @XmlElement(required = true)
-    var rights: String? = null
+    val rights: String? = null,
 
     @XmlElement(required = true)
-    var entry: List<Entry>? = null
+    val entry: List<Entry>? = null
+) {
 
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(
@@ -50,74 +51,74 @@ internal class ItunesRssReviewResult {
             "updated", "id", "title", "content", "voteSum", "voteCount", "rating", "version", "author", "link"]
     )
     @XmlRootElement(name = "entry")
-    internal class Entry {
+    internal data class Entry(
         @XmlElement(required = true)
         @XmlSchemaType(name = "dateTime")
-        var updated: XMLGregorianCalendar? = null
+        val updated: XMLGregorianCalendar? = null,
 
         @XmlElement(required = true)
-        var id: String? = null
+        val id: String? = null,
 
         @XmlElement(required = true)
-        var title: String? = null
+        val title: String? = null,
 
         @XmlElement(required = true)
-        var content: List<Content>? = null
+        val content: List<Content>? = null,
 
         @XmlElement(required = true, name = "im:voteSum")
-        var voteSum: Int? = 0
+        val voteSum: Int? = 0,
 
         @XmlElement(required = true, name = "im:voteCount")
-        var voteCount: Int? = 0
+        val voteCount: Int? = 0,
 
         @XmlElement(required = true, name = "im:rating")
-        var rating: Int? = 0
+        val rating: Int? = 0,
 
         @XmlElement(required = true, name = "im:version")
-        var version: String? = null
+        val version: String? = null,
 
         @XmlElement(required = true)
-        var author: Author? = null
+        val author: Author? = null,
 
         @XmlElement(required = true)
-        var link: Link? = null
-
+        val link: Link? = null
+    ) {
         @XmlRootElement(name = "content")
         @XmlAccessorType(XmlAccessType.FIELD)
-        internal class Content {
+        internal data class Content(
             @XmlValue
-            var content: String? = null
+            val content: String? = null,
 
             @XmlAttribute
-            var type: String? = null
-        }
+            val type: String? = null
+        )
     }
 
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = ["value"])
     @XmlRootElement(name = "link")
-    internal class Link {
+    internal data class Link(
         @XmlValue
-        var value: String? = null
+        val value: String? = null,
 
         @XmlAttribute(name = "rel")
-        var rel: String? = null
+        val rel: String? = null,
 
         @XmlAttribute(name = "href")
-        var href: String? = null
+        val href: String? = null,
 
         @XmlAttribute(name = "type")
-        var type: String? = null
-    }
+        val type: String? = null,
+    )
 
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = ["name", "uri"])
     @XmlRootElement(name = "author")
-    internal class Author {
+    internal data class Author(
         @XmlElement(required = true)
-        var name: String? = null
+        val name: String? = null,
 
         @XmlElement(required = true)
-        var uri: String? = null
-    }
+        val uri: String? = null
+    )
 }

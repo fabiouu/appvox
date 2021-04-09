@@ -26,7 +26,7 @@ class ItunesRssReviewRepositoryTest : BaseRepositoryTest() {
         regionCode: String,
         requestedSize: Int,
         pageNo: Int
-    ) = runBlockingTest {
+    ) {
 
         val region = AppStoreRegion.fromValue(regionCode)
 
