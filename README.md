@@ -24,17 +24,22 @@
   Capture the voice of your App users
 </h3>
 
-## Overview
+# Overview
 AppVox is a high-level library to extract application data from Google Play and App Store via a uniform interface.
 
-For now, AppVox offers the following capabilities:
- - [x] Reviews
- - [ ] Auto-Translation
- - [ ] App detailed information
- - [ ] Store-wide search
 
-## Installation
-#### Maven
+# Features
+ - Reviews
+
+# Installation
+Only `appvox-core` package is mandatory to start using AppVox
+
+| Package | Description |
+|----------|---------|
+| [`appvox-core`](./appvox-core) | Core package containing Google Play and App Store scrapers |
+| [`appvox-examples`](./appvox-examples) | AppVox usage examples |
+
+### Maven
 ```xml
 <dependency>
     <groupId>dev.fabiou.appvox</groupId>
@@ -43,27 +48,17 @@ For now, AppVox offers the following capabilities:
 </dependency>
 ```
 
-#### Gradle
+### Gradle
 ```groovy
 compile "dev.fabiou.appvox:appvox-core:1.0.0-SNAPSHOT"
 ```
 
-Only `appvox-core` package is mandatory to start using AppVox
-
-| Package | Description |
-|----------|---------|
-| [`appvox-core`](./appvox-core) | Core package containing Google Play and App Store scrapers |
-| [`appvox-examples`](./appvox-examples) | AppVox usage examples |
-
-## Usage
-#### Politeness
+# Usage
 AppVox is polite by default. The default delay between requests is 500 milliseconds.
 An `AppVoxException` will be thrown if user-defined request delay is inferior to the default one.
 
-#### Through a proxy
-Network requests can be made through a proxy.
-
-All network calls made by AppVox can be made via a proxy by passing a `RequestConfiguration` object to `GooglePlay` or `AppStore` constructor
+## Proxy
+All network calls made by AppVox can be made through a proxy by passing a `RequestConfiguration` object to `GooglePlay` or `AppStore` constructor
 ``` Kotlin
 val config = RequestConfiguration(
     requestDelay = 3000L,
@@ -78,8 +73,8 @@ val appStore = AppStore(config)
 // ...
 ```
 
-#### Reviews
-##### Google Play
+## Reviews
+### Google Play
 Use default parameters to extract the 100 most recent English Twitter Android app reviews
 ```kotlin
 import dev.fabiou.appvox.core.GooglePlay
@@ -96,18 +91,7 @@ fun main() = runBlocking {
 }
 ```
 
-##### App Store
-App Store scraper is a high-level scraper implementation requesting reviews from 2 different sources:
-- Scraping apps.apple.com to return the whole review history of an app sorted by most relevant.
-Moreover, the scrapped endpoint return no more than 10 reviews by request (fixed size by Apple).
-This approach is limited if your goal is to stay up-to-date on the latest user reviews and do not include user app version.
-That's why the tool offer a second way of getting the most recent App Store reviews
-- Getting most recent reviews from Itunes RSS XML Feed. The JSON version of the Feed contains no review timestamp.
-The RSS Feed returns the 500 most recent reviews at most and include more metadata such as app version and like count
-
-Using both implementation is totally transparent for the user, just specify sortType to MOST_RECENT or MOST_RELEVANT to switch between the two methods
- 
- Use default parameters to extract the 100 most recent English Twitter AppStore app reviews
+### App Store
 ``` Kotlin
 import dev.fabiou.appvox.core.AppStore
 import kotlinx.coroutines.flow.collect
@@ -123,11 +107,24 @@ fun main() = runBlocking {
 }
 ```
 
+App Store scraper is a high-level scraper implementation requesting reviews from 2 different sources:
+- Scraping apps.apple.com to return the whole review history of an app sorted by most relevant.
+Moreover, the scrapped endpoint return no more than 10 reviews by request (fixed size by Apple).
+This approach is limited if your goal is to stay up-to-date on the latest user reviews and do not include user app version.
+That's why the tool offer a second way of getting the most recent App Store reviews
+- Getting most recent reviews from Itunes RSS XML Feed. The JSON version of the Feed contains no review timestamp.
+The RSS Feed returns the 500 most recent reviews at most and include more metadata such as app version and like count
+
+Using both implementation is totally transparent for the user, just specify sortType to MOST_RECENT or MOST_RELEVANT to switch between the two methods
+ 
+ Use default parameters to extract the 100 most recent English Twitter AppStore app reviews
+
 ### Thread Safety
 AppVox uses Kotlin Flows
 
 ### Dependencies
-The library only depends on Jackson Kotlin module for JSON deserialization. Java SE 7 UrlConnection superclass handle http calls and JAXB deserializes iTunes XML Feed.
+AppVox follow a minimal dependency approach where the only 3rd party JAR imported in your class path is the Jackson Kotlin module.
+Jackson is used to deserialize Google Play unstructured HTML-like array of data.
 
 ### Roadmap
 The Roadmap and tasks in-progress of the project can be found in the upper "Projects" GitHub section
