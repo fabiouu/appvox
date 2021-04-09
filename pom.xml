@@ -44,7 +44,8 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven.compiler.source>1.8</maven.compiler.source>
         <java.version>1.8</java.version>
-        <kotlin.version>1.4.21</kotlin.version>
+        <kotlin.version>1.4.32</kotlin.version>
+        <kotlin.serialization.version>1.1.0</kotlin.serialization.version>
         <kotlin.coroutines.version>1.4.3</kotlin.coroutines.version>
         <junit.version>5.7.0</junit.version>
         <mockito.version>3.7.7</mockito.version>
@@ -68,6 +69,17 @@
                 <artifactId>kotlinx-coroutines-core</artifactId>
                 <version>${kotlin.coroutines.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.jetbrains.kotlinx</groupId>
+                <artifactId>kotlinx-serialization-json</artifactId>
+                <version>${kotlin.serialization.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.module</groupId>
+                <artifactId>jackson-module-kotlin</artifactId>
+                <version>2.11.1</version>
+            </dependency>
+<!--            Test dependencies-->
             <dependency>
                 <groupId>org.jetbrains.kotlinx</groupId>
                 <artifactId>kotlinx-coroutines-test</artifactId>
@@ -109,18 +121,6 @@
                     <groupId>org.jetbrains.kotlin</groupId>
                     <artifactId>kotlin-maven-plugin</artifactId>
                     <version>${kotlin.version}</version>
-                    <configuration>
-                        <args>
-                            <arg>-Xjsr305=strict</arg>
-                        </args>
-                    </configuration>
-                    <dependencies>
-                        <dependency>
-                            <groupId>org.jetbrains.kotlin</groupId>
-                            <artifactId>kotlin-maven-allopen</artifactId>
-                            <version>${kotlin.version}</version>
-                        </dependency>
-                    </dependencies>
                     <executions>
                         <execution>
                             <id>compile</id>
@@ -134,19 +134,26 @@
                             </configuration>
                         </execution>
                     </executions>
-                </plugin>
-                <plugin>
-                    <groupId>org.codehaus.gmavenplus</groupId>
-                    <artifactId>gmavenplus-plugin</artifactId>
-                    <version>1.6</version>
-                    <executions>
-                        <execution>
-                            <goals>
-                                <goal>compile</goal>
-                                <goal>compileTests</goal>
-                            </goals>
-                        </execution>
-                    </executions>
+                    <configuration>
+                        <args>
+                            <arg>-Xjsr305=strict</arg>
+                        </args>
+                        <compilerPlugins>
+                            <plugin>kotlinx-serialization</plugin>
+                        </compilerPlugins>
+                    </configuration>
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.jetbrains.kotlin</groupId>
+                            <artifactId>kotlin-maven-serialization</artifactId>
+                            <version>${kotlin.version}</version>
+                        </dependency>
+                        <dependency>
+                            <groupId>org.jetbrains.kotlin</groupId>
+                            <artifactId>kotlin-maven-allopen</artifactId>
+                            <version>${kotlin.version}</version>
+                        </dependency>
+                    </dependencies>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>

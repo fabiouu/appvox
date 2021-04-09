@@ -12,6 +12,7 @@ import dev.fabiou.appvox.core.review.itunesrss.constant.AppStoreRegion
 import dev.fabiou.appvox.core.review.itunesrss.constant.AppStoreSortType
 import dev.fabiou.appvox.core.review.itunesrss.domain.ItunesRssReview
 import dev.fabiou.appvox.core.review.itunesrss.domain.ItunesRssReviewRequest
+import dev.fabiou.appvox.core.util.HttpUtil
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -22,6 +23,12 @@ class AppStore(
     private val itunesRssReviewService = ItunesRssReviewService(config)
 
     private val itunesRssReviewConverter = ItunesRssReviewConverter()
+
+    init {
+        if (config.proxy?.user != null && config.proxy.password != null) {
+            HttpUtil.setAuthenticator(config.proxy.user, config.proxy.password)
+        }
+    }
 
     fun reviews(
         appId: String,

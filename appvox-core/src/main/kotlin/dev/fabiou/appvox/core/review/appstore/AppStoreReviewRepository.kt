@@ -1,6 +1,5 @@
 package dev.fabiou.appvox.core.review.appstore
 
-import com.fasterxml.jackson.databind.ObjectMapper
 import dev.fabiou.appvox.core.configuration.RequestConfiguration
 import dev.fabiou.appvox.core.exception.AppVoxException
 import dev.fabiou.appvox.core.review.ReviewRepository
@@ -10,6 +9,10 @@ import dev.fabiou.appvox.core.review.appstore.domain.AppStoreReviewRequest
 import dev.fabiou.appvox.core.review.appstore.domain.AppStoreReviewResult
 import dev.fabiou.appvox.core.util.HttpUtil
 import dev.fabiou.appvox.core.util.UrlUtil
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.Json
+
+val lenientJson = Json { isLenient = true }
 
 internal class AppStoreReviewRepository(
     private val config: RequestConfiguration
@@ -41,7 +44,7 @@ internal class AppStoreReviewRepository(
             proxyConfig = config.proxy
         )
 
-        val result = ObjectMapper().readValue(responseContent, AppStoreReviewResult::class.java)
+        val result = lenientJson.decodeFromString<AppStoreReviewResult>(responseContent)
         return ReviewResult(
             results = result.data,
             nextToken = result.next

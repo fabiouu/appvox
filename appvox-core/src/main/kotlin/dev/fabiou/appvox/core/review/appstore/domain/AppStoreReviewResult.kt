@@ -1,30 +1,33 @@
 package dev.fabiou.appvox.core.review.appstore.domain
 
-import com.fasterxml.jackson.annotation.JsonProperty
+import kotlinx.serialization.Serializable
 
+@Serializable
 internal data class AppStoreReviewResult(
-    @JsonProperty("next") val next: String?,
-    @JsonProperty("data") val data: List<AppStoreReview>
+        val next: String?,
+        val data: List<AppStoreReview>
 ) {
-
+    @Serializable
     internal data class AppStoreReview(
-        @JsonProperty("id") val id: String,
-        @JsonProperty("type") val type: String,
-        @JsonProperty("attributes") val attributes: AppStoreReviewAttributes
+            val id: String,
+            val type: String,
+            val attributes: AppStoreReviewAttributes
     ) {
+        @Serializable
         internal data class AppStoreReviewAttributes(
-            @JsonProperty("isEdited") val isEdited: String,
-            @JsonProperty("date") val date: String,
-            @JsonProperty("title") val title: String,
-            @JsonProperty("rating") val rating: Int,
-            @JsonProperty("developerResponse") val developerResponse: AppStoreDeveloperResponse?,
-            @JsonProperty("review") val review: String,
-            @JsonProperty("userName") val userName: String
+                val isEdited: String,
+                val date: String,
+                val title: String,
+                val rating: Int,
+                val developerResponse: AppStoreDeveloperResponse?,
+                val review: String,
+                val userName: String
         ) {
+            @Serializable
             internal data class AppStoreDeveloperResponse(
-                @JsonProperty("id") val id: Long,
-                @JsonProperty("body") val body: String,
-                @JsonProperty("modified") val modified: String
+                    val id: Long,
+                    val body: String,
+                    val modified: String
             )
         }
     }

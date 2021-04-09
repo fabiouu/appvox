@@ -10,7 +10,7 @@
         <img src="https://maven-badges.herokuapp.com/maven-central/dev.fabiou.appvox/appvox-parent/badge.svg" alt="Coverage" />
     </a>
     <a href="Kotlin">
-        <img src="https://img.shields.io/badge/Kotlin-1.4.21-blue.svg" alt="Coverage" />
+        <img src="https://img.shields.io/badge/Kotlin-1.4.32-blue.svg" alt="Coverage" />
     </a>
     <a href="https://codeclimate.com/github/fabiouu/AppVox/maintainability">
         <img src="https://api.codeclimate.com/v1/badges/6f0c3287d031b4f431ea/maintainability" alt="Maintainability" />
