@@ -1,7 +1,7 @@
 package dev.fabiou.appvox.core.review.googleplay.constant
 
-/*
-    https://support.google.com/googleplay/android-developer/table/4419860
+/**
+ * https://support.google.com/googleplay/android-developer/table/4419860
  */
 enum class GooglePlayLanguage(val langCode: String) {
     AFRIKAANS("af"),
@@ -55,7 +55,7 @@ enum class GooglePlayLanguage(val langCode: String) {
     ZULU("zu");
 
     companion object {
-        fun fromValue(langCode: String) : GooglePlayLanguage {
+        fun fromValue(langCode: String): GooglePlayLanguage {
             for (googlePlayLanguage in values()) {
                 if (langCode.equals(googlePlayLanguage)) {
                     return googlePlayLanguage

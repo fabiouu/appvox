@@ -1,22 +1,22 @@
 package com.appvox.examples.review.appstore
 
 import dev.fabiou.appvox.core.AppStore
-import dev.fabiou.appvox.core.configuration.ProxyConfiguration
 import dev.fabiou.appvox.core.configuration.RequestConfiguration
+import dev.fabiou.appvox.core.review.itunesrss.constant.AppStoreRegion
 import dev.fabiou.appvox.core.review.itunesrss.constant.AppStoreSortType
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.flow.collect
 
-/*
-    In this example, we print the 100 most relevant App Store Reviews of the Twitter App
-    Link: https://apps.apple.com/us/app/twitter/id333903271
-
-    Network requests are made through a proxy with a delay of 3 seconds between each request.
-    The proxy is optional and can be removed from AppReview constructor.
-    AppVox is polite by default, request delay cannot be inferior to 500 ms
+/**
+ * In this example, we print the 100 most relevant App Store Reviews of the Twitter App
+ * Link: https://apps.apple.com/us/app/twitter/id333903271
+ *
+ * Network requests are made through a proxy with a delay of 3 seconds between each request.
+ * The proxy is optional and can be removed from AppReview constructor.
+ * AppVox is polite by default, request delay cannot be inferior to 500 ms
  */
-fun main(args: Array<String>) = runBlocking {
+fun main() = runBlocking {
 
     val appId = "333903271"
     val userRegion = "us"
@@ -28,7 +28,7 @@ fun main(args: Array<String>) = runBlocking {
     val appStore = AppStore(config)
     appStore.reviews(
             appId = appId,
-            region = userRegion,
+            region = AppStoreRegion.fromValue(userRegion),
             sortType = AppStoreSortType.RECENT
         )
         .take(maxReviewCount)

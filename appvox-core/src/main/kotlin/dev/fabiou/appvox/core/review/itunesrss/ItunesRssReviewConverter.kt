@@ -5,44 +5,25 @@ import dev.fabiou.appvox.core.review.itunesrss.domain.ItunesRssReview
 import dev.fabiou.appvox.core.review.itunesrss.domain.ItunesRssReviewResult
 
 internal class ItunesRssReviewConverter : ReviewConverter<ItunesRssReviewResult.Entry, ItunesRssReview> {
-//    companion object : ReviewConverter<ItunesRssReviewResult.Entry, ItunesRssReview> {
-//        fun toResponse(reviewResult: ItunesRssReviewResult.Entry): ItunesRssReview {
-//            val reviewResponse = ItunesRssReview(
-//                id = reviewResult.id!!,
-//                userName = reviewResult.author?.name!!,
-//                rating = reviewResult.rating!!,
-//                title = reviewResult.title,
-//                comment = reviewResult.content?.find { it.type == "text" }?.content!!,
-//                commentTime = reviewResult.updated?.toGregorianCalendar()?.toZonedDateTime(),
-//                appVersion = reviewResult.version,
-//                url = reviewResult.link?.href,
-//                likeCount = reviewResult.voteCount,
-////                    replyComment =
-////                    replySubmitTime =
-//            )
-//            return reviewResponse
-//        }
-
-        override fun toResponse(reviewResults: List<ItunesRssReviewResult.Entry>): List<ItunesRssReview> {
-            var reviews = ArrayList<ItunesRssReview>()
-            for (reviewResult in reviewResults!!) {
+        override fun toResponse(results: List<ItunesRssReviewResult.Entry>): List<ItunesRssReview> {
+            val reviews = ArrayList<ItunesRssReview>()
+            results.forEach { reviewResult ->
                 val reviewResponse = ItunesRssReview(
-                id = reviewResult.id!!,
-                userName = reviewResult.author?.name!!,
-                rating = reviewResult.rating!!,
-                title = reviewResult.title,
-                comment = reviewResult.content?.find { it.type == "text" }?.content!!,
-                commentTime = reviewResult.updated?.toGregorianCalendar()?.toZonedDateTime(),
-                appVersion = reviewResult.version,
-                url = reviewResult.link?.href,
-                likeCount = reviewResult.voteCount,
-//                    replyComment =
-//                    replySubmitTime =
-            )
+                    id = reviewResult.id!!,
+                    userName = reviewResult.author?.name!!,
+                    rating = reviewResult.rating!!,
+                    title = reviewResult.title,
+                    comment = reviewResult.content?.find { it.type == "text" }?.content!!,
+                    commentTime = reviewResult.updated?.toGregorianCalendar()?.toZonedDateTime(),
+                    appVersion = reviewResult.version,
+                    url = reviewResult.link?.href,
+                    likeCount = reviewResult.voteCount,
+        //                    replyComment =
+        //                    replySubmitTime =
+                )
                 reviews.add(reviewResponse)
             }
 
             return reviews
         }
 }
-//}

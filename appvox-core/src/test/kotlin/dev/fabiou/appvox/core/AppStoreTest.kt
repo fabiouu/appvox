@@ -2,7 +2,9 @@ package dev.fabiou.appvox.core
 
 import dev.fabiou.appvox.core.configuration.RequestConfiguration
 import dev.fabiou.appvox.core.review.itunesrss.ItunesRssReviewRepository
+import dev.fabiou.appvox.core.review.itunesrss.constant.AppStoreRegion
 import dev.fabiou.appvox.core.review.itunesrss.constant.AppStoreSortType
+import dev.fabiou.appvox.core.review.itunesrss.domain.ItunesRssReview
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.take
@@ -28,19 +30,19 @@ class AppStoreTest : BaseRepositoryTest() {
         val mockData = javaClass.getResource("/review/itunes_rss_reviews_mock_data.xml").readText()
         stubHttpUrl(ItunesRssReviewRepository.RSS_REQUEST_URL_PATH.format(region, pageNo, appId), mockData)
 
-        var fetchedReviewCount = 0
+        val fetchedReviews = arrayListOf<ItunesRssReview>()
         val appStore = AppStore(RequestConfiguration(requestDelay = 3000))
         appStore.reviews(
             appId = appId,
-            region = "us",
+            region = AppStoreRegion.fromValue(region),
             sortType = AppStoreSortType.RECENT
         )
             .take(maxReviewCount)
-            .collect { _ ->
-                fetchedReviewCount++
+            .collect { review ->
+                fetchedReviews.add(review)
             }
 
-        Assertions.assertEquals(maxReviewCount, fetchedReviewCount)
+        Assertions.assertEquals(maxReviewCount, fetchedReviews.size)
     }
 
     @ExperimentalCoroutinesApi
@@ -59,7 +61,7 @@ class AppStoreTest : BaseRepositoryTest() {
         stubHttpUrl(ItunesRssReviewRepository.RSS_REQUEST_URL_PATH.format(region, pageNo, appId), mockData)
 
         var fetchedReviewCount = 0
-        var appStore = AppStore()
+        val appStore = AppStore()
         appStore.reviews(appId)
             .take(maxReviewCount)
             .collect { _ ->

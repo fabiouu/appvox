@@ -2,7 +2,7 @@ package com.appvox.examples.review.googleplay
 
 import com.opencsv.CSVWriter
 import dev.fabiou.appvox.core.GooglePlay
-import dev.fabiou.appvox.core.configuration.ProxyConfiguration
+import dev.fabiou.appvox.core.exception.AppVoxException
 import dev.fabiou.appvox.core.review.googleplay.constant.GooglePlayLanguage
 import dev.fabiou.appvox.core.review.googleplay.constant.GooglePlaySortType
 import kotlinx.coroutines.flow.collect
@@ -11,8 +11,7 @@ import kotlinx.coroutines.runBlocking
 import java.io.FileWriter
 import java.io.IOException
 
-fun main(args: Array<String>) = runBlocking {
-
+fun main() = runBlocking {
     val appId = "com.twitter.android"
     val sortType = GooglePlaySortType.RELEVANT
     val reviewLanguage = GooglePlayLanguage.ENGLISH_US
@@ -22,11 +21,11 @@ fun main(args: Array<String>) = runBlocking {
         "$appId" +
             "_${sortType.name.toLowerCase()}" +
             "_${reviewLanguage.name.toLowerCase()}" +
-            "_${maxReviewCount}.csv"
-    var fileWriter = FileWriter(fileName)
+            "_$maxReviewCount.csv"
+    val fileWriter = FileWriter(fileName)
 
     try {
-        var csvWriter = CSVWriter(
+        val csvWriter = CSVWriter(
             fileWriter,
             CSVWriter.DEFAULT_SEPARATOR,
             CSVWriter.DEFAULT_QUOTE_CHARACTER,
@@ -69,8 +68,7 @@ fun main(args: Array<String>) = runBlocking {
                 )
                 csvWriter.writeNext(csvReview)
             }
-
-    } catch (e: Exception) {
+    } catch (e: AppVoxException) {
         e.printStackTrace()
     } finally {
         try {

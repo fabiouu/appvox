@@ -16,7 +16,7 @@ data class ItunesRssReview(
 
     val comment: String,
 
-    var translatedComment: String? = null,
+    val translatedComment: String? = null,
 
     val commentTime: ZonedDateTime? = null,
 

@@ -7,11 +7,14 @@ import java.time.Instant
 import java.time.ZoneOffset
 import java.time.ZonedDateTime
 
-class GooglePlayReviewConverter : ReviewConverter<GooglePlayReviewResult.GooglePlayReview, GooglePlayReview.GooglePlayReview> {
+internal class GooglePlayReviewConverter :
+    ReviewConverter<GooglePlayReviewResult.GooglePlayReview, GooglePlayReview.GooglePlayReview> {
 
-        override fun toResponse(reviewResults: List<GooglePlayReviewResult.GooglePlayReview>): List<GooglePlayReview.GooglePlayReview> {
+        override fun toResponse(
+            results: List<GooglePlayReviewResult.GooglePlayReview>
+        ): List<GooglePlayReview.GooglePlayReview> {
             val response = ArrayList<GooglePlayReview.GooglePlayReview>()
-            for (reviewResult in reviewResults) {
+            results.forEach { reviewResult ->
                 val reviewResponse = GooglePlayReview.GooglePlayReview(
                     id = reviewResult.reviewId,
                     userName = reviewResult.userName,
@@ -23,7 +26,7 @@ class GooglePlayReviewConverter : ReviewConverter<GooglePlayReviewResult.GoogleP
                         ZoneOffset.UTC
                     ),
                     replyComment = reviewResult.replyComment,
-//                      replyTime = if (googlePlayReview != null && googlePlayReview.replySubmitTime != 0) googlePlayReview.replySubmitTime?.let { ZonedDateTime.ofInstant(Instant.ofEpochSecond(googlePlayReview.replySubmitTime), ZoneOffset.UTC) } else null,
+        //                      replyTime = if (googlePlayReview != null && googlePlayReview.replySubmitTime != 0) googlePlayReview.replySubmitTime?.let { ZonedDateTime.ofInstant(Instant.ofEpochSecond(googlePlayReview.replySubmitTime), ZoneOffset.UTC) } else null,
                     likeCount = reviewResult.likeCount,
                     appVersion = reviewResult.appVersion,
                     url = reviewResult.reviewUrl
