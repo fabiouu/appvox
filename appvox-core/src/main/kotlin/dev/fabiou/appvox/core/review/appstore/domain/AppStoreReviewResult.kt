@@ -19,7 +19,7 @@ internal data class AppStoreReviewResult(
                 val date: String,
                 val title: String,
                 val rating: Int,
-                val developerResponse: AppStoreDeveloperResponse?,
+                val developerResponse: AppStoreDeveloperResponse? = null,
                 val review: String,
                 val userName: String
         ) {
