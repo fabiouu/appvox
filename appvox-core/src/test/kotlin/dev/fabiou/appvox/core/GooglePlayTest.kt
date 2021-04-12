@@ -8,9 +8,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.test.runBlockingTest
-import kotlinx.serialization.json.Json
 import org.junit.jupiter.api.Assertions
-import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
 
@@ -25,7 +23,8 @@ class GooglePlayTest : BaseRepositoryTest() {
         appId: String,
         maxReviewCount: Int
     ) = runBlockingTest {
-
+        GooglePlayReviewRepository.REQUEST_URL_DOMAIN =
+                UrlUtil.getUrlDomainByEnv(GooglePlayReviewRepository.REQUEST_URL_DOMAIN)
         val mockData = javaClass.getResource("/review/googleplay_reviews_mock_data.json").readText()
         stubHttpUrl(GooglePlayReviewRepository.REQUEST_URL_PATH, mockData)
 
@@ -51,12 +50,13 @@ class GooglePlayTest : BaseRepositoryTest() {
         sortType: Int,
         maxReviewCount: Int
     ) = runBlockingTest {
-
+        GooglePlayReviewRepository.REQUEST_URL_DOMAIN =
+                UrlUtil.getUrlDomainByEnv(GooglePlayReviewRepository.REQUEST_URL_DOMAIN)
         val mockData = javaClass.getResource("/review/googleplay_reviews_mock_data.json").readText()
         stubHttpUrl(GooglePlayReviewRepository.REQUEST_URL_PATH, mockData)
 
         var fetchedReviewCount = 0
-        val googlePlay = GooglePlay(RequestConfiguration(requestDelay = 3000))
+        val googlePlay = GooglePlay(RequestConfiguration(delay = 3000))
         googlePlay.reviews(
             appId = appId,
             language = GooglePlayLanguage.fromValue(language),

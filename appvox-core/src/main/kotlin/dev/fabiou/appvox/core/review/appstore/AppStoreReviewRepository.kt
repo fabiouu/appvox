@@ -8,7 +8,6 @@ import dev.fabiou.appvox.core.review.ReviewResult
 import dev.fabiou.appvox.core.review.appstore.domain.AppStoreReviewRequest
 import dev.fabiou.appvox.core.review.appstore.domain.AppStoreReviewResult
 import dev.fabiou.appvox.core.util.HttpUtil
-import dev.fabiou.appvox.core.util.UrlUtil
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 
@@ -19,7 +18,7 @@ internal class AppStoreReviewRepository(
 ) : ReviewRepository<AppStoreReviewRequest, AppStoreReviewResult.AppStoreReview> {
     companion object {
         internal const val REQUEST_REVIEW_SIZE = 10
-        internal const val REQUEST_URL_DOMAIN = "https://amp-api.apps.apple.com"
+        internal var REQUEST_URL_DOMAIN = "https://amp-api.apps.apple.com"
         internal const val REQUEST_URL_PATH = "/v1/catalog/%s/apps/%s/reviews"
         internal const val REQUEST_URL_PARAMS_PREFIX = "?offset=%d"
         internal const val REQUEST_URL_PARAMS = "&platform=web&additionalPlatforms=appletv,ipad,iphone,mac"
@@ -31,7 +30,7 @@ internal class AppStoreReviewRepository(
     override fun getReviewsByAppId(
         request: ReviewRequest<AppStoreReviewRequest>
     ): ReviewResult<AppStoreReviewResult.AppStoreReview> {
-        val requestUrl = UrlUtil.getUrlDomainByEnv(REQUEST_URL_DOMAIN) + if (request.nextToken.isNullOrEmpty()) {
+        val requestUrl = REQUEST_URL_DOMAIN + if (request.nextToken.isNullOrEmpty()) {
             REQUEST_URL_PATH.format(request.parameters.region.code, request.parameters.appId) +
                 REQUEST_URL_PARAMS_PREFIX.format(REQUEST_REVIEW_SIZE) + REQUEST_URL_PARAMS
         } else {

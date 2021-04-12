@@ -18,7 +18,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
 class AppStore(
-    val config: RequestConfiguration = RequestConfiguration(requestDelay = MIN_REQUEST_DELAY)
+    val config: RequestConfiguration = RequestConfiguration(delay = MIN_REQUEST_DELAY)
 ) {
     private val itunesRssReviewService = ItunesRssReviewService(config)
 
@@ -36,7 +36,7 @@ class AppStore(
         sortType: AppStoreSortType = AppStoreSortType.RELEVANT
     ): Flow<ItunesRssReview> = flow {
 
-        if (config.requestDelay < MIN_REQUEST_DELAY) {
+        if (config.delay < MIN_REQUEST_DELAY) {
             throw AppVoxException(AppVoxError.REQ_DELAY_TOO_SHORT)
         }
 
@@ -54,7 +54,7 @@ class AppStore(
 
         iterator.forEach { reviews ->
             reviews.forEach { review ->
-                delay(config.requestDelay)
+                delay(config.delay.toLong())
                 emit(review)
             }
         }

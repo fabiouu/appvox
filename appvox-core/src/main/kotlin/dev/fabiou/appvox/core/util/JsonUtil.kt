@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.TextNode
 
 object JsonUtil {
-    fun getJsonNodeByIndex(jsonResponse: JsonNode, nestedIndexes: Array<Int>, currentIndex: Int = 0): JsonNode {
+    fun getJsonNodeByIndex(jsonResponse: JsonNode, nestedIndexes: IntArray, currentIndex: Int = 0): JsonNode {
         val responseIndex = nestedIndexes[currentIndex]
 
         val jsonNode: JsonNode? = jsonResponse[responseIndex]

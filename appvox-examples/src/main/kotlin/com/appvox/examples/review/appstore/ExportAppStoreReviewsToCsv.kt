@@ -2,7 +2,6 @@ package com.appvox.examples.review.appstore
 
 import com.opencsv.CSVWriter
 import dev.fabiou.appvox.core.AppStore
-import dev.fabiou.appvox.core.configuration.ProxyConfiguration
 import dev.fabiou.appvox.core.configuration.RequestConfiguration
 import dev.fabiou.appvox.core.exception.AppVoxException
 import dev.fabiou.appvox.core.review.itunesrss.constant.AppStoreRegion
@@ -39,7 +38,7 @@ fun main() = runBlocking {
         csvWriter.writeNext(columns)
 
         val config = RequestConfiguration(
-            requestDelay = 3000L
+            delay = 3000
         )
 
         val appStore = AppStore(config)

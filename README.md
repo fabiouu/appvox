@@ -6,11 +6,8 @@
     <a href="https://travis-ci.com/fabiouu/AppVox">
         <img src="https://travis-ci.com/fabiouu/AppVox.svg?branch=master" alt="Build Status" />
     </a>
-    <a href="https://kotlinlang.org">
-        <img src="https://maven-badges.herokuapp.com/maven-central/dev.fabiou.appvox/appvox-parent/badge.svg" alt="Coverage" />
-    </a>
     <a href="Kotlin">
-        <img src="https://img.shields.io/badge/Kotlin-1.4.32-blue.svg" alt="Coverage" />
+        <img src="https://img.shields.io/badge/Kotlin-1.4.21-blue.svg" alt="Coverage" />
     </a>
     <a href="https://codeclimate.com/github/fabiouu/AppVox/maintainability">
         <img src="https://api.codeclimate.com/v1/badges/6f0c3287d031b4f431ea/maintainability" alt="Maintainability" />
@@ -27,7 +24,6 @@
 # Overview
 AppVox is a high-level library to extract application data from Google Play and App Store via a uniform interface.
 
-
 # Features
  - Reviews
 
@@ -41,16 +37,10 @@ Only `appvox-core` package is mandatory to start using AppVox
 
 ### Maven
 ```xml
-<dependency>
-    <groupId>dev.fabiou.appvox</groupId>
-    <artifactId>appvox-core</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
-</dependency>
 ```
 
 ### Gradle
 ```groovy
-compile "dev.fabiou.appvox:appvox-core:1.0.0-SNAPSHOT"
 ```
 
 # Usage
@@ -61,7 +51,7 @@ An `AppVoxException` will be thrown if user-defined request delay is inferior to
 All network calls made by AppVox can be made through a proxy by passing a `RequestConfiguration` object to `GooglePlay` or `AppStore` constructor
 ``` Kotlin
 val config = RequestConfiguration(
-    requestDelay = 3000L,
+    requestDelay = 3000,
     proxy = ProxyConfiguration(
         host = "127.0.0.1",
         port = 8080

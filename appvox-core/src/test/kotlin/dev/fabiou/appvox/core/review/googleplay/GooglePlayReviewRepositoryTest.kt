@@ -7,14 +7,13 @@ import dev.fabiou.appvox.core.review.googleplay.constant.GooglePlayLanguage
 import dev.fabiou.appvox.core.review.googleplay.constant.GooglePlaySortType
 import dev.fabiou.appvox.core.review.googleplay.domain.GooglePlayReviewRequest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.runBlockingTest
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
 
 class GooglePlayReviewRepositoryTest : BaseRepositoryTest() {
 
-    private val repository = GooglePlayReviewRepository(RequestConfiguration(requestDelay = 3000L))
+    private val repository = GooglePlayReviewRepository(RequestConfiguration(delay = 3000))
 
     @ExperimentalCoroutinesApi
     @ParameterizedTest
@@ -28,7 +27,8 @@ class GooglePlayReviewRepositoryTest : BaseRepositoryTest() {
         batchSize: Int,
         maxReviewCount: Int
     ) {
-
+        GooglePlayReviewRepository.REQUEST_URL_DOMAIN =
+                UrlUtil.getUrlDomainByEnv(GooglePlayReviewRepository.REQUEST_URL_DOMAIN)
         val mockData = javaClass.getResource("/review/googleplay_reviews_mock_data.json").readText()
         stubHttpUrl(GooglePlayReviewRepository.REQUEST_URL_PATH, mockData)
 
