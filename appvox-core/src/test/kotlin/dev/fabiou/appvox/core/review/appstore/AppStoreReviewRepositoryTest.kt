@@ -23,7 +23,7 @@ class AppStoreReviewRepositoryTest : BaseRepositoryTest() {
         AppStoreReviewRepository.REQUEST_URL_DOMAIN =
                 UrlUtil.getUrlDomainByEnv(AppStoreReviewRepository.REQUEST_URL_DOMAIN)
         val region = AppStoreRegion.fromValue(regionCode)
-        val mockData = javaClass.getResource("/review/appstore_reviews_mock_data.json").readText()
+        val mockData = javaClass.getResource("/review/app_store/appstore_reviews_mock_data.json").readText()
         stubHttpUrl(
             AppStoreReviewRepository.REQUEST_URL_PATH.format(
                 region.code, appId,

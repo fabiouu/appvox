@@ -25,7 +25,7 @@ class GooglePlayTest : BaseRepositoryTest() {
     ) = runBlockingTest {
         GooglePlayReviewRepository.REQUEST_URL_DOMAIN =
                 UrlUtil.getUrlDomainByEnv(GooglePlayReviewRepository.REQUEST_URL_DOMAIN)
-        val mockData = javaClass.getResource("/review/googleplay_reviews_mock_data.json").readText()
+        val mockData = javaClass.getResource("/review/google_play/com.twitter.android/relevant/review_google_play_com.twitter.android_relevant_1.json").readText()
         stubHttpUrl(GooglePlayReviewRepository.REQUEST_URL_PATH, mockData)
 
         var fetchedReviewCount = 0
@@ -52,7 +52,7 @@ class GooglePlayTest : BaseRepositoryTest() {
     ) = runBlockingTest {
         GooglePlayReviewRepository.REQUEST_URL_DOMAIN =
                 UrlUtil.getUrlDomainByEnv(GooglePlayReviewRepository.REQUEST_URL_DOMAIN)
-        val mockData = javaClass.getResource("/review/googleplay_reviews_mock_data.json").readText()
+        val mockData = javaClass.getResource("/review/google_play/com.twitter.android/relevant/review_google_play_com.twitter.android_relevant_1.json").readText()
         stubHttpUrl(GooglePlayReviewRepository.REQUEST_URL_PATH, mockData)
 
         var fetchedReviewCount = 0

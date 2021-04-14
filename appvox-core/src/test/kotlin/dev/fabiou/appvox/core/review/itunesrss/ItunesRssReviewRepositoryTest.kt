@@ -29,7 +29,7 @@ class ItunesRssReviewRepositoryTest : BaseRepositoryTest() {
         ItunesRssReviewRepository.REQUEST_URL_DOMAIN =
                 UrlUtil.getUrlDomainByEnv(ItunesRssReviewRepository.REQUEST_URL_DOMAIN)
         val region = AppStoreRegion.fromValue(regionCode)
-        val mockData = javaClass.getResource("/review/itunes_rss_reviews_mock_data.xml").readText()
+        val mockData = javaClass.getResource("/review/itunes_rss/itunes_rss_reviews_mock_data.xml").readText()
         stubHttpUrl(ItunesRssReviewRepository.REQUEST_URL_PATH.format(region.code, pageNo, appId), mockData)
 
         val request = ItunesRssReviewRequest(
