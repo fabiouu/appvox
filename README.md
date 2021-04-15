@@ -9,6 +9,7 @@
     <a href="https://kotlinlang.org">
         <img src="https://maven-badges.herokuapp.com/maven-central/dev.fabiou.appvox/appvox-parent/badge.svg" alt="Coverage" />
     </a>
+<a href="https://app.fossa.com/projects/git%2Bgithub.com%2Ffabiouu%2Fappvox?ref=badge_shield" alt="FOSSA Status"><img src="https://app.fossa.com/api/projects/git%2Bgithub.com%2Ffabiouu%2Fappvox.svg?type=shield"/></a>
     <a href="Kotlin">
         <img src="https://img.shields.io/badge/Kotlin-1.4.32-blue.svg" alt="Coverage" />
     </a>
@@ -128,3 +129,6 @@ Jackson is used to deserialize Google Play unstructured HTML-like array of data.
 
 ### Roadmap
 The Roadmap and tasks in-progress of the project can be found in the upper "Projects" GitHub section
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Ffabiouu%2Fappvox.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Ffabiouu%2Fappvox?ref=badge_large)
