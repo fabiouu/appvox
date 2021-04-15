@@ -15,6 +15,9 @@
     <a href="https://codecov.io/gh/fabiouu/AppVox">
         <img src="https://codecov.io/gh/fabiouu/AppVox/branch/master/graph/badge.svg?token=AVB2DO0H4J" alt="Coverage" />
     </a>
+    <a href="https://app.fossa.com/projects/git%2Bgithub.com%2Ffabiouu%2Fappvox?ref=badge_shield" alt="FOSSA Status">
+        <img src="https://app.fossa.com/api/projects/git%2Bgithub.com%2Ffabiouu%2Fappvox.svg?type=shield"/>
+    </a>
 </p>
 
 <h3 align="center">
@@ -115,21 +118,28 @@ Using both implementation is transparent for the user, just specify sortType to 
 # How AppVox works?
 ##  Architecture
 
+## Documentation
+
+## Testing
+<a href="https://codecov.io/gh/fabiouu/AppVox">
+    <img src="https://codecov.io/gh/fabiouu/AppVox/branch/master/graph/badge.svg?token=AVB2DO0H4J" alt="Coverage" />
+</a>
+
+The library is covered by a set of Unit and Integration Tests. `Wiremock` is used when tests are run locally to mock network request responses and speed-up development iteration.
+To deactivate HTTP requests mocking, TODO.
 
 ## Thread Safety
 AppVox uses Kotlin Flows
 
 ## Dependencies
-AppVox follow a minimal dependency approach where the only 3rd party dependency imported in your class path is `jackson-module-kotlin`.
-Kotlin Serializationx library is, for the time being, not able to parse Google Play unstructured response.
+AppVox follow a minimal dependency approach. The only 3rd party dependency of the project is `jackson-module-kotlin`.
+Kotlin Serializationx library is, for the time being, not able to parse Google Play scraped unstructured response.
 
 ## Code Analysis
+
+
 The project is covered by Detekt static code analysis.
 
-## Testing
-The library is covered by a set of Unit and Integration Tests. `Wiremock` is used when tests are run locally to mock network request responses and speed-up development iteration.
-
-To deactivate HTTP requests mocking, TODO.
 
 # Roadmap
 Roadmap and tasks in-progress of the project can be found in the upper "Projects" GitHub section
@@ -137,3 +147,4 @@ Roadmap and tasks in-progress of the project can be found in the upper "Projects
 # Contributions
 
 # License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Ffabiouu%2Fappvox.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Ffabiouu%2Fappvox?ref=badge_large)
