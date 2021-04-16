@@ -113,7 +113,7 @@ fun main() = runBlocking {
 }
 ```
 
-#### Important
+#### Internals
 App Store scraper implementation requests reviews from 2 different data sources depending on `AppStoreSortType` parameter value
 - apps.apple.com: to return the whole review history of an app sorted by most relevant.
 Moreover, the scrapped endpoint return no more than 10 reviews by request (fixed size by Apple).
@@ -128,7 +128,10 @@ Using both implementation is transparent for the user, just specify `AppStoreSor
 ## Motivation
 
 ##  Architecture
-
+The library is composed of mainly 3 layers:
+- Repository (`*Repository.kt` - internal): A repository abstracts network communication with a scraped data source. A repository returns a result entity suffixed with `*Result.kt` (internal).
+- Service (`*Service.kt` - internal): A service contains business logic and may have to call multiple repositories to process a result entity
+- Facade ([`GooglePlay.kt`](./appvox-core/src/main/kotlin/dev/fabiou/appvox/core/GooglePlay.kt), [`AppStore.kt`](./appvox-core/src/main/kotlin/dev/fabiou/appvox/core/AppStore.kt) - public): A facade exposes scraped data in a uniform way to the user. A facade returns response entities via a Kotlin coroutine Flow.
 
 ## Documentation
 
@@ -137,7 +140,7 @@ Using both implementation is transparent for the user, just specify `AppStoreSor
     <img src="https://codecov.io/gh/fabiouu/AppVox/branch/master/graph/badge.svg?token=AVB2DO0H4J" alt="Coverage" />
 </a>
 
-The library is covered by a set of Unit and Integration Tests. `Wiremock` is used when tests are run locally to mock network request responses and speed-up development iteration.
+The library is covered by a set of Unit and Integration Tests. *WireMock* is used when tests are run locally to mock network request responses and speed-up development iteration.
 To deactivate HTTP requests mocking...
 
 ## Thread Safety
