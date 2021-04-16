@@ -1,6 +1,7 @@
-<h1 align="center">
-  AppVox
-</h1>
+<p align="center">
+    <img src="https://user-images.githubusercontent.com/6942446/114973902-f1eb5b00-9eb3-11eb-91e3-814184116b70.png" alt="AppVox" width="300" />
+</p>
+
 
 <p align="center">
     <a href="https://travis-ci.com/fabiouu/AppVox">
