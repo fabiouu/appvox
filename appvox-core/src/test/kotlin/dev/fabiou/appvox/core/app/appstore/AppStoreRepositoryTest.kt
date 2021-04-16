@@ -2,6 +2,7 @@ package dev.fabiou.appvox.core.app.appstore
 
 import dev.fabiou.appvox.core.BaseRepositoryTest
 import dev.fabiou.appvox.core.configuration.RequestConfiguration
+import dev.fabiou.appvox.core.review.appstore.AppStoreReviewRepository
 import dev.fabiou.appvox.core.review.itunesrss.constant.AppStoreRegion
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.params.ParameterizedTest
@@ -16,7 +17,8 @@ class AppStoreRepositoryTest : BaseRepositoryTest() {
         "333903271, us, 10"
     )
     fun `Get App Store bearer token`(appId: String, regionCode: String) {
-        AppStoreRepository.APP_HP_URL_DOMAIN = "http://localhost:8080"
+        AppStoreRepository.APP_HP_URL_DOMAIN =
+                UrlUtil.getUrlDomainByEnv(AppStoreRepository.APP_HP_URL_DOMAIN)
         val region = AppStoreRegion.fromValue(regionCode)
         stubHttpUrl(AppStoreRepository.APP_HP_URL_PATH.format(region.code, appId), "mock-bearer-token")
 
