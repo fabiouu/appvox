@@ -21,10 +21,6 @@
     </a>
 </p>
 
-<h3 align="center">
-  Capture the voice of your App users
-</h3>
-
 # Overview
 Kotlin library to scrape GooglePlay and App Store data
 
