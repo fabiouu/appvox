@@ -1,5 +1,3 @@
-package dev.fabiou.appvox.core.util
-
 object UrlUtil {
     fun getUrlDomainByEnv(defaultDomain: String) : String {
         val isCiEnv: String? = System.getenv("TRAVIS")

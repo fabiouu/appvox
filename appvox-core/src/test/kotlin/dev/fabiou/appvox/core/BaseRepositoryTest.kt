@@ -24,5 +24,4 @@ open class BaseRepositoryTest {
         WireMock.stubFor(WireMock.any(WireMock.urlPathEqualTo(urlPath))
                 .willReturn(WireMock.aResponse().withBody(mockResponse)))
     }
-
 }

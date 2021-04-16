@@ -44,12 +44,13 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven.compiler.source>1.8</maven.compiler.source>
         <java.version>1.8</java.version>
-        <kotlin.version>1.4.32</kotlin.version>
-        <kotlin.serialization.version>1.1.0</kotlin.serialization.version>
-        <kotlin.coroutines.version>1.4.3</kotlin.coroutines.version>
-        <junit.version>5.7.1</junit.version>
-        <mockito.version>3.9.0</mockito.version>
+        <kotlin.version>1.4.21</kotlin.version>
+        <kotlin.serialization.version>1.0.1</kotlin.serialization.version>
+        <kotlin.coroutines.version>1.4.1</kotlin.coroutines.version>
         <kotlin.compiler.incremental>true</kotlin.compiler.incremental>
+        <!-- Test Dependencies-->
+        <junit.version>5.7.1</junit.version>
+        <wiremock.version>2.27.2</wiremock.version>
     </properties>
 
     <dependencyManagement>
@@ -60,26 +61,21 @@
                 <version>${kotlin.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.jetbrains.kotlin</groupId>
-                <artifactId>kotlin-reflect</artifactId>
-                <version>${kotlin.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>org.jetbrains.kotlinx</groupId>
                 <artifactId>kotlinx-coroutines-core</artifactId>
                 <version>${kotlin.coroutines.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.jetbrains.kotlinx</groupId>
-                <artifactId>kotlinx-serialization-json</artifactId>
+                <artifactId>kotlinx-serialization-json-jvm</artifactId>
                 <version>${kotlin.serialization.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.fasterxml.jackson.module</groupId>
                 <artifactId>jackson-module-kotlin</artifactId>
-                <version>2.12.2</version>
+                <version>2.11.0</version>
             </dependency>
-<!--            Test dependencies-->
+            <!-- Test Dependencies-->
             <dependency>
                 <groupId>org.jetbrains.kotlinx</groupId>
                 <artifactId>kotlinx-coroutines-test</artifactId>
@@ -94,21 +90,9 @@
                 <scope>import</scope>
             </dependency>
             <dependency>
-                <groupId>org.mockito</groupId>
-                <artifactId>mockito-core</artifactId>
-                <version>${mockito.version}</version>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.mockito</groupId>
-                <artifactId>mockito-junit-jupiter</artifactId>
-                <version>${mockito.version}</version>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
                 <groupId>com.github.tomakehurst</groupId>
                 <artifactId>wiremock</artifactId>
-                <version>2.27.2</version>
+                <version>${wiremock.version}</version>
                 <scope>test</scope>
             </dependency>
         </dependencies>

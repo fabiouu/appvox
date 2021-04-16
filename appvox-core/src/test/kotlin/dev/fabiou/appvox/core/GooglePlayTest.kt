@@ -8,9 +8,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.test.runBlockingTest
-import kotlinx.serialization.json.Json
 import org.junit.jupiter.api.Assertions
-import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
 
@@ -25,13 +23,15 @@ class GooglePlayTest : BaseRepositoryTest() {
         appId: String,
         maxReviewCount: Int
     ) = runBlockingTest {
-
-        val mockData = javaClass.getResource("/review/googleplay_reviews_mock_data.json").readText()
+        GooglePlayReviewRepository.REQUEST_URL_DOMAIN =
+                UrlUtil.getUrlDomainByEnv(GooglePlayReviewRepository.REQUEST_URL_DOMAIN)
+        val mockData = javaClass.getResource("/review/google_play/com.twitter.android/relevant/review_google_play_com.twitter.android_relevant_1.json").readText()
         stubHttpUrl(GooglePlayReviewRepository.REQUEST_URL_PATH, mockData)
 
         var fetchedReviewCount = 0
         val googlePlay = GooglePlay()
-        googlePlay.reviews(appId)
+        googlePlay
+            .reviews(appId)
             .take(maxReviewCount)
             .collect { _ ->
                 fetchedReviewCount++
@@ -51,12 +51,13 @@ class GooglePlayTest : BaseRepositoryTest() {
         sortType: Int,
         maxReviewCount: Int
     ) = runBlockingTest {
-
-        val mockData = javaClass.getResource("/review/googleplay_reviews_mock_data.json").readText()
-        stubHttpUrl(GooglePlayReviewRepository.REQUEST_URL_PATH, mockData)
+        GooglePlayReviewRepository.REQUEST_URL_DOMAIN =
+                UrlUtil.getUrlDomainByEnv(GooglePlayReviewRepository.REQUEST_URL_DOMAIN)
+        val mockResponse = javaClass.getResource("/review/google_play/com.twitter.android/relevant/review_google_play_com.twitter.android_relevant_1.json").readText()
+        stubHttpUrl(GooglePlayReviewRepository.REQUEST_URL_PATH, mockResponse)
 
         var fetchedReviewCount = 0
-        val googlePlay = GooglePlay(RequestConfiguration(requestDelay = 3000))
+        val googlePlay = GooglePlay(RequestConfiguration(delay = 3000))
         googlePlay.reviews(
             appId = appId,
             language = GooglePlayLanguage.fromValue(language),

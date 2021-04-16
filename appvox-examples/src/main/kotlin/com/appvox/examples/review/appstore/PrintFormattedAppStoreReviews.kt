@@ -23,7 +23,7 @@ fun main() = runBlocking {
     val maxReviewCount = 100
 
     val config = RequestConfiguration(
-        requestDelay = 3000L
+        delay = 3000
     )
     val appStore = AppStore(config)
     appStore.reviews(

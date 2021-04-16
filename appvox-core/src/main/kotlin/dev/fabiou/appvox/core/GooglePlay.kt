@@ -18,7 +18,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
 class GooglePlay(
-    val config: RequestConfiguration = RequestConfiguration(requestDelay = MIN_REQUEST_DELAY)
+    val config: RequestConfiguration = RequestConfiguration(delay = MIN_REQUEST_DELAY)
 ) {
 
     companion object {
@@ -42,7 +42,7 @@ class GooglePlay(
         batchSize: Int = DEFAULT_BATCH_SIZE
     ): Flow<GooglePlayReview.GooglePlayReview> = flow {
 
-        if (config.requestDelay < MIN_REQUEST_DELAY) {
+        if (config.delay < MIN_REQUEST_DELAY) {
             throw AppVoxException(AppVoxError.REQ_DELAY_TOO_SHORT)
         }
 
@@ -60,7 +60,7 @@ class GooglePlay(
         )
 
         iterator.forEach { reviews ->
-            delay(config.requestDelay)
+            delay(config.delay.toLong())
             reviews.forEach { review ->
                 emit(review)
             }

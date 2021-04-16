@@ -26,12 +26,13 @@ class AppStoreTest : BaseRepositoryTest() {
         pageNo: Int,
         maxReviewCount: Int
     ) = runBlockingTest {
-
-        val mockData = javaClass.getResource("/review/itunes_rss_reviews_mock_data.xml").readText()
-        stubHttpUrl(ItunesRssReviewRepository.RSS_REQUEST_URL_PATH.format(region, pageNo, appId), mockData)
+        ItunesRssReviewRepository.REQUEST_URL_DOMAIN =
+                UrlUtil.getUrlDomainByEnv(ItunesRssReviewRepository.REQUEST_URL_DOMAIN)
+        val mockData = javaClass.getResource("/review/itunes_rss/itunes_rss_reviews_mock_data.xml").readText()
+        stubHttpUrl(ItunesRssReviewRepository.REQUEST_URL_PATH.format(region, pageNo, appId), mockData)
 
         val fetchedReviews = arrayListOf<ItunesRssReview>()
-        val appStore = AppStore(RequestConfiguration(requestDelay = 3000))
+        val appStore = AppStore(RequestConfiguration(delay = 3000))
         appStore.reviews(
             appId = appId,
             region = AppStoreRegion.fromValue(region),
@@ -57,8 +58,8 @@ class AppStoreTest : BaseRepositoryTest() {
         maxReviewCount: Int
     ) = runBlockingTest {
 
-        val mockData = javaClass.getResource("/review/itunes_rss_reviews_mock_data.xml").readText()
-        stubHttpUrl(ItunesRssReviewRepository.RSS_REQUEST_URL_PATH.format(region, pageNo, appId), mockData)
+        val mockData = javaClass.getResource("/review/itunes_rss/itunes_rss_reviews_mock_data.xml").readText()
+        stubHttpUrl(ItunesRssReviewRepository.REQUEST_URL_PATH.format(region, pageNo, appId), mockData)
 
         var fetchedReviewCount = 0
         val appStore = AppStore()

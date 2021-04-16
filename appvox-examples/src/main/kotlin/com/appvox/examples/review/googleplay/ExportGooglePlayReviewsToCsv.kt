@@ -41,7 +41,7 @@ fun main() = runBlocking {
         csvWriter.writeNext(columns)
 
         val config = dev.fabiou.appvox.core.configuration.RequestConfiguration(
-            requestDelay = 3000L
+            delay = 3000
         )
 
         val googlePlay = GooglePlay(config)
