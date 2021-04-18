@@ -1,6 +1,6 @@
 package dev.fabiou.appvox.core.review.appstore
 
-import dev.fabiou.appvox.core.BaseRepositoryTest
+import dev.fabiou.appvox.core.BaseNetworkTest
 import dev.fabiou.appvox.core.app.appstore.AppStoreRepository
 import dev.fabiou.appvox.core.configuration.RequestConfiguration
 import dev.fabiou.appvox.core.review.ReviewRequest
@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
 
-class AppStoreReviewRepositoryTest : BaseRepositoryTest() {
+class AppStoreReviewNetworkTest : BaseNetworkTest() {
 
     private var appStoreRepository = AppStoreRepository(RequestConfiguration(delay = 3000))
 

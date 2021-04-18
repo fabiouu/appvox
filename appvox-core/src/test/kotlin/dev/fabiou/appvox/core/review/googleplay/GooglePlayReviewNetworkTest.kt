@@ -1,6 +1,6 @@
 package dev.fabiou.appvox.core.review.googleplay
 
-import dev.fabiou.appvox.core.BaseRepositoryTest
+import dev.fabiou.appvox.core.BaseNetworkTest
 import dev.fabiou.appvox.core.configuration.RequestConfiguration
 import dev.fabiou.appvox.core.review.ReviewRequest
 import dev.fabiou.appvox.core.review.googleplay.constant.GooglePlayLanguage
@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
 
-class GooglePlayReviewRepositoryTest : BaseRepositoryTest() {
+class GooglePlayReviewNetworkTest : BaseNetworkTest() {
 
     private val repository = GooglePlayReviewRepository(RequestConfiguration(delay = 3000))
 

@@ -1,14 +1,13 @@
 package dev.fabiou.appvox.core.app.appstore
 
-import dev.fabiou.appvox.core.BaseRepositoryTest
+import dev.fabiou.appvox.core.BaseNetworkTest
 import dev.fabiou.appvox.core.configuration.RequestConfiguration
-import dev.fabiou.appvox.core.review.appstore.AppStoreReviewRepository
 import dev.fabiou.appvox.core.review.itunesrss.constant.AppStoreRegion
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
 
-class AppStoreRepositoryTest : BaseRepositoryTest() {
+class AppStoreNetworkTest : BaseNetworkTest() {
 
     private val appStoreRepository = AppStoreRepository(RequestConfiguration(delay = 3000))
 
