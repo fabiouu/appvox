@@ -40,7 +40,7 @@ class GooglePlay(
         language: GooglePlayLanguage = GooglePlayLanguage.ENGLISH_US,
         sortType: GooglePlaySortType = GooglePlaySortType.RECENT,
         batchSize: Int = DEFAULT_BATCH_SIZE
-    ): Flow<GooglePlayReview.GooglePlayReview> = flow {
+    ): Flow<GooglePlayReview> = flow {
 
         if (config.delay < MIN_REQUEST_DELAY) {
             throw AppVoxException(AppVoxError.REQ_DELAY_TOO_SHORT)

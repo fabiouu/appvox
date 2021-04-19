@@ -8,14 +8,14 @@ import java.time.ZoneOffset
 import java.time.ZonedDateTime
 
 internal class GooglePlayReviewConverter :
-    ReviewConverter<GooglePlayReviewResult.GooglePlayReview, GooglePlayReview.GooglePlayReview> {
+    ReviewConverter<GooglePlayReviewResult.GooglePlayReview, GooglePlayReview> {
 
         override fun toResponse(
             results: List<GooglePlayReviewResult.GooglePlayReview>
-        ): List<GooglePlayReview.GooglePlayReview> {
-            val response = ArrayList<GooglePlayReview.GooglePlayReview>()
+        ): List<GooglePlayReview> {
+            val response = ArrayList<GooglePlayReview>()
             results.forEach { reviewResult ->
-                val reviewResponse = GooglePlayReview.GooglePlayReview(
+                val reviewResponse = GooglePlayReview(
                     id = reviewResult.reviewId,
                     userName = reviewResult.userName,
                     userAvatar = reviewResult.userProfilePicUrl,
@@ -26,7 +26,7 @@ internal class GooglePlayReviewConverter :
                         ZoneOffset.UTC
                     ),
                     replyComment = reviewResult.replyComment,
-        //                      replyTime = if (googlePlayReview != null && googlePlayReview.replySubmitTime != 0) googlePlayReview.replySubmitTime?.let { ZonedDateTime.ofInstant(Instant.ofEpochSecond(googlePlayReview.replySubmitTime), ZoneOffset.UTC) } else null,
+                    // TODO replyTime = if (googlePlayReview != null && googlePlayReview.replySubmitTime != 0) googlePlayReview.replySubmitTime?.let { ZonedDateTime.ofInstant(Instant.ofEpochSecond(googlePlayReview.replySubmitTime), ZoneOffset.UTC) } else null,
                     likeCount = reviewResult.likeCount,
                     appVersion = reviewResult.appVersion,
                     url = reviewResult.reviewUrl

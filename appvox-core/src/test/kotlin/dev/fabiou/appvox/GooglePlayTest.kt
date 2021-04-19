@@ -35,7 +35,7 @@ class GooglePlayTest : BaseMockTest() {
         val mockData = javaClass.getResource("/review/google_play/com.twitter.android/relevant/review_google_play_com.twitter.android_relevant_1.json").readText()
         stubHttpUrl(REQUEST_URL_PATH, mockData)
 
-        val reviews = ArrayList<GooglePlayReview.GooglePlayReview>()
+        val reviews = ArrayList<GooglePlayReview>()
         GooglePlay()
             .reviews(appId)
             .take(expectedReviewCount)
@@ -72,7 +72,7 @@ class GooglePlayTest : BaseMockTest() {
         val mockResponse = javaClass.getResource("/review/google_play/com.twitter.android/relevant/review_google_play_com.twitter.android_relevant_1.json").readText()
         stubHttpUrl(REQUEST_URL_PATH, mockResponse)
 
-        val reviews = ArrayList<GooglePlayReview.GooglePlayReview>()
+        val reviews = ArrayList<GooglePlayReview>()
         val googlePlay = GooglePlay()
         googlePlay
             .reviews(
