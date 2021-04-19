@@ -78,7 +78,6 @@ internal class ItunesRssReviewResult {
         @XmlRootElement(name = "content")
         @XmlAccessorType(XmlAccessType.FIELD)
         internal class Content {
-
             @XmlValue
             val text: String? = null
 

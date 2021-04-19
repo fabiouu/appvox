@@ -40,7 +40,9 @@ class GooglePlayReviewRepositoryTest : BaseMockTest() {
         expectedReviewCount: Int
     ) {
         REQUEST_URL_DOMAIN = UrlUtil.getUrlDomainByEnv(REQUEST_URL_DOMAIN)
-        val mockData = javaClass.getResource("/review/google_play/com.twitter.android/relevant/review_google_play_com.twitter.android_relevant_1.json").readText()
+        val mockData =
+            javaClass.getResource("/review/google_play/com.twitter.android/relevant/review_google_play_com.twitter.android_relevant_1.json")
+                .readText()
         stubHttpUrl(REQUEST_URL_PATH, mockData)
 
         val request = GooglePlayReviewRequest(
@@ -62,6 +64,8 @@ class GooglePlayReviewRepositoryTest : BaseMockTest() {
                 submitTime.shouldBeBetween(0, Long.MAX_VALUE)
                 likeCount.shouldBeGreaterThanOrEqual(0)
                 reviewUrl shouldContain result.reviewId
+                replyComment?.let { it.shouldNotBeEmpty() }
+//                replyTime?.let { it.shouldNotBeNull() }
             }
         }
         response.nextToken.shouldNotBeEmpty()

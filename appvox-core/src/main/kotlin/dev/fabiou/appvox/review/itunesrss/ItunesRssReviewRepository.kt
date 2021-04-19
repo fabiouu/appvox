@@ -62,7 +62,7 @@ internal class ItunesRssReviewRepository(
             val jaxbUnmarshaller: Unmarshaller = jaxbContext.createUnmarshaller()
             result = jaxbUnmarshaller.unmarshal(xsr) as ItunesRssReviewResult
         } catch (e: JAXBException) {
-            throw AppVoxException(AppVoxError.SERIALIZATION)
+            throw AppVoxException(AppVoxError.SERIALIZATION, e)
         }
 
         return ReviewResult(

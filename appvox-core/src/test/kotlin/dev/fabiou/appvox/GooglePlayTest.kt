@@ -10,6 +10,7 @@ import io.kotest.assertions.assertSoftly
 import io.kotest.inspectors.forExactly
 import io.kotest.matchers.ints.shouldBeBetween
 import io.kotest.matchers.ints.shouldBeGreaterThanOrEqual
+import io.kotest.matchers.nulls.shouldNotBeNull
 import io.kotest.matchers.string.shouldContain
 import io.kotest.matchers.string.shouldNotBeEmpty
 import io.kotest.matchers.string.shouldStartWith
@@ -50,9 +51,11 @@ class GooglePlayTest : BaseMockTest() {
                 userAvatar shouldStartWith "https://play-lh.googleusercontent.com/"
                 rating.shouldBeBetween(1, 5)
                 comment.shouldNotBeEmpty()
-                // TODO commentTime
+                commentTime.shouldNotBeNull()
                 likeCount.shouldBeGreaterThanOrEqual(0)
                 url shouldContain id
+                replyComment?.let { it.shouldNotBeEmpty() }
+//                replyTime?.let { it.shouldNotBeNull() }
             }
         }
     }
@@ -92,9 +95,11 @@ class GooglePlayTest : BaseMockTest() {
                 userAvatar shouldStartWith "https://play-lh.googleusercontent.com/"
                 rating.shouldBeBetween(1, 5)
                 comment.shouldNotBeEmpty()
-                // TODO commentTime
+                commentTime.shouldNotBeNull()
                 likeCount.shouldBeGreaterThanOrEqual(0)
                 url shouldContain id
+                replyComment?.let { it.shouldNotBeEmpty() }
+//                replyTime?.let { it.shouldNotBeNull() }
             }
         }
     }

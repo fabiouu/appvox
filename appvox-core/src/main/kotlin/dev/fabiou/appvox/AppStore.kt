@@ -17,6 +17,12 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
+/**
+ * This class consists of the main methods for interacting with iTunes RSS feed
+ *
+ * @property config
+ * @constructor Create empty App store
+ */
 class AppStore(
     val config: RequestConfiguration = RequestConfiguration(delay = MIN_REQUEST_DELAY)
 ) {
@@ -30,6 +36,14 @@ class AppStore(
         }
     }
 
+    /**
+     * Returns a flow of Reviews from iTunes RSS Feed
+     *
+     * @param appId
+     * @param region
+     * @param sortType
+     * @return
+     */
     fun reviews(
         appId: String,
         region: AppStoreRegion = AppStoreRegion.UNITED_STATES,

@@ -3,7 +3,7 @@ package dev.fabiou.appvox.util
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.TextNode
 
-object JsonUtil {
+internal object JsonUtil {
     fun getJsonNodeByIndex(jsonResponse: JsonNode, nestedIndexes: IntArray, currentIndex: Int = 0): JsonNode {
         val responseIndex = nestedIndexes[currentIndex]
 

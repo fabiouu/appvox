@@ -38,12 +38,12 @@ class AppStoreReviewRepositoryTest : BaseMockTest() {
     @ExperimentalCoroutinesApi
     @ParameterizedTest
     @CsvSource(
-            "333903271, us, 10"
+        "333903271, us, 10"
     )
     fun `get app store reviews`(
-            appId: String,
-            regionCode: String,
-            expectedReviewCount: Int
+        appId: String,
+        regionCode: String,
+        expectedReviewCount: Int
     ) {
         REQUEST_URL_DOMAIN = UrlUtil.getUrlDomainByEnv(REQUEST_URL_DOMAIN)
         APP_HP_URL_DOMAIN = UrlUtil.getUrlDomainByEnv(APP_HP_URL_DOMAIN)
@@ -55,14 +55,14 @@ class AppStoreReviewRepositoryTest : BaseMockTest() {
         stubHttpUrl(REQUEST_URL_PATH.format(region.code, appId, REQUEST_REVIEW_SIZE), mockData)
 
         val bearerToken = appStoreRepository.getBearerToken(
-                appId = appId,
-                region = region
+            appId = appId,
+            region = region
         )
 
         val request = AppStoreReviewRequest(
-                appId = appId,
-                region = region,
-                bearerToken = bearerToken
+            appId = appId,
+            region = region,
+            bearerToken = bearerToken
         )
 
         val response = repository.getReviewsByAppId(ReviewRequest(request))
@@ -75,9 +75,13 @@ class AppStoreReviewRepositoryTest : BaseMockTest() {
                 attributes.shouldNotBeNull()
                 attributes.userName.shouldNotBeEmpty()
                 attributes.review.shouldNotBeEmpty()
-                // TODO: attributes.date
+                // TODO attributes.date
                 attributes.title.shouldNotBeEmpty()
                 attributes.rating.shouldBeBetween(1, 5)
+                attributes.developerResponse?.let { developerResponse ->
+                    developerResponse.body.shouldNotBeEmpty()
+//                    developerResponse.modified
+                }
             }
         }
         response.nextToken.shouldNotBeEmpty()

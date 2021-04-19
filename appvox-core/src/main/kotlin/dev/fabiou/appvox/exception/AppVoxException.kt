@@ -7,15 +7,15 @@ class AppVoxException : Exception {
         this.code = code
     }
 
-    constructor(message: String?, cause: Throwable?, code: AppVoxError) : super(message, cause) {
+    constructor(code: AppVoxError, message: String?, cause: Throwable?) : super(message, cause) {
         this.code = code
     }
 
-    constructor(message: String?, code: AppVoxError) : super(message) {
+    constructor(code: AppVoxError, message: String?) : super(message) {
         this.code = code
     }
 
-    constructor(cause: Throwable?, code: AppVoxError) : super(cause) {
+    constructor(code: AppVoxError, cause: Throwable?) : super(cause) {
         this.code = code
     }
 

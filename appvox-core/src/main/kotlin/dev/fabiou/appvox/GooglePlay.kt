@@ -17,6 +17,12 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
+/**
+ * This class consists of the main methods for interacting with Google Play
+ *
+ * @property config
+ * @constructor Create empty Google play
+ */
 class GooglePlay(
     val config: RequestConfiguration = RequestConfiguration(delay = MIN_REQUEST_DELAY)
 ) {
@@ -35,6 +41,16 @@ class GooglePlay(
         }
     }
 
+    /**
+     * Returns a Kotlin Flow of reviews
+     *
+     * @param appId
+     * @param language
+     * @param sortType
+     * @param batchSize
+     * @throws AppVoxException
+     * @return
+     */
     fun reviews(
         appId: String,
         language: GooglePlayLanguage = GooglePlayLanguage.ENGLISH_US,

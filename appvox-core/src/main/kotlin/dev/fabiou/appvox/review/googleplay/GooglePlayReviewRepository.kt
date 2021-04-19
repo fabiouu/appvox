@@ -8,7 +8,6 @@ import dev.fabiou.appvox.exception.AppVoxException
 import dev.fabiou.appvox.review.ReviewRepository
 import dev.fabiou.appvox.review.ReviewRequest
 import dev.fabiou.appvox.review.ReviewResult
-import dev.fabiou.appvox.review.appstore.AppStoreReviewRepository
 import dev.fabiou.appvox.review.googleplay.domain.GooglePlayReviewRequest
 import dev.fabiou.appvox.review.googleplay.domain.GooglePlayReviewResult
 import dev.fabiou.appvox.util.HttpUtil
@@ -20,8 +19,9 @@ internal class GooglePlayReviewRepository(
     companion object {
         internal var REQUEST_URL_DOMAIN = "https://play.google.com"
         internal const val REQUEST_URL_PATH = "/_/PlayStoreUi/data/batchexecute"
-        private const val REQUEST_URL_PARAMS =
-            "?rpcids=UsvDTd&f.sid=-2417434988450146470&bl=boq_playuiserver_20200303.10_p0&hl=%s&authuser&soc-app=121&soc-platform=1&soc-device=1&_reqid=1080551"
+        private const val REQUEST_URL_PARAMS = "?rpcids=UsvDTd&f.sid=-2417434988450146470" +
+            "&bl=boq_playuiserver_20200303.10_p0&hl=%s" +
+            "&authuser&soc-app=121&soc-platform=1&soc-device=1&_reqid=1080551"
         private const val REQUEST_BODY_WITH_PARAMS =
             "f.req=[[[\"UsvDTd\",\"[null,null,[2,%d,[%d,null,null],null,[]],[\\\"%s\\\",7]]\",null,\"generic\"]]]"
         private const val REQUEST_BODY_WITH_PARAMS_AND_BODY =
@@ -91,15 +91,15 @@ internal class GooglePlayReviewRepository(
     private fun buildRequestBody(request: ReviewRequest<GooglePlayReviewRequest>): String {
         return if (request.nextToken.isNullOrEmpty()) {
             REQUEST_BODY_WITH_PARAMS.format(
-                    request.parameters.sortType.sortType,
-                    request.parameters.batchSize,
-                    request.parameters.appId
+                request.parameters.sortType.sortType,
+                request.parameters.batchSize,
+                request.parameters.appId
             )
         } else {
             REQUEST_BODY_WITH_PARAMS_AND_BODY.format(
-                    request.parameters.batchSize,
-                    request.nextToken,
-                    request.parameters.appId
+                request.parameters.batchSize,
+                request.nextToken,
+                request.parameters.appId
             )
         }
     }

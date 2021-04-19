@@ -11,8 +11,8 @@ data class GooglePlayReviewResult(
         val comment: String,
         val submitTime: Long,
         val likeCount: Int,
-        val appVersion: String?,
         val reviewUrl: String,
+        val appVersion: String?,
         val replyComment: String?,
         val replySubmitTime: Long?
     )
