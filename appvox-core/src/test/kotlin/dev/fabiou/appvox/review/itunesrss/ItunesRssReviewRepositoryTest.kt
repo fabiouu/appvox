@@ -7,7 +7,7 @@ import dev.fabiou.appvox.review.ReviewRequest
 import dev.fabiou.appvox.review.itunesrss.ItunesRssReviewRepository.Companion.REQUEST_URL_DOMAIN
 import dev.fabiou.appvox.review.itunesrss.ItunesRssReviewRepository.Companion.REQUEST_URL_PATH
 import dev.fabiou.appvox.review.itunesrss.constant.AppStoreRegion
-import dev.fabiou.appvox.review.itunesrss.constant.AppStoreSortType
+import dev.fabiou.appvox.review.itunesrss.constant.ItunesRssSortType
 import dev.fabiou.appvox.review.itunesrss.domain.ItunesRssReviewRequest
 import io.kotest.assertions.assertSoftly
 import io.kotest.inspectors.forExactly
@@ -40,7 +40,7 @@ class ItunesRssReviewRepositoryTest : BaseMockTest() {
         val request = ItunesRssReviewRequest(
             appId = appId,
             region = region,
-            sortType = AppStoreSortType.RECENT,
+            sortType = ItunesRssSortType.RECENT,
             pageNo = 1
         )
 

@@ -9,7 +9,7 @@ import dev.fabiou.appvox.review.ReviewRequest
 import dev.fabiou.appvox.review.itunesrss.ItunesRssReviewConverter
 import dev.fabiou.appvox.review.itunesrss.ItunesRssReviewService
 import dev.fabiou.appvox.review.itunesrss.constant.AppStoreRegion
-import dev.fabiou.appvox.review.itunesrss.constant.AppStoreSortType
+import dev.fabiou.appvox.review.itunesrss.constant.ItunesRssSortType
 import dev.fabiou.appvox.review.itunesrss.domain.ItunesRssReview
 import dev.fabiou.appvox.review.itunesrss.domain.ItunesRssReviewRequest
 import dev.fabiou.appvox.util.HttpUtil
@@ -47,7 +47,7 @@ class AppStore(
     fun reviews(
         appId: String,
         region: AppStoreRegion = AppStoreRegion.UNITED_STATES,
-        sortType: AppStoreSortType = AppStoreSortType.RELEVANT
+        sortType: ItunesRssSortType = ItunesRssSortType.RELEVANT
     ): Flow<ItunesRssReview> = flow {
 
         if (config.delay < MIN_REQUEST_DELAY) {

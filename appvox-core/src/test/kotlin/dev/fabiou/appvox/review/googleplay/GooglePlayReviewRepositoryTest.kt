@@ -65,7 +65,7 @@ class GooglePlayReviewRepositoryTest : BaseMockTest() {
                 likeCount.shouldBeGreaterThanOrEqual(0)
                 reviewUrl shouldContain result.reviewId
                 replyComment?.let { it.shouldNotBeEmpty() }
-//                replyTime?.let { it.shouldNotBeNull() }
+                replySubmitTime?.let { it.shouldBeBetween(0, Long.MAX_VALUE) }
             }
         }
         response.nextToken.shouldNotBeEmpty()

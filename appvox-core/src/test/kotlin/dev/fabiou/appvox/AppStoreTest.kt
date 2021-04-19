@@ -5,7 +5,7 @@ import dev.fabiou.appvox.configuration.RequestConfiguration
 import dev.fabiou.appvox.review.itunesrss.ItunesRssReviewRepository.Companion.REQUEST_URL_DOMAIN
 import dev.fabiou.appvox.review.itunesrss.ItunesRssReviewRepository.Companion.REQUEST_URL_PATH
 import dev.fabiou.appvox.review.itunesrss.constant.AppStoreRegion.Companion.fromValue
-import dev.fabiou.appvox.review.itunesrss.constant.AppStoreSortType.RECENT
+import dev.fabiou.appvox.review.itunesrss.constant.ItunesRssSortType.RECENT
 import dev.fabiou.appvox.review.itunesrss.domain.ItunesRssReview
 import io.kotest.assertions.assertSoftly
 import io.kotest.inspectors.forExactly
@@ -58,8 +58,6 @@ class AppStoreTest : BaseMockTest() {
                 comment.shouldNotBeEmpty()
                 translatedComment?.let { it.shouldNotBeEmpty() }
                 commentTime.shouldNotBeNull()
-                replyComment?.let { it.shouldNotBeEmpty() }
-                replyTime?.let { it.shouldNotBeNull() }
                 likeCount?.shouldBeGreaterThanOrEqual(0)
                 url.shouldNotBeEmpty()
             }
@@ -98,8 +96,6 @@ class AppStoreTest : BaseMockTest() {
                 comment.shouldNotBeEmpty()
                 translatedComment?.let { it.shouldNotBeEmpty() }
                 commentTime.shouldNotBeNull()
-                replyComment?.let { it.shouldNotBeEmpty() }
-                replyTime?.let { it.shouldNotBeNull() }
                 likeCount?.shouldBeGreaterThanOrEqual(0)
                 url.shouldNotBeEmpty()
             }

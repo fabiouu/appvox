@@ -39,6 +39,8 @@ internal class GooglePlayReviewRepository(
         private val REPLY_COMMENT_INDEX = intArrayOf(7, 1)
         private val REPLY_SUBMIT_TIME_INDEX = intArrayOf(7, 2, 0)
 
+        private const val GOOGLE_PLAY_SUB_RESPONSE_START_INDEX = 4
+
         private const val MIN_BATCH_SIZE = 1
         private const val MAX_BATCH_SIZE = 100
     }
@@ -75,8 +77,8 @@ internal class GooglePlayReviewRepository(
                     request.parameters.language.langCode,
                     getJsonNodeByIndex(gplayReview, REVIEW_ID_INDEX).asText()
                 ),
-                replyComment = getJsonNodeByIndex(gplayReview, REPLY_COMMENT_INDEX).asText(),
-                replySubmitTime = getJsonNodeByIndex(gplayReview, REPLY_SUBMIT_TIME_INDEX).asLong()
+                replyComment = getJsonNodeByIndex(gplayReview, REPLY_COMMENT_INDEX).whenNotNull { it.asText() },
+                replySubmitTime = getJsonNodeByIndex(gplayReview, REPLY_SUBMIT_TIME_INDEX).whenNotNull { it.asLong() }
             )
             reviews.add(review)
         }
@@ -105,11 +107,15 @@ internal class GooglePlayReviewRepository(
     }
 
     private fun parseReviewsFromResponse(gPlayResponse: String): JsonNode {
-        val cleanResponse = gPlayResponse.substring(4)
+        val cleanResponse = gPlayResponse.substring(GOOGLE_PLAY_SUB_RESPONSE_START_INDEX)
         val rootArray = ObjectMapper().readTree(cleanResponse)
         val subArray: JsonNode = rootArray[0][2]
         val subArrayAsJsonString = subArray.textValue()
         val reviews = ObjectMapper().readTree(subArrayAsJsonString)
         return reviews
+    }
+
+    private inline fun <R> JsonNode.whenNotNull(block: (JsonNode) -> R): R? {
+        return if (!this.isNull) block(this) else null
     }
 }

@@ -56,9 +56,8 @@ internal object HttpUtil {
     }
 
     private class CustomAuthenticator(val user: String, val password: String) : Authenticator() {
-        override fun getPasswordAuthentication(): PasswordAuthentication? {
+        override fun getPasswordAuthentication(): PasswordAuthentication {
             return PasswordAuthentication(user, password.toCharArray())
         }
     }
-
 }

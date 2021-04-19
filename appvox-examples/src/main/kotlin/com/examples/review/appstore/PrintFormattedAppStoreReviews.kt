@@ -3,7 +3,7 @@ package com.examples.review.appstore
 import dev.fabiou.appvox.AppStore
 import dev.fabiou.appvox.configuration.RequestConfiguration
 import dev.fabiou.appvox.review.itunesrss.constant.AppStoreRegion
-import dev.fabiou.appvox.review.itunesrss.constant.AppStoreSortType
+import dev.fabiou.appvox.review.itunesrss.constant.ItunesRssSortType
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.flow.collect
@@ -29,7 +29,7 @@ fun main() = runBlocking {
     appStore.reviews(
             appId = appId,
             region = AppStoreRegion.fromValue(userRegion),
-            sortType = AppStoreSortType.RECENT
+            sortType = ItunesRssSortType.RECENT
         )
         .take(maxReviewCount)
         .collect { review ->
@@ -41,8 +41,6 @@ fun main() = runBlocking {
                             Title: ${review.title}
                             Comment: ${review.comment}
                             Comment Time: ${review.commentTime}
-                            Reply Comment: ${review.replyComment}
-                            Reply Time: ${review.replyTime}
                             Review Url: ${review.url}
                         """.trimIndent()
             println(formattedReview)

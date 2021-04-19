@@ -5,7 +5,7 @@ import dev.fabiou.appvox.AppStore
 import dev.fabiou.appvox.configuration.RequestConfiguration
 import dev.fabiou.appvox.exception.AppVoxException
 import dev.fabiou.appvox.review.itunesrss.constant.AppStoreRegion
-import dev.fabiou.appvox.review.itunesrss.constant.AppStoreSortType
+import dev.fabiou.appvox.review.itunesrss.constant.ItunesRssSortType
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.runBlocking
@@ -45,7 +45,7 @@ fun main() = runBlocking {
         appStore.reviews(
                 appId = appId,
                 region = AppStoreRegion.fromValue(userRegion),
-                sortType = AppStoreSortType.RECENT
+                sortType = ItunesRssSortType.RECENT
             )
             .take(maxReviewCount)
             .collect { review ->
@@ -56,8 +56,6 @@ fun main() = runBlocking {
                     review.title,
                     review.comment,
                     review.commentTime.toString(),
-                    review.replyComment,
-                    review.replyTime.toString(),
                     review.likeCount.toString(),
                     review.url
                 )

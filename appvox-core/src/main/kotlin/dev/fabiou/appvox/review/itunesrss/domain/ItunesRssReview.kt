@@ -44,16 +44,6 @@ data class ItunesRssReview(
     val commentTime: ZonedDateTime? = null,
 
     /**
-     * Reply comment by the App's developer
-     */
-    val replyComment: String? = null,
-
-    /**
-     * Time the App's developer replied to the user's comment
-     */
-    val replyTime: ZonedDateTime? = null,
-
-    /**
      * Number of times users found this comment useful (thumbs-up / upvote / like)
      */
     val likeCount: Int? = 0,

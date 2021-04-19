@@ -13,28 +13,28 @@ internal class GooglePlayReviewConverter :
     override fun toResponse(
         results: List<GooglePlayReviewResult.GooglePlayReview>
     ): List<GooglePlayReview> {
-        val response = ArrayList<GooglePlayReview>()
-        results.forEach { reviewResult ->
-            val reviewResponse = GooglePlayReview(
-                id = reviewResult.reviewId,
-                userName = reviewResult.userName,
-                userAvatar = reviewResult.userProfilePicUrl,
-                rating = reviewResult.rating,
-                comment = reviewResult.comment,
+        val reviews = ArrayList<GooglePlayReview>()
+        results.forEach { result ->
+            val review = GooglePlayReview(
+                id = result.reviewId,
+                userName = result.userName,
+                userAvatar = result.userProfilePicUrl,
+                rating = result.rating,
+                comment = result.comment,
                 commentTime = ZonedDateTime.ofInstant(
-                    Instant.ofEpochSecond(reviewResult.submitTime),
+                    Instant.ofEpochSecond(result.submitTime),
                     ZoneOffset.UTC
                 ),
-                replyComment = reviewResult.replyComment,
-                replyTime = reviewResult.replySubmitTime?.let {
+                replyComment = result.replyComment,
+                replyTime = result.replySubmitTime?.let {
                     ZonedDateTime.ofInstant(Instant.ofEpochSecond(it), ZoneOffset.UTC)
                 },
-                likeCount = reviewResult.likeCount,
-                appVersion = reviewResult.appVersion,
-                url = reviewResult.reviewUrl
+                likeCount = result.likeCount,
+                appVersion = result.appVersion,
+                url = result.reviewUrl
             )
-            response.add(reviewResponse)
+            reviews.add(review)
         }
-        return response
+        return reviews
     }
 }

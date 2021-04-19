@@ -40,7 +40,7 @@ internal class ItunesRssReviewResult {
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(
         name = "", propOrder = [
-            "updated", "id", "title", "content", "voteSum", "voteCount", "rating", "version", "author", "link"]
+        "updated", "id", "title", "content", "voteSum", "voteCount", "rating", "version", "author", "link"]
     )
     @XmlRootElement(name = "entry")
     internal class Entry {
@@ -106,7 +106,7 @@ internal class ItunesRssReviewResult {
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = ["name", "uri"])
     @XmlRootElement(name = "author")
-    internal class Author{
+    internal class Author {
         @XmlElement(required = true)
         val name: String? = null
 

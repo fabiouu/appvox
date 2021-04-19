@@ -6,8 +6,8 @@ enum class GooglePlaySortType(val sortType: Int) {
     RATING(3);
 
     companion object {
-        fun fromValue(sortType: Int) : GooglePlaySortType {
-            for (googlePlaySortType in GooglePlaySortType.values()) {
+        fun fromValue(sortType: Int): GooglePlaySortType {
+            for (googlePlaySortType in values()) {
                 if (googlePlaySortType.sortType == sortType) {
                     return googlePlaySortType
                 }
