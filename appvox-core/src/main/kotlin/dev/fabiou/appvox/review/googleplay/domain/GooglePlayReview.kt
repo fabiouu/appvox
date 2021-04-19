@@ -14,10 +14,10 @@ data class GooglePlayReview(
         val appVersion: String? = null,
         val comment: String,
         val translatedComment: String? = null,
-        val commentTime: ZonedDateTime? = null,
+        val commentTime: ZonedDateTime,
         val replyComment: String? = null,
         val replyTime: ZonedDateTime? = null,
         val likeCount: Int = 0,
-        val url: String? = null
+        val url: String
     )
 }

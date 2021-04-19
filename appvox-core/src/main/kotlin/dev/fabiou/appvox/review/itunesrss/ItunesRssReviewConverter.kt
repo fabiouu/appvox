@@ -13,7 +13,7 @@ internal class ItunesRssReviewConverter : ReviewConverter<ItunesRssReviewResult.
                     userName = reviewResult.author?.name!!,
                     rating = reviewResult.rating!!,
                     title = reviewResult.title,
-                    comment = reviewResult.content?.find { it.type == "text" }?.content!!,
+                    comment = reviewResult.content?.find { it.type == "text" }?.text!!,
                     commentTime = reviewResult.updated?.toGregorianCalendar()?.toZonedDateTime(),
                     appVersion = reviewResult.version,
                     url = reviewResult.link?.href,

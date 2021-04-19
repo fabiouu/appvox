@@ -1,5 +1,6 @@
 package dev.fabiou.appvox.review.itunesrss
 
+import UrlUtil
 import dev.fabiou.appvox.BaseMockTest
 import dev.fabiou.appvox.configuration.RequestConfiguration
 import dev.fabiou.appvox.review.ReviewRequest
@@ -10,12 +11,9 @@ import dev.fabiou.appvox.review.itunesrss.constant.AppStoreSortType
 import dev.fabiou.appvox.review.itunesrss.domain.ItunesRssReviewRequest
 import io.kotest.assertions.assertSoftly
 import io.kotest.inspectors.forExactly
-import io.kotest.matchers.ints.shouldBeBetween
-import io.kotest.matchers.nulls.shouldNotBeNull
-import io.kotest.matchers.shouldBe
+import io.kotest.matchers.string.shouldContainOnlyDigits
 import io.kotest.matchers.string.shouldNotBeEmpty
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
 
@@ -51,6 +49,7 @@ class ItunesRssReviewRepositoryTest : BaseMockTest() {
         response.results.forExactly(expectedReviewCount) { result ->
             assertSoftly(result) {
                 id.shouldNotBeEmpty()
+                id.shouldContainOnlyDigits()
                 title.shouldNotBeEmpty()
             }
         }

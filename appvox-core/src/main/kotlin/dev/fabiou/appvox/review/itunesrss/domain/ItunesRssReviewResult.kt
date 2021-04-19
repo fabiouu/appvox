@@ -80,7 +80,7 @@ internal class ItunesRssReviewResult {
         internal class Content {
 
             @XmlValue
-            val content: String? = null
+            val text: String? = null
 
             @XmlAttribute
             val type: String? = null
@@ -107,11 +107,11 @@ internal class ItunesRssReviewResult {
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = ["name", "uri"])
     @XmlRootElement(name = "author")
-    internal data class Author(
+    internal class Author{
         @XmlElement(required = true)
-        val name: String? = null,
+        val name: String? = null
 
         @XmlElement(required = true)
         val uri: String? = null
-    )
+    }
 }

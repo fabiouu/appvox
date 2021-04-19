@@ -21,6 +21,7 @@ import io.kotest.matchers.nulls.shouldNotBeNull
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
 import io.kotest.matchers.string.shouldContain
+import io.kotest.matchers.string.shouldContainOnlyDigits
 import io.kotest.matchers.string.shouldNotBeEmpty
 import io.kotest.matchers.string.shouldStartWith
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -69,6 +70,7 @@ class AppStoreReviewRepositoryTest : BaseMockTest() {
         response.results.forExactly(expectedReviewCount) { result ->
             assertSoftly(result) {
                 id.shouldNotBeEmpty()
+                id.shouldContainOnlyDigits()
                 type shouldBe "user-reviews"
                 attributes.shouldNotBeNull()
                 attributes.userName.shouldNotBeEmpty()

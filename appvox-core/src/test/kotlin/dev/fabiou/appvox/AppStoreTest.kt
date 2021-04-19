@@ -56,10 +56,10 @@ class AppStoreTest : BaseMockTest() {
                 appVersion.shouldNotBeEmpty()
                 title.shouldNotBeEmpty()
                 comment.shouldNotBeEmpty()
-                // TODO translatedComment
+                translatedComment?.let { it.shouldNotBeEmpty() }
                 commentTime.shouldNotBeNull()
-                // TODO replyComment
-                // TODO replyTime
+                replyComment?.let { it.shouldNotBeEmpty() }
+                replyTime?.let { it.shouldNotBeNull() }
                 likeCount?.shouldBeGreaterThanOrEqual(0)
                 url.shouldNotBeEmpty()
             }
@@ -96,10 +96,10 @@ class AppStoreTest : BaseMockTest() {
                 appVersion.shouldNotBeEmpty()
                 title.shouldNotBeEmpty()
                 comment.shouldNotBeEmpty()
-                // TODO translatedComment
+                translatedComment?.let { it.shouldNotBeEmpty() }
                 commentTime.shouldNotBeNull()
-                // TODO replyComment
-                // TODO replyTime
+                replyComment?.let { it.shouldNotBeEmpty() }
+                replyTime?.let { it.shouldNotBeNull() }
                 likeCount?.shouldBeGreaterThanOrEqual(0)
                 url.shouldNotBeEmpty()
             }

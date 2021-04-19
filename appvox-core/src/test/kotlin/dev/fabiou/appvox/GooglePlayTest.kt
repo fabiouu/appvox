@@ -27,18 +27,16 @@ class GooglePlayTest : BaseMockTest() {
     @CsvSource(
         "com.twitter.android, 50"
     )
-    fun `Get Google Play reviews using default optional parameters`(
+    fun `get Google Play reviews using default optional parameters`(
         appId: String,
         expectedReviewCount: Int
     ) = runBlockingTest {
-        REQUEST_URL_DOMAIN =
-            UrlUtil.getUrlDomainByEnv(REQUEST_URL_DOMAIN)
+        REQUEST_URL_DOMAIN = UrlUtil.getUrlDomainByEnv(REQUEST_URL_DOMAIN)
         val mockData = javaClass.getResource("/review/google_play/com.twitter.android/relevant/review_google_play_com.twitter.android_relevant_1.json").readText()
         stubHttpUrl(REQUEST_URL_PATH, mockData)
 
         val reviews = ArrayList<GooglePlayReview.GooglePlayReview>()
-        val googlePlay = GooglePlay()
-        googlePlay
+        GooglePlay()
             .reviews(appId)
             .take(expectedReviewCount)
             .collect { review ->
@@ -52,7 +50,7 @@ class GooglePlayTest : BaseMockTest() {
                 userAvatar shouldStartWith "https://play-lh.googleusercontent.com/"
                 rating.shouldBeBetween(1, 5)
                 comment.shouldNotBeEmpty()
-                // TODO commentTime.shouldBeBetween(0, Long.MAX_VALUE)
+                // TODO commentTime
                 likeCount.shouldBeGreaterThanOrEqual(0)
                 url shouldContain id
             }
@@ -94,7 +92,7 @@ class GooglePlayTest : BaseMockTest() {
                 userAvatar shouldStartWith "https://play-lh.googleusercontent.com/"
                 rating.shouldBeBetween(1, 5)
                 comment.shouldNotBeEmpty()
-                // TODO commentTime.shouldBeBetween(0, Long.MAX_VALUE)
+                // TODO commentTime
                 likeCount.shouldBeGreaterThanOrEqual(0)
                 url shouldContain id
             }
