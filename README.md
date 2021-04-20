@@ -70,9 +70,9 @@ Use `GooglePlay` or `AppStore` class with default parameters to scrape the most 
 The method `take()` will stop the `Flow` of data after scraping 100 reviews (optional).
 ### Google Play
  ```kotlin
-import dev.fabiou.appvox.core.GooglePlay
-import dev.fabiou.appvox.core.review.googleplay.constant.GooglePlayLanguage.ENGLISH_US
-import dev.fabiou.appvox.core.review.googleplay.constant.GooglePlaySortType.RELEVANT
+import dev.fabiou.appvox.GooglePlay
+import dev.fabiou.appvox.review.googleplay.constant.GooglePlayLanguage.ENGLISH_US
+import dev.fabiou.appvox.review.googleplay.constant.GooglePlaySortType.RELEVANT
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.runBlocking
@@ -91,9 +91,9 @@ fun main() = runBlocking {
 
 ### App Store
 ``` Kotlin
-import dev.fabiou.appvox.core.AppStore
-import dev.fabiou.appvox.core.review.itunesrss.constant.AppStoreSortType.RELEVANT
-import dev.fabiou.appvox.core.review.itunesrss.constant.AppStoreRegion.UNITED_STATES
+import dev.fabiou.appvox.AppStore
+import dev.fabiou.appvox.review.itunesrss.constant.AppStoreSortType.RELEVANT
+import dev.fabiou.appvox.review.itunesrss.constant.AppStoreRegion.UNITED_STATES
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.runBlocking
