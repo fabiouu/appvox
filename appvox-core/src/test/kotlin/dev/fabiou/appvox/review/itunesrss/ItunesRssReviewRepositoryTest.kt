@@ -51,6 +51,7 @@ class ItunesRssReviewRepositoryTest : BaseMockTest() {
                 id.shouldNotBeEmpty()
                 id.shouldContainOnlyDigits()
                 title.shouldNotBeEmpty()
+                // TODO Cover other fields
             }
         }
         response.nextToken.shouldNotBeEmpty()
