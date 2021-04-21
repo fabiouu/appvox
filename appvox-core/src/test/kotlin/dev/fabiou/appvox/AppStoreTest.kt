@@ -26,7 +26,7 @@ class AppStoreTest : BaseMockTest() {
     @ExperimentalCoroutinesApi
     @ParameterizedTest
     @CsvSource(
-        "333903271, us, 1, 50"
+        "333903271, us, 10"
     )
     fun `get most recent App Store reviews with a delay of 3s between each request`(
         appId: String,
@@ -72,17 +72,22 @@ class AppStoreTest : BaseMockTest() {
     @ExperimentalCoroutinesApi
     @ParameterizedTest
     @CsvSource(
-        "333903271, us, 1, 50"
+        "333903271, us, 10"
     )
     fun `Get App Store reviews using default optional parameters`(
         appId: String,
-        region: String,
-        pageNo: Int,
+        regionCode: String,
         expectedReviewCount: Int
     ) = runBlockingTest {
         REQUEST_URL_DOMAIN = UrlUtil.getUrlDomainByEnv(REQUEST_URL_DOMAIN)
-        val mockData = javaClass.getResource("/review/itunes_rss/itunes_rss_reviews_mock_data.xml").readText()
-        stubHttpUrl(REQUEST_URL_PATH.format(region, pageNo, appId), mockData)
+        APP_HP_URL_DOMAIN = UrlUtil.getUrlDomainByEnv(APP_HP_URL_DOMAIN)
+
+        val region = fromValue(regionCode)
+        val bearerTokenRequestUrlPath = APP_HP_URL_PATH.format(region.code, appId)
+        stubHttpUrl(bearerTokenRequestUrlPath, "mock-bearer-token")
+
+        val mockData = javaClass.getResource("/review/app_store/appstore_reviews_mock_data.json").readText()
+        stubHttpUrl(REQUEST_URL_PATH.format(region.code, appId, AppStoreReviewRepository.REQUEST_REVIEW_SIZE), mockData)
 
         val reviews = ArrayList<AppStoreReview>()
         AppStore().reviews(appId)
