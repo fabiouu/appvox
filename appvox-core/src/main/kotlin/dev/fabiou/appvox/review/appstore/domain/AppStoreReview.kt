@@ -24,11 +24,6 @@ data class AppStoreReview(
     val title: String? = null,
 
     /**
-     * iOS App Version
-     */
-    val appVersion: String? = null,
-
-    /**
      * Comment written by the user
      */
     val comment: String,

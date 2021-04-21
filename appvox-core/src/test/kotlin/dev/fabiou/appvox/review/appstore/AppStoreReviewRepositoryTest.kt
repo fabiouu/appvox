@@ -1,5 +1,6 @@
 package dev.fabiou.appvox.review.appstore
 
+import com.fasterxml.jackson.databind.JsonNode
 import dev.fabiou.appvox.BaseMockTest
 import dev.fabiou.appvox.app.appstore.AppStoreRepository
 import dev.fabiou.appvox.app.appstore.AppStoreRepository.Companion.APP_HP_URL_DOMAIN
@@ -80,7 +81,7 @@ class AppStoreReviewRepositoryTest : BaseMockTest() {
                 attributes.rating.shouldBeBetween(1, 5)
                 attributes.developerResponse?.let { developerResponse ->
                     developerResponse.body.shouldNotBeEmpty()
-//                    developerResponse.modified
+                // TODO developerResponse.modified
                 }
             }
         }

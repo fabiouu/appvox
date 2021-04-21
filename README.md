@@ -2,7 +2,6 @@
     <img src="https://user-images.githubusercontent.com/6942446/114973902-f1eb5b00-9eb3-11eb-91e3-814184116b70.png" alt="AppVox" width="300" />
 </p>
 
-
 <p align="center">
     <a href="https://travis-ci.com/fabiouu/AppVox">
         <img src="https://travis-ci.com/fabiouu/AppVox.svg?branch=master" alt="Build Status" />
@@ -22,7 +21,10 @@
 </p>
 
 # Overview
-Kotlin library to scrape GooglePlay and App Store data
+Kotlin library to scrape GooglePlay and App Store data. 
+
+Supports proxying requests and content translation.
+Pagination and scraping details are abstracted behind an high-level interface.
 
 # Features
  - Reviews

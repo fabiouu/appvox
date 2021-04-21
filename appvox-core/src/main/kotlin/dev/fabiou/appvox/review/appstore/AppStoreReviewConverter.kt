@@ -16,7 +16,7 @@ internal class AppStoreReviewConverter : ReviewConverter<AppStoreReviewResult.Ap
                 title = result.attributes.title,
                 comment = result.attributes.review,
                 commentTime = ZonedDateTime.parse(result.attributes.date),
-                replyComment = result.attributes.developerResponse?.body,
+                replyComment = result.attributes.developerResponse?.let { it.body },
                 replyTime = ZonedDateTime.parse(result.attributes.developerResponse?.modified),
             )
             reviews.add(review)
