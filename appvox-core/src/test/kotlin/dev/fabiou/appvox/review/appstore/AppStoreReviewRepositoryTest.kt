@@ -13,19 +13,12 @@ import dev.fabiou.appvox.review.appstore.domain.AppStoreReviewRequest
 import dev.fabiou.appvox.review.itunesrss.constant.AppStoreRegion
 import io.kotest.assertions.assertSoftly
 import io.kotest.inspectors.forExactly
-import io.kotest.matchers.comparables.shouldBeGreaterThan
 import io.kotest.matchers.ints.shouldBeBetween
-import io.kotest.matchers.ints.shouldBeGreaterThanOrEqual
-import io.kotest.matchers.longs.shouldBeBetween
 import io.kotest.matchers.nulls.shouldNotBeNull
 import io.kotest.matchers.shouldBe
-import io.kotest.matchers.shouldNotBe
-import io.kotest.matchers.string.shouldContain
 import io.kotest.matchers.string.shouldContainOnlyDigits
 import io.kotest.matchers.string.shouldNotBeEmpty
-import io.kotest.matchers.string.shouldStartWith
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
 
@@ -45,8 +38,8 @@ class AppStoreReviewRepositoryTest : BaseMockTest() {
         regionCode: String,
         expectedReviewCount: Int
     ) {
-        REQUEST_URL_DOMAIN = UrlUtil.getUrlDomainByEnv(REQUEST_URL_DOMAIN)
-        APP_HP_URL_DOMAIN = UrlUtil.getUrlDomainByEnv(APP_HP_URL_DOMAIN)
+        REQUEST_URL_DOMAIN = httpMockServerDomain
+        APP_HP_URL_DOMAIN = httpMockServerDomain
 
         val region = AppStoreRegion.fromValue(regionCode)
         stubHttpUrl(APP_HP_URL_PATH.format(region.code, appId), "mock-bearer-token")
@@ -80,7 +73,7 @@ class AppStoreReviewRepositoryTest : BaseMockTest() {
                 attributes.rating.shouldBeBetween(1, 5)
                 attributes.developerResponse?.let { developerResponse ->
                     developerResponse.body.shouldNotBeEmpty()
-//                    developerResponse.modified
+                // TODO developerResponse.modified
                 }
             }
         }

@@ -1,6 +1,5 @@
 package dev.fabiou.appvox.review.googleplay
 
-import UrlUtil
 import dev.fabiou.appvox.BaseMockTest
 import dev.fabiou.appvox.configuration.RequestConfiguration
 import dev.fabiou.appvox.review.ReviewRequest
@@ -12,10 +11,8 @@ import dev.fabiou.appvox.review.googleplay.domain.GooglePlayReviewRequest
 import io.kotest.assertions.assertSoftly
 import io.kotest.inspectors.forExactly
 import io.kotest.matchers.ints.shouldBeBetween
-import io.kotest.matchers.ints.shouldBeExactly
 import io.kotest.matchers.ints.shouldBeGreaterThanOrEqual
 import io.kotest.matchers.longs.shouldBeBetween
-import io.kotest.matchers.string.shouldBeEmpty
 import io.kotest.matchers.string.shouldContain
 import io.kotest.matchers.string.shouldNotBeEmpty
 import io.kotest.matchers.string.shouldStartWith
@@ -39,7 +36,7 @@ class GooglePlayReviewRepositoryTest : BaseMockTest() {
         batchSize: Int,
         expectedReviewCount: Int
     ) {
-        REQUEST_URL_DOMAIN = UrlUtil.getUrlDomainByEnv(REQUEST_URL_DOMAIN)
+        REQUEST_URL_DOMAIN = httpMockServerDomain
         val mockData =
             javaClass.getResource("/review/google_play/com.twitter.android/relevant/review_google_play_com.twitter.android_relevant_1.json")
                 .readText()

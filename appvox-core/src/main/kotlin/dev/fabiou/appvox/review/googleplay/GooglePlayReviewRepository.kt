@@ -15,7 +15,7 @@ import dev.fabiou.appvox.util.JsonUtil.getJsonNodeByIndex
 
 internal class GooglePlayReviewRepository(
     private val config: RequestConfiguration
-) : ReviewRepository<GooglePlayReviewRequest, GooglePlayReviewResult.GooglePlayReview> {
+) : ReviewRepository<GooglePlayReviewRequest, GooglePlayReviewResult> {
     companion object {
         internal var REQUEST_URL_DOMAIN = "https://play.google.com"
         internal const val REQUEST_URL_PATH = "/_/PlayStoreUi/data/batchexecute"
@@ -50,7 +50,7 @@ internal class GooglePlayReviewRepository(
     @Throws(AppVoxException::class)
     override fun getReviewsByAppId(
         request: ReviewRequest<GooglePlayReviewRequest>
-    ): ReviewResult<GooglePlayReviewResult.GooglePlayReview> {
+    ): ReviewResult<GooglePlayReviewResult> {
         if (request.parameters.batchSize !in MIN_BATCH_SIZE..MAX_BATCH_SIZE) {
             throw AppVoxException(AppVoxError.INVALID_ARGUMENT)
         }
@@ -60,10 +60,10 @@ internal class GooglePlayReviewRepository(
             REQUEST_URL_PATH + REQUEST_URL_PARAMS.format(request.parameters.language.langCode)
         val responseContent = httpUtils.postRequest(requestUrl, requestBody, config.proxy)
 
-        val reviews = ArrayList<GooglePlayReviewResult.GooglePlayReview>()
+        val reviews = ArrayList<GooglePlayReviewResult>()
         val gplayReviews = parseReviewsFromResponse(responseContent)
         for (gplayReview in gplayReviews[0]) {
-            val review = GooglePlayReviewResult.GooglePlayReview(
+            val review = GooglePlayReviewResult(
                 reviewId = getJsonNodeByIndex(gplayReview, REVIEW_ID_INDEX).asText(),
                 userName = getJsonNodeByIndex(gplayReview, USER_NAME_INDEX).asText(),
                 userProfilePicUrl = getJsonNodeByIndex(gplayReview, USER_PROFILE_PIC_INDEX).asText(),

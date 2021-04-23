@@ -1,7 +1,7 @@
-package com.examples.review.appstore
+package com.examples.review.itunesrss
 
 import com.opencsv.CSVWriter
-import dev.fabiou.appvox.AppStore
+import dev.fabiou.appvox.ItunesRss
 import dev.fabiou.appvox.configuration.RequestConfiguration
 import dev.fabiou.appvox.exception.AppVoxException
 import dev.fabiou.appvox.review.itunesrss.constant.AppStoreRegion
@@ -41,7 +41,7 @@ fun main() = runBlocking {
             delay = 3000
         )
 
-        val appStore = AppStore(config)
+        val appStore = ItunesRss(config)
         appStore.reviews(
                 appId = appId,
                 region = AppStoreRegion.fromValue(userRegion),

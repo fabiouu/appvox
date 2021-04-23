@@ -17,8 +17,8 @@ class AppStoreRepositoryTest : BaseMockTest() {
     @CsvSource(
         "333903271, us, 10"
     )
-    fun `Get App Store bearer token`(appId: String, regionCode: String) {
-        APP_HP_URL_DOMAIN = UrlUtil.getUrlDomainByEnv(APP_HP_URL_DOMAIN)
+    fun `get App Store bearer token`(appId: String, regionCode: String) {
+        APP_HP_URL_DOMAIN = httpMockServerDomain
         val region = AppStoreRegion.fromValue(regionCode)
         stubHttpUrl(APP_HP_URL_PATH.format(region.code, appId), "mock-bearer-token")
 

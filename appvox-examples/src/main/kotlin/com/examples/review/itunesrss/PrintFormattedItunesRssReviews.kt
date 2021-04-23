@@ -1,6 +1,6 @@
-package com.examples.review.appstore
+package com.examples.review.itunesrss
 
-import dev.fabiou.appvox.AppStore
+import dev.fabiou.appvox.ItunesRss
 import dev.fabiou.appvox.configuration.RequestConfiguration
 import dev.fabiou.appvox.review.itunesrss.constant.AppStoreRegion
 import dev.fabiou.appvox.review.itunesrss.constant.ItunesRssSortType
@@ -25,7 +25,7 @@ fun main() = runBlocking {
     val config = RequestConfiguration(
         delay = 3000
     )
-    val appStore = AppStore(config)
+    val appStore = ItunesRss(config)
     appStore.reviews(
             appId = appId,
             region = AppStoreRegion.fromValue(userRegion),

@@ -2,7 +2,6 @@
     <img src="https://user-images.githubusercontent.com/6942446/114973902-f1eb5b00-9eb3-11eb-91e3-814184116b70.png" alt="AppVox" width="300" />
 </p>
 
-
 <p align="center">
     <a href="https://travis-ci.com/fabiouu/AppVox">
         <img src="https://travis-ci.com/fabiouu/AppVox.svg?branch=master" alt="Build Status" />
@@ -22,10 +21,12 @@
 </p>
 
 # Overview
-Kotlin library to scrape GooglePlay and App Store data
+Kotlin library to scrape GooglePlay and App Store data. Forget about scraping details, focus on your users!
+AppVox supports proxying requests and content translation.
 
 # Features
- - Reviews
+ - Review
+    - The Review module Enables you to consume a continuous stream of reviews, 
 
 # Installation
 Only `appvox-core` package is necessary to start using AppVox

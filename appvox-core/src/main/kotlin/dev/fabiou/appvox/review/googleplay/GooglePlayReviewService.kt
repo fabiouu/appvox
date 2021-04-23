@@ -9,13 +9,13 @@ import dev.fabiou.appvox.review.googleplay.domain.GooglePlayReviewResult
 
 internal class GooglePlayReviewService(
     val config: RequestConfiguration
-) : ReviewService<GooglePlayReviewRequest, GooglePlayReviewResult.GooglePlayReview> {
+) : ReviewService<GooglePlayReviewRequest, GooglePlayReviewResult> {
 
     private val googlePlayReviewRepository = GooglePlayReviewRepository(config)
 
     override fun getReviewsByAppId(
         request: ReviewRequest<GooglePlayReviewRequest>
-    ): ReviewResult<GooglePlayReviewResult.GooglePlayReview> {
+    ): ReviewResult<GooglePlayReviewResult> {
         return googlePlayReviewRepository.getReviewsByAppId(request)
     }
 }

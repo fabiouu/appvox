@@ -2,10 +2,14 @@ package dev.fabiou.appvox
 
 import com.github.tomakehurst.wiremock.WireMockServer
 import com.github.tomakehurst.wiremock.client.WireMock
-import org.junit.jupiter.api.*
+import org.junit.jupiter.api.AfterAll
+import org.junit.jupiter.api.BeforeAll
+import org.junit.jupiter.api.TestInstance
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 open class BaseMockTest {
+
+    protected val httpMockServerDomain = "http://localhost:8080"
 
     private val wireMockServer = WireMockServer()
 
