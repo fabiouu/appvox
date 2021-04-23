@@ -7,6 +7,11 @@ import java.net.*
 import java.net.Proxy.NO_PROXY
 import java.net.Proxy.Type.HTTP
 
+/**
+ * TODO Change custom proxy object to a more flexible java.net.Proxy
+ *
+ * @constructor Create empty Http util?
+ */
 internal object HttpUtil {
 
     private const val URL_FORM_CONTENT_TYPE = "application/x-www-form-urlencoded"

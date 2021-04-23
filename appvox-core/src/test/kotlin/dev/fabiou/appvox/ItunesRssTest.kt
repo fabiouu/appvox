@@ -1,7 +1,7 @@
 package dev.fabiou.appvox
 
-import UrlUtil
 import dev.fabiou.appvox.configuration.RequestConfiguration
+import dev.fabiou.appvox.configuration.RequestConfiguration.Proxy
 import dev.fabiou.appvox.review.itunesrss.ItunesRssReviewRepository.Companion.REQUEST_URL_DOMAIN
 import dev.fabiou.appvox.review.itunesrss.ItunesRssReviewRepository.Companion.REQUEST_URL_PATH
 import dev.fabiou.appvox.review.itunesrss.constant.AppStoreRegion.Companion.fromValue
@@ -27,23 +27,18 @@ class ItunesRssTest : BaseMockTest() {
     @CsvSource(
         "333903271, us, 1, 50"
     )
-    fun `get most recent iTunes RSS Feed reviews with a delay of 3s between each request`(
+    fun `Get iTunes RSS Feed reviews using default optional parameters`(
         appId: String,
         region: String,
         pageNo: Int,
         expectedReviewCount: Int
     ) = runBlockingTest {
-        REQUEST_URL_DOMAIN = UrlUtil.getUrlDomainByEnv(REQUEST_URL_DOMAIN)
+        REQUEST_URL_DOMAIN = httpMockServerDomain
         val mockData = javaClass.getResource("/review/itunes_rss/itunes_rss_reviews_mock_data.xml").readText()
         stubHttpUrl(REQUEST_URL_PATH.format(region, pageNo, appId), mockData)
 
-        val reviews = arrayListOf<ItunesRssReview>()
-        val appStore = ItunesRss(RequestConfiguration(delay = 3000))
-        appStore.reviews(
-            appId = appId,
-            region = fromValue(region),
-            sortType = ItunesRssSortType.RECENT
-        )
+        val reviews = ArrayList<ItunesRssReview>()
+        ItunesRss().reviews(appId)
             .take(expectedReviewCount)
             .collect { review ->
                 reviews.add(review)
@@ -70,18 +65,23 @@ class ItunesRssTest : BaseMockTest() {
     @CsvSource(
         "333903271, us, 1, 50"
     )
-    fun `Get iTunes RSS Feed reviews using default optional parameters`(
+    fun `get most recent iTunes RSS Feed reviews with a delay of 3s between each request`(
         appId: String,
         region: String,
         pageNo: Int,
         expectedReviewCount: Int
     ) = runBlockingTest {
-        REQUEST_URL_DOMAIN = UrlUtil.getUrlDomainByEnv(REQUEST_URL_DOMAIN)
+        REQUEST_URL_DOMAIN = httpMockServerDomain
         val mockData = javaClass.getResource("/review/itunes_rss/itunes_rss_reviews_mock_data.xml").readText()
         stubHttpUrl(REQUEST_URL_PATH.format(region, pageNo, appId), mockData)
 
-        val reviews = ArrayList<ItunesRssReview>()
-        ItunesRss().reviews(appId)
+        val reviews = arrayListOf<ItunesRssReview>()
+        val appStore = ItunesRss(RequestConfiguration(delay = 3000))
+        appStore.reviews(
+            appId = appId,
+            region = fromValue(region),
+            sortType = ItunesRssSortType.RECENT
+        )
             .take(expectedReviewCount)
             .collect { review ->
                 reviews.add(review)

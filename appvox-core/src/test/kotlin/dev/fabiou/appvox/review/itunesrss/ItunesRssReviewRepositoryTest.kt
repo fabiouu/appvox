@@ -1,6 +1,5 @@
 package dev.fabiou.appvox.review.itunesrss
 
-import UrlUtil
 import dev.fabiou.appvox.BaseMockTest
 import dev.fabiou.appvox.configuration.RequestConfiguration
 import dev.fabiou.appvox.review.ReviewRequest
@@ -32,7 +31,7 @@ class ItunesRssReviewRepositoryTest : BaseMockTest() {
         expectedReviewCount: Int,
         pageNo: Int
     ) {
-        REQUEST_URL_DOMAIN = UrlUtil.getUrlDomainByEnv(REQUEST_URL_DOMAIN)
+        REQUEST_URL_DOMAIN = httpMockServerDomain
         val region = AppStoreRegion.fromValue(regionCode)
         val mockData = javaClass.getResource("/review/itunes_rss/itunes_rss_reviews_mock_data.xml").readText()
         stubHttpUrl(REQUEST_URL_PATH.format(region.code, pageNo, appId), mockData)

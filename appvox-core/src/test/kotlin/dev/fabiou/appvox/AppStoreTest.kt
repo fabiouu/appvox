@@ -1,9 +1,9 @@
 package dev.fabiou.appvox
 
-import UrlUtil
 import dev.fabiou.appvox.app.appstore.AppStoreRepository.Companion.APP_HP_URL_DOMAIN
 import dev.fabiou.appvox.app.appstore.AppStoreRepository.Companion.APP_HP_URL_PATH
 import dev.fabiou.appvox.configuration.RequestConfiguration
+import dev.fabiou.appvox.configuration.RequestConfiguration.Proxy
 import dev.fabiou.appvox.review.appstore.AppStoreReviewRepository
 import dev.fabiou.appvox.review.appstore.AppStoreReviewRepository.Companion.REQUEST_URL_DOMAIN
 import dev.fabiou.appvox.review.appstore.AppStoreReviewRepository.Companion.REQUEST_URL_PATH
@@ -28,59 +28,13 @@ class AppStoreTest : BaseMockTest() {
     @CsvSource(
         "333903271, us, 10"
     )
-    fun `get most recent App Store reviews with a delay of 3s between each request`(
-        appId: String,
-        regionCode: String,
-        expectedReviewCount: Int
-    ) = runBlockingTest {
-        REQUEST_URL_DOMAIN = UrlUtil.getUrlDomainByEnv(REQUEST_URL_DOMAIN)
-        APP_HP_URL_DOMAIN = UrlUtil.getUrlDomainByEnv(APP_HP_URL_DOMAIN)
-
-        val region = fromValue(regionCode)
-        val bearerTokenRequestUrlPath = APP_HP_URL_PATH.format(region.code, appId)
-        stubHttpUrl(bearerTokenRequestUrlPath, "mock-bearer-token")
-
-        val mockData = javaClass.getResource("/review/app_store/appstore_reviews_mock_data.json").readText()
-        stubHttpUrl(REQUEST_URL_PATH.format(region.code, appId, AppStoreReviewRepository.REQUEST_REVIEW_SIZE), mockData)
-
-        val reviews = arrayListOf<AppStoreReview>()
-        val appStore = AppStore(RequestConfiguration(delay = 3000))
-        appStore.reviews(
-            appId = appId,
-            region = region)
-            .take(expectedReviewCount)
-            .collect { review ->
-                reviews.add(review)
-            }
-
-        reviews.forExactly(expectedReviewCount) { result ->
-            assertSoftly(result) {
-                id.shouldNotBeEmpty()
-                userName.shouldNotBeEmpty()
-                rating.shouldBeBetween(1, 5)
-                title.shouldNotBeEmpty()
-                comment.shouldNotBeEmpty()
-                translatedComment?.let { it.shouldNotBeEmpty() }
-                commentTime.shouldNotBeNull()
-                replyComment?.let { it.shouldNotBeEmpty() }
-                replyTime?.let { it.shouldNotBeNull() }
-// TODO               url.shouldNotBeEmpty()
-            }
-        }
-    }
-
-    @ExperimentalCoroutinesApi
-    @ParameterizedTest
-    @CsvSource(
-        "333903271, us, 10"
-    )
     fun `Get App Store reviews using default optional parameters`(
         appId: String,
         regionCode: String,
         expectedReviewCount: Int
     ) = runBlockingTest {
-        REQUEST_URL_DOMAIN = UrlUtil.getUrlDomainByEnv(REQUEST_URL_DOMAIN)
-        APP_HP_URL_DOMAIN = UrlUtil.getUrlDomainByEnv(APP_HP_URL_DOMAIN)
+        REQUEST_URL_DOMAIN = httpMockServerDomain
+        APP_HP_URL_DOMAIN = httpMockServerDomain
 
         val region = fromValue(regionCode)
         val bearerTokenRequestUrlPath = APP_HP_URL_PATH.format(region.code, appId)
@@ -107,7 +61,54 @@ class AppStoreTest : BaseMockTest() {
                 commentTime.shouldNotBeNull()
                 replyComment?.let { it.shouldNotBeEmpty() }
                 replyTime?.let { it.shouldNotBeNull() }
-//   TODO             url.shouldNotBeEmpty()
+                //   TODO url.shouldNotBeEmpty()
+            }
+        }
+    }
+
+    @ExperimentalCoroutinesApi
+    @ParameterizedTest
+    @CsvSource(
+        "333903271, us, 10"
+    )
+    fun `get most recent App Store reviews with a delay of 3s between each request`(
+        appId: String,
+        regionCode: String,
+        expectedReviewCount: Int
+    ) = runBlockingTest {
+        REQUEST_URL_DOMAIN = httpMockServerDomain
+        APP_HP_URL_DOMAIN = httpMockServerDomain
+
+        val region = fromValue(regionCode)
+        val bearerTokenRequestUrlPath = APP_HP_URL_PATH.format(region.code, appId)
+        stubHttpUrl(bearerTokenRequestUrlPath, "mock-bearer-token")
+
+        val mockData = javaClass.getResource("/review/app_store/appstore_reviews_mock_data.json").readText()
+        stubHttpUrl(REQUEST_URL_PATH.format(region.code, appId, AppStoreReviewRepository.REQUEST_REVIEW_SIZE), mockData)
+
+        val reviews = arrayListOf<AppStoreReview>()
+        val appStore = AppStore(RequestConfiguration(delay = 3000))
+        appStore.reviews(
+            appId = appId,
+            region = region
+        )
+            .take(expectedReviewCount)
+            .collect { review ->
+                reviews.add(review)
+            }
+
+        reviews.forExactly(expectedReviewCount) { result ->
+            assertSoftly(result) {
+                id.shouldNotBeEmpty()
+                userName.shouldNotBeEmpty()
+                rating.shouldBeBetween(1, 5)
+                title.shouldNotBeEmpty()
+                comment.shouldNotBeEmpty()
+                translatedComment?.let { it.shouldNotBeEmpty() }
+                commentTime.shouldNotBeNull()
+                replyComment?.let { it.shouldNotBeEmpty() }
+                replyTime?.let { it.shouldNotBeNull() }
+                // TODO url.shouldNotBeEmpty()
             }
         }
     }

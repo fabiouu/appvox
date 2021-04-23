@@ -21,13 +21,12 @@
 </p>
 
 # Overview
-Kotlin library to scrape GooglePlay and App Store data. 
-
-Supports proxying requests and content translation.
-Pagination and scraping details are abstracted behind an high-level interface.
+Kotlin library to scrape GooglePlay and App Store data. Forget about scraping details, focus on your users!
+AppVox supports proxying requests and content translation.
 
 # Features
- - Reviews
+ - Review
+    - The Review module Enables you to consume a continuous stream of reviews, 
 
 # Installation
 Only `appvox-core` package is necessary to start using AppVox

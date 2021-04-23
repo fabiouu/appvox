@@ -1,6 +1,7 @@
 package dev.fabiou.appvox
 
-import UrlUtil
+import dev.fabiou.appvox.configuration.RequestConfiguration
+import dev.fabiou.appvox.configuration.RequestConfiguration.Proxy
 import dev.fabiou.appvox.review.googleplay.GooglePlayReviewRepository.Companion.REQUEST_URL_DOMAIN
 import dev.fabiou.appvox.review.googleplay.GooglePlayReviewRepository.Companion.REQUEST_URL_PATH
 import dev.fabiou.appvox.review.googleplay.constant.GooglePlayLanguage
@@ -18,6 +19,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.test.runBlockingTest
+import org.apache.http.client.config.RequestConfig
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
 
@@ -32,8 +34,10 @@ class GooglePlayTest : BaseMockTest() {
         appId: String,
         expectedReviewCount: Int
     ) = runBlockingTest {
-        REQUEST_URL_DOMAIN = UrlUtil.getUrlDomainByEnv(REQUEST_URL_DOMAIN)
-        val mockData = javaClass.getResource("/review/google_play/com.twitter.android/relevant/review_google_play_com.twitter.android_relevant_1.json").readText()
+        REQUEST_URL_DOMAIN = httpMockServerDomain
+        val mockData =
+            javaClass.getResource("/review/google_play/com.twitter.android/relevant/review_google_play_com.twitter.android_relevant_1.json")
+                .readText()
         stubHttpUrl(REQUEST_URL_PATH, mockData)
 
         val reviews = ArrayList<GooglePlayReview>()
@@ -55,7 +59,7 @@ class GooglePlayTest : BaseMockTest() {
                 likeCount.shouldBeGreaterThanOrEqual(0)
                 url shouldContain id
                 replyComment?.let { it.shouldNotBeEmpty() }
-//                replyTime?.let { it.shouldNotBeNull() }
+                // TODO replyTime?.let { it.shouldNotBeNull() }
             }
         }
     }
@@ -65,14 +69,16 @@ class GooglePlayTest : BaseMockTest() {
     @CsvSource(
         "com.twitter.android, en-US, 1, 50"
     )
-    fun `Get most relevant Google Play reviews from the US with a delay of 3s between each network call`(
+    fun `Get most relevant Google Play reviews from the US with a delay of 3s between each request`(
         appId: String,
         language: String,
         sortType: Int,
         expectedReviewCount: Int
     ) = runBlockingTest {
-        REQUEST_URL_DOMAIN = UrlUtil.getUrlDomainByEnv(REQUEST_URL_DOMAIN)
-        val mockResponse = javaClass.getResource("/review/google_play/com.twitter.android/relevant/review_google_play_com.twitter.android_relevant_1.json").readText()
+        REQUEST_URL_DOMAIN = httpMockServerDomain
+        val mockResponse =
+            javaClass.getResource("/review/google_play/com.twitter.android/relevant/review_google_play_com.twitter.android_relevant_1.json")
+                .readText()
         stubHttpUrl(REQUEST_URL_PATH, mockResponse)
 
         val reviews = ArrayList<GooglePlayReview>()
@@ -99,7 +105,7 @@ class GooglePlayTest : BaseMockTest() {
                 likeCount.shouldBeGreaterThanOrEqual(0)
                 url shouldContain id
                 replyComment?.let { it.shouldNotBeEmpty() }
-//                replyTime?.let { it.shouldNotBeNull() }
+                // TODO replyTime?.let { it.shouldNotBeNull() }
             }
         }
     }
