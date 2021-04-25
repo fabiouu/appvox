@@ -19,7 +19,7 @@ internal class AppStoreRepository(
     @Throws(AppVoxException::class)
     fun getBearerToken(appId: String, region: AppStoreRegion): String {
         val requestUrl = APP_HP_URL_DOMAIN + APP_HP_URL_PATH.format(region.code, appId)
-        val responseContent = httpUtils.getRequest(requestUrl = requestUrl, proxyConfig = config.proxy)
+        val responseContent = httpUtils.getRequest(requestUrl = requestUrl, proxy = config.proxy)
         val regex = BEARER_TOKEN_REGEX_PATTERN.toRegex()
         val tokenMatches = regex.find(responseContent)
         val tokenMatch = tokenMatches?.groupValues?.get(1)

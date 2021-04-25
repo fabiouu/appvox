@@ -24,17 +24,19 @@
 Kotlin library to scrape GooglePlay and App Store data. Forget about scraping details, focus on your users!
 AppVox supports proxying requests and content translation.
 
+# Table of content
+
+- [Features](#features)
+- [Quickstart](#quickstart)
+- [Usage](#usage)
+- [Implementation Details](#implementation-details)
+- [License](#license)
+
 # Features
  - Review
-    - The Review module Enables you to consume a continuous stream of reviews, 
+    - Enables you to consume a continuous stream of reviews
 
-# Installation
-Only `appvox-core` package is necessary to start using AppVox
-
-| Package | Description |
-|----------|---------|
-| [`appvox-core`](./appvox-core) | Core package contains Google Play and App Store scrapers |
-| [`appvox-examples`](./appvox-examples) | AppVox usage examples |
+# Quickstart
 
 ### Maven
 ```xml
@@ -44,24 +46,51 @@ Only `appvox-core` package is necessary to start using AppVox
 ```groovy
 ```
 
-# Usage
-AppVox scraper is polite by default. The default delay between requests is 500 milliseconds.
-An `AppVoxException` will be thrown if user-defined request delay is inferior to the default delay.
+We want to print the 100 most relevant Google Play Reviews of the [Twitter](https://play.google.com/store/apps/details?id=com.twitter.android&hl=en_US&gl=US) App.
+This example is using the optional default parameters and no proxy, see the [usage](#usage) section below for more advanced use cases.
 
-Complete usage examples can be found in [`appvox-examples`](./appvox-examples) module.
+```kotlin
+package com.examples.review.googleplay
+
+import dev.fabiou.appvox.GooglePlay
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.take
+import kotlinx.coroutines.runBlocking
+
+fun main() = runBlocking {
+    GooglePlay().reviews(appId = "com.twitter.android")
+        .take(100)
+        .collect { review ->
+            println(review.toString())
+        }
+}
+
+```
+
+# Usage
+Only `appvox-core` package is necessary to start using AppVox.
+
+| Package | Description |
+|----------|---------|
+| [`appvox-core`](./appvox-core) | Core package contains Google Play and App Store scrapers |
+| [`appvox-examples`](./appvox-examples) | AppVox usage examples |
+
+The default delay between requests is 500 milliseconds to ensure politeness. It can be configured in `RequestConfiguration` class.
+An `AppVoxException` will be thrown if the configured request delay is inferior to the default delay.
+
+Advanced usage examples can be found in [`appvox-examples`](./appvox-examples) module (pet project).
+
 ## Proxy
 If you're scraping behind a proxy, pass `RequestConfiguration` to `GooglePlay` or `AppStore` constructor.
 ``` Kotlin
 val config = RequestConfiguration(
     delay = 3000,
-    proxy = ProxyConfiguration(
-        host = "127.0.0.1",
-        port = 8080
-    )
+    proxy = Proxy(Type.HTTP, InetSocketAddress("localhost", 8080))
 )
 
 val googlePlay = GooglePlay(config)
 val appStore = AppStore(config)
+val itunesRss = ItunesRss(config)
 
 // ...
 ```
@@ -122,14 +151,14 @@ The RSS Feed returns the 500 most recent reviews at most and include more metada
 
 Using both implementation is transparent for the user, just specify `AppStoreSortType` to MOST_RECENT or MOST_RELEVANT to switch between the two methods
 
-# About AppVox
+# Implementation Details
 ## Motivation
 
 ##  Architecture
 The library is composed of mainly 3 layers:
 - Repository (`*Repository.kt` - internal): A repository abstracts network communication with a scraped data source. A repository returns a result entity suffixed with `*Result.kt` (internal).
 - Service (`*Service.kt` - internal): A service contains business logic and may have to call multiple repositories to process a result entity
-- Facade ([`GooglePlay.kt`](./appvox-core/src/main/kotlin/dev/fabiou/appvox/core/GooglePlay.kt), [`AppStore.kt`](./appvox-core/src/main/kotlin/dev/fabiou/appvox/core/AppStore.kt) - public): A facade exposes scraped data in a uniform way to the user. A facade returns response entities via a Kotlin coroutine Flow.
+- Facade ([`GooglePlay.kt`](./appvox-core/src/main/kotlin/dev/fabiou/appvox/GooglePlay.kt), [`AppStore.kt`](./appvox-core/src/main/kotlin/dev/fabiou/appvox/AppStore.kt) - public): A facade exposes scraped data in a uniform way to the user. A facade returns response entities via a Kotlin coroutine Flow.
 
 ## Documentation
 
@@ -150,11 +179,6 @@ At the moment, `kotlinx-serialization-json` is not able to parse unstructured ar
 
 ## Code Analysis
 The project is covered by Detekt static code analysis.
-
-# Roadmap
-Roadmap and tasks in-progress of the project can be found in the upper "Projects" GitHub section
-
-# Contributions
 
 # License
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Ffabiouu%2Fappvox.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Ffabiouu%2Fappvox?ref=badge_large)

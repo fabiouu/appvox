@@ -23,6 +23,8 @@ fun main() = runBlocking {
     val maxReviewCount = 100
 
     val config = RequestConfiguration(
+//        proxy = Proxy(HTTP, InetSocketAddress("localhost", 8080)),
+//        proxyAuthentication = PasswordAuthentication("my-proxy-username", "my-proxy-password".toCharArray()),
         delay = 3000
     )
     val googlePlay = GooglePlay(config)
