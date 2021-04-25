@@ -36,8 +36,8 @@ class GooglePlay(
     private val googlePlayReviewConverter = GooglePlayReviewConverter()
 
     init {
-        if (config.proxy?.user != null && config.proxy.password != null) {
-            HttpUtil.setAuthenticator(config.proxy.user, config.proxy.password)
+        config.proxyAuthentication?.let { it ->
+            HttpUtil.setAuthenticator(it.userName, it.password)
         }
     }
 

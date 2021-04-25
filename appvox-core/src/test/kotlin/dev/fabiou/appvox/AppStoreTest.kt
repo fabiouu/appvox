@@ -3,7 +3,6 @@ package dev.fabiou.appvox
 import dev.fabiou.appvox.app.appstore.AppStoreRepository.Companion.APP_HP_URL_DOMAIN
 import dev.fabiou.appvox.app.appstore.AppStoreRepository.Companion.APP_HP_URL_PATH
 import dev.fabiou.appvox.configuration.RequestConfiguration
-import dev.fabiou.appvox.configuration.RequestConfiguration.Proxy
 import dev.fabiou.appvox.review.appstore.AppStoreReviewRepository
 import dev.fabiou.appvox.review.appstore.AppStoreReviewRepository.Companion.REQUEST_URL_DOMAIN
 import dev.fabiou.appvox.review.appstore.AppStoreReviewRepository.Companion.REQUEST_URL_PATH

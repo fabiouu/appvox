@@ -1,14 +1,11 @@
 package dev.fabiou.appvox.util
 
-import dev.fabiou.appvox.configuration.RequestConfiguration
 import java.io.BufferedReader
 import java.io.OutputStreamWriter
 import java.net.*
-import java.net.Proxy.NO_PROXY
-import java.net.Proxy.Type.HTTP
 
 /**
- * TODO Change custom proxy object to a more flexible java.net.Proxy
+ *
  *
  * @constructor Create empty Http util?
  */
@@ -18,14 +15,9 @@ internal object HttpUtil {
 
     fun getRequest(
         requestUrl: String,
+        proxy: Proxy,
         bearerToken: String? = null,
-        proxyConfig: RequestConfiguration.Proxy? = null
     ): String {
-        val proxy = if (proxyConfig != null) {
-            Proxy(HTTP, InetSocketAddress(proxyConfig.host, proxyConfig.port))
-        } else {
-            NO_PROXY
-        }
         with(URL(requestUrl).openConnection(proxy) as HttpURLConnection) {
             bearerToken?.let {
                 setRequestProperty("Authorization", "Bearer $bearerToken")
@@ -38,13 +30,8 @@ internal object HttpUtil {
     fun postRequest(
         requestUrl: String,
         requestBody: String,
-        proxyConfig: RequestConfiguration.Proxy? = null
+        proxy: Proxy
     ): String {
-        val proxy = if (proxyConfig != null) {
-            Proxy(HTTP, InetSocketAddress(proxyConfig.host, proxyConfig.port))
-        } else {
-            NO_PROXY
-        }
         with(URL(requestUrl).openConnection(proxy) as HttpURLConnection) {
             requestMethod = "POST"
             setRequestProperty("Content-Type", URL_FORM_CONTENT_TYPE)
@@ -56,13 +43,13 @@ internal object HttpUtil {
         }
     }
 
-    internal fun setAuthenticator(user: String, password: String) {
+    internal fun setAuthenticator(user: String, password: CharArray) {
         Authenticator.setDefault(CustomAuthenticator(user, password))
     }
 
-    private class CustomAuthenticator(val user: String, val password: String) : Authenticator() {
+    private class CustomAuthenticator(val user: String, val password: CharArray) : Authenticator() {
         override fun getPasswordAuthentication(): PasswordAuthentication {
-            return PasswordAuthentication(user, password.toCharArray())
+            return PasswordAuthentication(user, password)
         }
     }
 }

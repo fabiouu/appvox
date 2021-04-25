@@ -52,7 +52,7 @@ internal class ItunesRssReviewRepository(
             request.parameters.appId
         )
 
-        val responseContent = httpUtils.getRequest(requestUrl = requestUrl, proxyConfig = config.proxy)
+        val responseContent = httpUtils.getRequest(requestUrl = requestUrl, proxy = config.proxy)
         val result: ItunesRssReviewResult
         try {
             val jaxbContext: JAXBContext = JAXBContext.newInstance(ItunesRssReviewResult::class.java)

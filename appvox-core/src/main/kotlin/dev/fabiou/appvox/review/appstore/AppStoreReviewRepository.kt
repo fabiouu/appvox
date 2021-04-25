@@ -40,7 +40,7 @@ internal class AppStoreReviewRepository(
         val responseContent = httpUtils.getRequest(
             requestUrl = requestUrl,
             bearerToken = request.parameters.bearerToken,
-            proxyConfig = config.proxy
+            proxy = config.proxy
         )
 
         val result = lenientJson.decodeFromString<AppStoreReviewResult>(responseContent)
