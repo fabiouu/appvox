@@ -36,7 +36,6 @@
 
     <modules>
         <module>appvox-core</module>
-<!--        <module>appvox-examples</module>-->
     </modules>
 
     <properties>

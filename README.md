@@ -73,7 +73,7 @@ dependencies {
 }
 ```
 We print the 100 most relevant Google Play Reviews of the [Twitter](https://play.google.com/store/apps/details?id=com.twitter.android&hl=en_US&gl=US) App.
-This example is using the optional default parameters and no proxy, see the [usage](#usage) section below for more advanced use cases.
+This example is using default parameters and no proxy, see the [usage](#usage) section below for more advanced use cases.
 
 ```kotlin
 package com.examples.review.googleplay
