@@ -34,19 +34,45 @@ AppVox supports proxying requests and content translation.
 
 # Features
  - Review
-    - Enables you to consume a continuous stream of reviews
+    - Enables you to consume a continuous stream of reviews from Google Play or App Store. Reviews can be filtered by region (App Store) or language (Google Play) and sorted by relevance or date.
 
 # Quickstart
+For now, the project is only available through Jitpack.io repository. Release to Maven Central will come in an ulterior release.
 
 ### Maven
 ```xml
+<repositories>
+    <repository>
+        <id>jitpack.io</id>
+        <url>https://jitpack.io</url>
+    </repository>
+</repositories>
+```
+
+```xml
+<dependency>
+    <groupId>dev.fabiou.appvox</groupId>
+    <artifactId>appvox-core</artifactId>
+    <version>-SNAPSHOT</version>
+</dependency>
 ```
 
 ### Gradle
 ```groovy
+allprojects {
+    repositories {
+        // ...
+        maven { url 'https://jitpack.io' }
+    }
+}
 ```
 
-We want to print the 100 most relevant Google Play Reviews of the [Twitter](https://play.google.com/store/apps/details?id=com.twitter.android&hl=en_US&gl=US) App.
+```groovy
+dependencies {
+    implementation 'dev.fabiou.appvox:appvox-core:-SNAPSHOT'
+}
+```
+We print the 100 most relevant Google Play Reviews of the [Twitter](https://play.google.com/store/apps/details?id=com.twitter.android&hl=en_US&gl=US) App.
 This example is using the optional default parameters and no proxy, see the [usage](#usage) section below for more advanced use cases.
 
 ```kotlin
@@ -146,6 +172,7 @@ App Store scraper implementation requests reviews from 2 different data sources 
 Moreover, the scrapped endpoint return no more than 10 reviews by request (fixed size by Apple).
 This approach is limited if your goal is to stay up-to-date on the latest user reviews and do not include user app version.
 That's why the tool offer a second way of getting the most recent App Store reviews
+
 - Itunes RSS XML Feed. The JSON version of the Feed contains no review timestamp.
 The RSS Feed returns the 500 most recent reviews at most and include more metadata such as app version and like count while App Store reviews do not.
 

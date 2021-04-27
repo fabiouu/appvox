@@ -15,6 +15,7 @@
         <java.version>1.8</java.version>
         <kotlin.version>1.4.21</kotlin.version>
         <kotlin.compiler.incremental>true</kotlin.compiler.incremental>
+        <appvox.version>-SNAPSHOT</appvox.version>
     </properties>
 
     <dependencies>
@@ -24,11 +25,11 @@
             <version>${kotlin.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.github.fabiouu</groupId>
-            <artifactId>appvox</artifactId>
-            <version>-SNAPSHOT</version>
+            <groupId>dev.fabiou.appvox</groupId>
+            <artifactId>appvox-core</artifactId>
+            <version>${appvox.version}</version>
         </dependency>
-        <dependency>
+         <dependency>
             <groupId>com.opencsv</groupId>
             <artifactId>opencsv</artifactId>
             <version>5.4</version>
