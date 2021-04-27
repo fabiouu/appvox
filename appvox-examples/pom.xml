@@ -2,24 +2,31 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <parent>
-        <groupId>dev.fabiou.appvox</groupId>
-        <artifactId>appvox-parent</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
-    </parent>
 
     <modelVersion>4.0.0</modelVersion>
+    <groupId>com.company.project</groupId>
     <artifactId>appvox-examples</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+
+    <properties>
+        <kotlin.compiler.jvmTarget>1.8</kotlin.compiler.jvmTarget>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <java.version>1.8</java.version>
+        <kotlin.version>1.4.21</kotlin.version>
+        <kotlin.compiler.incremental>true</kotlin.compiler.incremental>
+    </properties>
 
     <dependencies>
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-stdlib-jdk8</artifactId>
+            <version>${kotlin.version}</version>
         </dependency>
         <dependency>
-            <groupId>dev.fabiou.appvox</groupId>
-            <artifactId>appvox-core</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
+            <groupId>com.github.fabiouu</groupId>
+            <artifactId>appvox</artifactId>
+            <version>-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.opencsv</groupId>
@@ -56,4 +63,10 @@
             </plugin>
         </plugins>
     </build>
+    <repositories>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+    </repositories>
 </project>
