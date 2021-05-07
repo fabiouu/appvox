@@ -7,6 +7,8 @@ import dev.fabiou.appvox.review.googleplay.constant.GooglePlaySortType
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.runBlocking
+import java.net.InetSocketAddress
+import java.net.Proxy
 
 /**
  *   In this example, we print the 100 most relevant Google Play Reviews of the Twitter App
@@ -23,7 +25,7 @@ fun main() = runBlocking {
     val maxReviewCount = 100
 
     val config = RequestConfiguration(
-//        proxy = Proxy(HTTP, InetSocketAddress("localhost", 8080)),
+//        proxy = Proxy(Proxy.Type.HTTP, InetSocketAddress("localhost", 8080)),
 //        proxyAuthentication = PasswordAuthentication("my-proxy-username", "my-proxy-password".toCharArray()),
         delay = 3000
     )

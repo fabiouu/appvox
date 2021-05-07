@@ -5,9 +5,7 @@ import java.io.OutputStreamWriter
 import java.net.*
 
 /**
- *
- *
- * @constructor Create empty Http util?
+ * @constructor Create empty Http util
  */
 internal object HttpUtil {
 
@@ -34,11 +32,17 @@ internal object HttpUtil {
     ): String {
         with(URL(requestUrl).openConnection(proxy) as HttpURLConnection) {
             requestMethod = "POST"
-            setRequestProperty("Content-Type", URL_FORM_CONTENT_TYPE)
+            setRequestProperty("content-type", URL_FORM_CONTENT_TYPE)
+            setRequestProperty("content-length", requestBody.length.toString())
+            instanceFollowRedirects = true
             doOutput = true
             val wr = OutputStreamWriter(outputStream)
             wr.write(requestBody)
             wr.flush()
+
+            println("ResponseCode:" + this.responseCode)
+            println("ResponseMessage:" + this.responseMessage)
+
             return inputStream.bufferedReader().use(BufferedReader::readText)
         }
     }

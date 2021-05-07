@@ -15,10 +15,9 @@ import java.io.IOException
 fun main() = runBlocking {
 
     val appId = "333903271"
-    val userRegion = "us"
     val maxReviewCount = 100
 
-    val fileName = "${appId}_${userRegion.toLowerCase()}_$maxReviewCount.csv"
+    val fileName = "${appId}_us_$maxReviewCount.csv"
     val fileWriter = FileWriter(fileName)
 
     try {
@@ -46,7 +45,7 @@ fun main() = runBlocking {
         val appStore = ItunesRss(config)
         appStore.reviews(
                 appId = appId,
-                region = AppStoreRegion.fromValue(userRegion),
+                region = AppStoreRegion.UNITED_STATES,
                 sortType = ItunesRssSortType.RECENT
             )
             .take(maxReviewCount)

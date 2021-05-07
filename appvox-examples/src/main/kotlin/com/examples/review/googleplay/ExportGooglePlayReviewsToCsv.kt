@@ -11,6 +11,8 @@ import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.runBlocking
 import java.io.FileWriter
 import java.io.IOException
+import java.net.InetSocketAddress
+import java.net.Proxy
 
 fun main() = runBlocking {
     val appId = "com.twitter.android"
@@ -42,14 +44,15 @@ fun main() = runBlocking {
         csvWriter.writeNext(columns)
 
         val config = RequestConfiguration(
-//        proxy = Proxy(HTTP, InetSocketAddress("localhost", 8080)),
+//        proxy = Proxy(Proxy.Type.HTTP, InetSocketAddress("localhost", 8080)),
 //        proxyAuthentication = PasswordAuthentication("my-proxy-username", "my-proxy-password".toCharArray()),
-            delay = 3000
+            delay = 5000
         )
         GooglePlay(config).reviews(
             appId = appId,
             sortType = sortType,
-            language = reviewLanguage
+            language = reviewLanguage,
+            batchSize = 44
         )
             .take(maxReviewCount)
             .collect { review ->

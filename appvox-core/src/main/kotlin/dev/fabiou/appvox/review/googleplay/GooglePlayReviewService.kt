@@ -1,5 +1,6 @@
 package dev.fabiou.appvox.review.googleplay
 
+import dev.fabiou.appvox.app.googleplay.GooglePlayRepository
 import dev.fabiou.appvox.configuration.RequestConfiguration
 import dev.fabiou.appvox.review.ReviewRequest
 import dev.fabiou.appvox.review.ReviewResult
@@ -13,9 +14,24 @@ internal class GooglePlayReviewService(
 
     private val googlePlayReviewRepository = GooglePlayReviewRepository(config)
 
+    private val googlePlayRepository = GooglePlayRepository(config)
+
+//    init {
+//        val scriptParameters = googlePlayRepository.getScriptParameters(
+//            request.parameters.appId,
+//            request.parameters.language
+//        )
+//    }
+
     override fun getReviewsByAppId(
         request: ReviewRequest<GooglePlayReviewRequest>
     ): ReviewResult<GooglePlayReviewResult> {
+
+//        val scriptParameters = googlePlayRepository.getScriptParameters(
+//            request.parameters.appId,
+//            request.parameters.language
+//        )
+
         return googlePlayReviewRepository.getReviewsByAppId(request)
     }
 }

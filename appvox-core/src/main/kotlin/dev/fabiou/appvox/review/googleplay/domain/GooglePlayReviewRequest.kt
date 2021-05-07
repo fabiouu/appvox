@@ -7,5 +7,8 @@ internal data class GooglePlayReviewRequest(
     val appId: String,
     val language: GooglePlayLanguage,
     val sortType: GooglePlaySortType,
-    val batchSize: Int
+    val batchSize: Int,
+//    val sid: String,
+//    val bl: String,
+//    val at: String
 )

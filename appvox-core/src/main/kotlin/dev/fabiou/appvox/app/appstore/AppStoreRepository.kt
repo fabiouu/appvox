@@ -16,7 +16,6 @@ internal class AppStoreRepository(
 
     private val httpUtils = HttpUtil
 
-    @Throws(AppVoxException::class)
     fun getBearerToken(appId: String, region: AppStoreRegion): String {
         val requestUrl = APP_HP_URL_DOMAIN + APP_HP_URL_PATH.format(region.code, appId)
         val responseContent = httpUtils.getRequest(requestUrl = requestUrl, proxy = config.proxy)
