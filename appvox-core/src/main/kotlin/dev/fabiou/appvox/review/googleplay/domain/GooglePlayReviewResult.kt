@@ -1,8 +1,5 @@
 package dev.fabiou.appvox.review.googleplay.domain
 
-//data class GooglePlayReviewResult(
-//    val reviews: List<GooglePlayReview>
-//) {
 data class GooglePlayReviewResult(
     val reviewId: String,
     val userName: String,
@@ -16,4 +13,3 @@ data class GooglePlayReviewResult(
     val replyComment: String?,
     val replySubmitTime: Long?
 )
-//}

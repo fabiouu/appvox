@@ -30,3 +30,4 @@ class AppStoreRepositoryTest : BaseMockTest() {
         Assertions.assertNotNull(bearerToken)
     }
 }
+
