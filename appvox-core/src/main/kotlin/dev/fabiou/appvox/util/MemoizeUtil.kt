@@ -9,4 +9,5 @@ class MemoizeUtil<in FirstParameter, in SecondParameter, out Result>(
     }
 }
 
-fun <FirstParameter, SecondParameter, Result> ((FirstParameter, SecondParameter) -> Result).memoize(): (FirstParameter, SecondParameter) -> Result = MemoizeUtil(this)
+fun <FirstParameter, SecondParameter, Result> ((FirstParameter, SecondParameter) -> Result).memoize():
+        (FirstParameter, SecondParameter) -> Result = MemoizeUtil(this)

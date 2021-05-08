@@ -5,7 +5,6 @@ import dev.fabiou.appvox.app.appstore.AppStoreRepository.Companion.APP_HP_URL_DO
 import dev.fabiou.appvox.app.appstore.AppStoreRepository.Companion.APP_HP_URL_PATH
 import dev.fabiou.appvox.configuration.RequestConfiguration
 import dev.fabiou.appvox.review.itunesrss.constant.AppStoreRegion
-import dev.fabiou.appvox.util.memoize
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
@@ -27,13 +26,6 @@ class AppStoreRepositoryTest : BaseMockTest() {
             appId = appId,
             region = region
         )
-
-//        val memoizedSumFactors = { appStoreRepository.getBearerToken(
-//            appId = appId,
-//            region = region
-//        ) }.memoize()
-
-//        val memoizedSumFactors = { x: String, y: AppStoreRegion -> appStoreRepository.getBearerToken(x, y) }.memoize()
 
         Assertions.assertNotNull(bearerToken)
     }
