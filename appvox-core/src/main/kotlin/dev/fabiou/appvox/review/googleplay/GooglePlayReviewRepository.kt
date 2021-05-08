@@ -19,21 +19,11 @@ internal class GooglePlayReviewRepository(
     private val config: RequestConfiguration
 ) : ReviewRepository<GooglePlayReviewRequest, GooglePlayReviewResult> {
 
-    val googlePlayRepository = GooglePlayRepository(config)
+    private val googlePlayRepository = GooglePlayRepository(config)
 
     companion object {
         internal var REQUEST_URL_DOMAIN = "https://play.google.com"
         internal const val REQUEST_URL_PATH = "/_/PlayStoreUi/data/batchexecute"
-//        private const val REQUEST_URL_PARAMS = "?rpcids=UsvDTd" +
-//            "&f.sid=-9099763180338665919" +
-//            "&bl=boq_playuiserver_20210502.08_p0" +
-//            "&hl=%s" +
-//            "&gl=US" +
-//            "&authuser" +
-//            "&soc-app=121" +
-//            "&soc-platform=1" +
-//            "&soc-device=1" +
-//            "&_reqid=762261"
         private const val REQUEST_URL_PARAMS = "?rpcids=UsvDTd" +
             "&f.sid=%s" +
             "&bl=%s" +
@@ -85,7 +75,6 @@ internal class GooglePlayReviewRepository(
         val requestUrl = buildRequestUrl(request, scriptParameters)
         val requestBody = buildRequestBody(request, scriptParameters)
         val responseContent = httpUtils.postRequest(requestUrl, requestBody, config.proxy)
-        println("ResponseContent: " + responseContent)
 
         val reviews = ArrayList<GooglePlayReviewResult>()
         val gplayReviews = parseReviewsFromResponse(responseContent)
@@ -111,7 +100,8 @@ internal class GooglePlayReviewRepository(
         }
 
         val token = if (!gplayReviews.isEmpty &&
-            gplayReviews[1] != null && !gplayReviews[1].isEmpty) gplayReviews[1][1] else null
+            gplayReviews[1] != null && !gplayReviews[1].isEmpty
+        ) gplayReviews[1][1] else null
         return ReviewResult(
             results = reviews,
             nextToken = token?.asText()
@@ -125,10 +115,14 @@ internal class GooglePlayReviewRepository(
         return REQUEST_URL_DOMAIN +
             REQUEST_URL_PATH +
             REQUEST_URL_PARAMS.format(
-                scriptParameters["sid"], scriptParameters["bl"], request.parameters.language.langCode)
+                scriptParameters["sid"], scriptParameters["bl"], request.parameters.language.langCode
+            )
     }
 
-    private fun buildRequestBody(request: ReviewRequest<GooglePlayReviewRequest>, scriptParameters: Map<String, String>): String {
+    private fun buildRequestBody(
+        request: ReviewRequest<GooglePlayReviewRequest>,
+        scriptParameters: Map<String, String>
+    ): String {
         return if (request.nextToken.isNullOrEmpty()) {
             REQUEST_BODY_WITH_PARAMS.format(
                 request.parameters.sortType.sortType,

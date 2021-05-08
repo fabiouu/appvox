@@ -3,6 +3,7 @@ package dev.fabiou.appvox.app.googleplay
 import dev.fabiou.appvox.configuration.RequestConfiguration
 import dev.fabiou.appvox.review.googleplay.constant.GooglePlayLanguage
 import dev.fabiou.appvox.util.HttpUtil
+import dev.fabiou.appvox.util.memoize
 
 internal class GooglePlayRepository(
     private val config: RequestConfiguration
@@ -18,23 +19,20 @@ internal class GooglePlayRepository(
         val requestUrl = APP_HP_URL_DOMAIN + APP_HP_URL_PATH.format(appId, language.langCode)
         val responseContent = httpUtils.getRequest(requestUrl = requestUrl, proxy = config.proxy)
 
-        // bl Value
-        val regex = "\\\"cfb2h\\\":\\\"(.+?)\\\"".toRegex()
-        val tokenMatches = regex.find(responseContent)
-        val tokenMatch = tokenMatches?.groupValues?.get(1)
-        val blValue = tokenMatch.orEmpty()
+        val blRegex = "\"cfb2h\":\"(.+?)\"".toRegex()
+        val blTokenMatches = blRegex.find(responseContent)
+        val blTokenMatch = blTokenMatches?.groupValues?.get(1)
+        val blValue = blTokenMatch.orEmpty()
 
-        // f.sid
-        val regex2 = "\\\"FdrFJe\\\":\\\"(.+?)\\\"".toRegex()
-        val tokenMatches2 = regex2.find(responseContent)
-        val tokenMatch2 = tokenMatches2?.groupValues?.get(1)
-        val sidValue = tokenMatch2.orEmpty()
+        val sidRegex = "\"FdrFJe\":\"(.+?)\"".toRegex()
+        val sidTokenMatches = sidRegex.find(responseContent)
+        val sidTokenMatch = sidTokenMatches?.groupValues?.get(1)
+        val sidValue = sidTokenMatch.orEmpty()
 
-        // at
-        val regex3 = "\\\"SNlM0e\\\":\\\"(.+?)\\\"".toRegex()
-        val tokenMatches3 = regex3.find(responseContent)
-        val tokenMatch3 = tokenMatches3?.groupValues?.get(1)
-        val atValue = tokenMatch3.orEmpty()
+        val atRegex = "\"SNlM0e\":\"(.+?)\"".toRegex()
+        val atTokenMatches = atRegex.find(responseContent)
+        val atTokenMatch = atTokenMatches?.groupValues?.get(1)
+        val atValue = atTokenMatch.orEmpty()
 
         return hashMapOf(
             "sid" to sidValue,
@@ -43,5 +41,8 @@ internal class GooglePlayRepository(
         )
     }
 
-
+    val memoizedScriptParameters = { appId: String,
+                                     language: GooglePlayLanguage ->
+        this.getScriptParameters(appId, language)
+    }.memoize()
 }

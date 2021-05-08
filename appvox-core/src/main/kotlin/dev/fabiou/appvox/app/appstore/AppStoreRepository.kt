@@ -1,9 +1,9 @@
 package dev.fabiou.appvox.app.appstore
 
 import dev.fabiou.appvox.configuration.RequestConfiguration
-import dev.fabiou.appvox.exception.AppVoxException
 import dev.fabiou.appvox.review.itunesrss.constant.AppStoreRegion
 import dev.fabiou.appvox.util.HttpUtil
+import dev.fabiou.appvox.util.memoize
 
 internal class AppStoreRepository(
     private val config: RequestConfiguration
@@ -24,4 +24,6 @@ internal class AppStoreRepository(
         val tokenMatch = tokenMatches?.groupValues?.get(1)
         return tokenMatch.orEmpty()
     }
+
+    val memoizedBearerToken = { x: String, y: AppStoreRegion -> this.getBearerToken(x, y) }.memoize()
 }

@@ -16,22 +16,28 @@ internal class GooglePlayReviewService(
 
     private val googlePlayRepository = GooglePlayRepository(config)
 
-//    init {
-//        val scriptParameters = googlePlayRepository.getScriptParameters(
-//            request.parameters.appId,
-//            request.parameters.language
-//        )
-//    }
-
     override fun getReviewsByAppId(
         request: ReviewRequest<GooglePlayReviewRequest>
     ): ReviewResult<GooglePlayReviewResult> {
 
-//        val scriptParameters = googlePlayRepository.getScriptParameters(
-//            request.parameters.appId,
-//            request.parameters.language
-//        )
+        val scriptParameters = googlePlayRepository.memoizedScriptParameters(
+            request.parameters.appId,
+            request.parameters.language
+        )
 
-        return googlePlayReviewRepository.getReviewsByAppId(request)
+        val requestCopy = request.copy(
+                parameters = request.parameters.copy(
+                    appId = request.parameters.appId,
+                    language = request.parameters.language,
+                    sortType = request.parameters.sortType,
+                    batchSize = request.parameters.batchSize,
+                    sid = scriptParameters["sid"]!!,
+                    bl = scriptParameters["bl"]!!,
+                    at = scriptParameters["at"]!!
+                ),
+                nextToken = request.nextToken
+            )
+
+        return googlePlayReviewRepository.getReviewsByAppId(requestCopy)
     }
 }

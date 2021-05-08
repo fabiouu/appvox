@@ -20,19 +20,15 @@ internal class AppStoreReviewService(
     override fun getReviewsByAppId(
         request: ReviewRequest<AppStoreReviewRequest>
     ): ReviewResult<AppStoreReviewResult.AppStoreReview> {
-        val bearerToken = appStoreRepository.getBearerToken(request.parameters.appId, request.parameters.region)
-        val requestCopy = if (request.parameters.bearerToken == null) {
-            request.copy(
-                parameters = request.parameters.copy(
-                    appId = request.parameters.appId,
-                    region = request.parameters.region,
-                    bearerToken = bearerToken
-                ),
-                nextToken = request.nextToken
-            )
-        } else {
-            request.copy()
-        }
+        val bearerToken = appStoreRepository.memoizedBearerToken(request.parameters.appId, request.parameters.region)
+        val requestCopy = request.copy(
+            parameters = request.parameters.copy(
+                appId = request.parameters.appId,
+                region = request.parameters.region,
+                bearerToken = bearerToken
+            ),
+            nextToken = request.nextToken
+        )
 
         return appStoreReviewRepository.getReviewsByAppId(requestCopy)
     }
