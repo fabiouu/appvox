@@ -5,19 +5,19 @@ import dev.fabiou.appvox.configuration.RequestConfiguration
 import dev.fabiou.appvox.review.ReviewRequest
 import dev.fabiou.appvox.review.ReviewResult
 import dev.fabiou.appvox.review.ReviewService
-import dev.fabiou.appvox.review.googleplay.domain.GooglePlayReviewRequest
+import dev.fabiou.appvox.review.googleplay.domain.GooglePlayReviewRequestParameters
 import dev.fabiou.appvox.review.googleplay.domain.GooglePlayReviewResult
 
 internal class GooglePlayReviewService(
     val config: RequestConfiguration
-) : ReviewService<GooglePlayReviewRequest, GooglePlayReviewResult> {
+) : ReviewService<GooglePlayReviewRequestParameters, GooglePlayReviewResult> {
 
     private val googlePlayReviewRepository = GooglePlayReviewRepository(config)
 
     private val googlePlayRepository = GooglePlayRepository(config)
 
     override fun getReviewsByAppId(
-        request: ReviewRequest<GooglePlayReviewRequest>
+        request: ReviewRequest<GooglePlayReviewRequestParameters>
     ): ReviewResult<GooglePlayReviewResult> {
 
         val scriptParameters = googlePlayRepository.memoizedScriptParameters(
@@ -31,9 +31,8 @@ internal class GooglePlayReviewService(
                     language = request.parameters.language,
                     sortType = request.parameters.sortType,
                     batchSize = request.parameters.batchSize,
-                    sid = scriptParameters["sid"]!!,
-                    bl = scriptParameters["bl"]!!,
-                    at = scriptParameters["at"]!!
+                    sid = scriptParameters["sid"] ?: error("Failed to extract Google Play sid value"),
+                    bl = scriptParameters["bl"] ?: error("Failed to extract Google Play bl value"),
                 ),
                 nextToken = request.nextToken
             )

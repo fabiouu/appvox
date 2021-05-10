@@ -31,7 +31,7 @@ fun main() = runBlocking {
         val columns: Array<String> =
             arrayOf(
                 "id", "rating", "userName",
-                "title", "comment", "commentTime",
+                "title", "appVersion", "comment", "commentTime",
                 "replyComment", "replyTime", "url"
             )
         csvWriter.writeNext(columns)
@@ -55,6 +55,7 @@ fun main() = runBlocking {
                     review.rating.toString(),
                     review.userName,
                     review.title,
+                    review.appVersion,
                     review.comment,
                     review.commentTime.toString(),
                     review.likeCount.toString(),

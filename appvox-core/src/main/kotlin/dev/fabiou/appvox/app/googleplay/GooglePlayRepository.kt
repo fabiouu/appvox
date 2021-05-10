@@ -34,6 +34,8 @@ internal class GooglePlayRepository(
         val atTokenMatch = atTokenMatches?.groupValues?.get(1)
         val atValue = atTokenMatch.orEmpty()
 
+        println("Script Parameters one time")
+
         return hashMapOf(
             "sid" to sidValue,
             "bl" to blValue,

@@ -11,7 +11,7 @@ import dev.fabiou.appvox.review.itunesrss.ItunesRssReviewService
 import dev.fabiou.appvox.review.itunesrss.constant.AppStoreRegion
 import dev.fabiou.appvox.review.itunesrss.constant.ItunesRssSortType
 import dev.fabiou.appvox.review.itunesrss.domain.ItunesRssReview
-import dev.fabiou.appvox.review.itunesrss.domain.ItunesRssReviewRequest
+import dev.fabiou.appvox.review.itunesrss.domain.ItunesRssReviewRequestParameters
 import dev.fabiou.appvox.util.HttpUtil
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
@@ -38,11 +38,6 @@ class ItunesRss(
 
     /**
      * Returns a flow of Reviews from iTunes RSS Feed
-     *
-     * @param appId
-     * @param region
-     * @param sortType
-     * @return
      */
     fun reviews(
         appId: String,
@@ -58,7 +53,7 @@ class ItunesRss(
             converter = itunesRssReviewConverter,
             service = itunesRssReviewService,
             request = ReviewRequest(
-                ItunesRssReviewRequest(
+                ItunesRssReviewRequestParameters(
                     appId = appId,
                     region = region,
                     sortType = sortType
@@ -68,7 +63,7 @@ class ItunesRss(
 
         iterator.forEach { reviews ->
             reviews.forEach { review ->
-                delay(config.delay.toLong())
+                delay(timeMillis = config.delay.toLong())
                 emit(review)
             }
         }

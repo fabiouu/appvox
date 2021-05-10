@@ -32,8 +32,9 @@ internal object HttpUtil {
     ): String {
         with(URL(requestUrl).openConnection(proxy) as HttpURLConnection) {
             requestMethod = "POST"
-            setRequestProperty("content-type", URL_FORM_CONTENT_TYPE)
+            setRequestProperty("content-type", "$URL_FORM_CONTENT_TYPE;charset=UTF-8")
             setRequestProperty("content-length", requestBody.length.toString())
+            setRequestProperty("user-agent", "user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36")
             instanceFollowRedirects = true
             doOutput = true
             val wr = OutputStreamWriter(outputStream)

@@ -52,7 +52,7 @@ fun main() = runBlocking {
             appId = appId,
             sortType = sortType,
             language = reviewLanguage,
-            batchSize = 44
+            batchSize = 40
         )
             .take(maxReviewCount)
             .collect { review ->

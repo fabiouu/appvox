@@ -11,7 +11,7 @@ import dev.fabiou.appvox.review.googleplay.GooglePlayReviewService
 import dev.fabiou.appvox.review.googleplay.constant.GooglePlayLanguage
 import dev.fabiou.appvox.review.googleplay.constant.GooglePlaySortType
 import dev.fabiou.appvox.review.googleplay.domain.GooglePlayReview
-import dev.fabiou.appvox.review.googleplay.domain.GooglePlayReviewRequest
+import dev.fabiou.appvox.review.googleplay.domain.GooglePlayReviewRequestParameters
 import dev.fabiou.appvox.util.HttpUtil
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
@@ -19,16 +19,13 @@ import kotlinx.coroutines.flow.flow
 
 /**
  * This class consists of the main methods for interacting with Google Play
- *
- * @property config
- * @constructor Create empty Google play
  */
 class GooglePlay(
     val config: RequestConfiguration = RequestConfiguration(delay = MIN_REQUEST_DELAY)
 ) {
 
     companion object {
-        private const val DEFAULT_BATCH_SIZE = 44
+        private const val DEFAULT_BATCH_SIZE = 40
     }
 
     private val googlePlayReviewService = GooglePlayReviewService(config)
@@ -36,20 +33,13 @@ class GooglePlay(
     private val googlePlayReviewConverter = GooglePlayReviewConverter()
 
     init {
-        config.proxyAuthentication?.let { it ->
+        config.proxyAuthentication?.let {
             HttpUtil.setAuthenticator(it.userName, it.password)
         }
     }
 
     /**
      * Returns a Kotlin Flow of reviews
-     *
-     * @param appId
-     * @param language
-     * @param sortType
-     * @param batchSize
-     * @throws AppVoxException
-     * @return
      */
     fun reviews(
         appId: String,
@@ -66,7 +56,7 @@ class GooglePlay(
             converter = googlePlayReviewConverter,
             service = googlePlayReviewService,
             request = ReviewRequest(
-                GooglePlayReviewRequest(
+                GooglePlayReviewRequestParameters(
                     appId = appId,
                     language = language,
                     sortType = sortType,
@@ -76,7 +66,7 @@ class GooglePlay(
         )
 
         iterator.forEach { reviews ->
-            delay(config.delay.toLong())
+            delay(timeMillis = config.delay.toLong())
             reviews.forEach { review ->
                 emit(review)
             }

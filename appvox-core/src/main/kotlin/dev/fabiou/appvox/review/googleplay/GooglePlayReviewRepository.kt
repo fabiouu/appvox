@@ -3,23 +3,25 @@ package dev.fabiou.appvox.review.googleplay
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.node.NullNode
-import dev.fabiou.appvox.app.googleplay.GooglePlayRepository
 import dev.fabiou.appvox.configuration.RequestConfiguration
 import dev.fabiou.appvox.exception.AppVoxError
 import dev.fabiou.appvox.exception.AppVoxException
 import dev.fabiou.appvox.review.ReviewRepository
 import dev.fabiou.appvox.review.ReviewRequest
 import dev.fabiou.appvox.review.ReviewResult
-import dev.fabiou.appvox.review.googleplay.domain.GooglePlayReviewRequest
+import dev.fabiou.appvox.review.googleplay.domain.GooglePlayReviewRequestParameters
 import dev.fabiou.appvox.review.googleplay.domain.GooglePlayReviewResult
 import dev.fabiou.appvox.util.HttpUtil
 import dev.fabiou.appvox.util.JsonUtil.getJsonNodeByIndex
 
+/**
+ * TODO Retry Policy on AppVox Exceptions only DESERIALIZATION & NETWORK_TRANSIENT
+ * TODO Proper debug & info logging with SLF4J
+ * TODO Take a look at review history data for edited reviews
+ */
 internal class GooglePlayReviewRepository(
     private val config: RequestConfiguration
-) : ReviewRepository<GooglePlayReviewRequest, GooglePlayReviewResult> {
-
-    private val googlePlayRepository = GooglePlayRepository(config)
+) : ReviewRepository<GooglePlayReviewRequestParameters, GooglePlayReviewResult> {
 
     companion object {
         internal var REQUEST_URL_DOMAIN = "https://play.google.com"
@@ -33,7 +35,7 @@ internal class GooglePlayReviewRepository(
             "&soc-app=121" +
             "&soc-platform=1" +
             "&soc-device=1" +
-            "&_reqid=762261"
+            "&_reqid=%s"
         private const val REQUEST_BODY_WITH_PARAMS =
             "f.req=[[[\"UsvDTd\",\"[null,null,[2,%d,[%d,null,null],null,[]],[\\\"%s\\\",7]]\",null,\"generic\"]]]"
         private const val REQUEST_BODY_WITH_PARAMS_AND_BODY =
@@ -56,52 +58,58 @@ internal class GooglePlayReviewRepository(
 
         private const val MIN_BATCH_SIZE = 1
         private const val MAX_BATCH_SIZE = 150
+
+        private const val MIN_RANDOM_REQID_INIT_NUMBER = 0
+        private const val MAX_RANDOM_REQID_INIT_NUMBER = 9999
+
+        private const val REQID_INCREMENT = 100000
     }
 
     private val httpUtils = HttpUtil
 
+    private var reqId = (MIN_RANDOM_REQID_INIT_NUMBER..MAX_RANDOM_REQID_INIT_NUMBER).random()
+
     override fun getReviewsByAppId(
-        request: ReviewRequest<GooglePlayReviewRequest>
+        request: ReviewRequest<GooglePlayReviewRequestParameters>
     ): ReviewResult<GooglePlayReviewResult> {
         if (request.parameters.batchSize !in MIN_BATCH_SIZE..MAX_BATCH_SIZE) {
             throw AppVoxException(AppVoxError.INVALID_ARGUMENT)
         }
 
-        val scriptParameters = googlePlayRepository.getScriptParameters(
-            request.parameters.appId,
-            request.parameters.language
-        )
-
-        val requestUrl = buildRequestUrl(request, scriptParameters)
-        val requestBody = buildRequestBody(request, scriptParameters)
+        val requestUrl = buildRequestUrl(request)
+        val requestBody = buildRequestBody(request)
+        println("RequestUrl: " + requestUrl)
+        println("RequestUrl: " + requestBody)
+        println("RequestToken: " + request.nextToken)
         val responseContent = httpUtils.postRequest(requestUrl, requestBody, config.proxy)
-
+        println("ResponseContent: " + responseContent)
         val reviews = ArrayList<GooglePlayReviewResult>()
-        val gplayReviews = parseReviewsFromResponse(responseContent)
-        for (gplayReview in gplayReviews[0]) {
+        val googlePlayResponse = parseReviewsFromResponse(responseContent)
+        val googlePlayRawReviews = googlePlayResponse[0]
+        for (googlePlayRawReview in googlePlayRawReviews) {
             val review = GooglePlayReviewResult(
-                reviewId = getJsonNodeByIndex(gplayReview, REVIEW_ID_INDEX).asText(),
-                userName = getJsonNodeByIndex(gplayReview, USER_NAME_INDEX).asText(),
-                userProfilePicUrl = getJsonNodeByIndex(gplayReview, USER_PROFILE_PIC_INDEX).asText(),
-                rating = getJsonNodeByIndex(gplayReview, RATING_INDEX).asInt(),
-                comment = getJsonNodeByIndex(gplayReview, COMMENT_INDEX).asText(),
-                submitTime = getJsonNodeByIndex(gplayReview, SUBMIT_TIME_INDEX).asLong(),
-                likeCount = getJsonNodeByIndex(gplayReview, LIKE_COUNT_INDEX).asInt(),
-                appVersion = getJsonNodeByIndex(gplayReview, APP_VERSION_INDEX).asText(),
+                reviewId = getJsonNodeByIndex(googlePlayRawReview, REVIEW_ID_INDEX).asText(),
+                userName = getJsonNodeByIndex(googlePlayRawReview, USER_NAME_INDEX).asText(),
+                userProfilePicUrl = getJsonNodeByIndex(googlePlayRawReview, USER_PROFILE_PIC_INDEX).asText(),
+                rating = getJsonNodeByIndex(googlePlayRawReview, RATING_INDEX).asInt(),
+                comment = getJsonNodeByIndex(googlePlayRawReview, COMMENT_INDEX).asText(),
+                submitTime = getJsonNodeByIndex(googlePlayRawReview, SUBMIT_TIME_INDEX).asLong(),
+                likeCount = getJsonNodeByIndex(googlePlayRawReview, LIKE_COUNT_INDEX).asInt(),
+                appVersion = getJsonNodeByIndex(googlePlayRawReview, APP_VERSION_INDEX).asText(),
                 reviewUrl = REVIEW_URL.format(
                     request.parameters.appId,
                     request.parameters.language.langCode,
-                    getJsonNodeByIndex(gplayReview, REVIEW_ID_INDEX).asText()
+                    getJsonNodeByIndex(googlePlayRawReview, REVIEW_ID_INDEX).asText()
                 ),
-                replyComment = getJsonNodeByIndex(gplayReview, REPLY_COMMENT_INDEX).whenNotNull { it.asText() },
-                replySubmitTime = getJsonNodeByIndex(gplayReview, REPLY_SUBMIT_TIME_INDEX).whenNotNull { it.asLong() }
+                replyComment = getJsonNodeByIndex(googlePlayRawReview, REPLY_COMMENT_INDEX).whenNotNull { it.asText() },
+                replySubmitTime = getJsonNodeByIndex(googlePlayRawReview, REPLY_SUBMIT_TIME_INDEX).whenNotNull { it.asLong() }
             )
             reviews.add(review)
         }
 
-        val token = if (!gplayReviews.isEmpty &&
-            gplayReviews[1] != null && !gplayReviews[1].isEmpty
-        ) gplayReviews[1][1] else null
+        val token = if (!googlePlayRawReviews.isEmpty &&
+            googlePlayRawReviews[1] != null && !googlePlayRawReviews[1].isEmpty
+        ) googlePlayRawReviews[1][1] else null
         return ReviewResult(
             results = reviews,
             nextToken = token?.asText()
@@ -109,33 +117,31 @@ internal class GooglePlayReviewRepository(
     }
 
     private fun buildRequestUrl(
-        request: ReviewRequest<GooglePlayReviewRequest>,
-        scriptParameters: Map<String, String>
+        request: ReviewRequest<GooglePlayReviewRequestParameters>
     ): String {
+        reqId += REQID_INCREMENT
+        println("REQID: " + reqId)
         return REQUEST_URL_DOMAIN +
             REQUEST_URL_PATH +
             REQUEST_URL_PARAMS.format(
-                scriptParameters["sid"], scriptParameters["bl"], request.parameters.language.langCode
+                request.parameters.sid, request.parameters.bl, request.parameters.language.langCode, reqId
             )
     }
 
     private fun buildRequestBody(
-        request: ReviewRequest<GooglePlayReviewRequest>,
-        scriptParameters: Map<String, String>
+        request: ReviewRequest<GooglePlayReviewRequestParameters>
     ): String {
         return if (request.nextToken.isNullOrEmpty()) {
             REQUEST_BODY_WITH_PARAMS.format(
                 request.parameters.sortType.sortType,
                 request.parameters.batchSize,
-                request.parameters.appId,
-                scriptParameters["at"]
+                request.parameters.appId
             )
         } else {
             REQUEST_BODY_WITH_PARAMS_AND_BODY.format(
                 request.parameters.batchSize,
                 request.nextToken,
-                request.parameters.appId,
-                scriptParameters["at"]
+                request.parameters.appId
             )
         }
     }

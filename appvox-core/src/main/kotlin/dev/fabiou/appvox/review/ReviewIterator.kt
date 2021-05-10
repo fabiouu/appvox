@@ -17,9 +17,6 @@ internal class ReviewIterator<Request, Result, Response>(
     }
 
     override fun next(): List<Response> {
-        if (!hasNext()) {
-            throw NoSuchElementException()
-        }
         return converter.toResponse(results)
     }
 }
