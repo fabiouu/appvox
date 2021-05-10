@@ -1,34 +1,18 @@
 package dev.fabiou.appvox.util
 
-import kotlin.contracts.ExperimentalContracts
-import kotlin.contracts.contract
+import dev.fabiou.appvox.exception.AppVoxError.NETWORK_RETRY_FAILURE
+import dev.fabiou.appvox.exception.AppVoxException
+import dev.fabiou.appvox.exception.AppVoxNetworkException
 
-@ExperimentalContracts
-inline fun <T : Any> retryWithPolicy(value: T?, lazyMessage: () -> Any): T {
-    contract {
-        returns() implies (value != null)
-    }
-
-    if (value == null) {
-        val message = lazyMessage()
-        throw IllegalArgumentException(message.toString())
-    } else {
-        return value
+inline fun retryRequest(maxAttempts: Int, requestMethod: () -> Any) {
+    for (attemptNo in 1..maxAttempts) {
+        try {
+            requestMethod()
+            break
+        } catch (e: AppVoxNetworkException) {
+            if (attemptNo == maxAttempts) {
+                throw AppVoxException(NETWORK_RETRY_FAILURE, e)
+            }
+        }
     }
 }
-
-//fun <T> Flow<T>.retryWithPolicy(
-//    retryPolicy: RetryPolicy
-//): Flow<T> {
-//    var currentDelay = retryPolicy.delayMillis
-//    val delayFactor = retryPolicy.delayFactor
-//    return retryWhen { cause, attempt ->
-//        if (cause is IOException && attempt < retryPolicy.numRetries) {
-//            delay(currentDelay)
-//            currentDelay *= delayFactor
-//            return@retryWhen true
-//        } else {
-//            return@retryWhen false
-//        }
-//    }
-//}

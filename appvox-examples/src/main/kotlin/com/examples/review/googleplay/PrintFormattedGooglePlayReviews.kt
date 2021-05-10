@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.runBlocking
 import java.net.InetSocketAddress
 import java.net.Proxy
+import kotlin.contracts.ExperimentalContracts
 
 /**
  *   In this example, we print the 100 most relevant Google Play Reviews of the Twitter App
@@ -17,6 +18,7 @@ import java.net.Proxy
  *   The proxy is optional and can be added to GooglePlay constructor.
  *   AppVox is polite by default, request delay cannot be inferior to 500 ms
  */
+@ExperimentalContracts
 fun main() = runBlocking {
 
     val appId = "com.twitter.android"

@@ -13,7 +13,9 @@ import java.io.FileWriter
 import java.io.IOException
 import java.net.InetSocketAddress
 import java.net.Proxy
+import kotlin.contracts.ExperimentalContracts
 
+@ExperimentalContracts
 fun main() = runBlocking {
     val appId = "com.twitter.android"
     val sortType = GooglePlaySortType.RELEVANT

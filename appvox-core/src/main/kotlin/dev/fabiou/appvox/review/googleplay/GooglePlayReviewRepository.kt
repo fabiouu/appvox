@@ -13,6 +13,7 @@ import dev.fabiou.appvox.review.googleplay.domain.GooglePlayReviewRequestParamet
 import dev.fabiou.appvox.review.googleplay.domain.GooglePlayReviewResult
 import dev.fabiou.appvox.util.HttpUtil
 import dev.fabiou.appvox.util.JsonUtil.getJsonNodeByIndex
+import java.lang.Exception
 
 /**
  * TODO Retry Policy on AppVox Exceptions only DESERIALIZATION & NETWORK_TRANSIENT
@@ -107,9 +108,9 @@ internal class GooglePlayReviewRepository(
             reviews.add(review)
         }
 
-        val token = if (!googlePlayRawReviews.isEmpty &&
-            googlePlayRawReviews[1] != null && !googlePlayRawReviews[1].isEmpty
-        ) googlePlayRawReviews[1][1] else null
+        val token = if (!googlePlayResponse.isEmpty &&
+            googlePlayResponse[1] != null && !googlePlayResponse[1].isEmpty
+        ) googlePlayResponse[1][1] else null
         return ReviewResult(
             results = reviews,
             nextToken = token?.asText()

@@ -65,6 +65,6 @@ class GooglePlayReviewRepositoryTest : BaseMockTest() {
                 replySubmitTime?.let { it.shouldBeBetween(0, Long.MAX_VALUE) }
             }
         }
-// TODO        response.nextToken.shouldNotBeEmpty()
+        response.nextToken.shouldNotBeEmpty()
     }
 }

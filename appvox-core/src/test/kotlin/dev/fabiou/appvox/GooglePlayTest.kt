@@ -19,9 +19,11 @@ import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
+import kotlin.contracts.ExperimentalContracts
 
 class GooglePlayTest : BaseMockTest() {
 
+    @ExperimentalContracts
     @ExperimentalCoroutinesApi
     @ParameterizedTest
     @CsvSource(
@@ -61,6 +63,7 @@ class GooglePlayTest : BaseMockTest() {
         }
     }
 
+    @ExperimentalContracts
     @ExperimentalCoroutinesApi
     @ParameterizedTest
     @CsvSource(
