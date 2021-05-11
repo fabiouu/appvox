@@ -17,7 +17,7 @@ internal class AppStoreReviewService(
 
     private val appStoreRepository = AppStoreRepository(config)
 
-    override fun getReviewsByAppId(
+    override suspend fun getReviewsByAppId(
         request: ReviewRequest<AppStoreReviewRequestParameters>
     ): ReviewResult<AppStoreReviewResult.AppStoreReview> {
         val bearerToken = appStoreRepository.memoizedBearerToken(request.parameters.appId, request.parameters.region)

@@ -5,7 +5,10 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.node.NullNode
 import dev.fabiou.appvox.configuration.RequestConfiguration
 import dev.fabiou.appvox.exception.AppVoxError
+import dev.fabiou.appvox.exception.AppVoxError.INVALID_ARGUMENT
+import dev.fabiou.appvox.exception.AppVoxError.TRANSIENT_NETWORK_FAILURE
 import dev.fabiou.appvox.exception.AppVoxException
+import dev.fabiou.appvox.exception.AppVoxNetworkException
 import dev.fabiou.appvox.review.ReviewRepository
 import dev.fabiou.appvox.review.ReviewRequest
 import dev.fabiou.appvox.review.ReviewResult
@@ -13,6 +16,7 @@ import dev.fabiou.appvox.review.googleplay.domain.GooglePlayReviewRequestParamet
 import dev.fabiou.appvox.review.googleplay.domain.GooglePlayReviewResult
 import dev.fabiou.appvox.util.HttpUtil
 import dev.fabiou.appvox.util.JsonUtil.getJsonNodeByIndex
+import dev.fabiou.appvox.util.retryRequest
 import java.lang.Exception
 
 /**
@@ -62,7 +66,6 @@ internal class GooglePlayReviewRepository(
 
         private const val MIN_RANDOM_REQID_INIT_NUMBER = 0
         private const val MAX_RANDOM_REQID_INIT_NUMBER = 9999
-
         private const val REQID_INCREMENT = 100000
     }
 
@@ -74,7 +77,11 @@ internal class GooglePlayReviewRepository(
         request: ReviewRequest<GooglePlayReviewRequestParameters>
     ): ReviewResult<GooglePlayReviewResult> {
         if (request.parameters.batchSize !in MIN_BATCH_SIZE..MAX_BATCH_SIZE) {
-            throw AppVoxException(AppVoxError.INVALID_ARGUMENT)
+            throw AppVoxException(INVALID_ARGUMENT)
+        }
+
+        if (!request.nextToken.isNullOrBlank()) {
+            throw AppVoxNetworkException(TRANSIENT_NETWORK_FAILURE)
         }
 
         val requestUrl = buildRequestUrl(request)

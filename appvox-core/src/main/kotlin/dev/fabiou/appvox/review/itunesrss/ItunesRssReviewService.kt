@@ -13,7 +13,7 @@ internal class ItunesRssReviewService(
 
     private val itunesRssReviewRepository = ItunesRssReviewRepository(config)
 
-    override fun getReviewsByAppId(
+    override suspend fun getReviewsByAppId(
         request: ReviewRequest<ItunesRssReviewRequestParameters>
     ): ReviewResult<ItunesRssReviewResult.Entry> {
         return itunesRssReviewRepository.getReviewsByAppId(request)

@@ -1,18 +1,23 @@
 package dev.fabiou.appvox.util
 
-import dev.fabiou.appvox.exception.AppVoxError.NETWORK_RETRY_FAILURE
-import dev.fabiou.appvox.exception.AppVoxException
 import dev.fabiou.appvox.exception.AppVoxNetworkException
+import kotlinx.coroutines.delay
 
-inline fun retryRequest(maxAttempts: Int, requestMethod: () -> Any) {
-    for (attemptNo in 1..maxAttempts) {
+suspend inline fun <R> retryRequest(
+    maxAttempts: Int,
+    minRetryDelay: Long,
+    delayFactor: Double = 2.0,
+    requestBlock: () -> R
+): R {
+    var currentDelay = minRetryDelay
+    repeat(maxAttempts - 1) {
         try {
-            requestMethod()
-            break
+            return requestBlock()
         } catch (e: AppVoxNetworkException) {
-            if (attemptNo == maxAttempts) {
-                throw AppVoxException(NETWORK_RETRY_FAILURE, e)
-            }
+
         }
+        delay(timeMillis = currentDelay)
+        currentDelay = (currentDelay * delayFactor).toLong()
     }
+    return requestBlock()
 }
