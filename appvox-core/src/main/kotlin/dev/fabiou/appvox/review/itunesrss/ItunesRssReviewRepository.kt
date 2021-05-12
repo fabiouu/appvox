@@ -6,7 +6,7 @@ import dev.fabiou.appvox.exception.AppVoxException
 import dev.fabiou.appvox.review.ReviewRepository
 import dev.fabiou.appvox.review.ReviewRequest
 import dev.fabiou.appvox.review.ReviewResult
-import dev.fabiou.appvox.review.itunesrss.domain.ItunesRssReviewRequest
+import dev.fabiou.appvox.review.itunesrss.domain.ItunesRssReviewRequestParameters
 import dev.fabiou.appvox.review.itunesrss.domain.ItunesRssReviewResult
 import dev.fabiou.appvox.util.HttpUtil
 import java.io.StringReader
@@ -18,7 +18,7 @@ import javax.xml.stream.XMLStreamReader
 
 internal class ItunesRssReviewRepository(
     private val config: RequestConfiguration
-) : ReviewRepository<ItunesRssReviewRequest, ItunesRssReviewResult.Entry> {
+) : ReviewRepository<ItunesRssReviewRequestParameters, ItunesRssReviewResult.Entry> {
     companion object {
         internal var REQUEST_URL_DOMAIN = "https://itunes.apple.com"
         internal const val REQUEST_URL_PATH = "/%s/rss/customerreviews/page=%d/id=%s/sortby=mostrecent/xml"
@@ -37,7 +37,7 @@ internal class ItunesRssReviewRepository(
 
     @Throws(AppVoxException::class)
     override fun getReviewsByAppId(
-        request: ReviewRequest<ItunesRssReviewRequest>
+        request: ReviewRequest<ItunesRssReviewRequestParameters>
     ): ReviewResult<ItunesRssReviewResult.Entry> {
         if (request.parameters.pageNo !in MIN_PAGE_NO..MAX_PAGE_NO) {
             throw AppVoxException(AppVoxError.INVALID_ARGUMENT)
@@ -62,7 +62,7 @@ internal class ItunesRssReviewRepository(
             val jaxbUnmarshaller: Unmarshaller = jaxbContext.createUnmarshaller()
             result = jaxbUnmarshaller.unmarshal(xsr) as ItunesRssReviewResult
         } catch (e: JAXBException) {
-            throw AppVoxException(AppVoxError.SERIALIZATION, e)
+            throw AppVoxException(AppVoxError.DESERIALIZATION, e)
         }
 
         return ReviewResult(

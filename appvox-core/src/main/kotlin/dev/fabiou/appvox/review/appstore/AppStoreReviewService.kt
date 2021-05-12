@@ -6,19 +6,19 @@ import dev.fabiou.appvox.review.ReviewRequest
 import dev.fabiou.appvox.review.ReviewResult
 import dev.fabiou.appvox.review.ReviewService
 import dev.fabiou.appvox.review.appstore.AppStoreReviewRepository
-import dev.fabiou.appvox.review.appstore.domain.AppStoreReviewRequest
+import dev.fabiou.appvox.review.appstore.domain.AppStoreReviewRequestParameters
 import dev.fabiou.appvox.review.appstore.domain.AppStoreReviewResult
 
 internal class AppStoreReviewService(
     val config: RequestConfiguration
-) : ReviewService<AppStoreReviewRequest, AppStoreReviewResult.AppStoreReview> {
+) : ReviewService<AppStoreReviewRequestParameters, AppStoreReviewResult.AppStoreReview> {
 
     private val appStoreReviewRepository = AppStoreReviewRepository(config)
 
     private val appStoreRepository = AppStoreRepository(config)
 
     override fun getReviewsByAppId(
-        request: ReviewRequest<AppStoreReviewRequest>
+        request: ReviewRequest<AppStoreReviewRequestParameters>
     ): ReviewResult<AppStoreReviewResult.AppStoreReview> {
         val bearerToken = appStoreRepository.memoizedBearerToken(request.parameters.appId, request.parameters.region)
         val requestCopy = request.copy(

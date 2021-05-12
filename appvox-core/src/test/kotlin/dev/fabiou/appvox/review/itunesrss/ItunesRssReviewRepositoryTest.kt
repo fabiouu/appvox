@@ -7,7 +7,7 @@ import dev.fabiou.appvox.review.itunesrss.ItunesRssReviewRepository.Companion.RE
 import dev.fabiou.appvox.review.itunesrss.ItunesRssReviewRepository.Companion.REQUEST_URL_PATH
 import dev.fabiou.appvox.review.itunesrss.constant.AppStoreRegion
 import dev.fabiou.appvox.review.itunesrss.constant.ItunesRssSortType
-import dev.fabiou.appvox.review.itunesrss.domain.ItunesRssReviewRequest
+import dev.fabiou.appvox.review.itunesrss.domain.ItunesRssReviewRequestParameters
 import io.kotest.assertions.assertSoftly
 import io.kotest.inspectors.forExactly
 import io.kotest.matchers.string.shouldContainOnlyDigits
@@ -36,7 +36,7 @@ class ItunesRssReviewRepositoryTest : BaseMockTest() {
         val mockData = javaClass.getResource("/review/itunes_rss/itunes_rss_reviews_mock_data.xml").readText()
         stubHttpUrl(REQUEST_URL_PATH.format(region.code, pageNo, appId), mockData)
 
-        val request = ItunesRssReviewRequest(
+        val request = ItunesRssReviewRequestParameters(
             appId = appId,
             region = region,
             sortType = ItunesRssSortType.RECENT,

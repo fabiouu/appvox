@@ -16,8 +16,8 @@ internal class ItunesRssReviewConverter : ReviewConverter<ItunesRssReviewResult.
                 comment = result.content?.find { it.type == "text" }?.text!!,
                 commentTime = result.updated?.toGregorianCalendar()?.toZonedDateTime(),
                 appVersion = result.version,
-                url = result.link?.href,
                 likeCount = result.voteCount,
+                url = result.link?.href
             )
             reviews.add(review)
         }

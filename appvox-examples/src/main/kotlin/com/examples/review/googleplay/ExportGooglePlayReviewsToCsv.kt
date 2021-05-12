@@ -13,7 +13,9 @@ import java.io.FileWriter
 import java.io.IOException
 import java.net.InetSocketAddress
 import java.net.Proxy
+import kotlin.contracts.ExperimentalContracts
 
+@ExperimentalContracts
 fun main() = runBlocking {
     val appId = "com.twitter.android"
     val sortType = GooglePlaySortType.RELEVANT
@@ -52,7 +54,7 @@ fun main() = runBlocking {
             appId = appId,
             sortType = sortType,
             language = reviewLanguage,
-            batchSize = 44
+            batchSize = 40
         )
             .take(maxReviewCount)
             .collect { review ->

@@ -9,7 +9,7 @@ import dev.fabiou.appvox.review.ReviewRequest
 import dev.fabiou.appvox.review.appstore.AppStoreReviewRepository.Companion.REQUEST_REVIEW_SIZE
 import dev.fabiou.appvox.review.appstore.AppStoreReviewRepository.Companion.REQUEST_URL_DOMAIN
 import dev.fabiou.appvox.review.appstore.AppStoreReviewRepository.Companion.REQUEST_URL_PATH
-import dev.fabiou.appvox.review.appstore.domain.AppStoreReviewRequest
+import dev.fabiou.appvox.review.appstore.domain.AppStoreReviewRequestParameters
 import dev.fabiou.appvox.review.itunesrss.constant.AppStoreRegion
 import io.kotest.assertions.assertSoftly
 import io.kotest.inspectors.forExactly
@@ -52,7 +52,7 @@ class AppStoreReviewRepositoryTest : BaseMockTest() {
             region = region
         )
 
-        val request = AppStoreReviewRequest(
+        val request = AppStoreReviewRequestParameters(
             appId = appId,
             region = region,
             bearerToken = bearerToken
