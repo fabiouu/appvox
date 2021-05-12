@@ -85,7 +85,7 @@ internal class GooglePlayReviewRepository(
         val responseContent = httpUtils.postRequest(requestUrl, requestBody, config.proxy)
         val reviews = ArrayList<GooglePlayReviewResult>()
         val googlePlayResponse = parseReviewsFromResponse(responseContent)
-        val googlePlayRawReviews = googlePlayResponse[0]
+        val googlePlayRawReviews = googlePlayResponse.first()
         for (googlePlayRawReview in googlePlayRawReviews) {
             val review = GooglePlayReviewResult(
                 reviewId = getJsonNodeByIndex(googlePlayRawReview, REVIEW_ID_INDEX).asText(),

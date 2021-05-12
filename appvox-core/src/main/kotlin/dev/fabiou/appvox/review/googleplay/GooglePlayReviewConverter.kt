@@ -2,6 +2,7 @@ package dev.fabiou.appvox.review.googleplay
 
 import dev.fabiou.appvox.review.ReviewConverter
 import dev.fabiou.appvox.review.googleplay.domain.GooglePlayReview
+import dev.fabiou.appvox.review.googleplay.domain.GooglePlayReview.UserComment
 import dev.fabiou.appvox.review.googleplay.domain.GooglePlayReviewResult
 import java.time.Instant
 import java.time.ZoneOffset
@@ -20,11 +21,12 @@ internal class GooglePlayReviewConverter :
                 userName = result.userName,
                 userAvatar = result.userProfilePicUrl,
                 rating = result.rating,
-                comment = result.comment,
-                commentTime = ZonedDateTime.ofInstant(
-                    Instant.ofEpochSecond(result.submitTime),
-                    ZoneOffset.UTC
-                ),
+                comments = arrayListOf(UserComment(
+                    comment = result.comment,
+                    commentTime = ZonedDateTime.ofInstant(
+                        Instant.ofEpochSecond(result.submitTime),
+                        ZoneOffset.UTC
+                    ))),
                 replyComment = result.replyComment,
                 replyTime = result.replySubmitTime?.let {
                     ZonedDateTime.ofInstant(Instant.ofEpochSecond(it), ZoneOffset.UTC)

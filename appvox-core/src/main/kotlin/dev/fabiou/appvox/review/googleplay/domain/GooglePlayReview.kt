@@ -61,10 +61,8 @@ data class GooglePlayReview(
     /**
      * Most recent comment written by the user
      */
-    val latestComment: String
-        get() {
-            return ""
-        }
+    val latestComment: UserComment
+        get() = comments.first()
 
     data class UserComment(
         /**
