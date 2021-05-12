@@ -29,24 +29,14 @@ data class GooglePlayReview(
     val title: String? = null,
 
     /**
+     * List of comments writtent by the user. If the user edited his comment, comments size will be > 1
+     */
+    val comments: List<UserComment>,
+
+    /**
      * Google App Version
      */
     val appVersion: String? = null,
-
-    /**
-     * Comment written by the user
-     */
-    val comment: String,
-
-    /**
-     * Translated comment in the pre-defined target language
-     */
-    val translatedComment: String? = null,
-
-    /**
-     * Time the user commented on Google Play
-     */
-    val commentTime: ZonedDateTime,
 
     /**
      * Reply comment by the App's developer
@@ -67,4 +57,30 @@ data class GooglePlayReview(
      * Url to the user's comment
      */
     val url: String
-)
+) {
+    /**
+     * Most recent comment written by the user
+     */
+    val latestComment: String
+        get() {
+            return ""
+        }
+
+    data class UserComment(
+        /**
+         * Comment written by the user
+         */
+        val comment: String,
+
+        /**
+         * Translated comment in the pre-defined target language
+         */
+        val translatedComment: String? = null,
+
+        /**
+         * Time the user commented on Google Play
+         */
+        val commentTime: ZonedDateTime,
+    )
+
+}
