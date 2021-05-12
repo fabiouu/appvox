@@ -4,7 +4,6 @@ import dev.fabiou.appvox.configuration.Constant.MIN_REQUEST_DELAY
 import dev.fabiou.appvox.configuration.RequestConfiguration
 import dev.fabiou.appvox.exception.AppVoxError
 import dev.fabiou.appvox.exception.AppVoxException
-import dev.fabiou.appvox.review.ReviewIterator
 import dev.fabiou.appvox.review.ReviewRequest
 import dev.fabiou.appvox.review.googleplay.GooglePlayReviewConverter
 import dev.fabiou.appvox.review.googleplay.GooglePlayReviewService
@@ -13,6 +12,7 @@ import dev.fabiou.appvox.review.googleplay.constant.GooglePlaySortType
 import dev.fabiou.appvox.review.googleplay.domain.GooglePlayReview
 import dev.fabiou.appvox.review.googleplay.domain.GooglePlayReviewRequestParameters
 import dev.fabiou.appvox.util.HttpUtil
+import dev.fabiou.appvox.util.retryRequest
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -27,6 +27,8 @@ class GooglePlay(
 
     companion object {
         private const val DEFAULT_BATCH_SIZE = 40
+        private const val MIN_RETRY_DELAY = 3000L
+        private const val MAX_RETRY_ATTEMPTS = 5
     }
 
     private val googlePlayReviewService = GooglePlayReviewService(config)
@@ -53,24 +55,25 @@ class GooglePlay(
             throw AppVoxException(AppVoxError.REQ_DELAY_TOO_SHORT)
         }
 
-        val iterator = ReviewIterator(
-            converter = googlePlayReviewConverter,
-            service = googlePlayReviewService,
-            request = ReviewRequest(
-                GooglePlayReviewRequestParameters(
-                    appId = appId,
-                    language = language,
-                    sortType = sortType,
-                    batchSize = batchSize
-                )
+        var request = ReviewRequest(
+            GooglePlayReviewRequestParameters(
+                appId = appId,
+                language = language,
+                sortType = sortType,
+                batchSize = batchSize
             )
         )
 
-        iterator.forEach { reviews ->
+        do {
+            val response = retryRequest(MAX_RETRY_ATTEMPTS, MIN_RETRY_DELAY) {
+                googlePlayReviewService.getReviewsByAppId(request)
+            }
+            request = request.copy(request.parameters, response.nextToken)
+            val reviews = googlePlayReviewConverter.toResponse(response.results)
             reviews.forEach { review ->
                 emit(review)
             }
             delay(timeMillis = config.delay.toLong())
-        }
+        } while (request.nextToken != null)
     }
 }

@@ -80,14 +80,10 @@ internal class GooglePlayReviewRepository(
             throw AppVoxException(INVALID_ARGUMENT)
         }
 
-        if (!request.nextToken.isNullOrBlank()) {
-            throw AppVoxNetworkException(TRANSIENT_NETWORK_FAILURE)
-        }
-
         val requestUrl = buildRequestUrl(request)
         val requestBody = buildRequestBody(request)
         println("RequestUrl: " + requestUrl)
-        println("RequestUrl: " + requestBody)
+        println("RequestBody: " + requestBody)
         println("RequestToken: " + request.nextToken)
         val responseContent = httpUtils.postRequest(requestUrl, requestBody, config.proxy)
         println("ResponseContent: " + responseContent)

@@ -7,22 +7,16 @@ import dev.fabiou.appvox.review.ReviewResult
 import dev.fabiou.appvox.review.ReviewService
 import dev.fabiou.appvox.review.googleplay.domain.GooglePlayReviewRequestParameters
 import dev.fabiou.appvox.review.googleplay.domain.GooglePlayReviewResult
-import dev.fabiou.appvox.util.retryRequest
 
 internal class GooglePlayReviewService(
     val config: RequestConfiguration
 ) : ReviewService<GooglePlayReviewRequestParameters, GooglePlayReviewResult> {
 
-    companion object {
-        private const val MIN_RETRY_DELAY = 3000L
-        private const val MAX_RETRY_ATTEMPTS = 5
-    }
-
     private val googlePlayReviewRepository = GooglePlayReviewRepository(config)
 
     private val googlePlayRepository = GooglePlayRepository(config)
 
-    override suspend fun getReviewsByAppId(
+    override fun getReviewsByAppId(
         request: ReviewRequest<GooglePlayReviewRequestParameters>
     ): ReviewResult<GooglePlayReviewResult> {
 
@@ -43,8 +37,6 @@ internal class GooglePlayReviewService(
             nextToken = request.nextToken
         )
 
-        return retryRequest(maxAttempts = MAX_RETRY_ATTEMPTS, minRetryDelay = MIN_RETRY_DELAY) {
-            googlePlayReviewRepository.getReviewsByAppId(requestCopy)
-        }
+        return googlePlayReviewRepository.getReviewsByAppId(requestCopy)
     }
 }
