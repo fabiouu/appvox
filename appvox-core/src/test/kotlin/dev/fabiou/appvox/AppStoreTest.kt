@@ -60,7 +60,7 @@ class AppStoreTest : BaseMockTest() {
                 commentTime.shouldNotBeNull()
                 replyComment?.let { it.shouldNotBeEmpty() }
                 replyTime?.let { it.shouldNotBeNull() }
-                //   TODO url.shouldNotBeEmpty()
+                // TODO url.shouldNotBeEmpty()
             }
         }
     }

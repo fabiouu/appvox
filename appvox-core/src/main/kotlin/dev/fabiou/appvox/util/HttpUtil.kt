@@ -41,9 +41,6 @@ internal object HttpUtil {
             wr.write(requestBody)
             wr.flush()
 
-            println("ResponseCode:" + this.responseCode)
-            println("ResponseMessage:" + this.responseMessage)
-
             return inputStream.bufferedReader().use(BufferedReader::readText)
         }
     }

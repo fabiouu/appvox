@@ -82,11 +82,7 @@ internal class GooglePlayReviewRepository(
 
         val requestUrl = buildRequestUrl(request)
         val requestBody = buildRequestBody(request)
-        println("RequestUrl: " + requestUrl)
-        println("RequestBody: " + requestBody)
-        println("RequestToken: " + request.nextToken)
         val responseContent = httpUtils.postRequest(requestUrl, requestBody, config.proxy)
-        println("ResponseContent: " + responseContent)
         val reviews = ArrayList<GooglePlayReviewResult>()
         val googlePlayResponse = parseReviewsFromResponse(responseContent)
         val googlePlayRawReviews = googlePlayResponse[0]
@@ -124,7 +120,6 @@ internal class GooglePlayReviewRepository(
         request: ReviewRequest<GooglePlayReviewRequestParameters>
     ): String {
         reqId += REQID_INCREMENT
-        println("REQID: " + reqId)
         return REQUEST_URL_DOMAIN +
             REQUEST_URL_PATH +
             REQUEST_URL_PARAMS.format(
