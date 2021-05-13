@@ -44,13 +44,16 @@ class GooglePlay(
         appId: String,
         language: GooglePlayLanguage = GooglePlayLanguage.ENGLISH_US,
         sortType: GooglePlaySortType = GooglePlaySortType.RECENT,
+        rating: Int? = null,
+        fetchHistory: Boolean = false,
         batchSize: Int = DEFAULT_BATCH_SIZE
     ): Flow<GooglePlayReview> = flow {
         if (config.delay < MIN_REQUEST_DELAY) {
             throw AppVoxException(AppVoxError.REQ_DELAY_TOO_SHORT)
         }
 
-        val initialRequest = ReviewRequest(GooglePlayReviewRequestParameters(appId, language, sortType, batchSize))
+        val initialRequest = ReviewRequest(
+            GooglePlayReviewRequestParameters(appId, language, sortType, rating, fetchHistory, batchSize))
         var request = initialRequest
         do {
             val response = retryRequest(MAX_RETRY_ATTEMPTS, MIN_RETRY_DELAY) {

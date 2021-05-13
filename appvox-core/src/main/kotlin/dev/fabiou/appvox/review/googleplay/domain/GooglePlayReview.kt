@@ -59,7 +59,7 @@ data class GooglePlayReview(
     val url: String
 ) {
     /**
-     * Most recent comment written by the user
+     * Most recent comment written by the user (covenient method)
      */
     val latestComment: UserComment
         get() = comments.first()
@@ -68,17 +68,17 @@ data class GooglePlayReview(
         /**
          * Comment written by the user
          */
-        val comment: String,
+        val text: String,
 
         /**
          * Translated comment in the pre-defined target language
          */
-        val translatedComment: String? = null,
+        val translatedText: String? = null,
 
         /**
          * Time the user commented on Google Play
          */
-        val commentTime: ZonedDateTime,
+        val time: ZonedDateTime,
     )
 
 }

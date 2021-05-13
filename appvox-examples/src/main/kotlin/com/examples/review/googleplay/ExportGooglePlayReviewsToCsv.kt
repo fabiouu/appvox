@@ -11,8 +11,6 @@ import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.runBlocking
 import java.io.FileWriter
 import java.io.IOException
-import java.net.InetSocketAddress
-import java.net.Proxy
 import kotlin.contracts.ExperimentalContracts
 
 @ExperimentalContracts
@@ -64,8 +62,8 @@ fun main() = runBlocking {
                     review.userName,
                     review.userAvatar,
                     review.title,
-                    review.comment,
-                    review.commentTime.toString(),
+                    review.latestComment.text,
+                    review.latestComment.time.toString(),
                     review.appVersion,
                     review.likeCount.toString(),
                     review.replyComment,

@@ -22,8 +22,8 @@ internal class GooglePlayReviewConverter :
                 userAvatar = result.userProfilePicUrl,
                 rating = result.rating,
                 comments = arrayListOf(UserComment(
-                    comment = result.comment,
-                    commentTime = ZonedDateTime.ofInstant(
+                    text = result.comment,
+                    time = ZonedDateTime.ofInstant(
                         Instant.ofEpochSecond(result.submitTime),
                         ZoneOffset.UTC
                     ))),

@@ -7,8 +7,6 @@ import dev.fabiou.appvox.review.googleplay.constant.GooglePlaySortType
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.runBlocking
-import java.net.InetSocketAddress
-import java.net.Proxy
 import kotlin.contracts.ExperimentalContracts
 
 /**
@@ -46,8 +44,8 @@ fun main() = runBlocking {
                             User Name: ${review.userName}
                             User Avatar: ${review.userAvatar}
                             Title: ${review.title}
-                            Comment: ${review.comment}
-                            Comment Time: ${review.commentTime}
+                            Comment: ${review.latestComment.text}
+                            Comment Time: ${review.latestComment.time}
                             App Version: ${review.appVersion}
                             Like Count: ${review.likeCount}
                             Reply Comment: ${review.replyComment}

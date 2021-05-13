@@ -53,8 +53,8 @@ class GooglePlayTest : BaseMockTest() {
                 userName.shouldNotBeEmpty()
                 userAvatar shouldStartWith "https://play-lh.googleusercontent.com/"
                 rating.shouldBeBetween(1, 5)
-                latestComment.comment.shouldNotBeEmpty()
-                latestComment.commentTime.shouldNotBeNull()
+                latestComment.text.shouldNotBeEmpty()
+                latestComment.time.shouldNotBeNull()
                 likeCount.shouldBeGreaterThanOrEqual(0)
                 url shouldContain id
                 replyComment?.let { it.shouldNotBeEmpty() }
@@ -100,8 +100,8 @@ class GooglePlayTest : BaseMockTest() {
                 userName.shouldNotBeEmpty()
                 userAvatar shouldStartWith "https://play-lh.googleusercontent.com/"
                 rating.shouldBeBetween(1, 5)
-                latestComment.comment.shouldNotBeEmpty()
-                latestComment.commentTime.shouldNotBeNull()
+                latestComment.text.shouldNotBeEmpty()
+                latestComment.time.shouldNotBeNull()
                 likeCount.shouldBeGreaterThanOrEqual(0)
                 url shouldContain id
                 replyComment?.let { it.shouldNotBeEmpty() }

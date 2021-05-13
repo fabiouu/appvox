@@ -30,6 +30,8 @@ internal class GooglePlayReviewService(
                 appId = request.parameters.appId,
                 language = request.parameters.language,
                 sortType = request.parameters.sortType,
+                rating = request.parameters.rating,
+                fetchHistory = request.parameters.fetchHistory,
                 batchSize = request.parameters.batchSize,
                 sid = scriptParameters["sid"] ?: error("Failed to extract Google Play sid value"),
                 bl = scriptParameters["bl"] ?: error("Failed to extract Google Play bl value"),

@@ -7,6 +7,8 @@ internal data class GooglePlayReviewRequestParameters(
     val appId: String,
     val language: GooglePlayLanguage,
     val sortType: GooglePlaySortType,
+    val rating: Int? = null,
+    val fetchHistory: Boolean,
     val batchSize: Int,
     val sid: String? = null,
     val bl: String? = null
