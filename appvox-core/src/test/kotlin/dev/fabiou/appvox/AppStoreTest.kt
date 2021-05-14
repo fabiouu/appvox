@@ -56,11 +56,9 @@ class AppStoreTest : BaseMockTest() {
                 rating.shouldBeBetween(1, 5)
                 title.shouldNotBeEmpty()
                 comment.shouldNotBeEmpty()
-                translatedComment?.let { it.shouldNotBeEmpty() }
                 commentTime.shouldNotBeNull()
                 replyComment?.let { it.shouldNotBeEmpty() }
                 replyTime?.let { it.shouldNotBeNull() }
-                // TODO url.shouldNotBeEmpty()
             }
         }
     }
@@ -103,11 +101,9 @@ class AppStoreTest : BaseMockTest() {
                 rating.shouldBeBetween(1, 5)
                 title.shouldNotBeEmpty()
                 comment.shouldNotBeEmpty()
-                translatedComment?.let { it.shouldNotBeEmpty() }
                 commentTime.shouldNotBeNull()
                 replyComment?.let { it.shouldNotBeEmpty() }
                 replyTime?.let { it.shouldNotBeNull() }
-                // TODO url.shouldNotBeEmpty()
             }
         }
     }

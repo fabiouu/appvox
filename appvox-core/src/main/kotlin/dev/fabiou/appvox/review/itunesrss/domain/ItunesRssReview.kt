@@ -34,11 +34,6 @@ data class ItunesRssReview(
     val comment: String,
 
     /**
-     * Translated comment in the pre-defined target language
-     */
-    val translatedComment: String? = null,
-
-    /**
      * Time the user commented on iTunes
      */
     val commentTime: ZonedDateTime? = null,

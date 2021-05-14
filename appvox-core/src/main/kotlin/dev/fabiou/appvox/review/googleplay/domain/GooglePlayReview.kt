@@ -71,11 +71,6 @@ data class GooglePlayReview(
         val text: String,
 
         /**
-         * Translated comment in the pre-defined target language
-         */
-        val translatedText: String? = null,
-
-        /**
          * Time the user commented on Google Play
          */
         val time: ZonedDateTime,

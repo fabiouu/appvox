@@ -68,12 +68,10 @@ class AppStoreReviewRepositoryTest : BaseMockTest() {
                 attributes.shouldNotBeNull()
                 attributes.userName.shouldNotBeEmpty()
                 attributes.review.shouldNotBeEmpty()
-                // TODO attributes.date
                 attributes.title.shouldNotBeEmpty()
                 attributes.rating.shouldBeBetween(1, 5)
                 attributes.developerResponse?.let { developerResponse ->
                     developerResponse.body.shouldNotBeEmpty()
-                // TODO developerResponse.modified
                 }
             }
         }

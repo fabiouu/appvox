@@ -51,7 +51,6 @@ class ItunesRssTest : BaseMockTest() {
                 appVersion.shouldNotBeEmpty()
                 title.shouldNotBeEmpty()
                 comment.shouldNotBeEmpty()
-                translatedComment?.let { it.shouldNotBeEmpty() }
                 commentTime.shouldNotBeNull()
                 likeCount?.shouldBeGreaterThanOrEqual(0)
                 url.shouldNotBeEmpty()
@@ -94,7 +93,6 @@ class ItunesRssTest : BaseMockTest() {
                 appVersion.shouldNotBeEmpty()
                 title.shouldNotBeEmpty()
                 comment.shouldNotBeEmpty()
-                translatedComment?.let { it.shouldNotBeEmpty() }
                 commentTime.shouldNotBeNull()
                 likeCount?.shouldBeGreaterThanOrEqual(0)
                 url.shouldNotBeEmpty()
