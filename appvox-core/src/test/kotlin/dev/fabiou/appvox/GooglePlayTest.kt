@@ -35,7 +35,9 @@ class GooglePlayTest : BaseMockTest() {
     ) = runBlockingTest {
         REQUEST_URL_DOMAIN = httpMockServerDomain
         val mockData =
-            javaClass.getResource("/review/google_play/com.twitter.android/relevant/review_google_play_com.twitter.android_relevant_1.json")
+            javaClass.getResource(
+                "/review/google_play/com.twitter.android/relevant" +
+                "/review_google_play_com.twitter.android_relevant_1.json")
                 .readText()
         stubHttpUrl(REQUEST_URL_PATH, mockData)
 
@@ -58,7 +60,6 @@ class GooglePlayTest : BaseMockTest() {
                 likeCount.shouldBeGreaterThanOrEqual(0)
                 url shouldContain id
                 replyComment?.let { it.shouldNotBeEmpty() }
-                // TODO replyTime?.let { it.shouldNotBeNull() }
             }
         }
     }
@@ -77,8 +78,10 @@ class GooglePlayTest : BaseMockTest() {
     ) = runBlockingTest {
         REQUEST_URL_DOMAIN = httpMockServerDomain
         val mockResponse =
-            javaClass.getResource("/review/google_play/com.twitter.android/relevant/review_google_play_com.twitter.android_relevant_1.json")
-                .readText()
+            javaClass.getResource(
+                "/review/google_play/com.twitter.android/relevant" +
+                "/review_google_play_com.twitter.android_relevant_1.json"
+            ).readText()
         stubHttpUrl(REQUEST_URL_PATH, mockResponse)
 
         val reviews = ArrayList<GooglePlayReview>()
@@ -105,7 +108,6 @@ class GooglePlayTest : BaseMockTest() {
                 likeCount.shouldBeGreaterThanOrEqual(0)
                 url shouldContain id
                 replyComment?.let { it.shouldNotBeEmpty() }
-                // TODO replyTime?.let { it.shouldNotBeNull() }
             }
         }
     }

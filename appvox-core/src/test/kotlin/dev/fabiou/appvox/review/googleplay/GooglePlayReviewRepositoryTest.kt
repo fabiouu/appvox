@@ -38,7 +38,9 @@ class GooglePlayReviewRepositoryTest : BaseMockTest() {
     ) {
         REQUEST_URL_DOMAIN = httpMockServerDomain
         val mockData =
-            javaClass.getResource("/review/google_play/com.twitter.android/relevant/review_google_play_com.twitter.android_relevant_1.json")
+            javaClass.getResource(
+                "/review/google_play/com.twitter.android/relevant" +
+                "/review_google_play_com.twitter.android_relevant_1.json")
                 .readText()
         stubHttpUrl(REQUEST_URL_PATH, mockData)
 
@@ -46,6 +48,7 @@ class GooglePlayReviewRepositoryTest : BaseMockTest() {
             appId = appId,
             language = GooglePlayLanguage.fromValue(language),
             sortType = GooglePlaySortType.fromValue(sortType),
+            fetchHistory = false,
             batchSize = batchSize,
         )
 

@@ -2,13 +2,16 @@ package dev.fabiou.appvox.util
 
 import java.io.BufferedReader
 import java.io.OutputStreamWriter
-import java.net.*
+import java.net.Proxy
+import java.net.URL
+import java.net.HttpURLConnection
+import java.net.PasswordAuthentication
+import java.net.Authenticator
 
-/**
- * @constructor Create empty Http util
- */
 internal object HttpUtil {
 
+    private const val USER_AGENT = "user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) " +
+        "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36"
     private const val URL_FORM_CONTENT_TYPE = "application/x-www-form-urlencoded"
 
     fun getRequest(
@@ -34,7 +37,7 @@ internal object HttpUtil {
             requestMethod = "POST"
             setRequestProperty("content-type", "$URL_FORM_CONTENT_TYPE;charset=UTF-8")
             setRequestProperty("content-length", requestBody.length.toString())
-            setRequestProperty("user-agent", "user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36")
+            setRequestProperty("user-agent", USER_AGENT)
             instanceFollowRedirects = true
             doOutput = true
             val wr = OutputStreamWriter(outputStream)

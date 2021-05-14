@@ -20,9 +20,6 @@ import kotlinx.coroutines.flow.flow
 
 /**
  * This class consists of the main methods for interacting with iTunes RSS feed
- *
- * @property config
- * @constructor Create empty App store
  */
 class ItunesRss(
     val config: RequestConfiguration = RequestConfiguration(delay = MIN_REQUEST_DELAY)
