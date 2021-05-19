@@ -3,54 +3,40 @@ package dev.fabiou.appvox.review.googleplay
 import dev.fabiou.appvox.BaseMockTest
 import dev.fabiou.appvox.configuration.RequestConfiguration
 import dev.fabiou.appvox.review.ReviewRequest
-import dev.fabiou.appvox.review.googleplay.GooglePlayReviewRepository.Companion.REQUEST_URL_DOMAIN
-import dev.fabiou.appvox.review.googleplay.GooglePlayReviewRepository.Companion.REQUEST_URL_PATH
 import dev.fabiou.appvox.review.googleplay.constant.GooglePlayLanguage
-import dev.fabiou.appvox.review.googleplay.constant.GooglePlaySortType
-import dev.fabiou.appvox.review.googleplay.domain.GooglePlayReviewRequestParameters
+import dev.fabiou.appvox.review.googleplay.domain.GooglePlayReviewHistoryRequestParameters
 import io.kotest.assertions.assertSoftly
 import io.kotest.inspectors.forExactly
 import io.kotest.matchers.ints.shouldBeBetween
 import io.kotest.matchers.ints.shouldBeGreaterThanOrEqual
 import io.kotest.matchers.longs.shouldBeBetween
-import io.kotest.matchers.string.shouldContain
 import io.kotest.matchers.string.shouldNotBeEmpty
 import io.kotest.matchers.string.shouldStartWith
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
 
-class GooglePlayReviewRepositoryTest : BaseMockTest() {
+class GooglePlayReviewHistoryRepositoryTest : BaseMockTest() {
 
-    private val repository = GooglePlayReviewRepository(RequestConfiguration(delay = 3000))
+    private val repository = GooglePlayReviewHistoryRepository(RequestConfiguration(delay = 3000))
 
     @ExperimentalCoroutinesApi
     @ParameterizedTest
     @CsvSource(
-        "com.twitter.android, en, 1, 40, 40"
+        "com.twitter.android, en, 40, gp:AOqpTOFeIsixb5qcUUUvJLSz_JudDjdKvngeHbfbUNGh7ch4H3KYh6NFVObMQkdes5HXbLkp3x5iyEiyRsTpuw, 2"
     )
-    fun `get Google Play reviews`(
+    fun `get Google Play review history`(
         appId: String,
         language: String,
-        sortType: Int,
         batchSize: Int,
-        expectedReviewCount: Int
+        reviewId: String,
+        expectedReviewCount: Int,
     ) {
-//        REQUEST_URL_DOMAIN = httpMockServerDomain
-//        val mockData =
-//            javaClass.getResource(
-//                "/review/google_play/com.twitter.android/relevant" +
-//                "/review_google_play_com.twitter.android_relevant_1.json")
-//                .readText()
-//        stubHttpUrl(REQUEST_URL_PATH, mockData)
-
-        val request = GooglePlayReviewRequestParameters(
+        val request = GooglePlayReviewHistoryRequestParameters(
             appId = appId,
             language = GooglePlayLanguage.fromValue(language),
-            sortType = GooglePlaySortType.fromValue(sortType),
-            fetchHistory = false,
             batchSize = batchSize,
-            reviewId = "gp:AOqpTOFeIsixb5qcUUUvJLSz_JudDjdKvngeHbfbUNGh7ch4H3KYh6NFVObMQkdes5HXbLkp3x5iyEiyRsTpuw",
+            reviewId = reviewId,
 
             sid = "2490772921985188942",
             bl = "boq_playuiserver_20210517.01_p0"
@@ -67,9 +53,6 @@ class GooglePlayReviewRepositoryTest : BaseMockTest() {
                 comment.shouldNotBeEmpty()
                 submitTime.shouldBeBetween(0, Long.MAX_VALUE)
                 likeCount.shouldBeGreaterThanOrEqual(0)
-                reviewUrl shouldContain result.reviewId
-                replyComment?.let { it.shouldNotBeEmpty() }
-                replySubmitTime?.let { it.shouldBeBetween(0, Long.MAX_VALUE) }
             }
         }
         response.nextToken.shouldNotBeEmpty()
