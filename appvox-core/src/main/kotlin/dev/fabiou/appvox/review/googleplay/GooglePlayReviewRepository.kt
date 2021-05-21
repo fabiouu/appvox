@@ -50,7 +50,10 @@ internal class GooglePlayReviewRepository(
         private val APP_VERSION_INDEX = intArrayOf(10)
         private val REPLY_COMMENT_INDEX = intArrayOf(7, 1)
         private val REPLY_SUBMIT_TIME_INDEX = intArrayOf(7, 2, 0)
-        private val TOKEN_INDEX = intArrayOf(1, 1, 1)
+        private val CRITERIA_INDEX = intArrayOf(12)
+        private val CRITERIA_CATEGORY_INDEX = intArrayOf(0)
+        private val CRITERIA_RATING_INDEX = intArrayOf(1, 0)
+        private val TOKEN_INDEX = intArrayOf(1, 1)
 
         private const val GOOGLE_PLAY_SUB_RESPONSE_START_INDEX = 4
 
@@ -85,28 +88,28 @@ internal class GooglePlayReviewRepository(
                 userName = getJsonNodeByIndex(googlePlayRawReview, USER_NAME_INDEX).asText(),
                 userProfilePicUrl = getJsonNodeByIndex(googlePlayRawReview, USER_PROFILE_PIC_INDEX).asText(),
                 rating = getJsonNodeByIndex(googlePlayRawReview, RATING_INDEX).asInt(),
-                comment = getJsonNodeByIndex(googlePlayRawReview, COMMENT_INDEX).asText(),
-                submitTime = getJsonNodeByIndex(googlePlayRawReview, SUBMIT_TIME_INDEX).asLong(),
+                userCommentText = getJsonNodeByIndex(googlePlayRawReview, COMMENT_INDEX).asText(),
+                userCommentTime = getJsonNodeByIndex(googlePlayRawReview, SUBMIT_TIME_INDEX).asLong(),
                 likeCount = getJsonNodeByIndex(googlePlayRawReview, LIKE_COUNT_INDEX).asInt(),
                 appVersion = getJsonNodeByIndex(googlePlayRawReview, APP_VERSION_INDEX).asText(),
+                criterias = emptyList(),
                 reviewUrl = REVIEW_URL.format(
                     request.parameters.appId,
                     request.parameters.language.langCode,
                     getJsonNodeByIndex(googlePlayRawReview, REVIEW_ID_INDEX).asText()
                 ),
-                replyComment = getJsonNodeByIndex(googlePlayRawReview, REPLY_COMMENT_INDEX)
+                developerCommentText = getJsonNodeByIndex(googlePlayRawReview, REPLY_COMMENT_INDEX)
                     .whenNotNull { it.asText() },
-                replySubmitTime = getJsonNodeByIndex(googlePlayRawReview, REPLY_SUBMIT_TIME_INDEX)
+                developerCommentTime = getJsonNodeByIndex(googlePlayRawReview, REPLY_SUBMIT_TIME_INDEX)
                     .whenNotNull { it.asLong() }
             )
             reviews.add(review)
         }
 
         val tokenJsonNode = getJsonNodeByIndex(googlePlayResponse, TOKEN_INDEX)
-        val token = if (!tokenJsonNode.isEmpty) tokenJsonNode.asText() else null
         return ReviewResult(
             results = reviews,
-            nextToken = token
+            nextToken = tokenJsonNode.asText(null)
         )
     }
 

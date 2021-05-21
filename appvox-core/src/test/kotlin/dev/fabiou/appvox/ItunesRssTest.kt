@@ -37,7 +37,8 @@ class ItunesRssTest : BaseMockTest() {
         stubHttpUrl(REQUEST_URL_PATH.format(region, pageNo, appId), mockData)
 
         val reviews = ArrayList<ItunesRssReview>()
-        ItunesRss().reviews(appId)
+        ItunesRss()
+            .reviews(appId)
             .take(expectedReviewCount)
             .collect { review ->
                 reviews.add(review)
@@ -46,14 +47,16 @@ class ItunesRssTest : BaseMockTest() {
         reviews.forExactly(expectedReviewCount) { result ->
             assertSoftly(result) {
                 id.shouldNotBeEmpty()
+                url.shouldNotBeEmpty()
+            }
+            assertSoftly(result.latestUserComment) {
                 userName.shouldNotBeEmpty()
                 rating.shouldBeBetween(1, 5)
                 appVersion.shouldNotBeEmpty()
                 title.shouldNotBeEmpty()
-                comment.shouldNotBeEmpty()
-                commentTime.shouldNotBeNull()
+                text.shouldNotBeEmpty()
+                time.shouldNotBeNull()
                 likeCount?.shouldBeGreaterThanOrEqual(0)
-                url.shouldNotBeEmpty()
             }
         }
     }
@@ -88,14 +91,16 @@ class ItunesRssTest : BaseMockTest() {
         reviews.forExactly(expectedReviewCount) { result ->
             assertSoftly(result) {
                 id.shouldNotBeEmpty()
+                url.shouldNotBeEmpty()
+            }
+            assertSoftly(result.latestUserComment) {
                 userName.shouldNotBeEmpty()
                 rating.shouldBeBetween(1, 5)
                 appVersion.shouldNotBeEmpty()
                 title.shouldNotBeEmpty()
-                comment.shouldNotBeEmpty()
-                commentTime.shouldNotBeNull()
+                text.shouldNotBeEmpty()
+                time.shouldNotBeNull()
                 likeCount?.shouldBeGreaterThanOrEqual(0)
-                url.shouldNotBeEmpty()
             }
         }
     }

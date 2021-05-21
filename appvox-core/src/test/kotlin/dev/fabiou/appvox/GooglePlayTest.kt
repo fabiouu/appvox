@@ -52,14 +52,18 @@ class GooglePlayTest : BaseMockTest() {
         reviews.forExactly(expectedReviewCount) { result ->
             assertSoftly(result) {
                 id shouldStartWith "gp:"
+                url shouldContain id
+            }
+            assertSoftly(result.latestUserComment) {
                 userName.shouldNotBeEmpty()
                 userAvatar shouldStartWith "https://play-lh.googleusercontent.com/"
                 rating.shouldBeBetween(1, 5)
-                latestComment.text.shouldNotBeEmpty()
-                latestComment.time.shouldNotBeNull()
+                text.shouldNotBeEmpty()
+                lastUpdateTime.shouldNotBeNull()
                 likeCount.shouldBeGreaterThanOrEqual(0)
-                url shouldContain id
-                replyComment?.let { it.shouldNotBeEmpty() }
+            }
+            assertSoftly(result.latestDeveloperComment) {
+                text?.let { it.shouldNotBeEmpty() }
             }
         }
     }
@@ -100,14 +104,18 @@ class GooglePlayTest : BaseMockTest() {
         reviews.forExactly(expectedReviewCount) { result ->
             assertSoftly(result) {
                 id shouldStartWith "gp:"
+                url shouldContain id
+            }
+            assertSoftly(result.latestUserComment) {
                 userName.shouldNotBeEmpty()
                 userAvatar shouldStartWith "https://play-lh.googleusercontent.com/"
                 rating.shouldBeBetween(1, 5)
-                latestComment.text.shouldNotBeEmpty()
-                latestComment.time.shouldNotBeNull()
+                text.shouldNotBeEmpty()
+                lastUpdateTime.shouldNotBeNull()
                 likeCount.shouldBeGreaterThanOrEqual(0)
-                url shouldContain id
-                replyComment?.let { it.shouldNotBeEmpty() }
+            }
+            assertSoftly(result.latestDeveloperComment) {
+                text?.let { it.shouldNotBeEmpty() }
             }
         }
     }

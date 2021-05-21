@@ -2,6 +2,7 @@ package dev.fabiou.appvox.review.googleplay
 
 import dev.fabiou.appvox.review.ReviewConverter
 import dev.fabiou.appvox.review.googleplay.domain.GooglePlayReview
+import dev.fabiou.appvox.review.googleplay.domain.GooglePlayReview.DeveloperComment
 import dev.fabiou.appvox.review.googleplay.domain.GooglePlayReview.UserComment
 import dev.fabiou.appvox.review.googleplay.domain.GooglePlayReviewResult
 import java.time.Instant
@@ -18,22 +19,29 @@ internal class GooglePlayReviewConverter :
         results.forEach { result ->
             val review = GooglePlayReview(
                 id = result.reviewId,
-                userName = result.userName,
-                userAvatar = result.userProfilePicUrl,
-                rating = result.rating,
-                comments = arrayListOf(UserComment(
-                    text = result.comment,
-                    time = ZonedDateTime.ofInstant(
-                        Instant.ofEpochSecond(result.submitTime),
-                        ZoneOffset.UTC
-                    ))),
-                replyComment = result.replyComment,
-                replyTime = result.replySubmitTime?.let {
-                    ZonedDateTime.ofInstant(Instant.ofEpochSecond(it), ZoneOffset.UTC)
-                },
-                likeCount = result.likeCount,
-                appVersion = result.appVersion,
-                url = result.reviewUrl
+                url = result.reviewUrl,
+                comments = arrayListOf(
+                    GooglePlayReview.Comment(
+                        user = UserComment(
+                            userName = result.userName,
+                            userAvatar = result.userProfilePicUrl,
+                            rating = result.rating,
+                            text = result.userCommentText,
+                            lastUpdateTime = ZonedDateTime.ofInstant(
+                                Instant.ofEpochSecond(result.userCommentTime),
+                                ZoneOffset.UTC
+                            ),
+                            likeCount = result.likeCount,
+                            appVersion = result.appVersion,
+                        ),
+                        developer = DeveloperComment(
+                            text = result.developerCommentText,
+                            lastUpdateTime = result.developerCommentTime?.let {
+                                ZonedDateTime.ofInstant(Instant.ofEpochSecond(it), ZoneOffset.UTC)
+                            },
+                        )
+                    )
+                )
             )
             reviews.add(review)
         }
