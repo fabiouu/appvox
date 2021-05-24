@@ -38,7 +38,7 @@ class GooglePlayReviewRepositoryTest : BaseMockTest() {
     ) {
         REQUEST_URL_DOMAIN = httpMockServerDomain
         val mockData = javaClass.getResource(
-            "/review/google_play/com.twitter.android/relevant" +
+            "/review/googleplay/com.twitter.android/relevant" +
                 "/review_google_play_com.twitter.android_relevant_1.json"
         ).readText()
         stubHttpUrl(REQUEST_URL_PATH, mockData)
@@ -64,7 +64,7 @@ class GooglePlayReviewRepositoryTest : BaseMockTest() {
                 likeCount.shouldBeGreaterThanOrEqual(0)
                 reviewUrl shouldContain result.reviewId
                 developerCommentText?.let { it.shouldNotBeEmpty() }
-                developerCommentTime?.let { it.shouldBeBetween(0, Long.MAX_VALUE) }
+                developerCommentTime?.shouldBeBetween(0, Long.MAX_VALUE)
             }
         }
         response.nextToken.shouldNotBeEmpty()
@@ -88,7 +88,7 @@ class GooglePlayReviewRepositoryTest : BaseMockTest() {
     ) {
         REQUEST_URL_DOMAIN = httpMockServerDomain
         val mockData = javaClass.getResource(
-            "/review/google_play/com.twitter.android/history" +
+            "/review/googleplay/com.twitter.android/history" +
                 "/review_google_play_com.twitter.android_history.json"
         ).readText()
         stubHttpUrl(REQUEST_URL_PATH, mockData)
@@ -99,13 +99,11 @@ class GooglePlayReviewRepositoryTest : BaseMockTest() {
             // Sort Type is not used when fetching a review's history
             sortType = GooglePlaySortType.RECENT,
             batchSize = batchSize,
-            reviewId = reviewId,
-            fetchHistory = true,
+            fetchHistory = true
         )
 
-        val response = repository.getReviewsByAppId(ReviewRequest(request))
-
-        response.results.forExactly(expectedReviewCount) { result ->
+        val response = repository.getReviewHistoryById(reviewId, ReviewRequest(request))
+        response.forExactly(expectedReviewCount) { result ->
             assertSoftly(result) {
                 reviewId shouldStartWith "gp:"
                 userName.shouldNotBeEmpty()

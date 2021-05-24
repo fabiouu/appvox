@@ -52,12 +52,12 @@ data class GooglePlayReview(
         /**
          * Google Author or user name of the user who wrote the review
          */
-        val userName: String,
+        val name: String,
 
         /**
          * Google Avatar or profile picture of the user who wrote the review
          */
-        val userAvatar: String? = null,
+        val avatar: String? = null,
 
         /**
          * Review rating from 1 (poor) to 5 (very good)

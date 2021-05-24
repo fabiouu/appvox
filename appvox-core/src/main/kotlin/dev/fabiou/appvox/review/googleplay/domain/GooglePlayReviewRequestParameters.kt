@@ -10,7 +10,6 @@ internal data class GooglePlayReviewRequestParameters(
     val rating: Int? = null,
     val fetchHistory: Boolean,
     val batchSize: Int,
-    val reviewId: String? = null,
     val sid: String? = null,
     val bl: String? = null
 )

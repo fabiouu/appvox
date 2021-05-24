@@ -1,35 +1,54 @@
-package dev.fabiou.appvox.appstore.review.service
+package dev.fabiou.appvox.review.appstore
 
 import dev.fabiou.appvox.app.appstore.AppStoreRepository
+import dev.fabiou.appvox.configuration.Constant
 import dev.fabiou.appvox.configuration.RequestConfiguration
 import dev.fabiou.appvox.review.ReviewRequest
-import dev.fabiou.appvox.review.ReviewResult
 import dev.fabiou.appvox.review.ReviewService
-import dev.fabiou.appvox.review.appstore.AppStoreReviewRepository
+import dev.fabiou.appvox.review.appstore.domain.AppStoreReview
 import dev.fabiou.appvox.review.appstore.domain.AppStoreReviewRequestParameters
 import dev.fabiou.appvox.review.appstore.domain.AppStoreReviewResult
+import dev.fabiou.appvox.util.retryRequest
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 
 internal class AppStoreReviewService(
     val config: RequestConfiguration
-) : ReviewService<AppStoreReviewRequestParameters, AppStoreReviewResult.AppStoreReview> {
-
-    private val appStoreReviewRepository = AppStoreReviewRepository(config)
+) : ReviewService<AppStoreReviewRequestParameters, AppStoreReviewResult.AppStoreReview, AppStoreReview> {
 
     private val appStoreRepository = AppStoreRepository(config)
 
-    override fun getReviewsByAppId(
-        request: ReviewRequest<AppStoreReviewRequestParameters>
-    ): ReviewResult<AppStoreReviewResult.AppStoreReview> {
-        val bearerToken = appStoreRepository.memoizedBearerToken(request.parameters.appId, request.parameters.region)
-        val requestCopy = request.copy(
-            parameters = request.parameters.copy(
-                appId = request.parameters.appId,
-                region = request.parameters.region,
-                bearerToken = bearerToken
-            ),
-            nextToken = request.nextToken
-        )
+    private val appStoreReviewRepository = AppStoreReviewRepository(config)
 
-        return appStoreReviewRepository.getReviewsByAppId(requestCopy)
+    private val appStoreReviewConverter = AppStoreReviewConverter()
+
+    override fun getReviewsByAppId(
+        initialRequest: ReviewRequest<AppStoreReviewRequestParameters>
+    ): Flow<AppStoreReview> = flow {
+        var request = initialRequest
+        do {
+            val response = retryRequest(Constant.MAX_RETRY_ATTEMPTS, Constant.MIN_RETRY_DELAY) {
+                val bearerToken = appStoreRepository.memoizedBearerToken(
+                    request.parameters.appId,
+                    request.parameters.region
+                )
+                val requestCopy = request.copy(
+                    parameters = request.parameters.copy(
+                        appId = request.parameters.appId,
+                        region = request.parameters.region,
+                        bearerToken = bearerToken
+                    ),
+                    nextToken = request.nextToken
+                )
+                appStoreReviewRepository.getReviewsByAppId(requestCopy)
+            }
+            request = request.copy(request.parameters, response.nextToken)
+            response.results.forEach { result ->
+                val review = appStoreReviewConverter.toResponse(result)
+                emit(review)
+            }
+            delay(timeMillis = config.delay.toLong())
+        } while (request.nextToken != null)
     }
 }

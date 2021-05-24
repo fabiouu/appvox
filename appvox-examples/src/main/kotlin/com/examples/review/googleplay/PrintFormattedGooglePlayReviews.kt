@@ -41,8 +41,8 @@ fun main() = runBlocking {
                 """
                             Id: ${review.id}
                             Rating: ${review.latestUserComment.rating}
-                            User Name: ${review.latestUserComment.userName}
-                            User Avatar: ${review.latestUserComment.userAvatar}
+                            User Name: ${review.latestUserComment.name}
+                            User Avatar: ${review.latestUserComment.avatar}
                             Title: ${review.latestUserComment.title}
                             Comment: ${review.latestUserComment.text}
                             Comment Time: ${review.latestUserComment.lastUpdateTime}

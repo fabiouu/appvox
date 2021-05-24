@@ -1,5 +1,6 @@
 package dev.fabiou.appvox
 
+import dev.fabiou.appvox.app.googleplay.GooglePlayRepository
 import dev.fabiou.appvox.review.googleplay.GooglePlayReviewRepository.Companion.REQUEST_URL_DOMAIN
 import dev.fabiou.appvox.review.googleplay.GooglePlayReviewRepository.Companion.REQUEST_URL_PATH
 import dev.fabiou.appvox.review.googleplay.constant.GooglePlayLanguage
@@ -33,12 +34,20 @@ class GooglePlayTest : BaseMockTest() {
         appId: String,
         expectedReviewCount: Int
     ) = runBlockingTest {
+
+        GooglePlayRepository.APP_HP_URL_DOMAIN = httpMockServerDomain
+        val scriptParamsMockData = javaClass.getResource(
+            "/app/googleplay/com.twitter.android" +
+                "/app_googleplay_com.twitter.android_homepage.html"
+        ).readText()
+        stubHttpUrl(GooglePlayRepository.APP_HP_URL_PATH, scriptParamsMockData)
+
         REQUEST_URL_DOMAIN = httpMockServerDomain
         val mockData =
             javaClass.getResource(
-                "/review/google_play/com.twitter.android/relevant" +
-                "/review_google_play_com.twitter.android_relevant_1.json")
-                .readText()
+                "/review/googleplay/com.twitter.android/relevant" +
+                    "/review_google_play_com.twitter.android_relevant_1.json"
+            ).readText()
         stubHttpUrl(REQUEST_URL_PATH, mockData)
 
         val reviews = ArrayList<GooglePlayReview>()
@@ -55,8 +64,8 @@ class GooglePlayTest : BaseMockTest() {
                 url shouldContain id
             }
             assertSoftly(result.latestUserComment) {
-                userName.shouldNotBeEmpty()
-                userAvatar shouldStartWith "https://play-lh.googleusercontent.com/"
+                name.shouldNotBeEmpty()
+                avatar shouldStartWith "https://play-lh.googleusercontent.com/"
                 rating.shouldBeBetween(1, 5)
                 text.shouldNotBeEmpty()
                 lastUpdateTime.shouldNotBeNull()
@@ -80,11 +89,19 @@ class GooglePlayTest : BaseMockTest() {
         sortType: Int,
         expectedReviewCount: Int
     ) = runBlockingTest {
+
+        GooglePlayRepository.APP_HP_URL_DOMAIN = httpMockServerDomain
+        val scriptParamsMockData = javaClass.getResource(
+            "/app/googleplay/com.twitter.android" +
+                "/app_googleplay_com.twitter.android_homepage.html"
+        ).readText()
+        stubHttpUrl(GooglePlayRepository.APP_HP_URL_PATH, scriptParamsMockData)
+
         REQUEST_URL_DOMAIN = httpMockServerDomain
         val mockResponse =
             javaClass.getResource(
-                "/review/google_play/com.twitter.android/relevant" +
-                "/review_google_play_com.twitter.android_relevant_1.json"
+                "/review/googleplay/com.twitter.android/relevant" +
+                    "/review_google_play_com.twitter.android_relevant_1.json"
             ).readText()
         stubHttpUrl(REQUEST_URL_PATH, mockResponse)
 
@@ -107,8 +124,8 @@ class GooglePlayTest : BaseMockTest() {
                 url shouldContain id
             }
             assertSoftly(result.latestUserComment) {
-                userName.shouldNotBeEmpty()
-                userAvatar shouldStartWith "https://play-lh.googleusercontent.com/"
+                name.shouldNotBeEmpty()
+                avatar shouldStartWith "https://play-lh.googleusercontent.com/"
                 rating.shouldBeBetween(1, 5)
                 text.shouldNotBeEmpty()
                 lastUpdateTime.shouldNotBeNull()

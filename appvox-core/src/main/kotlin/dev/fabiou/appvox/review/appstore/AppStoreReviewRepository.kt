@@ -2,7 +2,6 @@ package dev.fabiou.appvox.review.appstore
 
 import dev.fabiou.appvox.configuration.RequestConfiguration
 import dev.fabiou.appvox.exception.AppVoxException
-import dev.fabiou.appvox.review.ReviewRepository
 import dev.fabiou.appvox.review.ReviewRequest
 import dev.fabiou.appvox.review.ReviewResult
 import dev.fabiou.appvox.review.appstore.domain.AppStoreReviewRequestParameters
@@ -15,7 +14,7 @@ val lenientJson = Json { isLenient = true }
 
 internal class AppStoreReviewRepository(
     private val config: RequestConfiguration
-) : ReviewRepository<AppStoreReviewRequestParameters, AppStoreReviewResult.AppStoreReview> {
+) {
     companion object {
         internal const val REQUEST_REVIEW_SIZE = 10
         internal var REQUEST_URL_DOMAIN = "https://amp-api.apps.apple.com"
@@ -27,7 +26,7 @@ internal class AppStoreReviewRepository(
     private val httpUtils = HttpUtil
 
     @Throws(AppVoxException::class)
-    override fun getReviewsByAppId(
+    fun getReviewsByAppId(
         request: ReviewRequest<AppStoreReviewRequestParameters>
     ): ReviewResult<AppStoreReviewResult.AppStoreReview> {
         val requestUrl = REQUEST_URL_DOMAIN + if (request.nextToken.isNullOrEmpty()) {

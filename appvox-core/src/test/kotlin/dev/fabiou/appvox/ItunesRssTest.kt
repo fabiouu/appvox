@@ -33,7 +33,7 @@ class ItunesRssTest : BaseMockTest() {
         expectedReviewCount: Int
     ) = runBlockingTest {
         REQUEST_URL_DOMAIN = httpMockServerDomain
-        val mockData = javaClass.getResource("/review/itunes_rss/itunes_rss_reviews_mock_data.xml").readText()
+        val mockData = javaClass.getResource("/review/itunesrss/itunes_rss_reviews_mock_data.xml").readText()
         stubHttpUrl(REQUEST_URL_PATH.format(region, pageNo, appId), mockData)
 
         val reviews = ArrayList<ItunesRssReview>()
@@ -73,7 +73,7 @@ class ItunesRssTest : BaseMockTest() {
         expectedReviewCount: Int
     ) = runBlockingTest {
         REQUEST_URL_DOMAIN = httpMockServerDomain
-        val mockData = javaClass.getResource("/review/itunes_rss/itunes_rss_reviews_mock_data.xml").readText()
+        val mockData = javaClass.getResource("/review/itunesrss/itunes_rss_reviews_mock_data.xml").readText()
         stubHttpUrl(REQUEST_URL_PATH.format(region, pageNo, appId), mockData)
 
         val reviews = arrayListOf<ItunesRssReview>()

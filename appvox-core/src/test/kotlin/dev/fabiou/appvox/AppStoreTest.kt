@@ -39,7 +39,7 @@ class AppStoreTest : BaseMockTest() {
         val bearerTokenRequestUrlPath = APP_HP_URL_PATH.format(region.code, appId)
         stubHttpUrl(bearerTokenRequestUrlPath, "mock-bearer-token")
 
-        val mockData = javaClass.getResource("/review/app_store/appstore_reviews_mock_data.json").readText()
+        val mockData = javaClass.getResource("/review/appstore/appstore_reviews_mock_data.json").readText()
         stubHttpUrl(REQUEST_URL_PATH.format(region.code, appId, AppStoreReviewRepository.REQUEST_REVIEW_SIZE), mockData)
 
         val reviews = ArrayList<AppStoreReview>()
@@ -80,7 +80,7 @@ class AppStoreTest : BaseMockTest() {
         val bearerTokenRequestUrlPath = APP_HP_URL_PATH.format(region.code, appId)
         stubHttpUrl(bearerTokenRequestUrlPath, "mock-bearer-token")
 
-        val mockData = javaClass.getResource("/review/app_store/appstore_reviews_mock_data.json").readText()
+        val mockData = javaClass.getResource("/review/appstore/appstore_reviews_mock_data.json").readText()
         stubHttpUrl(REQUEST_URL_PATH.format(region.code, appId, AppStoreReviewRepository.REQUEST_REVIEW_SIZE), mockData)
 
         val reviews = arrayListOf<AppStoreReview>()
