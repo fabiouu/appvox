@@ -56,8 +56,10 @@ internal class GooglePlayReviewService(
                     val reviewHistoryResult = retryRequest(MAX_RETRY_ATTEMPTS, MIN_RETRY_DELAY) {
                         googlePlayReviewRepository.getReviewHistoryById(result.reviewId, request)
                     }
-                    GooglePlayReviewConverter().toResponseWithHistory(result, reviewHistoryResult)
+//                    val userTypes = GooglePlayReviewClassificationService().defineUserPersona(reviewHistoryResult)
+                    GooglePlayReviewConverter().toResponseWithHistory(result, reviewHistoryResult, emptySet())
                 } else {
+//                    val userTypes = GooglePlayReviewClassificationService().classify(result)
                     GooglePlayReviewConverter().toResponse(result)
                 }
                 emit(review)

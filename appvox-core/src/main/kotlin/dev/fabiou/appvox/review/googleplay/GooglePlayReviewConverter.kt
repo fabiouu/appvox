@@ -1,5 +1,6 @@
 package dev.fabiou.appvox.review.googleplay
 
+import dev.fabiou.appvox.review.classification.UserPersona
 import dev.fabiou.appvox.review.googleplay.domain.GooglePlayReview
 import dev.fabiou.appvox.review.googleplay.domain.GooglePlayReview.DeveloperComment
 import dev.fabiou.appvox.review.googleplay.domain.GooglePlayReview.UserComment
@@ -16,6 +17,7 @@ internal class GooglePlayReviewConverter {
         return GooglePlayReview(
             id = result.reviewId,
             url = result.reviewUrl,
+            userTypes = emptySet<UserPersona>(),
             comments = arrayListOf(
                 GooglePlayReview.Comment(
                     user = UserComment(
@@ -43,11 +45,13 @@ internal class GooglePlayReviewConverter {
 
     fun toResponseWithHistory(
         result: GooglePlayReviewResult,
-        reviewHistory: List<GooglePlayReviewResult>
+        reviewHistory: List<GooglePlayReviewResult>,
+        userTypes: Set<UserPersona>
     ): GooglePlayReview {
         return GooglePlayReview(
             id = result.reviewId,
             url = result.reviewUrl,
+            userTypes = userTypes,
             comments = reviewHistory.map {
                 GooglePlayReview.Comment(
                     user = UserComment(

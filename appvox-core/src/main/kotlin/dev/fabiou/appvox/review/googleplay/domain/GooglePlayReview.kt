@@ -1,5 +1,6 @@
 package dev.fabiou.appvox.review.googleplay.domain
 
+import dev.fabiou.appvox.review.classification.UserPersona
 import java.time.ZonedDateTime
 
 data class GooglePlayReview(
@@ -12,6 +13,8 @@ data class GooglePlayReview(
      * Url to the user's comment
      */
     val url: String,
+
+    val userTypes: Set<UserPersona>,
 
     /**
      * List of comments written by the user and developer. If the user edited his comment, comments size will be > 1
