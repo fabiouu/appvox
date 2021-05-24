@@ -1,5 +1,6 @@
 package dev.fabiou.appvox
 
+import dev.fabiou.appvox.app.googleplay.GooglePlayRepository
 import dev.fabiou.appvox.review.googleplay.GooglePlayReviewRepository.Companion.REQUEST_URL_DOMAIN
 import dev.fabiou.appvox.review.googleplay.GooglePlayReviewRepository.Companion.REQUEST_URL_PATH
 import dev.fabiou.appvox.review.googleplay.constant.GooglePlayLanguage
@@ -33,10 +34,20 @@ class GooglePlayTest : BaseMockTest() {
         appId: String,
         expectedReviewCount: Int
     ) = runBlockingTest {
+
+        GooglePlayRepository.APP_HP_URL_DOMAIN = httpMockServerDomain
+        val scriptParamsMockData = javaClass.getResource(
+            "/app/googleplay/com.twitter.android" +
+                "/app_googleplay_com.twitter.android_homepage.html"
+        ).readText()
+        stubHttpUrl(GooglePlayRepository.APP_HP_URL_PATH, scriptParamsMockData)
+
         REQUEST_URL_DOMAIN = httpMockServerDomain
         val mockData =
-            javaClass.getResource("/review/google_play/com.twitter.android/relevant/review_google_play_com.twitter.android_relevant_1.json")
-                .readText()
+            javaClass.getResource(
+                "/review/googleplay/com.twitter.android/relevant" +
+                    "/review_google_play_com.twitter.android_relevant_1.json"
+            ).readText()
         stubHttpUrl(REQUEST_URL_PATH, mockData)
 
         val reviews = ArrayList<GooglePlayReview>()
@@ -50,15 +61,18 @@ class GooglePlayTest : BaseMockTest() {
         reviews.forExactly(expectedReviewCount) { result ->
             assertSoftly(result) {
                 id shouldStartWith "gp:"
-                userName.shouldNotBeEmpty()
-                userAvatar shouldStartWith "https://play-lh.googleusercontent.com/"
-                rating.shouldBeBetween(1, 5)
-                comment.shouldNotBeEmpty()
-                commentTime.shouldNotBeNull()
-                likeCount.shouldBeGreaterThanOrEqual(0)
                 url shouldContain id
-                replyComment?.let { it.shouldNotBeEmpty() }
-                // TODO replyTime?.let { it.shouldNotBeNull() }
+            }
+            assertSoftly(result.latestUserComment) {
+                name.shouldNotBeEmpty()
+                avatar shouldStartWith "https://play-lh.googleusercontent.com/"
+                rating.shouldBeBetween(1, 5)
+                text.shouldNotBeEmpty()
+                lastUpdateTime.shouldNotBeNull()
+                likeCount.shouldBeGreaterThanOrEqual(0)
+            }
+            assertSoftly(result.latestDeveloperComment) {
+                text?.let { it.shouldNotBeEmpty() }
             }
         }
     }
@@ -75,10 +89,20 @@ class GooglePlayTest : BaseMockTest() {
         sortType: Int,
         expectedReviewCount: Int
     ) = runBlockingTest {
+
+        GooglePlayRepository.APP_HP_URL_DOMAIN = httpMockServerDomain
+        val scriptParamsMockData = javaClass.getResource(
+            "/app/googleplay/com.twitter.android" +
+                "/app_googleplay_com.twitter.android_homepage.html"
+        ).readText()
+        stubHttpUrl(GooglePlayRepository.APP_HP_URL_PATH, scriptParamsMockData)
+
         REQUEST_URL_DOMAIN = httpMockServerDomain
         val mockResponse =
-            javaClass.getResource("/review/google_play/com.twitter.android/relevant/review_google_play_com.twitter.android_relevant_1.json")
-                .readText()
+            javaClass.getResource(
+                "/review/googleplay/com.twitter.android/relevant" +
+                    "/review_google_play_com.twitter.android_relevant_1.json"
+            ).readText()
         stubHttpUrl(REQUEST_URL_PATH, mockResponse)
 
         val reviews = ArrayList<GooglePlayReview>()
@@ -97,15 +121,18 @@ class GooglePlayTest : BaseMockTest() {
         reviews.forExactly(expectedReviewCount) { result ->
             assertSoftly(result) {
                 id shouldStartWith "gp:"
-                userName.shouldNotBeEmpty()
-                userAvatar shouldStartWith "https://play-lh.googleusercontent.com/"
-                rating.shouldBeBetween(1, 5)
-                comment.shouldNotBeEmpty()
-                commentTime.shouldNotBeNull()
-                likeCount.shouldBeGreaterThanOrEqual(0)
                 url shouldContain id
-                replyComment?.let { it.shouldNotBeEmpty() }
-                // TODO replyTime?.let { it.shouldNotBeNull() }
+            }
+            assertSoftly(result.latestUserComment) {
+                name.shouldNotBeEmpty()
+                avatar shouldStartWith "https://play-lh.googleusercontent.com/"
+                rating.shouldBeBetween(1, 5)
+                text.shouldNotBeEmpty()
+                lastUpdateTime.shouldNotBeNull()
+                likeCount.shouldBeGreaterThanOrEqual(0)
+            }
+            assertSoftly(result.latestDeveloperComment) {
+                text?.let { it.shouldNotBeEmpty() }
             }
         }
     }

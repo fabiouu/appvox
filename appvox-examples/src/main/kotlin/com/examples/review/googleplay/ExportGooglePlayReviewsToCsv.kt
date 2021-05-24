@@ -11,8 +11,6 @@ import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.runBlocking
 import java.io.FileWriter
 import java.io.IOException
-import java.net.InetSocketAddress
-import java.net.Proxy
 import kotlin.contracts.ExperimentalContracts
 
 @ExperimentalContracts
@@ -60,16 +58,16 @@ fun main() = runBlocking {
             .collect { review ->
                 val csvReview: Array<String?> = arrayOf(
                     review.id,
-                    review.rating.toString(),
-                    review.userName,
-                    review.userAvatar,
-                    review.title,
-                    review.comment,
-                    review.commentTime.toString(),
-                    review.appVersion,
-                    review.likeCount.toString(),
-                    review.replyComment,
-                    review.replyTime.toString(),
+                    review.latestUserComment.rating.toString(),
+                    review.latestUserComment.name,
+                    review.latestUserComment.avatar,
+                    review.latestUserComment.title,
+                    review.latestUserComment.text,
+                    review.latestUserComment.lastUpdateTime.toString(),
+                    review.latestUserComment.appVersion,
+                    review.latestUserComment.likeCount.toString(),
+                    review.latestUserComment.text,
+                    review.latestUserComment.lastUpdateTime.toString(),
                     review.url
                 )
                 csvWriter.writeNext(csvReview)

@@ -3,7 +3,7 @@ package dev.fabiou.appvox.review.googleplay.constant
 /**
  * https://support.google.com/googleplay/android-developer/table/4419860
  */
-enum class GooglePlayLanguage(val langCode: String) {
+enum class GooglePlayLanguage(val code: String) {
     AFRIKAANS("af"),
     AMHARIC("am"),
     BULGARIAN("bg"),

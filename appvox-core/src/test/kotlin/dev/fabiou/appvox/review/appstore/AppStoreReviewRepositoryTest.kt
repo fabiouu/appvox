@@ -44,7 +44,7 @@ class AppStoreReviewRepositoryTest : BaseMockTest() {
         val region = AppStoreRegion.fromValue(regionCode)
         stubHttpUrl(APP_HP_URL_PATH.format(region.code, appId), "mock-bearer-token")
 
-        val mockData = javaClass.getResource("/review/app_store/appstore_reviews_mock_data.json").readText()
+        val mockData = javaClass.getResource("/review/appstore/appstore_reviews_mock_data.json").readText()
         stubHttpUrl(REQUEST_URL_PATH.format(region.code, appId, REQUEST_REVIEW_SIZE), mockData)
 
         val bearerToken = appStoreRepository.getBearerToken(
@@ -68,12 +68,10 @@ class AppStoreReviewRepositoryTest : BaseMockTest() {
                 attributes.shouldNotBeNull()
                 attributes.userName.shouldNotBeEmpty()
                 attributes.review.shouldNotBeEmpty()
-                // TODO attributes.date
                 attributes.title.shouldNotBeEmpty()
                 attributes.rating.shouldBeBetween(1, 5)
                 attributes.developerResponse?.let { developerResponse ->
                     developerResponse.body.shouldNotBeEmpty()
-                // TODO developerResponse.modified
                 }
             }
         }

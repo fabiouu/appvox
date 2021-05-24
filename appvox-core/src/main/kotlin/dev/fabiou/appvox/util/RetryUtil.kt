@@ -15,7 +15,8 @@ internal suspend inline fun <R> retryRequest(
         try {
             return requestBlock()
         } catch (e: AppVoxNetworkException) {
-
+            // We should log the retry attempt here and do not leave an empty catch block.
+            // The project does not implement a logging strategy yet. Implemented in the next release (see roadmap)
         }
         delay(timeMillis = currentDelay)
         currentDelay = (currentDelay * delayFactor).toLong()

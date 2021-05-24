@@ -37,9 +37,10 @@ class GooglePlayReviewRepositoryTest : BaseMockTest() {
         expectedReviewCount: Int
     ) {
         REQUEST_URL_DOMAIN = httpMockServerDomain
-        val mockData =
-            javaClass.getResource("/review/google_play/com.twitter.android/relevant/review_google_play_com.twitter.android_relevant_1.json")
-                .readText()
+        val mockData = javaClass.getResource(
+            "/review/googleplay/com.twitter.android/relevant" +
+                "/review_google_play_com.twitter.android_relevant_1.json"
+        ).readText()
         stubHttpUrl(REQUEST_URL_PATH, mockData)
 
         val request = GooglePlayReviewRequestParameters(
@@ -47,6 +48,7 @@ class GooglePlayReviewRepositoryTest : BaseMockTest() {
             language = GooglePlayLanguage.fromValue(language),
             sortType = GooglePlaySortType.fromValue(sortType),
             batchSize = batchSize,
+            fetchHistory = false
         )
 
         val response = repository.getReviewsByAppId(ReviewRequest(request))
@@ -57,14 +59,61 @@ class GooglePlayReviewRepositoryTest : BaseMockTest() {
                 userName.shouldNotBeEmpty()
                 userProfilePicUrl shouldStartWith "https://play-lh.googleusercontent.com/"
                 rating.shouldBeBetween(1, 5)
-                comment.shouldNotBeEmpty()
-                submitTime.shouldBeBetween(0, Long.MAX_VALUE)
+                userCommentText.shouldNotBeEmpty()
+                userCommentTime.shouldBeBetween(0, Long.MAX_VALUE)
                 likeCount.shouldBeGreaterThanOrEqual(0)
                 reviewUrl shouldContain result.reviewId
-                replyComment?.let { it.shouldNotBeEmpty() }
-                replySubmitTime?.let { it.shouldBeBetween(0, Long.MAX_VALUE) }
+                developerCommentText?.let { it.shouldNotBeEmpty() }
+                developerCommentTime?.shouldBeBetween(0, Long.MAX_VALUE)
             }
         }
         response.nextToken.shouldNotBeEmpty()
+    }
+
+    @ExperimentalCoroutinesApi
+    @ParameterizedTest
+    @CsvSource(
+        "com.twitter.android, " +
+        "gp:AOqpTOFeIsixb5qcUUUvJLSz_JudDjdKvngeHbfbUNGh7ch4H3KYh6NFVObMQkdes5HXbLkp3x5iyEiyRsTpuw, " +
+        "en, " +
+        "40, " +
+        "2"
+    )
+    fun `get Google Play review history`(
+        appId: String,
+        reviewId: String,
+        language: String,
+        batchSize: Int,
+        expectedReviewCount: Int
+    ) {
+        REQUEST_URL_DOMAIN = httpMockServerDomain
+        val mockData = javaClass.getResource(
+            "/review/googleplay/com.twitter.android/history" +
+                "/review_google_play_com.twitter.android_history.json"
+        ).readText()
+        stubHttpUrl(REQUEST_URL_PATH, mockData)
+
+        val request = GooglePlayReviewRequestParameters(
+            appId = appId,
+            language = GooglePlayLanguage.fromValue(language),
+            // Sort Type is not used when fetching a review's history
+            sortType = GooglePlaySortType.RECENT,
+            batchSize = batchSize,
+            fetchHistory = true
+        )
+
+        val response = repository.getReviewHistoryById(reviewId, ReviewRequest(request))
+        response.forExactly(expectedReviewCount) { result ->
+            assertSoftly(result) {
+                reviewId shouldStartWith "gp:"
+                userName.shouldNotBeEmpty()
+                userProfilePicUrl shouldStartWith "https://play-lh.googleusercontent.com/"
+                rating.shouldBeBetween(1, 5)
+                userCommentText.shouldNotBeEmpty()
+                userCommentTime.shouldBeBetween(0, Long.MAX_VALUE)
+                likeCount.shouldBeGreaterThanOrEqual(0)
+                reviewUrl shouldContain result.reviewId
+            }
+        }
     }
 }

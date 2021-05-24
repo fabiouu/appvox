@@ -5,11 +5,17 @@ data class GooglePlayReviewResult(
     val userName: String,
     val userProfilePicUrl: String,
     val rating: Int,
-    val comment: String,
-    val submitTime: Long,
+    val userCommentText: String,
+    val userCommentTime: Long,
     val likeCount: Int,
     val reviewUrl: String,
     val appVersion: String?,
-    val replyComment: String?,
-    val replySubmitTime: Long?
-)
+    val criterias: List<Criteria>,
+    val developerCommentText: String?,
+    val developerCommentTime: Long?
+) {
+    data class Criteria(
+        val name: String,
+        val rating: Int
+    )
+}

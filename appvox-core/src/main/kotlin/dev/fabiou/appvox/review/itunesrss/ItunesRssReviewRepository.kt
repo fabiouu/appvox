@@ -3,7 +3,6 @@ package dev.fabiou.appvox.review.itunesrss
 import dev.fabiou.appvox.configuration.RequestConfiguration
 import dev.fabiou.appvox.exception.AppVoxError
 import dev.fabiou.appvox.exception.AppVoxException
-import dev.fabiou.appvox.review.ReviewRepository
 import dev.fabiou.appvox.review.ReviewRequest
 import dev.fabiou.appvox.review.ReviewResult
 import dev.fabiou.appvox.review.itunesrss.domain.ItunesRssReviewRequestParameters
@@ -18,7 +17,7 @@ import javax.xml.stream.XMLStreamReader
 
 internal class ItunesRssReviewRepository(
     private val config: RequestConfiguration
-) : ReviewRepository<ItunesRssReviewRequestParameters, ItunesRssReviewResult.Entry> {
+) {
     companion object {
         internal var REQUEST_URL_DOMAIN = "https://itunes.apple.com"
         internal const val REQUEST_URL_PATH = "/%s/rss/customerreviews/page=%d/id=%s/sortby=mostrecent/xml"
@@ -36,7 +35,7 @@ internal class ItunesRssReviewRepository(
     }
 
     @Throws(AppVoxException::class)
-    override fun getReviewsByAppId(
+    fun getReviewsByAppId(
         request: ReviewRequest<ItunesRssReviewRequestParameters>
     ): ReviewResult<ItunesRssReviewResult.Entry> {
         if (request.parameters.pageNo !in MIN_PAGE_NO..MAX_PAGE_NO) {

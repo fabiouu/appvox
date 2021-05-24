@@ -7,8 +7,6 @@ import dev.fabiou.appvox.review.googleplay.constant.GooglePlaySortType
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.runBlocking
-import java.net.InetSocketAddress
-import java.net.Proxy
 import kotlin.contracts.ExperimentalContracts
 
 /**
@@ -42,16 +40,16 @@ fun main() = runBlocking {
             val formattedReview =
                 """
                             Id: ${review.id}
-                            Rating: ${review.rating}
-                            User Name: ${review.userName}
-                            User Avatar: ${review.userAvatar}
-                            Title: ${review.title}
-                            Comment: ${review.comment}
-                            Comment Time: ${review.commentTime}
-                            App Version: ${review.appVersion}
-                            Like Count: ${review.likeCount}
-                            Reply Comment: ${review.replyComment}
-                            Reply Time: ${review.replyTime}
+                            Rating: ${review.latestUserComment.rating}
+                            User Name: ${review.latestUserComment.name}
+                            User Avatar: ${review.latestUserComment.avatar}
+                            Title: ${review.latestUserComment.title}
+                            Comment: ${review.latestUserComment.text}
+                            Comment Time: ${review.latestUserComment.lastUpdateTime}
+                            App Version: ${review.latestUserComment.appVersion}
+                            Like Count: ${review.latestUserComment.likeCount}
+                            Reply Comment: ${review.latestDeveloperComment.text}
+                            Reply Time: ${review.latestDeveloperComment.lastUpdateTime}
                             Review Url: ${review.url}
                         """.trimIndent()
             println(formattedReview)

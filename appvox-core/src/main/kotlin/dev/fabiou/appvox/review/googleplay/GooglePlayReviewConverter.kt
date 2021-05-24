@@ -1,40 +1,78 @@
 package dev.fabiou.appvox.review.googleplay
 
-import dev.fabiou.appvox.review.ReviewConverter
 import dev.fabiou.appvox.review.googleplay.domain.GooglePlayReview
+import dev.fabiou.appvox.review.googleplay.domain.GooglePlayReview.DeveloperComment
+import dev.fabiou.appvox.review.googleplay.domain.GooglePlayReview.UserComment
 import dev.fabiou.appvox.review.googleplay.domain.GooglePlayReviewResult
 import java.time.Instant
 import java.time.ZoneOffset
 import java.time.ZonedDateTime
 
-internal class GooglePlayReviewConverter :
-    ReviewConverter<GooglePlayReviewResult, GooglePlayReview> {
+internal class GooglePlayReviewConverter {
 
-    override fun toResponse(
-        results: List<GooglePlayReviewResult>
-    ): List<GooglePlayReview> {
-        val reviews = ArrayList<GooglePlayReview>()
-        results.forEach { result ->
-            val review = GooglePlayReview(
-                id = result.reviewId,
-                userName = result.userName,
-                userAvatar = result.userProfilePicUrl,
-                rating = result.rating,
-                comment = result.comment,
-                commentTime = ZonedDateTime.ofInstant(
-                    Instant.ofEpochSecond(result.submitTime),
-                    ZoneOffset.UTC
-                ),
-                replyComment = result.replyComment,
-                replyTime = result.replySubmitTime?.let {
-                    ZonedDateTime.ofInstant(Instant.ofEpochSecond(it), ZoneOffset.UTC)
-                },
-                likeCount = result.likeCount,
-                appVersion = result.appVersion,
-                url = result.reviewUrl
+    fun toResponse(
+        result: GooglePlayReviewResult
+    ): GooglePlayReview {
+        return GooglePlayReview(
+            id = result.reviewId,
+            url = result.reviewUrl,
+            comments = arrayListOf(
+                GooglePlayReview.Comment(
+                    user = UserComment(
+                        name = result.userName,
+                        avatar = result.userProfilePicUrl,
+                        rating = result.rating,
+                        text = result.userCommentText,
+                        lastUpdateTime = ZonedDateTime.ofInstant(
+                            Instant.ofEpochSecond(result.userCommentTime),
+                            ZoneOffset.UTC
+                        ),
+                        likeCount = result.likeCount,
+                        appVersion = result.appVersion,
+                    ),
+                    developer = DeveloperComment(
+                        text = result.developerCommentText,
+                        lastUpdateTime = result.developerCommentTime?.let {
+                            ZonedDateTime.ofInstant(Instant.ofEpochSecond(it), ZoneOffset.UTC)
+                        },
+                    )
+                )
             )
-            reviews.add(review)
-        }
-        return reviews
+        )
+    }
+
+    fun toResponseWithHistory(
+        result: GooglePlayReviewResult,
+        reviewHistory: List<GooglePlayReviewResult>
+    ): GooglePlayReview {
+        return GooglePlayReview(
+            id = result.reviewId,
+            url = result.reviewUrl,
+            comments = reviewHistory.map {
+                GooglePlayReview.Comment(
+                    user = UserComment(
+                        name = it.userName,
+                        avatar = it.userProfilePicUrl,
+                        rating = it.rating,
+                        text = it.userCommentText,
+                        lastUpdateTime = ZonedDateTime.ofInstant(
+                            Instant.ofEpochSecond(it.userCommentTime),
+                            ZoneOffset.UTC
+                        ),
+                        likeCount = it.likeCount,
+                        appVersion = it.appVersion,
+                    ),
+                    developer = DeveloperComment(
+                        text = it.developerCommentText,
+                        lastUpdateTime = it.developerCommentTime?.let { developerCommentTime ->
+                            ZonedDateTime.ofInstant(
+                                Instant.ofEpochSecond(developerCommentTime),
+                                ZoneOffset.UTC
+                            )
+                        },
+                    )
+                )
+            }
+        )
     }
 }

@@ -33,7 +33,7 @@ class ItunesRssReviewRepositoryTest : BaseMockTest() {
     ) {
         REQUEST_URL_DOMAIN = httpMockServerDomain
         val region = AppStoreRegion.fromValue(regionCode)
-        val mockData = javaClass.getResource("/review/itunes_rss/itunes_rss_reviews_mock_data.xml").readText()
+        val mockData = javaClass.getResource("/review/itunesrss/itunes_rss_reviews_mock_data.xml").readText()
         stubHttpUrl(REQUEST_URL_PATH.format(region.code, pageNo, appId), mockData)
 
         val request = ItunesRssReviewRequestParameters(
@@ -50,7 +50,6 @@ class ItunesRssReviewRepositoryTest : BaseMockTest() {
                 id.shouldNotBeEmpty()
                 id.shouldContainOnlyDigits()
                 title.shouldNotBeEmpty()
-                // TODO Cover other fields
             }
         }
         response.nextToken.shouldNotBeEmpty()

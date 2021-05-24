@@ -1,9 +1,9 @@
 package dev.fabiou.appvox.review.googleplay.constant
 
 enum class GooglePlaySortType(val sortType: Int) {
-    RELEVANT(1),
-    RECENT(2),
-    RATING(3);
+    RELEVANT(sortType = 1),
+    RECENT(sortType = 2),
+    RATING(sortType = 3);
 
     companion object {
         fun fromValue(sortType: Int): GooglePlaySortType {

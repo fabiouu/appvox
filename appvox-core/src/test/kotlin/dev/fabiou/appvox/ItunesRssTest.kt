@@ -33,11 +33,12 @@ class ItunesRssTest : BaseMockTest() {
         expectedReviewCount: Int
     ) = runBlockingTest {
         REQUEST_URL_DOMAIN = httpMockServerDomain
-        val mockData = javaClass.getResource("/review/itunes_rss/itunes_rss_reviews_mock_data.xml").readText()
+        val mockData = javaClass.getResource("/review/itunesrss/itunes_rss_reviews_mock_data.xml").readText()
         stubHttpUrl(REQUEST_URL_PATH.format(region, pageNo, appId), mockData)
 
         val reviews = ArrayList<ItunesRssReview>()
-        ItunesRss().reviews(appId)
+        ItunesRss()
+            .reviews(appId)
             .take(expectedReviewCount)
             .collect { review ->
                 reviews.add(review)
@@ -46,15 +47,16 @@ class ItunesRssTest : BaseMockTest() {
         reviews.forExactly(expectedReviewCount) { result ->
             assertSoftly(result) {
                 id.shouldNotBeEmpty()
+                url.shouldNotBeEmpty()
+            }
+            assertSoftly(result.latestUserComment) {
                 userName.shouldNotBeEmpty()
                 rating.shouldBeBetween(1, 5)
                 appVersion.shouldNotBeEmpty()
                 title.shouldNotBeEmpty()
-                comment.shouldNotBeEmpty()
-                translatedComment?.let { it.shouldNotBeEmpty() }
-                commentTime.shouldNotBeNull()
+                text.shouldNotBeEmpty()
+                time.shouldNotBeNull()
                 likeCount?.shouldBeGreaterThanOrEqual(0)
-                url.shouldNotBeEmpty()
             }
         }
     }
@@ -71,7 +73,7 @@ class ItunesRssTest : BaseMockTest() {
         expectedReviewCount: Int
     ) = runBlockingTest {
         REQUEST_URL_DOMAIN = httpMockServerDomain
-        val mockData = javaClass.getResource("/review/itunes_rss/itunes_rss_reviews_mock_data.xml").readText()
+        val mockData = javaClass.getResource("/review/itunesrss/itunes_rss_reviews_mock_data.xml").readText()
         stubHttpUrl(REQUEST_URL_PATH.format(region, pageNo, appId), mockData)
 
         val reviews = arrayListOf<ItunesRssReview>()
@@ -89,15 +91,16 @@ class ItunesRssTest : BaseMockTest() {
         reviews.forExactly(expectedReviewCount) { result ->
             assertSoftly(result) {
                 id.shouldNotBeEmpty()
+                url.shouldNotBeEmpty()
+            }
+            assertSoftly(result.latestUserComment) {
                 userName.shouldNotBeEmpty()
                 rating.shouldBeBetween(1, 5)
                 appVersion.shouldNotBeEmpty()
                 title.shouldNotBeEmpty()
-                comment.shouldNotBeEmpty()
-                translatedComment?.let { it.shouldNotBeEmpty() }
-                commentTime.shouldNotBeNull()
+                text.shouldNotBeEmpty()
+                time.shouldNotBeNull()
                 likeCount?.shouldBeGreaterThanOrEqual(0)
-                url.shouldNotBeEmpty()
             }
         }
     }

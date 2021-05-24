@@ -2,7 +2,7 @@ package dev.fabiou.appvox.util
 
 import java.util.concurrent.ConcurrentHashMap
 
-class MemoizeUtil<in FirstParameter, in SecondParameter, out Result>(
+internal class MemoizationUtil<in FirstParameter, in SecondParameter, out Result>(
     val f: (FirstParameter, SecondParameter) -> Result
 ) : (FirstParameter, SecondParameter) -> Result {
     private val values = ConcurrentHashMap<FirstParameter, Result>()
@@ -12,4 +12,4 @@ class MemoizeUtil<in FirstParameter, in SecondParameter, out Result>(
 }
 
 fun <FirstParameter, SecondParameter, Result> ((FirstParameter, SecondParameter) -> Result).memoize():
-        (FirstParameter, SecondParameter) -> Result = MemoizeUtil(this)
+        (FirstParameter, SecondParameter) -> Result = MemoizationUtil(this)
