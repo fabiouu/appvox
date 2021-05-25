@@ -1,6 +1,6 @@
 package dev.fabiou.appvox.review.googleplay
 
-import dev.fabiou.appvox.review.classification.ReviewType
+import dev.fabiou.appvox.review.classification.CommentType
 import dev.fabiou.appvox.review.classification.UserPersona
 import dev.fabiou.appvox.review.googleplay.domain.GooglePlayReviewResult
 import java.time.Period
@@ -8,16 +8,16 @@ import dev.fabiou.appvox.review.googleplay.domain.GooglePlayReview;
 
 internal class GooglePlayReviewClassificationService {
 
-//    private val LONG_REVIEW_THRESHOLD = 30
-//
-//    private val MIN_NEGATIVE_REVIEW_STAR = 1
-//
-//    private val MAX_NEGATIVE_REVIEW_STAR = 2
-//
-//    private val MIN_POSITIVE_REVIEW_STAR = 4
-//
-//    private val MAX_POSITIVE_REVIEW_STAR = 5
-//
+    private val LONG_REVIEW_THRESHOLD = 30
+
+    private val MIN_NEGATIVE_REVIEW_STAR = 1
+
+    private val MAX_NEGATIVE_REVIEW_STAR = 2
+
+    private val MIN_POSITIVE_REVIEW_STAR = 4
+
+    private val MAX_POSITIVE_REVIEW_STAR = 5
+
 //    private val LOYAL_USER_THRESOLD = 6
 //
 //    fun defineUserPersona(reviews: List<GooglePlayReviewResult>): Set<UserPersona> {
@@ -48,21 +48,16 @@ internal class GooglePlayReviewClassificationService {
 //
 //        return userPersonas
 //    }
-//
-//    fun classifyReview(review: GooglePlayResult): Set<ReviewType> {
-//        val reviewTypes = HashSet<ReviewType>()
-//        if (review.userCommentText.filter { !it.isWhitespace() }.length > LONG_REVIEW_THRESHOLD) {
-//            reviewTypes.add(ReviewType.LONG)
-//        }
-//        if (review.userCommentText.filter { !it.isWhitespace() }.length < LONG_REVIEW_THRESHOLD) {
-//            reviewTypes.add(ReviewType.SHORT)
-//        }
-//        if (review.rating in MIN_NEGATIVE_REVIEW_STAR..MAX_NEGATIVE_REVIEW_STAR) {
-//            reviewTypes.add(ReviewType.NEGATIVE)
-//        }
-//        if (review.rating in MIN_POSITIVE_REVIEW_STAR..MAX_POSITIVE_REVIEW_STAR) {
-//            reviewTypes.add(ReviewType.POSITIVE)
-//        }
-//        return reviewTypes
-//    }
+
+    fun classifyComment(commentText: String, commentRating: Int): Set<CommentType> {
+        val reviewTypes = HashSet<CommentType>()
+        val cleanCommentText = commentText.filter { !it.isWhitespace() }
+        when {
+            cleanCommentText.length > LONG_REVIEW_THRESHOLD -> reviewTypes.add(CommentType.LONG)
+            cleanCommentText.length < LONG_REVIEW_THRESHOLD -> reviewTypes.add(CommentType.SHORT)
+            commentRating in MIN_NEGATIVE_REVIEW_STAR..MAX_NEGATIVE_REVIEW_STAR -> reviewTypes.add(CommentType.NEGATIVE)
+            commentRating in MIN_POSITIVE_REVIEW_STAR..MAX_POSITIVE_REVIEW_STAR -> reviewTypes.add(CommentType.POSITIVE)
+        }
+        return reviewTypes
+    }
 }

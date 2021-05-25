@@ -1,6 +1,6 @@
 package dev.fabiou.appvox.review.classification
 
-enum class ReviewType(val type: Int) {
+enum class CommentType(val type: Int) {
     /**
      * Long review of your application (> N characters)
      */
