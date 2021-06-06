@@ -45,7 +45,7 @@ internal class AppStoreReviewService(
             }
             request = request.copy(request.parameters, response.nextToken)
             response.results.forEach { result ->
-                val review = appStoreReviewConverter.toResponse(result)
+                val review = appStoreReviewConverter.toResponse(request.parameters, result)
                 emit(review)
             }
             delay(timeMillis = config.delay.toLong())

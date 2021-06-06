@@ -4,8 +4,10 @@ import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.node.NullNode
 import dev.fabiou.appvox.configuration.RequestConfiguration
+import dev.fabiou.appvox.exception.AppVoxError.DESERIALIZATION
 import dev.fabiou.appvox.exception.AppVoxError.INVALID_ARGUMENT
 import dev.fabiou.appvox.exception.AppVoxException
+import dev.fabiou.appvox.exception.AppVoxNetworkException
 import dev.fabiou.appvox.review.ReviewRequest
 import dev.fabiou.appvox.review.ReviewResult
 import dev.fabiou.appvox.review.googleplay.domain.GooglePlayReviewRequestParameters
@@ -24,7 +26,6 @@ internal class GooglePlayReviewRepository(
             "&f.sid=%s" +
             "&bl=%s" +
             "&hl=%s" +
-            "&gl=US" +
             "&authuser" +
             "&soc-app=121" +
             "&soc-platform=1" +
@@ -92,6 +93,9 @@ internal class GooglePlayReviewRepository(
         val responseContent = httpUtils.postRequest(requestUrl, requestBody, config.proxy)
         val reviews = ArrayList<GooglePlayReviewResult>()
         val googlePlayResponse = parseReviewsFromResponse(responseContent)
+        if (googlePlayResponse.isEmpty) {
+            throw AppVoxNetworkException(DESERIALIZATION)
+        }
         val googlePlayRawReviews = googlePlayResponse.first()
         for (googlePlayRawReview in googlePlayRawReviews) {
             val review = parseReviewFromResponse(request, googlePlayRawReview)
@@ -122,6 +126,9 @@ internal class GooglePlayReviewRepository(
         val responseContent = httpUtils.postRequest(requestUrl, requestBody, config.proxy)
         val reviews = ArrayList<GooglePlayReviewResult>()
         val googlePlayResponse = parseReviewsFromResponse(responseContent)
+        if (googlePlayResponse.isEmpty) {
+            throw AppVoxNetworkException(DESERIALIZATION)
+        }
         val googlePlayRawReviews = googlePlayResponse.first()
         for (googlePlayRawReview in googlePlayRawReviews) {
             val review = parseReviewFromResponse(request, googlePlayRawReview)

@@ -1,5 +1,12 @@
 package dev.fabiou.appvox.review.itunesrss.domain
 
+import dev.fabiou.appvox.review.appstore.classification.AppStoreCommentType
+import dev.fabiou.appvox.review.appstore.classification.AppStoreCommentType.EXTENSIVE
+import dev.fabiou.appvox.review.appstore.classification.AppStoreCommentType.IRRELEVANT
+import dev.fabiou.appvox.review.appstore.classification.AppStoreUserType
+import dev.fabiou.appvox.review.appstore.classification.AppStoreUserType.DETRACTOR
+import dev.fabiou.appvox.review.appstore.classification.AppStoreUserType.PROMOTER
+import dev.fabiou.appvox.review.itunesrss.constant.AppStoreRegion
 import java.time.ZonedDateTime
 
 data class ItunesRssReview(
@@ -7,6 +14,11 @@ data class ItunesRssReview(
      * Review Id
      */
     val id: String,
+
+    /**
+     * AppStore region
+     */
+    val region: AppStoreRegion,
 
     /**
      * Url to the user's comment
@@ -18,6 +30,22 @@ data class ItunesRssReview(
      */
     val comments: List<Comment>,
 ) {
+    companion object {
+        private const val LONG_REVIEW_THRESHOLD = 150
+
+        private const val SHORT_REVIEW_THRESHOLD = 10
+
+        private const val MIN_NEGATIVE_REVIEW_STAR = 1
+
+        private const val MAX_NEGATIVE_REVIEW_STAR = 3 + 1
+
+        private const val MIN_POSITIVE_REVIEW_STAR = 4
+
+        private const val MAX_POSITIVE_REVIEW_STAR = 5 + 1
+
+        private const val POPULAR_USER_THRESOLD = 100
+    }
+
     /**
      * Most recent comment. Contains the conversation between user and developer
      */
@@ -71,6 +99,28 @@ data class ItunesRssReview(
         /**
          * Number of times users found this comment useful (thumbs-up / upvote / like)
          */
-        val likeCount: Int? = 0
-    )
+        val likeCount: Int = 0
+    ) {
+        val userTypes: Set<AppStoreUserType>
+            get() {
+                val userPersonas = HashSet<AppStoreUserType>()
+                when (rating) {
+                    in MIN_NEGATIVE_REVIEW_STAR..MAX_NEGATIVE_REVIEW_STAR -> userPersonas.add(DETRACTOR)
+                    in MIN_POSITIVE_REVIEW_STAR..MAX_POSITIVE_REVIEW_STAR -> userPersonas.add(PROMOTER)
+                }
+                return userPersonas
+            }
+
+        val commentTypes: Set<AppStoreCommentType>
+            get() {
+                val reviewTypes = HashSet<AppStoreCommentType>()
+                val cleanCommentText = text.filter { !it.isWhitespace() }
+                when {
+                    cleanCommentText.length > LONG_REVIEW_THRESHOLD -> reviewTypes.add(EXTENSIVE)
+                    cleanCommentText.length < SHORT_REVIEW_THRESHOLD -> reviewTypes.add(IRRELEVANT)
+                    likeCount >= POPULAR_USER_THRESOLD -> reviewTypes.add(AppStoreCommentType.POPULAR)
+                }
+                return reviewTypes
+            }
+    }
 }

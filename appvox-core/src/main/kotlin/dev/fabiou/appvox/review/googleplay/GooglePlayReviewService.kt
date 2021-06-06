@@ -22,6 +22,8 @@ internal class GooglePlayReviewService(
 
     private val googlePlayReviewRepository = GooglePlayReviewRepository(config)
 
+    private val googlePlayReviewConverter = GooglePlayReviewConverter()
+
     override fun getReviewsByAppId(
         initialRequest: ReviewRequest<GooglePlayReviewRequestParameters>
     ): Flow<GooglePlayReview> = flow {
@@ -56,9 +58,9 @@ internal class GooglePlayReviewService(
                     val reviewHistoryResult = retryRequest(MAX_RETRY_ATTEMPTS, MIN_RETRY_DELAY) {
                         googlePlayReviewRepository.getReviewHistoryById(result.reviewId, request)
                     }
-                    GooglePlayReviewConverter().toResponseWithHistory(result, reviewHistoryResult)
+                    googlePlayReviewConverter.toResponseWithHistory(request.parameters, result, reviewHistoryResult)
                 } else {
-                    GooglePlayReviewConverter().toResponse(result)
+                    googlePlayReviewConverter.toResponse(request.parameters, result)
                 }
                 emit(review)
             }

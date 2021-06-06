@@ -3,6 +3,7 @@ package dev.fabiou.appvox.review.googleplay
 import dev.fabiou.appvox.review.googleplay.domain.GooglePlayReview
 import dev.fabiou.appvox.review.googleplay.domain.GooglePlayReview.DeveloperComment
 import dev.fabiou.appvox.review.googleplay.domain.GooglePlayReview.UserComment
+import dev.fabiou.appvox.review.googleplay.domain.GooglePlayReviewRequestParameters
 import dev.fabiou.appvox.review.googleplay.domain.GooglePlayReviewResult
 import java.time.Instant
 import java.time.ZoneOffset
@@ -11,10 +12,12 @@ import java.time.ZonedDateTime
 internal class GooglePlayReviewConverter {
 
     fun toResponse(
+        requestParameters: GooglePlayReviewRequestParameters,
         result: GooglePlayReviewResult
     ): GooglePlayReview {
         return GooglePlayReview(
             id = result.reviewId,
+            language = requestParameters.language,
             url = result.reviewUrl,
             comments = arrayListOf(
                 GooglePlayReview.Comment(
@@ -28,7 +31,7 @@ internal class GooglePlayReviewConverter {
                             ZoneOffset.UTC
                         ),
                         likeCount = result.likeCount,
-                        appVersion = result.appVersion,
+                        appVersion = result.appVersion
                     ),
                     developer = DeveloperComment(
                         text = result.developerCommentText,
@@ -42,11 +45,13 @@ internal class GooglePlayReviewConverter {
     }
 
     fun toResponseWithHistory(
+        requestParameters: GooglePlayReviewRequestParameters,
         result: GooglePlayReviewResult,
         reviewHistory: List<GooglePlayReviewResult>
     ): GooglePlayReview {
         return GooglePlayReview(
             id = result.reviewId,
+            language = requestParameters.language,
             url = result.reviewUrl,
             comments = reviewHistory.map {
                 GooglePlayReview.Comment(
@@ -59,8 +64,8 @@ internal class GooglePlayReviewConverter {
                             Instant.ofEpochSecond(it.userCommentTime),
                             ZoneOffset.UTC
                         ),
-                        likeCount = it.likeCount,
-                        appVersion = it.appVersion,
+                        likeCount = result.likeCount,
+                        appVersion = it.appVersion
                     ),
                     developer = DeveloperComment(
                         text = it.developerCommentText,

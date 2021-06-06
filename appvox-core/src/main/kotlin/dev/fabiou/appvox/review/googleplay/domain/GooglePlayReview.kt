@@ -1,12 +1,25 @@
 package dev.fabiou.appvox.review.googleplay.domain
 
+import dev.fabiou.appvox.review.googleplay.classification.GooglePlayCommentType
+import dev.fabiou.appvox.review.googleplay.classification.GooglePlayCommentType.*
+import dev.fabiou.appvox.review.googleplay.classification.GooglePlayUserType
+import dev.fabiou.appvox.review.googleplay.classification.GooglePlayUserType.*
+import dev.fabiou.appvox.review.googleplay.constant.GooglePlayLanguage
+import java.time.Period.between
 import java.time.ZonedDateTime
+import kotlin.math.abs
 
 data class GooglePlayReview(
+
     /**
      * Review Id
      */
     val id: String,
+
+    /**
+     * Google Play language
+     */
+    val language: GooglePlayLanguage,
 
     /**
      * Url to the user's comment
@@ -18,6 +31,48 @@ data class GooglePlayReview(
      */
     val comments: List<Comment>,
 ) {
+
+    companion object {
+        private const val LONG_REVIEW_THRESHOLD = 150
+
+        private const val SHORT_REVIEW_THRESHOLD = 10
+
+        private const val MIN_NEGATIVE_REVIEW_STAR = 1
+
+        private const val MAX_NEGATIVE_REVIEW_STAR = 3 + 1
+
+        private const val MIN_POSITIVE_REVIEW_STAR = 4
+
+        private const val MAX_POSITIVE_REVIEW_STAR = 5 + 1
+
+        private const val LOYAL_USER_THRESOLD = 6
+
+        private const val POPULAR_USER_THRESOLD = 100
+    }
+
+    val userTypes: Set<GooglePlayUserType>
+        get() {
+            val userPersonas = HashSet<GooglePlayUserType>()
+            val sortedReviews = comments.sortedByDescending { it.user.text }
+
+            val firstUserComment = sortedReviews.last().user
+            val firstCommentTime = firstUserComment.lastUpdateTime.toLocalDate()
+            val firstCommentRating = firstUserComment.rating
+
+            val lastUserComment = sortedReviews.first().user
+            val lastCommentTime = lastUserComment.lastUpdateTime.toLocalDate()
+            val lastCommentRating = lastUserComment.rating
+
+            when {
+                abs(between(firstCommentTime, lastCommentTime).months) >= LOYAL_USER_THRESOLD -> userPersonas.add(LOYAL)
+                firstCommentRating > lastCommentRating -> userPersonas.add(DISSATISFIED)
+                firstCommentRating < lastCommentRating -> userPersonas.add(SATISFIED)
+                lastCommentRating in MIN_NEGATIVE_REVIEW_STAR..MAX_NEGATIVE_REVIEW_STAR -> userPersonas.add(DETRACTOR)
+                lastCommentRating in MIN_POSITIVE_REVIEW_STAR..MAX_POSITIVE_REVIEW_STAR -> userPersonas.add(PROMOTER)
+            }
+            return userPersonas
+        }
+
     /**
      * Most recent comment. Contains the conversation between user and developer
      */
@@ -87,8 +142,21 @@ data class GooglePlayReview(
         /**
          * Number of times users found this comment useful (thumbs-up / upvote / like)
          */
-        val likeCount: Int = 0,
-    )
+        val likeCount: Int = 0
+
+    ) {
+        val types: Set<GooglePlayCommentType>
+            get() {
+                val reviewTypes = HashSet<GooglePlayCommentType>()
+                val cleanCommentText = text.filter { !it.isWhitespace() }
+                when {
+                    cleanCommentText.length > LONG_REVIEW_THRESHOLD -> reviewTypes.add(EXTENSIVE)
+                    cleanCommentText.length < SHORT_REVIEW_THRESHOLD -> reviewTypes.add(IRRELEVANT)
+                    likeCount >= POPULAR_USER_THRESOLD -> reviewTypes.add(POPULAR)
+                }
+                return reviewTypes
+            }
+    }
 
     data class DeveloperComment(
         /**

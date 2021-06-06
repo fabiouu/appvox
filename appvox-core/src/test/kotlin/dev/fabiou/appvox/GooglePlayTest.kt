@@ -61,7 +61,10 @@ class GooglePlayTest : BaseMockTest() {
         reviews.forExactly(expectedReviewCount) { result ->
             assertSoftly(result) {
                 id shouldStartWith "gp:"
+                language.shouldNotBeNull()
                 url shouldContain id
+                userTypes.shouldNotBeNull()
+                latestComment.shouldNotBeNull()
             }
             assertSoftly(result.latestUserComment) {
                 name.shouldNotBeEmpty()
@@ -70,6 +73,7 @@ class GooglePlayTest : BaseMockTest() {
                 text.shouldNotBeEmpty()
                 lastUpdateTime.shouldNotBeNull()
                 likeCount.shouldBeGreaterThanOrEqual(0)
+                types.shouldNotBeNull()
             }
             assertSoftly(result.latestDeveloperComment) {
                 text?.let { it.shouldNotBeEmpty() }
@@ -121,7 +125,10 @@ class GooglePlayTest : BaseMockTest() {
         reviews.forExactly(expectedReviewCount) { result ->
             assertSoftly(result) {
                 id shouldStartWith "gp:"
+                language.shouldNotBeNull()
                 url shouldContain id
+                userTypes.shouldNotBeNull()
+                latestComment.shouldNotBeNull()
             }
             assertSoftly(result.latestUserComment) {
                 name.shouldNotBeEmpty()
@@ -130,6 +137,7 @@ class GooglePlayTest : BaseMockTest() {
                 text.shouldNotBeEmpty()
                 lastUpdateTime.shouldNotBeNull()
                 likeCount.shouldBeGreaterThanOrEqual(0)
+                types.shouldNotBeNull()
             }
             assertSoftly(result.latestDeveloperComment) {
                 text?.let { it.shouldNotBeEmpty() }
