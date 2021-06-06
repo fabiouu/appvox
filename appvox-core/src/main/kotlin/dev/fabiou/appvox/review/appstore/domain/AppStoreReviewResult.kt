@@ -4,7 +4,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 internal data class AppStoreReviewResult(
-    val next: String?,
+    val next: String? = "",
     val data: List<AppStoreReview>
 ) {
     @Serializable

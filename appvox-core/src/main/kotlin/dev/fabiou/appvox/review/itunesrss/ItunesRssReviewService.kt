@@ -19,6 +19,8 @@ internal class ItunesRssReviewService(
 
     private val itunesRssReviewRepository = ItunesRssReviewRepository(config)
 
+    private val itunesRssReviewConverter = ItunesRssReviewConverter()
+
     override fun getReviewsByAppId(
         initialRequest: ReviewRequest<ItunesRssReviewRequestParameters>
     ): Flow<ItunesRssReview> = flow {
@@ -29,7 +31,7 @@ internal class ItunesRssReviewService(
             }
             request = request.copy(request.parameters, response.nextToken)
             response.results.forEach { result ->
-                val review = ItunesRssReviewConverter().toResponse(result)
+                val review = itunesRssReviewConverter.toResponse(request.parameters, result)
                 emit(review)
             }
             delay(timeMillis = config.delay.toLong())

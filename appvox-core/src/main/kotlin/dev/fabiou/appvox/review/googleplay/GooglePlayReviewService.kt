@@ -6,7 +6,6 @@ import dev.fabiou.appvox.configuration.Constant.MIN_RETRY_DELAY
 import dev.fabiou.appvox.configuration.RequestConfiguration
 import dev.fabiou.appvox.review.ReviewRequest
 import dev.fabiou.appvox.review.ReviewService
-import dev.fabiou.appvox.review.classification.CommentClassificationService
 import dev.fabiou.appvox.review.googleplay.domain.GooglePlayReview
 import dev.fabiou.appvox.review.googleplay.domain.GooglePlayReviewRequestParameters
 import dev.fabiou.appvox.review.googleplay.domain.GooglePlayReviewResult
@@ -22,6 +21,8 @@ internal class GooglePlayReviewService(
     private val googlePlayRepository = GooglePlayRepository(config)
 
     private val googlePlayReviewRepository = GooglePlayReviewRepository(config)
+
+    private val googlePlayReviewConverter = GooglePlayReviewConverter()
 
     override fun getReviewsByAppId(
         initialRequest: ReviewRequest<GooglePlayReviewRequestParameters>
@@ -57,15 +58,9 @@ internal class GooglePlayReviewService(
                     val reviewHistoryResult = retryRequest(MAX_RETRY_ATTEMPTS, MIN_RETRY_DELAY) {
                         googlePlayReviewRepository.getReviewHistoryById(result.reviewId, request)
                     }
-//                    val userTypes = GooglePlayReviewClassificationService().defineUserPersona(reviewHistoryResult)
-                    GooglePlayReviewConverter().toResponseWithHistory(
-                        result,
-                        reviewHistoryResult,
-                        emptySet()
-                    )
+                    googlePlayReviewConverter.toResponseWithHistory(request.parameters, result, reviewHistoryResult)
                 } else {
-//                    val userTypes = GooglePlayReviewClassificationService().classify(result)
-                    GooglePlayReviewConverter().toResponse(result)
+                    googlePlayReviewConverter.toResponse(request.parameters, result)
                 }
                 emit(review)
             }

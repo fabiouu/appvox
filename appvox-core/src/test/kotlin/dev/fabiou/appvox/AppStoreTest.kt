@@ -52,6 +52,7 @@ class AppStoreTest : BaseMockTest() {
         reviews.forExactly(expectedReviewCount) { result ->
             assertSoftly(result) {
                 id.shouldNotBeEmpty()
+                region.shouldNotBeNull()
                 userName.shouldNotBeEmpty()
                 rating.shouldBeBetween(1, 5)
                 title.shouldNotBeEmpty()
@@ -59,6 +60,8 @@ class AppStoreTest : BaseMockTest() {
                 commentTime.shouldNotBeNull()
                 replyComment?.let { it.shouldNotBeEmpty() }
                 replyTime?.let { it.shouldNotBeNull() }
+                commentTypes.shouldNotBeNull()
+                userTypes.shouldNotBeNull()
             }
         }
     }
@@ -97,6 +100,7 @@ class AppStoreTest : BaseMockTest() {
         reviews.forExactly(expectedReviewCount) { result ->
             assertSoftly(result) {
                 id.shouldNotBeEmpty()
+                region.shouldNotBeNull()
                 userName.shouldNotBeEmpty()
                 rating.shouldBeBetween(1, 5)
                 title.shouldNotBeEmpty()
@@ -104,6 +108,8 @@ class AppStoreTest : BaseMockTest() {
                 commentTime.shouldNotBeNull()
                 replyComment?.let { it.shouldNotBeEmpty() }
                 replyTime?.let { it.shouldNotBeNull() }
+                commentTypes.shouldNotBeNull()
+                userTypes.shouldNotBeNull()
             }
         }
     }

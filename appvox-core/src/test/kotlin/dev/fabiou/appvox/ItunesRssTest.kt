@@ -47,7 +47,9 @@ class ItunesRssTest : BaseMockTest() {
         reviews.forExactly(expectedReviewCount) { result ->
             assertSoftly(result) {
                 id.shouldNotBeEmpty()
+                region.shouldNotBeNull()
                 url.shouldNotBeEmpty()
+                latestComment.shouldNotBeNull()
             }
             assertSoftly(result.latestUserComment) {
                 userName.shouldNotBeEmpty()
@@ -56,7 +58,9 @@ class ItunesRssTest : BaseMockTest() {
                 title.shouldNotBeEmpty()
                 text.shouldNotBeEmpty()
                 time.shouldNotBeNull()
-                likeCount?.shouldBeGreaterThanOrEqual(0)
+                likeCount.shouldBeGreaterThanOrEqual(0)
+                commentTypes.shouldNotBeNull()
+                userTypes.shouldNotBeNull()
             }
         }
     }
@@ -91,7 +95,9 @@ class ItunesRssTest : BaseMockTest() {
         reviews.forExactly(expectedReviewCount) { result ->
             assertSoftly(result) {
                 id.shouldNotBeEmpty()
+                region.shouldNotBeNull()
                 url.shouldNotBeEmpty()
+                latestComment.shouldNotBeNull()
             }
             assertSoftly(result.latestUserComment) {
                 userName.shouldNotBeEmpty()
@@ -100,7 +106,9 @@ class ItunesRssTest : BaseMockTest() {
                 title.shouldNotBeEmpty()
                 text.shouldNotBeEmpty()
                 time.shouldNotBeNull()
-                likeCount?.shouldBeGreaterThanOrEqual(0)
+                likeCount.shouldBeGreaterThanOrEqual(0)
+                commentTypes.shouldNotBeNull()
+                userTypes.shouldNotBeNull()
             }
         }
     }
