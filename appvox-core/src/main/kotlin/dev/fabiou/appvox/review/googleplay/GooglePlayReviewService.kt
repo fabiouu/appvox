@@ -53,7 +53,9 @@ internal class GooglePlayReviewService(
             }
             request = request.copy(request.parameters, response.nextToken)
             response.results.forEach { result ->
-                val review = if (request.parameters.fetchHistory) {
+                val review = if (request.parameters.fetchHistory
+                    && result.hasEditHistory != null && result.hasEditHistory
+                ) {
                     delay(timeMillis = config.delay.toLong())
                     val reviewHistoryResult = retryRequest(MAX_RETRY_ATTEMPTS, MIN_RETRY_DELAY) {
                         googlePlayReviewRepository.getReviewHistoryById(result.reviewId, request)

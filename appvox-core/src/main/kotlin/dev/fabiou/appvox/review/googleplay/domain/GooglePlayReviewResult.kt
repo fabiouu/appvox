@@ -11,6 +11,7 @@ data class GooglePlayReviewResult(
     val reviewUrl: String,
     val appVersion: String?,
     val criterias: List<Criteria>,
+    val hasEditHistory: Boolean?,
     val developerCommentText: String?,
     val developerCommentTime: Long?
 ) {

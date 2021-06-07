@@ -53,6 +53,7 @@ internal class GooglePlayReviewRepository(
         private val CRITERIA_INDEX = intArrayOf(12)
         private val CRITERIA_CATEGORY_INDEX = intArrayOf(0)
         private val CRITERIA_RATING_INDEX = intArrayOf(1, 0)
+        private val HAS_EDIT_HISTORY = intArrayOf(14, 0)
         private val TOKEN_INDEX = intArrayOf(1, 1)
 
         private const val GOOGLE_PLAY_SUB_RESPONSE_START_INDEX = 4
@@ -157,6 +158,7 @@ internal class GooglePlayReviewRepository(
                 request.parameters.language.code,
                 getJsonNodeByIndex(googlePlayRawReview, REVIEW_ID_INDEX).asText()
             ),
+            hasEditHistory = getJsonNodeByIndex(googlePlayRawReview, HAS_EDIT_HISTORY).whenNotNull { it.asBoolean() },
             developerCommentText = getJsonNodeByIndex(googlePlayRawReview, REPLY_COMMENT_INDEX)
                 .whenNotNull { it.asText() },
             developerCommentTime = getJsonNodeByIndex(googlePlayRawReview, REPLY_SUBMIT_TIME_INDEX)
