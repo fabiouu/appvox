@@ -32,9 +32,9 @@ internal class GooglePlayReviewRepository(
             "&soc-device=1" +
             "&_reqid=%s"
         private const val REQUEST_BODY_WITH_PARAMS =
-            "f.req=[[[\"UsvDTd\",\"[null,null,[2,%d,[%d,null,null],null,[]],[\\\"%s\\\",7]]\",null,\"generic\"]]]"
+            "f.req=[[[\"UsvDTd\",\"[null,null,[2,%d,[%d,null,null],null,[null,null,\\\"%s\\\"]],[\\\"%s\\\",7]]\",null,\"generic\"]]]"
         private const val REQUEST_BODY_WITH_PARAMS_AND_BODY =
-            "f.req=[[[\"UsvDTd\",\"[null,null,[2,null,[%d,null,\\\"%s\\\"],null,[]],[\\\"%s\\\",7]]\",null,\"generic\"]]]"
+            "f.req=[[[\"UsvDTd\",\"[null,null,[2,null,[%d,null,\\\"%s\\\"],null,[null,null,\\\"%s\\\"]],[\\\"%s\\\",7]]\",null,\"generic\"]]]"
         private const val REQUEST_BODY_HISTORY =
             "f.req=[[[\"UsvDTd\",\"[null,null,[4,null,[%d]],[\\\"%s\\\",7],\\\"%s\\\"]\",null,\"1\"]]]"
         private const val REVIEW_URL = "https://play.google.com/store/apps/details?id=%s&hl=%s&reviewId=%s"
@@ -82,12 +82,14 @@ internal class GooglePlayReviewRepository(
             REQUEST_BODY_WITH_PARAMS.format(
                 request.parameters.sortType.sortType,
                 request.parameters.batchSize,
+                request.parameters.deviceName,
                 request.parameters.appId
             )
         } else {
             REQUEST_BODY_WITH_PARAMS_AND_BODY.format(
                 request.parameters.batchSize,
                 request.nextToken,
+                request.parameters.deviceName,
                 request.parameters.appId
             )
         }

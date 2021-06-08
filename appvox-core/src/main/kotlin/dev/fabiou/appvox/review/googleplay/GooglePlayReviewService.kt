@@ -43,6 +43,7 @@ internal class GooglePlayReviewService(
                         rating = request.parameters.rating,
                         fetchHistory = request.parameters.fetchHistory,
                         batchSize = request.parameters.batchSize,
+                        deviceName = request.parameters.deviceName,
                         sid = scriptParameters["sid"] ?: error("Failed to extract Google Play sid value"),
                         bl = scriptParameters["bl"] ?: error("Failed to extract Google Play bl value"),
                     ),
@@ -53,8 +54,8 @@ internal class GooglePlayReviewService(
             }
             request = request.copy(request.parameters, response.nextToken)
             response.results.forEach { result ->
-                val review = if (request.parameters.fetchHistory
-                    && result.hasEditHistory != null && result.hasEditHistory
+                val review = if (request.parameters.fetchHistory &&
+                    result.hasEditHistory != null && result.hasEditHistory
                 ) {
                     delay(timeMillis = config.delay.toLong())
                     val reviewHistoryResult = retryRequest(MAX_RETRY_ATTEMPTS, MIN_RETRY_DELAY) {
