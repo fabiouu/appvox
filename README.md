@@ -28,18 +28,20 @@ The library offers a convenient way of consuming an asynchronous [Kotlin Flow](h
 
 <!-- # Motivation -->
 
-
 # Table of content
-- [Features](#features)
-- [Quick start](#quick-start)
-- [Usage](#usage)
-- [Implementation Details](#implementation-details)
-- [License](#license)
+* [Features](#features)
+* [Quick start](#quick-start)
+* [Usage](#usage)
+* [Implementation Details](#implementation-details)
+* [License](#license)
 
 # Features
- - Review
-    - Enables you to consume a continuous stream of reviews from Google Play, App Store or Itunes RSS Feed. 
-    Reviews can be filtered by region (App Store) or language/rating (Google Play) and sorted by relevance or date.
+ * Reviews
+    * Support Google Play, App Store and Itunes Rss platforms
+    * Consume a continuous stream of reviews by leveraging Kotlin Flows. The library handles scraping pagination for you.
+    * Filter reviews by language, region, rating, popularity, or user persona
+    * Sort reviews by relevance, date or rating
+    * Automatically classify users from their reviews to understand more about their behavior
 
 # Quick start
 For now, the project is only available through Jitpack.io repository. Release to Maven Central will come with the project's first stable release.
@@ -98,7 +100,16 @@ fun main() = runBlocking {
 ```
 
 # Usage
-Only `appvox-core` package is necessary to start using AppVox.
+* [Proxy](#proxy)
+* [Reviews](#reviews)
+  * [Google Play](#google-play)
+  * [Itunes RSS](#itunes-rss)
+  * [App Store](#app-store)
+  * [Filtering](#filtering)
+  * [Classification](#classification)
+
+Only `appvox-core` package is necessary to start using AppVox. 
+A variety of filters are available to allow you to focus on the data that matter the most to you.
 
 | Package | Description |
 |----------|---------|
@@ -241,6 +252,16 @@ fun main() = runBlocking {
 }
 
 ```
+
+### Classification
+Each review and the user who commented are classified into different categories
+
+#### User Categories
+| Name | Availability| Description |
+|----------|---------|---------|
+|  LOYAL | GooglePlay | AppVox usage examples |
+
+
 
 # Implementation Details
 ##  Architecture
