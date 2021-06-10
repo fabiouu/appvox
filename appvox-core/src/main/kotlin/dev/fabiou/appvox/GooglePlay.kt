@@ -30,6 +30,8 @@ class GooglePlay(
 
     /**
      * Returns a Kotlin Flow of reviews
+     * @param deviceName The list of devices supported by Google Play can be found here:
+     * https://storage.googleapis.com/play_public/supported_devices.html
      */
     fun reviews(
         appId: String,
