@@ -52,7 +52,7 @@ data class GooglePlayReview(
 
     val userTypes: Set<GooglePlayUserType>
         get() {
-            val userPersonas = HashSet<GooglePlayUserType>()
+            val userTypes = HashSet<GooglePlayUserType>()
             val sortedReviews = comments.sortedByDescending { it.user.text }
 
             val firstUserComment = sortedReviews.last().user
@@ -63,14 +63,13 @@ data class GooglePlayReview(
             val lastCommentTime = lastUserComment.lastUpdateTime.toLocalDate()
             val lastCommentRating = lastUserComment.rating
 
-            when {
-                abs(between(firstCommentTime, lastCommentTime).months) >= LOYAL_USER_THRESOLD -> userPersonas.add(LOYAL)
-                firstCommentRating > lastCommentRating -> userPersonas.add(DISSATISFIED)
-                firstCommentRating < lastCommentRating -> userPersonas.add(SATISFIED)
-                lastCommentRating in MIN_NEGATIVE_REVIEW_STAR..MAX_NEGATIVE_REVIEW_STAR -> userPersonas.add(DETRACTOR)
-                lastCommentRating in MIN_POSITIVE_REVIEW_STAR..MAX_POSITIVE_REVIEW_STAR -> userPersonas.add(PROMOTER)
-            }
-            return userPersonas
+            if (abs(between(firstCommentTime, lastCommentTime).months) >= LOYAL_USER_THRESOLD) userTypes.add(LOYAL)
+            if (firstCommentRating > lastCommentRating) userTypes.add(DISSATISFIED)
+            if (firstCommentRating < lastCommentRating) userTypes.add(SATISFIED)
+            if (lastCommentRating in MIN_NEGATIVE_REVIEW_STAR..MAX_NEGATIVE_REVIEW_STAR) userTypes.add(DETRACTOR)
+            if (lastCommentRating in MIN_POSITIVE_REVIEW_STAR..MAX_POSITIVE_REVIEW_STAR) userTypes.add(PROMOTER)
+
+            return userTypes
         }
 
     /**
@@ -149,11 +148,11 @@ data class GooglePlayReview(
             get() {
                 val reviewTypes = HashSet<GooglePlayCommentType>()
                 val cleanCommentText = text.filter { !it.isWhitespace() }
-                when {
-                    cleanCommentText.length > LONG_REVIEW_THRESHOLD -> reviewTypes.add(EXTENSIVE)
-                    cleanCommentText.length < SHORT_REVIEW_THRESHOLD -> reviewTypes.add(IRRELEVANT)
-                    likeCount >= POPULAR_USER_THRESOLD -> reviewTypes.add(POPULAR)
-                }
+//                when {
+                if (cleanCommentText.length > LONG_REVIEW_THRESHOLD) reviewTypes.add(EXTENSIVE)
+                if (cleanCommentText.length < SHORT_REVIEW_THRESHOLD) reviewTypes.add(IRRELEVANT)
+                if (likeCount >= POPULAR_USER_THRESOLD) reviewTypes.add(POPULAR)
+//                }
                 return reviewTypes
             }
     }
