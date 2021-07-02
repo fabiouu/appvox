@@ -96,13 +96,15 @@ internal class GooglePlayReviewRepository(
         val responseContent = httpUtils.postRequest(requestUrl, requestBody, config.proxy)
         val reviews = ArrayList<GooglePlayReviewResult>()
         val googlePlayResponse = parseReviewsFromResponse(responseContent)
-        if (googlePlayResponse.isEmpty) {
+        if (googlePlayResponse.isNull) {
             throw AppVoxNetworkException(DESERIALIZATION)
         }
-        val googlePlayRawReviews = googlePlayResponse.first()
-        for (googlePlayRawReview in googlePlayRawReviews) {
-            val review = parseReviewFromResponse(request, googlePlayRawReview)
-            reviews.add(review)
+        if (!googlePlayResponse.isEmpty) {
+            val googlePlayRawReviews = googlePlayResponse.first()
+            for (googlePlayRawReview in googlePlayRawReviews) {
+                val review = parseReviewFromResponse(request, googlePlayRawReview)
+                reviews.add(review)
+            }
         }
 
         val tokenJsonNode = getJsonNodeByIndex(googlePlayResponse, TOKEN_INDEX)
