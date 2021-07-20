@@ -1,9 +1,10 @@
 package dev.fabiou.appvox.review.googleplay.domain
 
+import dev.fabiou.appvox.configuration.Constant
 import dev.fabiou.appvox.review.googleplay.constant.GooglePlayLanguage
 import dev.fabiou.appvox.review.googleplay.constant.GooglePlaySortType
 
-internal data class GooglePlayReviewRequestParameters(
+data class GooglePlayReviewRequestParameters(
     val appId: String,
     val language: GooglePlayLanguage,
     val sortType: GooglePlaySortType,
@@ -13,4 +14,26 @@ internal data class GooglePlayReviewRequestParameters(
     val deviceName: String? = null,
     val sid: String? = null,
     val bl: String? = null
-)
+) {
+    private constructor(builder: Builder) : this(
+        appId = builder.appId,
+        language = builder.language,
+        sortType = builder.sortType,
+        rating = builder.rating,
+        fetchHistory = builder.fetchHistory,
+        deviceName = builder.deviceName,
+        batchSize = builder.batchSize
+    )
+
+    class Builder {
+        lateinit var appId: String
+        var language: GooglePlayLanguage = GooglePlayLanguage.ENGLISH_US
+        var sortType: GooglePlaySortType = GooglePlaySortType.RECENT
+        var rating: Int? = null
+        var fetchHistory: Boolean = false
+        var deviceName: String? = null
+        var batchSize: Int = Constant.DEFAULT_BATCH_SIZE
+
+        fun build() = GooglePlayReviewRequestParameters(this)
+    }
+}

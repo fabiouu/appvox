@@ -14,7 +14,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
-internal class GooglePlayReviewService(
+@PublishedApi internal class GooglePlayReviewService(
     val config: RequestConfiguration
 ) : ReviewService<GooglePlayReviewRequestParameters, GooglePlayReviewResult, GooglePlayReview> {
 
@@ -24,7 +24,7 @@ internal class GooglePlayReviewService(
 
     private val googlePlayReviewConverter = GooglePlayReviewConverter()
 
-    override fun getReviewsByAppId(
+     override fun getReviewsByAppId(
         initialRequest: ReviewRequest<GooglePlayReviewRequestParameters>
     ): Flow<GooglePlayReview> = flow {
         var request = initialRequest

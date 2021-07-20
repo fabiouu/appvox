@@ -20,7 +20,7 @@ import kotlinx.coroutines.flow.Flow
 class GooglePlay(
     val config: RequestConfiguration = RequestConfiguration(delay = MIN_REQUEST_DELAY)
 ) {
-    private val googlePlayReviewService = GooglePlayReviewService(config)
+    @PublishedApi internal val googlePlayReviewService = GooglePlayReviewService(config)
 
     init {
         config.proxyAuthentication?.let {
@@ -47,6 +47,15 @@ class GooglePlay(
         }
         val initialRequest = ReviewRequest(
             GooglePlayReviewRequestParameters(appId, language, sortType, rating, fetchHistory, batchSize, deviceName))
+        return googlePlayReviewService.getReviewsByAppId(initialRequest)
+    }
+
+    inline fun reviews(block: GooglePlayReviewRequestParameters.Builder.() -> Unit): Flow<GooglePlayReview> {
+        if (config.delay < MIN_REQUEST_DELAY) {
+            throw AppVoxException(AppVoxError.REQ_DELAY_TOO_SHORT)
+        }
+        val googlePlayRequest = GooglePlayReviewRequestParameters.Builder().apply(block).build()
+        val initialRequest = ReviewRequest(googlePlayRequest)
         return googlePlayReviewService.getReviewsByAppId(initialRequest)
     }
 }
