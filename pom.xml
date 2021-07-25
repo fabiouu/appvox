@@ -38,6 +38,7 @@
         <module>appvox-core</module>
         <module>appvox-googleplay</module>
         <module>appvox-appstore</module>
+        <module>appvox-all</module>
         <!--        <module>appvox-examples</module>-->
     </modules>
 

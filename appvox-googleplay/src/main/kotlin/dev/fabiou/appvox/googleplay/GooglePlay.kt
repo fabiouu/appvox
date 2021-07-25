@@ -33,28 +33,11 @@ class GooglePlay(
      * @param deviceName The list of devices supported by Google Play can be found here:
      * https://storage.googleapis.com/play_public/supported_devices.html
      */
-    fun reviews(
-        appId: String,
-        language: GooglePlayLanguage = GooglePlayLanguage.ENGLISH_US,
-        sortType: GooglePlaySortType = GooglePlaySortType.RECENT,
-        rating: Int? = null,
-        fetchHistory: Boolean = false,
-        deviceName: String? = null,
-        batchSize: Int = DEFAULT_BATCH_SIZE
-    ): Flow<GooglePlayReview> {
+    fun reviews(parameters: GooglePlayReviewRequestParameters.Builder.() -> Unit): Flow<GooglePlayReview> {
         if (config.delay < MIN_REQUEST_DELAY) {
             throw AppVoxException(AppVoxError.REQ_DELAY_TOO_SHORT)
         }
-        val initialRequest = ReviewRequest(
-            GooglePlayReviewRequestParameters(appId, language, sortType, rating, fetchHistory, batchSize, deviceName))
-        return googlePlayReviewService.getReviewsByAppId(initialRequest)
-    }
-
-    public fun reviews(block: GooglePlayReviewRequestParameters.Builder.() -> Unit): Flow<GooglePlayReview> {
-        if (config.delay < MIN_REQUEST_DELAY) {
-            throw AppVoxException(AppVoxError.REQ_DELAY_TOO_SHORT)
-        }
-        val googlePlayRequest = GooglePlayReviewRequestParameters.Builder().apply(block).build()
+        val googlePlayRequest = GooglePlayReviewRequestParameters.Builder().apply(parameters).build()
         val initialRequest = ReviewRequest(googlePlayRequest)
         return googlePlayReviewService.getReviewsByAppId(initialRequest)
     }
