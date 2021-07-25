@@ -4,7 +4,7 @@ import dev.fabiou.appvox.configuration.Constant.DELAY_FACTOR
 import dev.fabiou.appvox.exception.AppVoxNetworkException
 import kotlinx.coroutines.delay
 
-suspend inline fun <R> retryRequest(
+internal suspend inline fun <R> retryRequest(
     maxAttempts: Int,
     minRetryDelay: Long,
     delayFactor: Double = DELAY_FACTOR,

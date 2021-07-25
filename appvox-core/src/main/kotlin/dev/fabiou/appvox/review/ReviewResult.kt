@@ -1,6 +1,6 @@
 package dev.fabiou.appvox.review
 
-class ReviewResult<Result>(
+internal class ReviewResult<Result>(
     val results: List<Result>,
     val nextToken: String? = null
 )

@@ -9,7 +9,8 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>appvox-googleplay</artifactId>
+    <artifactId>appvox-appstore</artifactId>
+
 
     <dependencies>
         <dependency>
@@ -27,10 +28,6 @@
         <dependency>
             <groupId>org.jetbrains.kotlinx</groupId>
             <artifactId>kotlinx-serialization-json-jvm</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.module</groupId>
-            <artifactId>jackson-module-kotlin</artifactId>
         </dependency>
         <dependency>
             <groupId>dev.fabiou.appvox</groupId>
@@ -98,4 +95,5 @@
             </plugin>
         </plugins>
     </build>
+
 </project>

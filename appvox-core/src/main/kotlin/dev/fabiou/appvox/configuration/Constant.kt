@@ -1,6 +1,6 @@
 package dev.fabiou.appvox.configuration
 
-object Constant {
+internal object Constant {
 
     /**
      * Minimum request delay in milliseconds between two network requests
