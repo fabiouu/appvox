@@ -36,7 +36,8 @@
 
     <modules>
         <module>appvox-core</module>
-<!--        <module>appvox-examples</module>-->
+        <module>appvox-googleplay</module>
+        <!--        <module>appvox-examples</module>-->
     </modules>
 
     <properties>

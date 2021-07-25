@@ -1,10 +1,8 @@
-package dev.fabiou.appvox.review.googleplay
+package dev.fabiou.appvox.googleplay.review
 
-import dev.fabiou.appvox.review.googleplay.domain.GooglePlayReview
-import dev.fabiou.appvox.review.googleplay.domain.GooglePlayReview.DeveloperComment
-import dev.fabiou.appvox.review.googleplay.domain.GooglePlayReview.UserComment
-import dev.fabiou.appvox.review.googleplay.domain.GooglePlayReviewRequestParameters
-import dev.fabiou.appvox.review.googleplay.domain.GooglePlayReviewResult
+import dev.fabiou.appvox.googleplay.review.domain.GooglePlayReview
+import dev.fabiou.appvox.googleplay.review.domain.GooglePlayReviewRequestParameters
+import dev.fabiou.appvox.googleplay.review.domain.GooglePlayReviewResult
 import java.time.Instant
 import java.time.ZoneOffset
 import java.time.ZonedDateTime
@@ -21,7 +19,7 @@ internal class GooglePlayReviewConverter {
             url = result.reviewUrl,
             comments = arrayListOf(
                 GooglePlayReview.Comment(
-                    user = UserComment(
+                    user = GooglePlayReview.UserComment(
                         name = result.userName,
                         avatar = result.userProfilePicUrl,
                         rating = result.rating,
@@ -33,7 +31,7 @@ internal class GooglePlayReviewConverter {
                         likeCount = result.likeCount,
                         appVersion = result.appVersion
                     ),
-                    developer = DeveloperComment(
+                    developer = GooglePlayReview.DeveloperComment(
                         text = result.developerCommentText,
                         lastUpdateTime = result.developerCommentTime?.let {
                             ZonedDateTime.ofInstant(Instant.ofEpochSecond(it), ZoneOffset.UTC)
@@ -55,7 +53,7 @@ internal class GooglePlayReviewConverter {
             url = result.reviewUrl,
             comments = reviewHistory.map {
                 GooglePlayReview.Comment(
-                    user = UserComment(
+                    user = GooglePlayReview.UserComment(
                         name = it.userName,
                         avatar = it.userProfilePicUrl,
                         rating = it.rating,
@@ -67,7 +65,7 @@ internal class GooglePlayReviewConverter {
                         likeCount = result.likeCount,
                         appVersion = it.appVersion
                     ),
-                    developer = DeveloperComment(
+                    developer = GooglePlayReview.DeveloperComment(
                         text = it.developerCommentText,
                         lastUpdateTime = it.developerCommentTime?.let { developerCommentTime ->
                             ZonedDateTime.ofInstant(

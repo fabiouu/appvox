@@ -1,20 +1,21 @@
-package dev.fabiou.appvox.review.googleplay
+package dev.fabiou.appvox.googleplay.review
 
-import dev.fabiou.appvox.app.googleplay.GooglePlayRepository
 import dev.fabiou.appvox.configuration.Constant.MAX_RETRY_ATTEMPTS
 import dev.fabiou.appvox.configuration.Constant.MIN_RETRY_DELAY
 import dev.fabiou.appvox.configuration.RequestConfiguration
+import dev.fabiou.appvox.googleplay.app.GooglePlayRepository
+import dev.fabiou.appvox.googleplay.review.domain.GooglePlayReview
+import dev.fabiou.appvox.googleplay.review.domain.GooglePlayReviewRequestParameters
+import dev.fabiou.appvox.googleplay.review.domain.GooglePlayReviewResult
 import dev.fabiou.appvox.review.ReviewRequest
 import dev.fabiou.appvox.review.ReviewService
-import dev.fabiou.appvox.review.googleplay.domain.GooglePlayReview
-import dev.fabiou.appvox.review.googleplay.domain.GooglePlayReviewRequestParameters
-import dev.fabiou.appvox.review.googleplay.domain.GooglePlayReviewResult
 import dev.fabiou.appvox.util.retryRequest
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
-@PublishedApi internal class GooglePlayReviewService(
+@PublishedApi
+internal class GooglePlayReviewService(
     val config: RequestConfiguration
 ) : ReviewService<GooglePlayReviewRequestParameters, GooglePlayReviewResult, GooglePlayReview> {
 
@@ -24,7 +25,7 @@ import kotlinx.coroutines.flow.flow
 
     private val googlePlayReviewConverter = GooglePlayReviewConverter()
 
-     override fun getReviewsByAppId(
+    override fun getReviewsByAppId(
         initialRequest: ReviewRequest<GooglePlayReviewRequestParameters>
     ): Flow<GooglePlayReview> = flow {
         var request = initialRequest

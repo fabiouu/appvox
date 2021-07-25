@@ -1,8 +1,8 @@
-package dev.fabiou.appvox.review.googleplay.domain
+package dev.fabiou.appvox.googleplay.review.domain
 
 import dev.fabiou.appvox.configuration.Constant
-import dev.fabiou.appvox.review.googleplay.constant.GooglePlayLanguage
-import dev.fabiou.appvox.review.googleplay.constant.GooglePlaySortType
+import dev.fabiou.appvox.googleplay.review.constant.GooglePlayLanguage
+import dev.fabiou.appvox.googleplay.review.constant.GooglePlaySortType
 
 data class GooglePlayReviewRequestParameters(
     val appId: String,

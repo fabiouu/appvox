@@ -1,4 +1,4 @@
-package dev.fabiou.appvox.review.googleplay.constant
+package dev.fabiou.appvox.googleplay.review.constant
 
 enum class GooglePlaySortType(val sortType: Int) {
     RELEVANT(sortType = 1),

@@ -1,7 +1,7 @@
-package dev.fabiou.appvox.app.googleplay
+package dev.fabiou.appvox.googleplay.app
 
 import dev.fabiou.appvox.configuration.RequestConfiguration
-import dev.fabiou.appvox.review.googleplay.constant.GooglePlayLanguage
+import dev.fabiou.appvox.googleplay.review.constant.GooglePlayLanguage
 import dev.fabiou.appvox.util.HttpUtil
 import dev.fabiou.appvox.util.memoize
 

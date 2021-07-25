@@ -1,13 +1,13 @@
-package dev.fabiou.appvox.review.googleplay
+package dev.fabiou.appvox.googleplay.review
 
-import dev.fabiou.appvox.BaseMockTest
 import dev.fabiou.appvox.configuration.RequestConfiguration
+import dev.fabiou.appvox.googleplay.BaseGooglePlayMockTest
+import dev.fabiou.appvox.googleplay.review.GooglePlayReviewRepository.Companion.REQUEST_URL_DOMAIN
+import dev.fabiou.appvox.googleplay.review.GooglePlayReviewRepository.Companion.REQUEST_URL_PATH
+import dev.fabiou.appvox.googleplay.review.constant.GooglePlayLanguage
+import dev.fabiou.appvox.googleplay.review.constant.GooglePlaySortType
+import dev.fabiou.appvox.googleplay.review.domain.GooglePlayReviewRequestParameters
 import dev.fabiou.appvox.review.ReviewRequest
-import dev.fabiou.appvox.review.googleplay.GooglePlayReviewRepository.Companion.REQUEST_URL_DOMAIN
-import dev.fabiou.appvox.review.googleplay.GooglePlayReviewRepository.Companion.REQUEST_URL_PATH
-import dev.fabiou.appvox.review.googleplay.constant.GooglePlayLanguage
-import dev.fabiou.appvox.review.googleplay.constant.GooglePlaySortType
-import dev.fabiou.appvox.review.googleplay.domain.GooglePlayReviewRequestParameters
 import io.kotest.assertions.assertSoftly
 import io.kotest.inspectors.forExactly
 import io.kotest.matchers.ints.shouldBeBetween
@@ -20,7 +20,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
 
-class GooglePlayReviewRepositoryTest : BaseMockTest() {
+class GooglePlayReviewRepositoryTest : BaseGooglePlayMockTest() {
 
     private val repository = GooglePlayReviewRepository(RequestConfiguration(delay = 3000))
 
@@ -38,7 +38,7 @@ class GooglePlayReviewRepositoryTest : BaseMockTest() {
     ) {
         REQUEST_URL_DOMAIN = httpMockServerDomain
         val mockData = javaClass.getResource(
-            "/review/googleplay/com.twitter.android/relevant" +
+            "/review/com.twitter.android/relevant" +
                 "/review_google_play_com.twitter.android_relevant_1.json"
         ).readText()
         stubHttpUrl(REQUEST_URL_PATH, mockData)
@@ -88,7 +88,7 @@ class GooglePlayReviewRepositoryTest : BaseMockTest() {
     ) {
         REQUEST_URL_DOMAIN = httpMockServerDomain
         val mockData = javaClass.getResource(
-            "/review/googleplay/com.twitter.android/history" +
+            "/review/com.twitter.android/history" +
                 "/review_google_play_com.twitter.android_history.json"
         ).readText()
         stubHttpUrl(REQUEST_URL_PATH, mockData)

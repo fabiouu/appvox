@@ -1,4 +1,4 @@
-package dev.fabiou.appvox.review.googleplay.constant
+package dev.fabiou.appvox.googleplay.review.constant
 
 /**
  * https://support.google.com/googleplay/android-developer/table/4419860

@@ -1,11 +1,11 @@
-package dev.fabiou.appvox
+package dev.fabiou.appvox.googleplay
 
-import dev.fabiou.appvox.app.googleplay.GooglePlayRepository
-import dev.fabiou.appvox.review.googleplay.GooglePlayReviewRepository.Companion.REQUEST_URL_DOMAIN
-import dev.fabiou.appvox.review.googleplay.GooglePlayReviewRepository.Companion.REQUEST_URL_PATH
-import dev.fabiou.appvox.review.googleplay.constant.GooglePlayLanguage
-import dev.fabiou.appvox.review.googleplay.constant.GooglePlaySortType
-import dev.fabiou.appvox.review.googleplay.domain.GooglePlayReview
+import dev.fabiou.appvox.googleplay.app.GooglePlayRepository
+import dev.fabiou.appvox.googleplay.review.GooglePlayReviewRepository.Companion.REQUEST_URL_DOMAIN
+import dev.fabiou.appvox.googleplay.review.GooglePlayReviewRepository.Companion.REQUEST_URL_PATH
+import dev.fabiou.appvox.googleplay.review.constant.GooglePlayLanguage
+import dev.fabiou.appvox.googleplay.review.constant.GooglePlaySortType
+import dev.fabiou.appvox.googleplay.review.domain.GooglePlayReview
 import io.kotest.assertions.assertSoftly
 import io.kotest.inspectors.forExactly
 import io.kotest.matchers.ints.shouldBeBetween
@@ -14,36 +14,15 @@ import io.kotest.matchers.nulls.shouldNotBeNull
 import io.kotest.matchers.string.shouldContain
 import io.kotest.matchers.string.shouldNotBeEmpty
 import io.kotest.matchers.string.shouldStartWith
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
 import kotlin.contracts.ExperimentalContracts
 
-class GooglePlayTest : BaseMockTest() {
-
-    @ExperimentalContracts
-    @ExperimentalCoroutinesApi
-    @ParameterizedTest
-    @CsvSource(
-        "com.twitter.android, 50"
-    )
-    fun `get Google Play reviews using default optionald parameters`(
-        appId: String,
-        expectedReviewCount: Int
-    ) {
-        val reviews = mutableListOf<GooglePlayReview>()
-        GooglePlay()
-            .reviews(appId)
-            .take(expectedReviewCount)
-            .launchIn(CoroutineScope(Dispatchers.IO))
-    }
-
+class GooglePlayTest : BaseGooglePlayMockTest() {
 
     @ExperimentalContracts
     @ExperimentalCoroutinesApi
@@ -58,7 +37,7 @@ class GooglePlayTest : BaseMockTest() {
 
         GooglePlayRepository.APP_HP_URL_DOMAIN = httpMockServerDomain
         val scriptParamsMockData = javaClass.getResource(
-            "/app/googleplay/com.twitter.android" +
+            "/app/com.twitter.android" +
                 "/app_googleplay_com.twitter.android_homepage.html"
         ).readText()
         stubHttpUrl(GooglePlayRepository.APP_HP_URL_PATH, scriptParamsMockData)
@@ -66,14 +45,14 @@ class GooglePlayTest : BaseMockTest() {
         REQUEST_URL_DOMAIN = httpMockServerDomain
         val mockData =
             javaClass.getResource(
-                "/review/googleplay/com.twitter.android/relevant" +
+                "/review/com.twitter.android/relevant" +
                     "/review_google_play_com.twitter.android_relevant_1.json"
             ).readText()
         stubHttpUrl(REQUEST_URL_PATH, mockData)
 
         val reviews = ArrayList<GooglePlayReview>()
         GooglePlay()
-            .reviews(appId)
+            .reviews { this.appId = appId }
             .take(expectedReviewCount)
             .collect { review ->
                 reviews.add(review)
@@ -117,7 +96,7 @@ class GooglePlayTest : BaseMockTest() {
 
         GooglePlayRepository.APP_HP_URL_DOMAIN = httpMockServerDomain
         val scriptParamsMockData = javaClass.getResource(
-            "/app/googleplay/com.twitter.android" +
+            "/app/com.twitter.android" +
                 "/app_googleplay_com.twitter.android_homepage.html"
         ).readText()
         stubHttpUrl(GooglePlayRepository.APP_HP_URL_PATH, scriptParamsMockData)
@@ -125,7 +104,7 @@ class GooglePlayTest : BaseMockTest() {
         REQUEST_URL_DOMAIN = httpMockServerDomain
         val mockResponse =
             javaClass.getResource(
-                "/review/googleplay/com.twitter.android/relevant" +
+                "/review/com.twitter.android/relevant" +
                     "/review_google_play_com.twitter.android_relevant_1.json"
             ).readText()
         stubHttpUrl(REQUEST_URL_PATH, mockResponse)
@@ -181,7 +160,7 @@ class GooglePlayTest : BaseMockTest() {
 
         GooglePlayRepository.APP_HP_URL_DOMAIN = httpMockServerDomain
         val scriptParamsMockData = javaClass.getResource(
-            "/app/googleplay/com.twitter.android" +
+            "/app/com.twitter.android" +
                 "/app_googleplay_com.twitter.android_homepage.html"
         ).readText()
         stubHttpUrl(GooglePlayRepository.APP_HP_URL_PATH, scriptParamsMockData)
@@ -189,7 +168,7 @@ class GooglePlayTest : BaseMockTest() {
         REQUEST_URL_DOMAIN = httpMockServerDomain
         val mockResponse =
             javaClass.getResource(
-                "/review/googleplay/com.twitter.android/relevant" +
+                "/review/com.twitter.android/relevant" +
                     "/review_google_play_com.twitter.android_relevant_1.json"
             ).readText()
         stubHttpUrl(REQUEST_URL_PATH, mockResponse)

@@ -1,4 +1,4 @@
-package dev.fabiou.appvox.review.googleplay.classification
+package dev.fabiou.appvox.googleplay.review.classification
 
 enum class GooglePlayUserType(val type: Int) {
     /**

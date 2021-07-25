@@ -1,4 +1,4 @@
-package dev.fabiou.appvox.review.googleplay.constant
+package dev.fabiou.appvox.googleplay.review.constant
 
 /**
  * The list of supported Google Play devices can be found at that address:

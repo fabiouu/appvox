@@ -1,16 +1,16 @@
-package dev.fabiou.appvox
+package dev.fabiou.appvox.googleplay
 
 import dev.fabiou.appvox.configuration.Constant.DEFAULT_BATCH_SIZE
 import dev.fabiou.appvox.configuration.Constant.MIN_REQUEST_DELAY
 import dev.fabiou.appvox.configuration.RequestConfiguration
 import dev.fabiou.appvox.exception.AppVoxError
 import dev.fabiou.appvox.exception.AppVoxException
+import dev.fabiou.appvox.googleplay.review.GooglePlayReviewService
+import dev.fabiou.appvox.googleplay.review.constant.GooglePlayLanguage
+import dev.fabiou.appvox.googleplay.review.constant.GooglePlaySortType
+import dev.fabiou.appvox.googleplay.review.domain.GooglePlayReview
+import dev.fabiou.appvox.googleplay.review.domain.GooglePlayReviewRequestParameters
 import dev.fabiou.appvox.review.ReviewRequest
-import dev.fabiou.appvox.review.googleplay.GooglePlayReviewService
-import dev.fabiou.appvox.review.googleplay.constant.GooglePlayLanguage
-import dev.fabiou.appvox.review.googleplay.constant.GooglePlaySortType
-import dev.fabiou.appvox.review.googleplay.domain.GooglePlayReview
-import dev.fabiou.appvox.review.googleplay.domain.GooglePlayReviewRequestParameters
 import dev.fabiou.appvox.util.HttpUtil
 import kotlinx.coroutines.flow.Flow
 
@@ -50,7 +50,7 @@ class GooglePlay(
         return googlePlayReviewService.getReviewsByAppId(initialRequest)
     }
 
-    inline fun reviews(block: GooglePlayReviewRequestParameters.Builder.() -> Unit): Flow<GooglePlayReview> {
+    public fun reviews(block: GooglePlayReviewRequestParameters.Builder.() -> Unit): Flow<GooglePlayReview> {
         if (config.delay < MIN_REQUEST_DELAY) {
             throw AppVoxException(AppVoxError.REQ_DELAY_TOO_SHORT)
         }

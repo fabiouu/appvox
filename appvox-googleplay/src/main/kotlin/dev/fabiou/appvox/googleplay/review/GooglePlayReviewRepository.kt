@@ -1,4 +1,4 @@
-package dev.fabiou.appvox.review.googleplay
+package dev.fabiou.appvox.googleplay.review
 
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper
@@ -8,10 +8,10 @@ import dev.fabiou.appvox.exception.AppVoxError.DESERIALIZATION
 import dev.fabiou.appvox.exception.AppVoxError.INVALID_ARGUMENT
 import dev.fabiou.appvox.exception.AppVoxException
 import dev.fabiou.appvox.exception.AppVoxNetworkException
+import dev.fabiou.appvox.googleplay.review.domain.GooglePlayReviewRequestParameters
+import dev.fabiou.appvox.googleplay.review.domain.GooglePlayReviewResult
 import dev.fabiou.appvox.review.ReviewRequest
 import dev.fabiou.appvox.review.ReviewResult
-import dev.fabiou.appvox.review.googleplay.domain.GooglePlayReviewRequestParameters
-import dev.fabiou.appvox.review.googleplay.domain.GooglePlayReviewResult
 import dev.fabiou.appvox.util.HttpUtil
 import dev.fabiou.appvox.util.JsonUtil.getJsonNodeByIndex
 

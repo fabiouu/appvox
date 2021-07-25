@@ -1,10 +1,10 @@
-package dev.fabiou.appvox.review.googleplay.domain
+package dev.fabiou.appvox.googleplay.review.domain
 
-import dev.fabiou.appvox.review.googleplay.classification.GooglePlayCommentType
-import dev.fabiou.appvox.review.googleplay.classification.GooglePlayCommentType.*
-import dev.fabiou.appvox.review.googleplay.classification.GooglePlayUserType
-import dev.fabiou.appvox.review.googleplay.classification.GooglePlayUserType.*
-import dev.fabiou.appvox.review.googleplay.constant.GooglePlayLanguage
+import dev.fabiou.appvox.googleplay.review.classification.GooglePlayCommentType
+import dev.fabiou.appvox.googleplay.review.classification.GooglePlayCommentType.*
+import dev.fabiou.appvox.googleplay.review.classification.GooglePlayUserType
+import dev.fabiou.appvox.googleplay.review.classification.GooglePlayUserType.*
+import dev.fabiou.appvox.googleplay.review.constant.GooglePlayLanguage
 import java.time.Period.between
 import java.time.ZonedDateTime
 import kotlin.math.abs
