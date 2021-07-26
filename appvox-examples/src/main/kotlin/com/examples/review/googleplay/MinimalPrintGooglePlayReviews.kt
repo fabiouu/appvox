@@ -1,6 +1,6 @@
 package com.examples.review.googleplay
 
-import dev.fabiou.appvox.GooglePlay
+import io.appvox.GooglePlay
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.runBlocking

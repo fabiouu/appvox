@@ -1,11 +1,11 @@
-package dev.fabiou.appvox.googleplay
+package io.appvox.googleplay
 
-import dev.fabiou.appvox.googleplay.app.GooglePlayRepository
-import dev.fabiou.appvox.googleplay.review.GooglePlayReviewRepository.Companion.REQUEST_URL_DOMAIN
-import dev.fabiou.appvox.googleplay.review.GooglePlayReviewRepository.Companion.REQUEST_URL_PATH
-import dev.fabiou.appvox.googleplay.review.constant.GooglePlayLanguage
-import dev.fabiou.appvox.googleplay.review.constant.GooglePlaySortType
-import dev.fabiou.appvox.googleplay.review.domain.GooglePlayReview
+import io.appvox.googleplay.app.GooglePlayRepository
+import io.appvox.googleplay.review.GooglePlayReviewRepository.Companion.REQUEST_URL_DOMAIN
+import io.appvox.googleplay.review.GooglePlayReviewRepository.Companion.REQUEST_URL_PATH
+import io.appvox.googleplay.review.constant.GooglePlayLanguage
+import io.appvox.googleplay.review.constant.GooglePlaySortType
+import io.appvox.googleplay.review.domain.GooglePlayReview
 import io.kotest.assertions.assertSoftly
 import io.kotest.inspectors.forExactly
 import io.kotest.matchers.ints.shouldBeBetween

@@ -1,4 +1,4 @@
-package dev.fabiou.appvox.googleplay
+package io.appvox.googleplay
 
 import com.github.tomakehurst.wiremock.WireMockServer
 import com.github.tomakehurst.wiremock.client.WireMock

@@ -1,10 +1,10 @@
-package dev.fabiou.appvox.googleplay.app
+package io.appvox.googleplay.app
 
-import dev.fabiou.appvox.googleplay.BaseGooglePlayMockTest
-import dev.fabiou.appvox.configuration.RequestConfiguration
-import dev.fabiou.appvox.googleplay.app.GooglePlayRepository.Companion.APP_HP_URL_DOMAIN
-import dev.fabiou.appvox.googleplay.app.GooglePlayRepository.Companion.APP_HP_URL_PATH
-import dev.fabiou.appvox.googleplay.review.constant.GooglePlayLanguage
+import io.appvox.googleplay.BaseGooglePlayMockTest
+import io.appvox.configuration.RequestConfiguration
+import io.appvox.googleplay.app.GooglePlayRepository.Companion.APP_HP_URL_DOMAIN
+import io.appvox.googleplay.app.GooglePlayRepository.Companion.APP_HP_URL_PATH
+import io.appvox.googleplay.review.constant.GooglePlayLanguage
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource

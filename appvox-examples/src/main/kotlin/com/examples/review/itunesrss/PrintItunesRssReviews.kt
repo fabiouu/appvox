@@ -1,9 +1,9 @@
 package com.examples.review.itunesrss
 
-import dev.fabiou.appvox.ItunesRss
-import dev.fabiou.appvox.configuration.RequestConfiguration
-import dev.fabiou.appvox.review.itunesrss.constant.AppStoreRegion.UNITED_STATES
-import dev.fabiou.appvox.review.itunesrss.constant.ItunesRssSortType.RECENT
+import io.appvox.ItunesRss
+import io.appvox.configuration.RequestConfiguration
+import io.appvox.review.itunesrss.constant.AppStoreRegion.UNITED_STATES
+import io.appvox.review.itunesrss.constant.ItunesRssSortType.RECENT
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.runBlocking
