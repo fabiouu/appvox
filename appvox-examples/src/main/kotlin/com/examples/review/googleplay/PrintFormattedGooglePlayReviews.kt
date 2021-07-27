@@ -1,9 +1,9 @@
 package com.examples.review.googleplay
 
-import dev.fabiou.appvox.GooglePlay
-import dev.fabiou.appvox.configuration.RequestConfiguration
-import dev.fabiou.appvox.review.googleplay.constant.GooglePlayLanguage
-import dev.fabiou.appvox.review.googleplay.constant.GooglePlaySortType
+import io.appvox.GooglePlay
+import io.appvox.configuration.RequestConfiguration
+import io.appvox.review.googleplay.constant.GooglePlayLanguage
+import io.appvox.review.googleplay.constant.GooglePlaySortType
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.runBlocking

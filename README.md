@@ -24,71 +24,88 @@
 Kotlin library to scrape GooglePlay and App Store data. 
 Focus on improving your App by listening to your users.
 AppVox is a work-in-progress and only supports GooglePlay and AppStore reviews scraping at the moment.
-The library offers a convenient way of consuming an asynchronous [Kotlin Flow](https://kotlinlang.org/docs/flow.html) of reviews with proxy support.
+The library offers a convenient way of consuming a [Kotlin Flow](https://kotlinlang.org/docs/flow.html) of reviews with proxy support.
 
 <!-- # Motivation -->
 
-
 # Table of content
-- [Features](#features)
-- [Quick start](#quick-start)
-- [Usage](#usage)
-- [Implementation Details](#implementation-details)
-- [License](#license)
+* [Features](#features)
+* [Quick start](#quick-start)
+* [Usage](#usage)
+* [Implementation Details](#implementation-details)
+* [License](#license)
 
 # Features
- - Review
-    - Enables you to consume a continuous stream of reviews from Google Play, App Store or Itunes RSS Feed. 
-    Reviews can be filtered by region (App Store) or language/rating (Google Play) and sorted by relevance or date.
+ * Reviews
+    * Support Google Play, App Store and Itunes Rss platforms
+    * Consume a continuous stream of reviews by leveraging Kotlin Flows. The library handles scraping pagination for you.
+    * Filter reviews by language, region, rating, popularity, or user persona
+    * Sort reviews by relevance, date or rating
+    * Automatically classify users from their reviews to understand more about their behavior
 
 # Quick start
-For now, the project is only available through Jitpack.io repository. Release to Maven Central will come with the project's first stable release.
+The project is not released to Maven Central yet. Release will come with the project's first stable version.
 
-### Maven
-```xml
-<repositories>
-    <repository>
-        <id>jitpack.io</id>
-        <url>https://jitpack.io</url>
-    </repository>
-</repositories>
-```
-
+### App Store
+#### Maven
 ```xml
 <dependency>
-    <groupId>dev.fabiou.appvox</groupId>
-    <artifactId>appvox-core</artifactId>
-    <version>-SNAPSHOT</version>
+    <groupId>io.appvox</groupId>
+    <artifactId>appvox-appstore</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
 </dependency>
 ```
-
-### Gradle
-```groovy
-allprojects {
-    repositories {
-        // ...
-        maven { url 'https://jitpack.io' }
-    }
-}
-```
-
+#### Gradle
 ```groovy
 dependencies {
-    implementation 'dev.fabiou.appvox:appvox-core:-SNAPSHOT'
+    implementation 'io.appvox:appvox-appstore:1.0.0-SNAPSHOT'
 }
 ```
+
+### Google Play
+#### Maven
+```xml
+<dependency>
+    <groupId>io.appvox</groupId>
+    <artifactId>appvox-googleplay</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+</dependency>
+```
+#### Gradle
+```groovy
+dependencies {
+    implementation 'io.appvox:appvox-googleplay:1.0.0-SNAPSHOT'
+}
+```
+
+### Google Play & App Store
+#### Maven
+```xml
+<dependency>
+    <groupId>io.appvox</groupId>
+    <artifactId>appvox-all</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+</dependency>
+```
+#### Gradle
+```groovy
+dependencies {
+    implementation 'io.appvox:appvox-all:1.0.0-SNAPSHOT'
+}
+```
+
 We print the 100 most relevant Google Play Reviews of the [Twitter](https://play.google.com/store/apps/details?id=com.twitter.android&hl=en_US&gl=US) App.
 This example is using default parameters and no proxy, see the [usage](#usage) section below for more advanced use cases.
 
 ```kotlin
-import dev.fabiou.appvox.GooglePlay
+import io.appvox.GooglePlay
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.runBlocking
 
 fun main() = runBlocking {
     GooglePlay()
-        .reviews(appId = "com.twitter.android")
+        .reviews { appId = "com.twitter.android" }
         .take(100)
         .collect { review ->
             println(review.toString())
@@ -98,11 +115,22 @@ fun main() = runBlocking {
 ```
 
 # Usage
-Only `appvox-core` package is necessary to start using AppVox.
+* [Proxy](#proxy)
+* [Reviews](#reviews)
+  * [Google Play](#google-play)
+  * [Itunes RSS](#itunes-rss)
+  * [App Store](#app-store)
+  * [Filtering](#filtering)
+  * [Classification](#classification)
+
+Only `appvox-core` package is necessary to start using AppVox. 
+A variety of filters are available to allow you to focus on the data that matter the most to you.
 
 | Package | Description |
 |----------|---------|
-| [`appvox-core`](./appvox-core) | Core package contains Google Play and App Store scrapers |
+| [`appvox-core`](./appvox-core) | Core package contains classes shared by both Google Play and App Store modules |
+| [`appvox-googleplay`](./appvox-googleplay) | Core package contains Google Play scraper |
+| [`appvox-appstore`](./appvox-appstore) | Core package contains App Store scraper |
 | [`appvox-examples`](./appvox-examples) | AppVox usage examples |
 
 The default delay between requests is 500 milliseconds to ensure politeness.
@@ -131,7 +159,7 @@ val itunesRss = ItunesRss(config)
 In the usage examples below we use [`GooglePlay.kt`](./appvox-core/src/main/kotlin/dev/fabiou/appvox/GooglePlay.kt), [`AppStore.kt`](./appvox-core/src/main/kotlin/dev/fabiou/appvox/AppStore.kt) and [`ItunesRss.kt`](./appvox-core/src/main/kotlin/dev/fabiou/appvox/ItunesRss.kt) to scrape the most recent Twitter app reviews.
 The method `take()` will stop the `Flow` of data after scraping 100 reviews. If `take` is not specified,the `Flow` will end when there are no reviews to consume anymore.
 
-For more advanced filtering scenarios, see the [filtering](#filtering) section.
+For more advanced filtering scenarios, see the [filtering](#filtering) section.Mov
 
 ### Google Play
 - Language: We specify `ENGLISH_US` parameter since Google Play does not support region filtering (`gl` region parameter is not effective in practice).
@@ -139,20 +167,20 @@ For more advanced filtering scenarios, see the [filtering](#filtering) section.
 It means fetched reviews are already sorted by `sortType` parameter when scraped from Google Play HTTP endpoints.
 
 ```kotlin
-import dev.fabiou.appvox.GooglePlay
-import dev.fabiou.appvox.review.googleplay.constant.GooglePlayLanguage.ENGLISH_US
-import dev.fabiou.appvox.review.googleplay.constant.GooglePlaySortType.RELEVANT
+import io.appvox.GooglePlay
+import io.appvox.review.googleplay.constant.GooglePlayLanguage.ENGLISH_US
+import io.appvox.review.googleplay.constant.GooglePlaySortType.RELEVANT
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.runBlocking
 
 fun main() = runBlocking {
     GooglePlay()
-        .reviews(
-            appId = "com.twitter.android",
-            sortType = RELEVANT,
+        .reviews {
+            appId = "com.twitter.android"
+            sortType = RELEVANT
             language = ENGLISH_US
-        )
+        }
         .take(100)
         .collect { review ->
             println(review.toString())
@@ -170,20 +198,20 @@ iTunes RSS feed only returns the 500 most recent or relevant reviews. `take(n)` 
 Use [App Store](#appstore) scraper below if you intend to fetch more than 500 reviews.
 The advantage of Itunes RSS Feed is that it includes metadata such as app version and like count while [App Store](#appstore) reviews do not.
 
-``` Kotlin
-import dev.fabiou.appvox.ItunesRss
-import dev.fabiou.appvox.review.itunesrss.constant.AppStoreRegion.UNITED_STATES
-import dev.fabiou.appvox.review.itunesrss.constant.ItunesRssSortType.RECENT
+```kotlin
+import io.appvox.ItunesRss
+import io.appvox.review.itunesrss.constant.AppStoreRegion.UNITED_STATES
+import io.appvox.review.itunesrss.constant.ItunesRssSortType.RECENT
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.flow.collect
 
 fun main() = runBlocking {
-    ItunesRss().reviews(
-            appId = appId,
-            region = UNITED_STATES,
+    ItunesRss().reviews {
+            appId = appId
+            region = UNITED_STATES
             sortType = RECENT
-        )
+        }
         .take(100)
         .collect { review ->
             println(review.toString())
@@ -199,19 +227,19 @@ fun main() = runBlocking {
 Important: Reviews are fetched from *apps.apple.com*, a bearer token will automatically be generated before every Flow starts to avoid getting a 401 HTTP response from Apple.
 The token is memoized at the beginning of the Flow since its TTL is usually superior to the duration of your Flow.
 
-``` Kotlin
-import dev.fabiou.appvox.AppStore
-import dev.fabiou.appvox.review.itunesrss.constant.AppStoreRegion.UNITED_STATES
+```kotlin
+import io.appvox.AppStore
+import io.appvox.review.itunesrss.constant.AppStoreRegion.UNITED_STATES
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.runBlocking
 
 fun main() = runBlocking {
     AppStore()
-        .reviews(
-            appId = "333903271",
+        .reviews{
+            appId = "333903271"
             region = UNITED_STATES
-        )
+        }
         .take(100)
         .collect { review ->
             println(review.toString())
@@ -225,14 +253,14 @@ You can take advantage of the flexibility of Kotlin Flows to apply more complex 
 For example, we choose to consume only reviews with 100 or more likes:
 
 ```kotlin
-import dev.fabiou.appvox.GooglePlay
+import io.appvox.GooglePlay
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.runBlocking
 
 fun main() = runBlocking {
     GooglePlay()
-        .reviews(appId = "com.twitter.android")
+        .reviews { appId = "com.twitter.android" }
         .filter { review -> review.likeCount >= 100 }
         .take(100)
         .collect { review ->
@@ -241,6 +269,15 @@ fun main() = runBlocking {
 }
 
 ```
+
+### Classification
+Each review and the user who commented are classified into different categories
+
+#### User Categories
+| Name | Availability| Description |
+|----------|---------|---------|
+|  LOYAL | GooglePlay | Loyal users |
+
 
 # Implementation Details
 ##  Architecture
@@ -269,8 +306,9 @@ The endpoint returns no more than 10 reviews by request.
 <!-- # Retry Policy -->
 
 ## Dependencies
-AppVox follow a minimal dependency approach. The only 3rd party dependency of `appvox-core` is `jackson-module-kotlin`.
-At the moment, `kotlinx-serialization-json` is not able to parse the unstructured array of data returned by Google Play scraper.
+AppVox follow a minimal dependency approach.
+At the moment, `kotlinx-serialization-json` is not able to parse the unstructured array of data returned by Google Play scraper. Thus, `appvox-googleplay` makes use of `jackson-module-kotlin`.
+`appvox-core` and `appvox-appstore` only relies on Kotlin standard library and Kotlinx. 
 
 <!-- # Documentation -->
 

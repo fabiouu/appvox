@@ -25,7 +25,7 @@
             <version>${kotlin.version}</version>
         </dependency>
         <dependency>
-            <groupId>dev.fabiou.appvox</groupId>
+            <groupId>io.appvox</groupId>
             <artifactId>appvox-core</artifactId>
             <version>${appvox.version}</version>
         </dependency>
