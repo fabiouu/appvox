@@ -57,7 +57,7 @@ enum class GooglePlayLanguage(val code: String) {
     companion object {
         fun fromValue(langCode: String): GooglePlayLanguage {
             for (googlePlayLanguage in values()) {
-                if (langCode.equals(googlePlayLanguage)) {
+                if (langCode == googlePlayLanguage.code) {
                     return googlePlayLanguage
                 }
             }
