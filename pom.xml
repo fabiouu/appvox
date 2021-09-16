@@ -38,7 +38,8 @@
         <module>appvox-core</module>
         <module>appvox-googleplay</module>
         <module>appvox-appstore</module>
-<!--        <module>appvox-all</module>-->
+        <module>appvox-translation</module>
+        <!--        <module>appvox-all</module>-->
     </modules>
 
     <properties>
@@ -295,9 +296,6 @@
     <profiles>
         <profile>
             <id>ossrh</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
             <properties>
                 <gpg.executable>gpg</gpg.executable>
             </properties>
