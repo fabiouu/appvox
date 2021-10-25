@@ -5,9 +5,9 @@ enum class ItunesRssSortType(val sortType: Int) {
     RECENT(2);
 
     companion object {
-        fun fromValue(sortType: String): ItunesRssSortType {
+        fun fromValue(sortType: Int): ItunesRssSortType {
             for (appStoreSortType in values()) {
-                if (appStoreSortType.name == sortType) {
+                if (appStoreSortType.sortType == sortType) {
                     return appStoreSortType
                 }
             }
