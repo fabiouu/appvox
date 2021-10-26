@@ -65,7 +65,7 @@ internal class ItunesRssReviewRepository(
         }
 
         return ReviewResult(
-            results = result.entry!!,
+            results = result.entry,
             nextToken = result.link!!.find { it.rel == "next" }?.href!!
         )
     }

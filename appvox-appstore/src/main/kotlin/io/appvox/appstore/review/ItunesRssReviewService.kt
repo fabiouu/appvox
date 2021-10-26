@@ -30,7 +30,7 @@ internal class ItunesRssReviewService(
                 itunesRssReviewRepository.getReviewsByAppId(request)
             }
             request = request.copy(request.parameters, response.nextToken)
-            response.results.forEach { result ->
+            response.results?.forEach { result ->
                 val review = itunesRssReviewConverter.toResponse(request.parameters, result)
                 emit(review)
             }
