@@ -54,7 +54,7 @@ internal class GooglePlayReviewService(
                 googlePlayReviewRepository.getReviewsByAppId(requestCopy)
             }
             request = request.copy(request.parameters, response.nextToken)
-            response.results.forEach { result ->
+            response.results?.forEach { result ->
                 val review = if (request.parameters.fetchHistory &&
                     result.hasEditHistory != null && result.hasEditHistory
                 ) {
