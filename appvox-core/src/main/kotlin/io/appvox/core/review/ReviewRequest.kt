@@ -1,4 +1,4 @@
-package io.appvox.review
+package io.appvox.core.review
 
 data class ReviewRequest<RequestParameters>(
     val parameters: RequestParameters,

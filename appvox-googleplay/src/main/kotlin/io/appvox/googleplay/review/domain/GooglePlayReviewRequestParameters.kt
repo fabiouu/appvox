@@ -1,6 +1,6 @@
 package io.appvox.googleplay.review.domain
 
-import io.appvox.configuration.Constant
+import io.appvox.core.configuration.Constant
 import io.appvox.googleplay.review.constant.GooglePlayLanguage
 import io.appvox.googleplay.review.constant.GooglePlaySortType
 

@@ -6,8 +6,8 @@ import io.appvox.appstore.review.AppStoreReviewRepository.Companion.REQUEST_URL_
 import io.appvox.appstore.review.constant.AppStoreRegion
 import io.appvox.appstore.review.constant.ItunesRssSortType
 import io.appvox.appstore.review.domain.ItunesRssReviewRequestParameters
-import io.appvox.configuration.RequestConfiguration
-import io.appvox.review.ReviewRequest
+import io.appvox.core.configuration.RequestConfiguration
+import io.appvox.core.review.ReviewRequest
 import io.kotest.assertions.assertSoftly
 import io.kotest.inspectors.forExactly
 import io.kotest.matchers.string.shouldContainOnlyDigits

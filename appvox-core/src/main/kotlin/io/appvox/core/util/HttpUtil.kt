@@ -1,4 +1,4 @@
-package io.appvox.util
+package io.appvox.core.util
 
 import java.io.BufferedReader
 import java.io.OutputStreamWriter
@@ -48,7 +48,7 @@ object HttpUtil {
         }
     }
 
-    public fun setAuthenticator(user: String, password: CharArray) {
+    fun setAuthenticator(user: String, password: CharArray) {
         Authenticator.setDefault(CustomAuthenticator(user, password))
     }
 

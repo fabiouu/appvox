@@ -3,17 +3,17 @@ package io.appvox.googleplay.review
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.node.NullNode
-import io.appvox.configuration.RequestConfiguration
-import io.appvox.exception.AppVoxError.DESERIALIZATION
-import io.appvox.exception.AppVoxError.INVALID_ARGUMENT
-import io.appvox.exception.AppVoxException
-import io.appvox.exception.AppVoxNetworkException
+import io.appvox.core.configuration.RequestConfiguration
+import io.appvox.core.exception.AppVoxError.DESERIALIZATION
+import io.appvox.core.exception.AppVoxError.INVALID_ARGUMENT
+import io.appvox.core.exception.AppVoxException
+import io.appvox.core.exception.AppVoxNetworkException
 import io.appvox.googleplay.review.domain.GooglePlayReviewRequestParameters
 import io.appvox.googleplay.review.domain.GooglePlayReviewResult
-import io.appvox.review.ReviewRequest
-import io.appvox.review.ReviewResult
-import io.appvox.util.HttpUtil
-import io.appvox.util.JsonUtil.getJsonNodeByIndex
+import io.appvox.core.review.ReviewRequest
+import io.appvox.core.review.ReviewResult
+import io.appvox.core.util.HttpUtil
+import io.appvox.core.util.JsonUtil.getJsonNodeByIndex
 
 internal class GooglePlayReviewRepository(
     private val config: RequestConfiguration

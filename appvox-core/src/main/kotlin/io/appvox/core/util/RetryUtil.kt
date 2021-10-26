@@ -1,7 +1,7 @@
-package io.appvox.util
+package io.appvox.core.util
 
-import io.appvox.configuration.Constant.DELAY_FACTOR
-import io.appvox.exception.AppVoxNetworkException
+import io.appvox.core.configuration.Constant.DELAY_FACTOR
+import io.appvox.core.exception.AppVoxNetworkException
 import kotlinx.coroutines.delay
 
 suspend inline fun <R> retryRequest(

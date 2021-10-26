@@ -1,15 +1,15 @@
 package io.appvox.googleplay.review
 
-import io.appvox.configuration.Constant.MAX_RETRY_ATTEMPTS
-import io.appvox.configuration.Constant.MIN_RETRY_DELAY
-import io.appvox.configuration.RequestConfiguration
+import io.appvox.core.configuration.Constant.MAX_RETRY_ATTEMPTS
+import io.appvox.core.configuration.Constant.MIN_RETRY_DELAY
+import io.appvox.core.configuration.RequestConfiguration
 import io.appvox.googleplay.app.GooglePlayRepository
 import io.appvox.googleplay.review.domain.GooglePlayReview
 import io.appvox.googleplay.review.domain.GooglePlayReviewRequestParameters
 import io.appvox.googleplay.review.domain.GooglePlayReviewResult
-import io.appvox.review.ReviewRequest
-import io.appvox.review.ReviewService
-import io.appvox.util.retryRequest
+import io.appvox.core.review.ReviewRequest
+import io.appvox.core.review.ReviewService
+import io.appvox.core.util.retryRequest
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
