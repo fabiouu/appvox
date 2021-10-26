@@ -1,4 +1,4 @@
-package io.appvox.exception
+package io.appvox.core.exception
 
 enum class AppVoxError(val errorCode: Int, val errorMessage: String) {
     DESERIALIZATION(

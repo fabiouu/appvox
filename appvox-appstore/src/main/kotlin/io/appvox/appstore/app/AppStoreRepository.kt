@@ -1,9 +1,9 @@
 package io.appvox.appstore.app
 
 import io.appvox.appstore.review.constant.AppStoreRegion
-import io.appvox.configuration.RequestConfiguration
-import io.appvox.util.HttpUtil
-import io.appvox.util.memoize
+import io.appvox.core.configuration.RequestConfiguration
+import io.appvox.core.util.HttpUtil
+import io.appvox.core.util.memoize
 
 internal class AppStoreRepository(
     private val config: RequestConfiguration

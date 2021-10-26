@@ -1,4 +1,4 @@
-package io.appvox.configuration
+package io.appvox.core.configuration
 
 import java.net.PasswordAuthentication
 import java.net.Proxy

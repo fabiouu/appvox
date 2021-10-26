@@ -2,12 +2,12 @@ package io.appvox.appstore.review
 
 import io.appvox.appstore.review.domain.ItunesRssReviewRequestParameters
 import io.appvox.appstore.review.domain.ItunesRssReviewResult
-import io.appvox.configuration.RequestConfiguration
-import io.appvox.exception.AppVoxError
-import io.appvox.exception.AppVoxException
-import io.appvox.review.ReviewRequest
-import io.appvox.review.ReviewResult
-import io.appvox.util.HttpUtil
+import io.appvox.core.configuration.RequestConfiguration
+import io.appvox.core.exception.AppVoxError
+import io.appvox.core.exception.AppVoxException
+import io.appvox.core.review.ReviewRequest
+import io.appvox.core.review.ReviewResult
+import io.appvox.core.util.HttpUtil
 import java.io.StringReader
 import javax.xml.bind.JAXBContext
 import javax.xml.bind.JAXBException

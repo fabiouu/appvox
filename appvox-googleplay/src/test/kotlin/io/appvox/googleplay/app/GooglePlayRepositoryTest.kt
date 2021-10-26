@@ -1,7 +1,7 @@
 package io.appvox.googleplay.app
 
 import io.appvox.googleplay.BaseGooglePlayMockTest
-import io.appvox.configuration.RequestConfiguration
+import io.appvox.core.configuration.RequestConfiguration
 import io.appvox.googleplay.app.GooglePlayRepository.Companion.APP_HP_URL_DOMAIN
 import io.appvox.googleplay.app.GooglePlayRepository.Companion.APP_HP_URL_PATH
 import io.appvox.googleplay.review.constant.GooglePlayLanguage

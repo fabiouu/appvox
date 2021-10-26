@@ -4,7 +4,7 @@ import io.appvox.appstore.BaseAppStoreMockTest
 import io.appvox.appstore.app.AppStoreRepository.Companion.APP_HP_URL_DOMAIN
 import io.appvox.appstore.app.AppStoreRepository.Companion.APP_HP_URL_PATH
 import io.appvox.appstore.review.constant.AppStoreRegion
-import io.appvox.configuration.RequestConfiguration
+import io.appvox.core.configuration.RequestConfiguration
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource

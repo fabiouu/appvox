@@ -4,11 +4,11 @@ import io.appvox.appstore.app.AppStoreRepository
 import io.appvox.appstore.review.domain.AppStoreReview
 import io.appvox.appstore.review.domain.AppStoreReviewRequestParameters
 import io.appvox.appstore.review.domain.AppStoreReviewResult
-import io.appvox.configuration.Constant
-import io.appvox.configuration.RequestConfiguration
-import io.appvox.review.ReviewRequest
-import io.appvox.review.ReviewService
-import io.appvox.util.retryRequest
+import io.appvox.core.configuration.Constant
+import io.appvox.core.configuration.RequestConfiguration
+import io.appvox.core.review.ReviewRequest
+import io.appvox.core.review.ReviewService
+import io.appvox.core.util.retryRequest
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -44,7 +44,7 @@ internal class AppStoreReviewService(
                 appStoreReviewRepository.getReviewsByAppId(requestCopy)
             }
             request = request.copy(request.parameters, response.nextToken)
-            response.results.forEach { result ->
+            response.results?.forEach { result ->
                 val review = appStoreReviewConverter.toResponse(request.parameters, result)
                 emit(review)
             }

@@ -1,4 +1,4 @@
-package io.appvox.util
+package io.appvox.core.util
 
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.NullNode

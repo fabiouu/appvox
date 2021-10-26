@@ -5,7 +5,7 @@ import io.appvox.appstore.review.AppStoreReviewRepository.Companion.REQUEST_URL_
 import io.appvox.appstore.review.constant.AppStoreRegion.Companion.fromValue
 import io.appvox.appstore.review.constant.ItunesRssSortType
 import io.appvox.appstore.review.domain.ItunesRssReview
-import io.appvox.configuration.RequestConfiguration
+import io.appvox.core.configuration.RequestConfiguration
 import io.kotest.assertions.assertSoftly
 import io.kotest.inspectors.forExactly
 import io.kotest.matchers.ints.shouldBeBetween

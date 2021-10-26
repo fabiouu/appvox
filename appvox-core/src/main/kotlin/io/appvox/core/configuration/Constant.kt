@@ -1,4 +1,4 @@
-package io.appvox.configuration
+package io.appvox.core.configuration
 
 object Constant {
 

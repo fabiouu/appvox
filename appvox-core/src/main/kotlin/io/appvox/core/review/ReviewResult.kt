@@ -1,4 +1,4 @@
-package io.appvox.review
+package io.appvox.core.review
 
 class ReviewResult<Result>(
     val results: List<Result>?,

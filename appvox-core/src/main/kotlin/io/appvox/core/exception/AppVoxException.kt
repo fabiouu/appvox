@@ -1,4 +1,4 @@
-package io.appvox.exception
+package io.appvox.core.exception
 
 class AppVoxException : Exception {
     private val code: AppVoxError

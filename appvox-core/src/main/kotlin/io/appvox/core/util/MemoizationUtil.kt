@@ -1,4 +1,4 @@
-package io.appvox.util
+package io.appvox.core.util
 
 import java.util.concurrent.ConcurrentHashMap
 

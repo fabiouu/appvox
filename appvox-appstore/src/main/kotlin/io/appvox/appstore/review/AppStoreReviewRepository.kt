@@ -1,12 +1,12 @@
 package io.appvox.appstore.review
 
-import io.appvox.configuration.RequestConfiguration
-import io.appvox.exception.AppVoxException
-import io.appvox.review.ReviewRequest
-import io.appvox.review.ReviewResult
+import io.appvox.core.configuration.RequestConfiguration
+import io.appvox.core.exception.AppVoxException
+import io.appvox.core.review.ReviewRequest
+import io.appvox.core.review.ReviewResult
 import io.appvox.appstore.review.domain.AppStoreReviewRequestParameters
 import io.appvox.appstore.review.domain.AppStoreReviewResult
-import io.appvox.util.HttpUtil
+import io.appvox.core.util.HttpUtil
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 

@@ -9,8 +9,8 @@ import io.appvox.appstore.review.AppStoreReviewRepository.Companion.REQUEST_URL_
 import io.appvox.appstore.review.AppStoreReviewRepository.Companion.REQUEST_URL_PATH
 import io.appvox.appstore.review.constant.AppStoreRegion
 import io.appvox.appstore.review.domain.AppStoreReviewRequestParameters
-import io.appvox.configuration.RequestConfiguration
-import io.appvox.review.ReviewRequest
+import io.appvox.core.configuration.RequestConfiguration
+import io.appvox.core.review.ReviewRequest
 import io.kotest.assertions.assertSoftly
 import io.kotest.inspectors.forExactly
 import io.kotest.matchers.ints.shouldBeBetween
@@ -60,7 +60,7 @@ class AppStoreReviewRepositoryTest : BaseAppStoreMockTest() {
 
         val response = repository.getReviewsByAppId(ReviewRequest(request))
 
-        response.results.forExactly(expectedReviewCount) { result ->
+        response.results?.forExactly(expectedReviewCount) { result ->
             assertSoftly(result) {
                 id.shouldNotBeEmpty()
                 id.shouldContainOnlyDigits()

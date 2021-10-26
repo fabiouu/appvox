@@ -1,4 +1,4 @@
-package io.appvox.review
+package io.appvox.core.review
 
 import kotlinx.coroutines.flow.Flow
 
