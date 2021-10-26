@@ -155,7 +155,7 @@ internal class GooglePlayReviewRepository(
             userCommentText = getJsonNodeByIndex(googlePlayRawReview, COMMENT_INDEX).asText(),
             userCommentTime = getJsonNodeByIndex(googlePlayRawReview, SUBMIT_TIME_INDEX).asLong(),
             likeCount = getJsonNodeByIndex(googlePlayRawReview, LIKE_COUNT_INDEX).asInt(),
-            appVersion = getJsonNodeByIndex(googlePlayRawReview, APP_VERSION_INDEX).asText(),
+            appVersion = getJsonNodeByIndex(googlePlayRawReview, APP_VERSION_INDEX).whenNotNull { it.asText() },
             criterias = emptyList(),
             reviewUrl = REVIEW_URL.format(
                 request.parameters.appId,

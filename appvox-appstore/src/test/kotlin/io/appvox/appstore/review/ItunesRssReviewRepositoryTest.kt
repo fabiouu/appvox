@@ -45,7 +45,7 @@ class ItunesRssReviewRepositoryTest : BaseAppStoreMockTest() {
 
         val response = repository.getReviewsByAppId(ReviewRequest(request))
 
-        response.results.forExactly(expectedReviewCount) { result ->
+        response.results?.forExactly(expectedReviewCount) { result ->
             assertSoftly(result) {
                 id.shouldNotBeEmpty()
                 id.shouldContainOnlyDigits()
