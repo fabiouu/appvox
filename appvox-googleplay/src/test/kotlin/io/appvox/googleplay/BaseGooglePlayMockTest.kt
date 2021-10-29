@@ -28,4 +28,9 @@ open class BaseGooglePlayMockTest {
         WireMock.stubFor(WireMock.any(WireMock.urlPathEqualTo(urlPath))
                 .willReturn(WireMock.aResponse().withBody(mockResponse)))
     }
+
+    fun stubHttpUrlWithStatus(urlPath: String, mockResponse: String, responseStatus: Int) {
+        WireMock.stubFor(WireMock.any(WireMock.urlPathEqualTo(urlPath))
+            .willReturn(WireMock.aResponse().withStatus(responseStatus).withBody(mockResponse)))
+    }
 }

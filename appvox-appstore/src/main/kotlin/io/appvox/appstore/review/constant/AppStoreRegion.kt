@@ -165,7 +165,7 @@ enum class AppStoreRegion(val code: String) {
     companion object {
         fun fromValue(regionCode: String): AppStoreRegion {
             for (appStoreRegion in values()) {
-                if (regionCode == appStoreRegion.code) {
+                if (regionCode == appStoreRegion.code.capitalize()) {
                     return appStoreRegion
                 }
             }

@@ -4,16 +4,15 @@ import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.node.NullNode
 import io.appvox.core.configuration.RequestConfiguration
-import io.appvox.core.exception.AppVoxError.DESERIALIZATION
-import io.appvox.core.exception.AppVoxError.INVALID_ARGUMENT
+import io.appvox.core.exception.AppVoxError.*
 import io.appvox.core.exception.AppVoxException
-import io.appvox.core.exception.AppVoxNetworkException
 import io.appvox.googleplay.review.domain.GooglePlayReviewRequestParameters
 import io.appvox.googleplay.review.domain.GooglePlayReviewResult
 import io.appvox.core.review.ReviewRequest
 import io.appvox.core.review.ReviewResult
 import io.appvox.core.util.HttpUtil
 import io.appvox.core.util.JsonUtil.getJsonNodeByIndex
+import java.io.IOException
 
 internal class GooglePlayReviewRepository(
     private val config: RequestConfiguration
@@ -93,18 +92,24 @@ internal class GooglePlayReviewRepository(
                 request.parameters.appId
             )
         }
-        val responseContent = httpUtils.postRequest(requestUrl, requestBody, config.proxy)
+
         val reviews = ArrayList<GooglePlayReviewResult>()
-        val googlePlayResponse = parseReviewsFromResponse(responseContent)
-        if (googlePlayResponse.isNull) {
-            throw AppVoxNetworkException(DESERIALIZATION)
-        }
-        if (!googlePlayResponse.isEmpty) {
-            val googlePlayRawReviews = googlePlayResponse.first()
-            for (googlePlayRawReview in googlePlayRawReviews) {
-                val review = parseReviewFromResponse(request, googlePlayRawReview)
-                reviews.add(review)
+        val googlePlayResponse: JsonNode
+        try {
+            val responseContent = httpUtils.postRequest(requestUrl, requestBody, config.proxy)
+            googlePlayResponse = parseReviewsFromResponse(responseContent)
+            if (googlePlayResponse.isNull) {
+                throw AppVoxException(DESERIALIZATION)
             }
+            if (!googlePlayResponse.isEmpty) {
+                val googlePlayRawReviews = googlePlayResponse.first()
+                for (googlePlayRawReview in googlePlayRawReviews) {
+                    val review = parseReviewFromResponse(request, googlePlayRawReview)
+                    reviews.add(review)
+                }
+            }
+        } catch (e: IOException) {
+            throw AppVoxException(NETWORK)
         }
 
         val tokenJsonNode = getJsonNodeByIndex(googlePlayResponse, TOKEN_INDEX)
@@ -132,7 +137,7 @@ internal class GooglePlayReviewRepository(
         val reviews = ArrayList<GooglePlayReviewResult>()
         val googlePlayResponse = parseReviewsFromResponse(responseContent)
         if (googlePlayResponse.isEmpty) {
-            throw AppVoxNetworkException(DESERIALIZATION)
+            throw AppVoxException(DESERIALIZATION)
         }
         val googlePlayRawReviews = googlePlayResponse.first()
         for (googlePlayRawReview in googlePlayRawReviews) {

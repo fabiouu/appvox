@@ -1,14 +1,12 @@
-package com.examples.review.itunesrss
+package com.company.project.itunesrss
 
-import io.appvox.ItunesRss
-import io.appvox.configuration.RequestConfiguration
-import io.appvox.review.itunesrss.constant.AppStoreRegion.UNITED_STATES
-import io.appvox.review.itunesrss.constant.ItunesRssSortType.RECENT
+import io.appvox.appstore.ItunesRss
+import io.appvox.appstore.review.constant.AppStoreRegion
+import io.appvox.appstore.review.constant.ItunesRssSortType
+import io.appvox.core.configuration.RequestConfiguration
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.runBlocking
-import java.net.InetSocketAddress
-import java.net.Proxy
 
 fun main() = runBlocking {
 
@@ -21,11 +19,11 @@ fun main() = runBlocking {
         delay = 3000
     )
     val itunesRss = ItunesRss(config)
-    itunesRss.reviews(
-            appId = appId,
-            region = UNITED_STATES,
-            sortType = RECENT
-        )
+    itunesRss.reviews{
+            this.appId = appId
+            region = AppStoreRegion.UNITED_STATES
+            sortType = ItunesRssSortType.RECENT
+        }
         .take(maxReviewCount)
         .collect { review ->
             println(review.toString())

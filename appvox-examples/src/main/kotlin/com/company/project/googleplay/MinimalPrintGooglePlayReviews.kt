@@ -1,13 +1,13 @@
-package com.examples.review.itunesrss
+package com.company.project.googleplay
 
-import io.appvox.ItunesRss
+import io.appvox.googleplay.GooglePlay
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.runBlocking
 
 fun main() = runBlocking {
-    ItunesRss()
-        .reviews("333903271")
+    GooglePlay()
+        .reviews { appId = "com.twitter.android" }
         .take(100)
         .collect { review ->
             println(review.toString())
