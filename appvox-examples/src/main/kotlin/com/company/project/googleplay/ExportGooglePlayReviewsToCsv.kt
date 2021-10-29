@@ -1,11 +1,11 @@
-package com.examples.review.itunesrss
+package com.company.project.googleplay
 
 import com.opencsv.CSVWriter
-import io.appvox.ItunesRss
-import io.appvox.configuration.RequestConfiguration
-import io.appvox.exception.AppVoxException
-import io.appvox.review.itunesrss.constant.AppStoreRegion
-import io.appvox.review.itunesrss.constant.ItunesRssSortType
+import io.appvox.core.configuration.RequestConfiguration
+import io.appvox.core.exception.AppVoxException
+import io.appvox.googleplay.GooglePlay
+import io.appvox.googleplay.review.constant.GooglePlayLanguage
+import io.appvox.googleplay.review.constant.GooglePlaySortType
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.runBlocking
@@ -13,11 +13,16 @@ import java.io.FileWriter
 import java.io.IOException
 
 fun main() = runBlocking {
-
-    val appId = "333903271"
+    val appId = "com.twitter.android"
+    val sortType = GooglePlaySortType.RELEVANT
+    val reviewLanguage = GooglePlayLanguage.ENGLISH_US
     val maxReviewCount = 100
 
-    val fileName = "${appId}_us_$maxReviewCount.csv"
+    val fileName =
+        appId +
+            "_${sortType.name.toLowerCase()}" +
+            "_${reviewLanguage.name.toLowerCase()}" +
+            "_$maxReviewCount.csv"
     val fileWriter = FileWriter(fileName)
 
     try {
@@ -30,35 +35,37 @@ fun main() = runBlocking {
         )
         val columns: Array<String> =
             arrayOf(
-                "id", "rating", "userName",
-                "title", "appVersion", "comment", "commentTime",
-                "replyComment", "replyTime", "url"
+                "id", "rating", "userName", "userProfile",
+                "title", "comment", "commentTime", "appVersion",
+                "likeCount", "replyComment", "replyTime", "url"
             )
         csvWriter.writeNext(columns)
 
         val config = RequestConfiguration(
-//        proxy = Proxy(HTTP, InetSocketAddress("localhost", 8080)),
+//        proxy = Proxy(Proxy.Type.HTTP, InetSocketAddress("localhost", 8080)),
 //        proxyAuthentication = PasswordAuthentication("my-proxy-username", "my-proxy-password".toCharArray()),
-            delay = 3000
+            delay = 5000
         )
-
-        val appStore = ItunesRss(config)
-        appStore.reviews(
-                appId = appId,
-                region = AppStoreRegion.UNITED_STATES,
-                sortType = ItunesRssSortType.RECENT
-            )
+        GooglePlay(config).reviews {
+            this.appId = appId
+            this.sortType = sortType
+            language = reviewLanguage
+            batchSize = 40
+        }
             .take(maxReviewCount)
             .collect { review ->
                 val csvReview: Array<String?> = arrayOf(
                     review.id,
                     review.latestUserComment.rating.toString(),
-                    review.latestUserComment.userName,
+                    review.latestUserComment.name,
+                    review.latestUserComment.avatar,
                     review.latestUserComment.title,
-                    review.latestUserComment.appVersion,
                     review.latestUserComment.text,
-                    review.latestUserComment.time.toString(),
+                    review.latestUserComment.lastUpdateTime.toString(),
+                    review.latestUserComment.appVersion,
                     review.latestUserComment.likeCount.toString(),
+                    review.latestUserComment.text,
+                    review.latestUserComment.lastUpdateTime.toString(),
                     review.url
                 )
                 csvWriter.writeNext(csvReview)

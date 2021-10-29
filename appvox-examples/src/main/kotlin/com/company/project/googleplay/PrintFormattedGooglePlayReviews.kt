@@ -1,13 +1,12 @@
-package com.examples.review.googleplay
+package com.company.project.googleplay
 
-import io.appvox.GooglePlay
-import io.appvox.configuration.RequestConfiguration
-import io.appvox.review.googleplay.constant.GooglePlayLanguage
-import io.appvox.review.googleplay.constant.GooglePlaySortType
+import io.appvox.core.configuration.RequestConfiguration
+import io.appvox.googleplay.GooglePlay
+import io.appvox.googleplay.review.constant.GooglePlayLanguage
+import io.appvox.googleplay.review.constant.GooglePlaySortType
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.runBlocking
-import kotlin.contracts.ExperimentalContracts
 
 /**
  *   In this example, we print the 100 most relevant Google Play Reviews of the Twitter App
@@ -16,7 +15,6 @@ import kotlin.contracts.ExperimentalContracts
  *   The proxy is optional and can be added to GooglePlay constructor.
  *   AppVox is polite by default, request delay cannot be inferior to 500 ms
  */
-@ExperimentalContracts
 fun main() = runBlocking {
 
     val appId = "com.twitter.android"
@@ -30,11 +28,11 @@ fun main() = runBlocking {
         delay = 3000
     )
     val googlePlay = GooglePlay(config)
-    googlePlay.reviews(
-        appId = appId,
-        sortType = sortType,
+    googlePlay.reviews {
+        this.appId = appId
+        this.sortType = sortType
         language = reviewLanguage
-    )
+    }
         .take(maxReviewCount)
         .collect { review ->
             val formattedReview =
