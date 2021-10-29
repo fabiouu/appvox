@@ -1,0 +1,18 @@
+<feed xmlns:im="http://itunes.apple.com/rss" xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <script/>
+    <id>https://mzstoreservices-int.dslb.apple.com/ZW/rss/customerreviews/page=1/id=1208224953/sortby=mostrecent/xml?urlDesc=/customerreviews/id=333903271/mostrecent/xml</id>
+    <title>iTunes Store: Customer Reviews</title>
+    <updated>2021-10-28T18:14:47-07:00</updated>
+    <link rel="alternate" type="text/html" href="https://music.apple.com/WebObjects/MZStore.woa/wa/viewGrouping?cc=zw&id=176527"/>
+    <link rel="self" href="https://mzstoreservices-int.dslb.apple.com/ZW/rss/customerreviews/page=1/id=1208224953/sortby=mostrecent/xml?urlDesc=/customerreviews/id=333903271/mostrecent/xml"/>
+    <link rel="first" href=""/>
+    <link rel="last" href=""/>
+    <link rel="previous" href=""/>
+    <link rel="next" href=""/>
+    <icon>http://itunes.apple.com/favicon.ico</icon>
+    <author>
+        <name>iTunes Store</name>
+        <uri>http://www.apple.com/uk/itunes/</uri>
+    </author>
+    <rights>Copyright 2008 Apple Inc.</rights>
+</feed>

@@ -32,7 +32,12 @@
         </dependency>
         <dependency>
             <groupId>io.appvox</groupId>
-            <artifactId>appvox-core</artifactId>
+            <artifactId>appvox-googleplay</artifactId>
+            <version>${appvox.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.appvox</groupId>
+            <artifactId>appvox-appstore</artifactId>
             <version>${appvox.version}</version>
         </dependency>
          <dependency>

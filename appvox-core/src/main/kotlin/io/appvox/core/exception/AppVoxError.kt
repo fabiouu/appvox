@@ -6,10 +6,14 @@ enum class AppVoxError(val errorCode: Int, val errorMessage: String) {
         errorMessage = "Failed to deserialize network payload"
     ),
     REQ_DELAY_TOO_SHORT(
-        errorCode = 3,
+        errorCode = 1,
         errorMessage = "Specified interval between network requests is inferior to 500 ms"
     ),
+    NETWORK(
+        errorCode = 2,
+        errorMessage = "A network issue occurred"
+    ),
     INVALID_ARGUMENT(
-        errorCode = 4,
+        errorCode = 3,
         errorMessage = "Invalid scraper argument");
 }

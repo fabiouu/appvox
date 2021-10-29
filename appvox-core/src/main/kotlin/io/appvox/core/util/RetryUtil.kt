@@ -1,7 +1,7 @@
 package io.appvox.core.util
 
 import io.appvox.core.configuration.Constant.DELAY_FACTOR
-import io.appvox.core.exception.AppVoxNetworkException
+import io.appvox.core.exception.AppVoxException
 import kotlinx.coroutines.delay
 
 suspend inline fun <R> retryRequest(
@@ -14,7 +14,7 @@ suspend inline fun <R> retryRequest(
     repeat(maxAttempts - 1) {
         try {
             return requestBlock()
-        } catch (e: AppVoxNetworkException) {
+        } catch (e: AppVoxException) {
             // We should log the retry attempt here and do not leave an empty catch block.
             // The project does not implement a logging strategy yet. Implemented in the next release (see roadmap)
         }

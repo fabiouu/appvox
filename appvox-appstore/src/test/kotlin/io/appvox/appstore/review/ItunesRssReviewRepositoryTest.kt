@@ -1,8 +1,8 @@
 package io.appvox.appstore.review
 
 import io.appvox.appstore.BaseAppStoreMockTest
-import io.appvox.appstore.review.AppStoreReviewRepository.Companion.REQUEST_URL_DOMAIN
-import io.appvox.appstore.review.AppStoreReviewRepository.Companion.REQUEST_URL_PATH
+import io.appvox.appstore.review.ItunesRssReviewRepository.Companion.REQUEST_URL_DOMAIN
+import io.appvox.appstore.review.ItunesRssReviewRepository.Companion.REQUEST_URL_PATH
 import io.appvox.appstore.review.constant.AppStoreRegion
 import io.appvox.appstore.review.constant.ItunesRssSortType
 import io.appvox.appstore.review.domain.ItunesRssReviewRequestParameters
@@ -23,7 +23,7 @@ class ItunesRssReviewRepositoryTest : BaseAppStoreMockTest() {
     @ExperimentalCoroutinesApi
     @ParameterizedTest
     @CsvSource(
-        "333903271, us, 50, 1"
+        "333903271, US, 50, 1"
     )
     fun `Get most recent App Store reviews from itunes RSS Feed`(
         appId: String,

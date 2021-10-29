@@ -1,5 +1,6 @@
 package io.appvox.googleplay
 
+import io.appvox.core.exception.AppVoxException
 import io.appvox.googleplay.app.GooglePlayRepository
 import io.appvox.googleplay.review.GooglePlayReviewRepository.Companion.REQUEST_URL_DOMAIN
 import io.appvox.googleplay.review.GooglePlayReviewRepository.Companion.REQUEST_URL_PATH
@@ -7,6 +8,7 @@ import io.appvox.googleplay.review.constant.GooglePlayLanguage
 import io.appvox.googleplay.review.constant.GooglePlaySortType
 import io.appvox.googleplay.review.domain.GooglePlayReview
 import io.kotest.assertions.assertSoftly
+import io.kotest.assertions.throwables.shouldThrowExactly
 import io.kotest.inspectors.forExactly
 import io.kotest.matchers.ints.shouldBeBetween
 import io.kotest.matchers.ints.shouldBeGreaterThanOrEqual
@@ -30,7 +32,7 @@ class GooglePlayTest : BaseGooglePlayMockTest() {
     @CsvSource(
         "com.twitter.android, 50"
     )
-    fun `get Google Play reviews using default optional parameters`(
+    fun `Get reviews using default parameters`(
         appId: String,
         expectedReviewCount: Int
     ) = runBlockingTest {
@@ -87,7 +89,7 @@ class GooglePlayTest : BaseGooglePlayMockTest() {
     @CsvSource(
         "com.twitter.android, en-US, 1, 50"
     )
-    fun `Get most relevant Google Play reviews from the US with a delay of 3s between each request`(
+    fun `Get most relevant reviews from the US with a delay of 3s between each request`(
         appId: String,
         language: String,
         sortType: Int,
@@ -142,6 +144,80 @@ class GooglePlayTest : BaseGooglePlayMockTest() {
             assertSoftly(result.latestDeveloperComment) {
                 text?.let { it.shouldNotBeEmpty() }
             }
+        }
+    }
+
+    @ExperimentalContracts
+    @ExperimentalCoroutinesApi
+    @ParameterizedTest
+    @CsvSource(
+        "com.twitter.android, 50"
+    )
+    fun `Get reviews using default parameters and get timeout`(
+        appId: String,
+        expectedReviewCount: Int
+    ) = runBlockingTest {
+
+        GooglePlayRepository.APP_HP_URL_DOMAIN = httpMockServerDomain
+        val scriptParamsMockData = javaClass.getResource(
+            "/app/com.twitter.android" +
+                "/app_googleplay_com.twitter.android_homepage.html"
+        ).readText()
+        stubHttpUrl(GooglePlayRepository.APP_HP_URL_PATH, scriptParamsMockData)
+
+        REQUEST_URL_DOMAIN = httpMockServerDomain
+        val mockData =
+            javaClass.getResource(
+                "/review/com.twitter.android/relevant" +
+                    "/review_google_play_com.twitter.android_relevant_1.json"
+            ).readText()
+        stubHttpUrlWithStatus(REQUEST_URL_PATH, mockData, 408)
+
+        shouldThrowExactly<AppVoxException> {
+            val reviews = ArrayList<GooglePlayReview>()
+            GooglePlay()
+                .reviews { this.appId = appId }
+                .take(expectedReviewCount)
+                .collect { review ->
+                    reviews.add(review)
+                }
+        }
+    }
+
+    @ExperimentalContracts
+    @ExperimentalCoroutinesApi
+    @ParameterizedTest
+    @CsvSource(
+        "com.twitter.android, 50"
+    )
+    fun `Get reviews using default parameters and get not exist`(
+        appId: String,
+        expectedReviewCount: Int
+    ) = runBlockingTest {
+
+        GooglePlayRepository.APP_HP_URL_DOMAIN = httpMockServerDomain
+        val scriptParamsMockData = javaClass.getResource(
+            "/app/com.twitter.android" +
+                "/app_googleplay_com.twitter.android_homepage.html"
+        ).readText()
+        stubHttpUrl(GooglePlayRepository.APP_HP_URL_PATH, scriptParamsMockData)
+
+        REQUEST_URL_DOMAIN = httpMockServerDomain
+        val mockData =
+            javaClass.getResource(
+                "/review/com.twitter.android/relevant" +
+                    "/review_google_play_com.twitter.android_relevant_1.json"
+            ).readText()
+        stubHttpUrlWithStatus(REQUEST_URL_PATH, mockData, 404)
+
+        shouldThrowExactly<AppVoxException> {
+            val reviews = ArrayList<GooglePlayReview>()
+            GooglePlay()
+                .reviews { this.appId = appId }
+                .take(expectedReviewCount)
+                .collect { review ->
+                    reviews.add(review)
+                }
         }
     }
 }

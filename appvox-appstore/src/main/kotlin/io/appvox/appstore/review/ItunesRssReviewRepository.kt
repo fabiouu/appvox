@@ -8,6 +8,7 @@ import io.appvox.core.exception.AppVoxException
 import io.appvox.core.review.ReviewRequest
 import io.appvox.core.review.ReviewResult
 import io.appvox.core.util.HttpUtil
+import java.io.IOException
 import java.io.StringReader
 import javax.xml.bind.JAXBContext
 import javax.xml.bind.JAXBException
@@ -38,35 +39,40 @@ internal class ItunesRssReviewRepository(
     fun getReviewsByAppId(
         request: ReviewRequest<ItunesRssReviewRequestParameters>
     ): ReviewResult<ItunesRssReviewResult.Entry> {
-        if (request.parameters.pageNo !in MIN_PAGE_NO..MAX_PAGE_NO) {
-            throw AppVoxException(AppVoxError.INVALID_ARGUMENT)
-        }
-
-        val requestUrl = request.nextToken ?: REQUEST_URL_DOMAIN +
-        REQUEST_URL_PATH.format(
-            request.parameters.region.code,
-            request.parameters.pageNo,
-            request.parameters.appId) +
-        REQUEST_URL_PARAMS.format(
-            request.parameters.appId
-        )
-
-        val responseContent = httpUtils.getRequest(requestUrl = requestUrl, proxy = config.proxy)
-        val result: ItunesRssReviewResult
+        var result = ItunesRssReviewResult()
         try {
-            val jaxbContext: JAXBContext = JAXBContext.newInstance(ItunesRssReviewResult::class.java)
-            val cleanResponseContent = responseContent.replace("&", "&amp;")
-            val sr = StringReader(cleanResponseContent)
-            val xsr: XMLStreamReader = xif.createXMLStreamReader(sr)
-            val jaxbUnmarshaller: Unmarshaller = jaxbContext.createUnmarshaller()
-            result = jaxbUnmarshaller.unmarshal(xsr) as ItunesRssReviewResult
+            if (request.parameters.pageNo !in MIN_PAGE_NO..MAX_PAGE_NO) {
+                throw AppVoxException(AppVoxError.INVALID_ARGUMENT)
+            }
+
+            val requestUrl = request.nextToken ?: (REQUEST_URL_DOMAIN +
+                REQUEST_URL_PATH.format(
+                    request.parameters.region.code,
+                    request.parameters.pageNo,
+                    request.parameters.appId
+                ) +
+                REQUEST_URL_PARAMS.format(
+                    request.parameters.appId
+                ))
+
+            if (requestUrl.isNotBlank()) {
+                val responseContent = httpUtils.getRequest(requestUrl = requestUrl, proxy = config.proxy)
+                val jaxbContext: JAXBContext = JAXBContext.newInstance(ItunesRssReviewResult::class.java)
+                val cleanResponseContent = responseContent.replace("&", "&amp;")
+                val sr = StringReader(cleanResponseContent)
+                val xsr: XMLStreamReader = xif.createXMLStreamReader(sr)
+                val jaxbUnmarshaller: Unmarshaller = jaxbContext.createUnmarshaller()
+                result = jaxbUnmarshaller.unmarshal(xsr) as ItunesRssReviewResult
+            }
         } catch (e: JAXBException) {
             throw AppVoxException(AppVoxError.DESERIALIZATION, e)
+        } catch (e: IOException) {
+            throw AppVoxException(AppVoxError.NETWORK, e)
         }
 
         return ReviewResult(
             results = result.entry,
-            nextToken = result.link!!.find { it.rel == "next" }?.href!!
+            nextToken = result.link?.find { it.rel == "next" }?.href
         )
     }
 }

@@ -14,8 +14,8 @@ import io.kotest.matchers.ints.shouldBeBetween
 import io.kotest.matchers.nulls.shouldNotBeNull
 import io.kotest.matchers.string.shouldNotBeEmpty
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
@@ -27,7 +27,7 @@ class AppStoreTest : BaseAppStoreMockTest() {
     @CsvSource(
         "333903271, us, 10"
     )
-    fun `Get App Store reviews using default optional parameters`(
+    fun `Get reviews using default parameters`(
         appId: String,
         regionCode: String,
         expectedReviewCount: Int
@@ -71,7 +71,7 @@ class AppStoreTest : BaseAppStoreMockTest() {
     @CsvSource(
         "333903271, us, 10"
     )
-    fun `get most recent App Store reviews with a delay of 3s between each request`(
+    fun `get most recent reviews with a delay of 3s between each request`(
         appId: String,
         regionCode: String,
         expectedReviewCount: Int
