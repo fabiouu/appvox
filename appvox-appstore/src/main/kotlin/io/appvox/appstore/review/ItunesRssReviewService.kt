@@ -35,6 +35,6 @@ internal class ItunesRssReviewService(
                 emit(review)
             }
             delay(timeMillis = config.delay.toLong())
-        } while (request.nextToken != null)
+        } while (request.nextToken != null && response.results != null)
     }
 }
