@@ -16,7 +16,7 @@ internal class ItunesRssReviewConverter {
             comments = arrayListOf(
                 ItunesRssReview.Comment(
                     userComment = ItunesRssReview.UserComment(
-                        userName = result.author?.name!!,
+                        username = result.author?.name!!,
                         rating = result.rating!!,
                         title = result.title,
                         text = result.content?.find { it.type == "text" }?.text!!,

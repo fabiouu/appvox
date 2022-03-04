@@ -15,7 +15,6 @@ import io.kotest.matchers.nulls.shouldNotBeNull
 import io.kotest.matchers.string.shouldNotBeEmpty
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.take
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
@@ -53,7 +52,7 @@ class ItunesRssTest : BaseAppStoreMockTest() {
                 latestComment.shouldNotBeNull()
             }
             assertSoftly(result.latestUserComment) {
-                userName.shouldNotBeEmpty()
+                username.shouldNotBeEmpty()
                 rating.shouldBeBetween(1, 5)
                 appVersion.shouldNotBeEmpty()
                 title.shouldNotBeEmpty()
@@ -101,7 +100,7 @@ class ItunesRssTest : BaseAppStoreMockTest() {
                 latestComment.shouldNotBeNull()
             }
             assertSoftly(result.latestUserComment) {
-                userName.shouldNotBeEmpty()
+                username.shouldNotBeEmpty()
                 rating.shouldBeBetween(1, 5)
                 appVersion.shouldNotBeEmpty()
                 title.shouldNotBeEmpty()

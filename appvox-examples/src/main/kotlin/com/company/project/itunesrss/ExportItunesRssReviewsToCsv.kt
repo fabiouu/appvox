@@ -53,7 +53,7 @@ fun main() = runBlocking {
                 val csvReview: Array<String?> = arrayOf(
                     review.id,
                     review.latestUserComment.rating.toString(),
-                    review.latestUserComment.userName,
+                    review.latestUserComment.username,
                     review.latestUserComment.title,
                     review.latestUserComment.appVersion,
                     review.latestUserComment.text,

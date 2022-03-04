@@ -69,7 +69,7 @@ data class ItunesRssReview(
         /**
          * iTunes Author or User Name of the user who wrote the review
          */
-        val userName: String,
+        val username: String,
 
         /**
          * Review rating from 1 (poor) to 5 (very good)
