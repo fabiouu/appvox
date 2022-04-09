@@ -1,7 +1,5 @@
-package com.company.project.googleplay
+package io.appvox.googleplay
 
-import io.appvox.googleplay.GooglePlay
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.runBlocking
 

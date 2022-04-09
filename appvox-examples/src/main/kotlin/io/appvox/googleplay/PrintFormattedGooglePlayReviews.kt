@@ -1,10 +1,8 @@
-package com.company.project.googleplay
+package io.appvox.googleplay
 
 import io.appvox.core.configuration.RequestConfiguration
-import io.appvox.googleplay.GooglePlay
 import io.appvox.googleplay.review.constant.GooglePlayLanguage
 import io.appvox.googleplay.review.constant.GooglePlaySortType
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.runBlocking
 

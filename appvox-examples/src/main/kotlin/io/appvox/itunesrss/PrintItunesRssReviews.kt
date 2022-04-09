@@ -1,10 +1,9 @@
-package com.company.project.itunesrss
+package io.appvox.itunesrss
 
 import io.appvox.appstore.ItunesRss
 import io.appvox.appstore.review.constant.AppStoreRegion
 import io.appvox.appstore.review.constant.ItunesRssSortType
 import io.appvox.core.configuration.RequestConfiguration
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.runBlocking
 
