@@ -1,13 +1,13 @@
 package io.appvox.googleplay.review
 
 import io.appvox.core.configuration.RequestConfiguration
+import io.appvox.core.review.ReviewRequest
 import io.appvox.googleplay.BaseGooglePlayMockTest
 import io.appvox.googleplay.review.GooglePlayReviewRepository.Companion.REQUEST_URL_DOMAIN
 import io.appvox.googleplay.review.GooglePlayReviewRepository.Companion.REQUEST_URL_PATH
 import io.appvox.googleplay.review.constant.GooglePlayLanguage
 import io.appvox.googleplay.review.constant.GooglePlaySortType
 import io.appvox.googleplay.review.domain.GooglePlayReviewRequestParameters
-import io.appvox.core.review.ReviewRequest
 import io.kotest.assertions.assertSoftly
 import io.kotest.inspectors.forExactly
 import io.kotest.matchers.ints.shouldBeBetween

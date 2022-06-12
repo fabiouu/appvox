@@ -3,9 +3,9 @@ package io.appvox.googleplay.review
 import io.appvox.googleplay.review.domain.GooglePlayReview
 import io.appvox.googleplay.review.domain.GooglePlayReviewRequestParameters
 import io.appvox.googleplay.review.domain.GooglePlayReviewResult
-import java.time.Instant
+import java.time.Instant.ofEpochSecond
 import java.time.ZoneOffset
-import java.time.ZonedDateTime
+import java.time.ZonedDateTime.ofInstant
 
 internal class GooglePlayReviewConverter {
 
@@ -24,19 +24,19 @@ internal class GooglePlayReviewConverter {
                         avatar = result.userProfilePicUrl,
                         rating = result.rating,
                         text = result.userCommentText,
-                        lastUpdateTime = ZonedDateTime.ofInstant(
-                            Instant.ofEpochSecond(result.userCommentTime),
+                        lastUpdateTime = ofInstant(
+                            ofEpochSecond(result.userCommentTime),
                             ZoneOffset.UTC
                         ),
                         likeCount = result.likeCount,
                         appVersion = result.appVersion
                     ),
-                    developer = GooglePlayReview.DeveloperComment(
-                        text = result.developerCommentText,
-                        lastUpdateTime = result.developerCommentTime?.let {
-                            ZonedDateTime.ofInstant(Instant.ofEpochSecond(it), ZoneOffset.UTC)
-                        },
-                    )
+                    developer = result.developerCommentText?.let {
+                        GooglePlayReview.DeveloperComment(
+                            text = result.developerCommentText,
+                            lastUpdateTime = ofInstant(ofEpochSecond(result.developerCommentTime!!), ZoneOffset.UTC),
+                        )
+                    }
                 )
             )
         )
@@ -58,22 +58,19 @@ internal class GooglePlayReviewConverter {
                         avatar = it.userProfilePicUrl,
                         rating = it.rating,
                         text = it.userCommentText,
-                        lastUpdateTime = ZonedDateTime.ofInstant(
-                            Instant.ofEpochSecond(it.userCommentTime),
+                        lastUpdateTime = ofInstant(
+                            ofEpochSecond(it.userCommentTime),
                             ZoneOffset.UTC
                         ),
                         likeCount = result.likeCount,
                         appVersion = it.appVersion
                     ),
-                    developer = GooglePlayReview.DeveloperComment(
-                        text = it.developerCommentText,
-                        lastUpdateTime = it.developerCommentTime?.let { developerCommentTime ->
-                            ZonedDateTime.ofInstant(
-                                Instant.ofEpochSecond(developerCommentTime),
-                                ZoneOffset.UTC
-                            )
-                        },
-                    )
+                    developer = result.developerCommentText?.let {
+                        GooglePlayReview.DeveloperComment(
+                            text = result.developerCommentText,
+                            lastUpdateTime = ofInstant(ofEpochSecond(result.developerCommentTime!!), ZoneOffset.UTC),
+                        )
+                    }
                 )
             }
         )

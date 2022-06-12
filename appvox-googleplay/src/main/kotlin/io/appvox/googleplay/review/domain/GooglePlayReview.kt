@@ -87,7 +87,7 @@ data class GooglePlayReview(
     /**
      * Most recent comment written by the developer of the application
      */
-    val latestDeveloperComment: DeveloperComment
+    val latestDeveloperComment: DeveloperComment?
         get() = comments.first().developer
 
     data class Comment(
@@ -99,7 +99,7 @@ data class GooglePlayReview(
         /**
          * Comment written by the developer
          */
-        val developer: DeveloperComment
+        val developer: DeveloperComment?
     )
 
     data class UserComment(
@@ -148,11 +148,9 @@ data class GooglePlayReview(
             get() {
                 val reviewTypes = HashSet<GooglePlayCommentType>()
                 val cleanCommentText = text.filter { !it.isWhitespace() }
-//                when {
                 if (cleanCommentText.length > LONG_REVIEW_THRESHOLD) reviewTypes.add(EXTENSIVE)
                 if (cleanCommentText.length < SHORT_REVIEW_THRESHOLD) reviewTypes.add(IRRELEVANT)
                 if (likeCount >= POPULAR_USER_THRESOLD) reviewTypes.add(POPULAR)
-//                }
                 return reviewTypes
             }
     }

@@ -44,8 +44,8 @@ fun main() = runBlocking {
                             Comment Time: ${review.latestUserComment.lastUpdateTime}
                             App Version: ${review.latestUserComment.appVersion}
                             Like Count: ${review.latestUserComment.likeCount}
-                            Reply Comment: ${review.latestDeveloperComment.text}
-                            Reply Time: ${review.latestDeveloperComment.lastUpdateTime}
+                            Reply Comment: ${review.latestDeveloperComment?.text}
+                            Reply Time: ${review.latestDeveloperComment?.lastUpdateTime}
                             Review Url: ${review.url}
                         """.trimIndent()
             println(formattedReview)

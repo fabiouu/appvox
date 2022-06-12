@@ -8,9 +8,10 @@ object JsonUtil {
         val responseIndex = nestedIndexes[currentIndex]
         val jsonNode = jsonResponse[responseIndex] ?: return NullNode.getInstance()
         val nextIndex = currentIndex + 1
-        if (jsonNode.isNull || nextIndex == nestedIndexes.size) {
-            return jsonNode
+        return if (jsonNode.isNull || nextIndex == nestedIndexes.size) {
+            jsonNode
+        } else {
+            getJsonNodeByIndex(jsonNode, nestedIndexes, nextIndex)
         }
-        return getJsonNodeByIndex(jsonNode, nestedIndexes, nextIndex)
     }
 }

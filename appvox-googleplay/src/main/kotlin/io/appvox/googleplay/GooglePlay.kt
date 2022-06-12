@@ -4,11 +4,11 @@ import io.appvox.core.configuration.Constant.MIN_REQUEST_DELAY
 import io.appvox.core.configuration.RequestConfiguration
 import io.appvox.core.exception.AppVoxError
 import io.appvox.core.exception.AppVoxException
+import io.appvox.core.review.ReviewRequest
+import io.appvox.core.util.HttpUtil
 import io.appvox.googleplay.review.GooglePlayReviewService
 import io.appvox.googleplay.review.domain.GooglePlayReview
 import io.appvox.googleplay.review.domain.GooglePlayReviewRequestParameters
-import io.appvox.core.review.ReviewRequest
-import io.appvox.core.util.HttpUtil
 import kotlinx.coroutines.flow.Flow
 
 /**

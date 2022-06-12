@@ -6,12 +6,12 @@ import com.fasterxml.jackson.databind.node.NullNode
 import io.appvox.core.configuration.RequestConfiguration
 import io.appvox.core.exception.AppVoxError.*
 import io.appvox.core.exception.AppVoxException
-import io.appvox.googleplay.review.domain.GooglePlayReviewRequestParameters
-import io.appvox.googleplay.review.domain.GooglePlayReviewResult
 import io.appvox.core.review.ReviewRequest
 import io.appvox.core.review.ReviewResult
 import io.appvox.core.util.HttpUtil
 import io.appvox.core.util.JsonUtil.getJsonNodeByIndex
+import io.appvox.googleplay.review.domain.GooglePlayReviewRequestParameters
+import io.appvox.googleplay.review.domain.GooglePlayReviewResult
 import java.io.IOException
 
 internal class GooglePlayReviewRepository(
