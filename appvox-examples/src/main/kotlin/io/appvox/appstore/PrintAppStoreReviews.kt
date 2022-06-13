@@ -1,8 +1,7 @@
-package io.appvox.itunesrss
+package io.appvox.appstore
 
-import io.appvox.appstore.ItunesRss
 import io.appvox.appstore.review.constant.AppStoreRegion
-import io.appvox.appstore.review.constant.ItunesRssSortType
+import io.appvox.appstore.review.constant.AppStoreSortType
 import io.appvox.core.configuration.RequestConfiguration
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.runBlocking
@@ -17,11 +16,11 @@ fun main() = runBlocking {
 //        proxyAuthentication = PasswordAuthentication("my-proxy-username", "my-proxy-password".toCharArray()),
         delay = 3000
     )
-    val itunesRss = ItunesRss(config)
+    val itunesRss = AppStore(config)
     itunesRss.reviews{
             this.appId = appId
             region = AppStoreRegion.UNITED_STATES
-            sortType = ItunesRssSortType.RECENT
+            sortType = AppStoreSortType.RECENT
         }
         .take(maxReviewCount)
         .collect { review ->

@@ -9,7 +9,7 @@ import io.appvox.appstore.review.classification.AppStoreUserType.PROMOTER
 import io.appvox.appstore.review.constant.AppStoreRegion
 import java.time.ZonedDateTime
 
-data class ItunesRssReview(
+data class AppStoreReview(
     /**
      * Review Id
      */
@@ -26,7 +26,7 @@ data class ItunesRssReview(
     val url: String? = null,
 
     /**
-     * List of comments written by the user and developer. If the user edited his comment, comments size will be > 1
+     * List of comments written by the user and developer
      */
     val comments: List<Comment>,
 ) {
@@ -67,7 +67,7 @@ data class ItunesRssReview(
 
     data class UserComment(
         /**
-         * iTunes Author or User Name of the user who wrote the review
+         * iTunes author or name of the user who wrote the review
          */
         val username: String,
 

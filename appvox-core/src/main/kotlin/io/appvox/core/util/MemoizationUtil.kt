@@ -7,7 +7,7 @@ internal class MemoizationUtil<in FirstParameter, in SecondParameter, out Result
 ) : (FirstParameter, SecondParameter) -> Result {
     private val values = ConcurrentHashMap<FirstParameter, Result>()
     override fun invoke(x: FirstParameter, y: SecondParameter): Result {
-        return values.getOrPut(x, { f(x, y) })
+        return values.getOrPut(x) { f(x, y) }
     }
 }
 

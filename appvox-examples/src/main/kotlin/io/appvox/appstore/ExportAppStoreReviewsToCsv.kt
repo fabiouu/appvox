@@ -1,9 +1,8 @@
-package io.appvox.itunesrss
+package io.appvox.appstore
 
 import com.opencsv.CSVWriter
-import io.appvox.appstore.ItunesRss
 import io.appvox.appstore.review.constant.AppStoreRegion
-import io.appvox.appstore.review.constant.ItunesRssSortType
+import io.appvox.appstore.review.constant.AppStoreSortType
 import io.appvox.core.configuration.RequestConfiguration
 import io.appvox.core.exception.AppVoxException
 import kotlinx.coroutines.flow.take
@@ -41,11 +40,11 @@ fun main() = runBlocking {
             delay = 3000
         )
 
-        val appStore = ItunesRss(config)
+        val appStore = AppStore(config)
         appStore.reviews {
                 this.appId = appId
                 region = AppStoreRegion.UNITED_STATES
-                sortType = ItunesRssSortType.RECENT
+                sortType = AppStoreSortType.RECENT
         }
             .take(maxReviewCount)
             .collect { review ->

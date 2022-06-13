@@ -1,7 +1,7 @@
 package io.appvox.appstore.review
 
-import io.appvox.appstore.review.domain.ItunesRssReviewRequestParameters
-import io.appvox.appstore.review.domain.ItunesRssReviewResult
+import io.appvox.appstore.review.domain.AppStoreReviewRequestParameters
+import io.appvox.appstore.review.domain.AppStoreReviewResult
 import io.appvox.core.configuration.RequestConfiguration
 import io.appvox.core.exception.AppVoxError
 import io.appvox.core.exception.AppVoxException
@@ -16,7 +16,7 @@ import javax.xml.bind.Unmarshaller
 import javax.xml.stream.XMLInputFactory
 import javax.xml.stream.XMLStreamReader
 
-internal class ItunesRssReviewRepository(
+internal class AppStoreReviewRepository(
     private val config: RequestConfiguration
 ) {
     companion object {
@@ -37,9 +37,9 @@ internal class ItunesRssReviewRepository(
 
     @Throws(AppVoxException::class)
     fun getReviewsByAppId(
-        request: ReviewRequest<ItunesRssReviewRequestParameters>
-    ): ReviewResult<ItunesRssReviewResult.Entry> {
-        var result = ItunesRssReviewResult()
+        request: ReviewRequest<AppStoreReviewRequestParameters>
+    ): ReviewResult<AppStoreReviewResult.Entry> {
+        var result = AppStoreReviewResult()
         try {
             if (request.parameters.pageNo !in MIN_PAGE_NO..MAX_PAGE_NO) {
                 throw AppVoxException(AppVoxError.INVALID_ARGUMENT)
@@ -57,12 +57,12 @@ internal class ItunesRssReviewRepository(
 
             if (requestUrl.isNotBlank()) {
                 val responseContent = httpUtils.getRequest(requestUrl = requestUrl, proxy = config.proxy)
-                val jaxbContext: JAXBContext = JAXBContext.newInstance(ItunesRssReviewResult::class.java)
+                val jaxbContext: JAXBContext = JAXBContext.newInstance(AppStoreReviewResult::class.java)
                 val cleanResponseContent = responseContent.replace("&", "&amp;")
                 val sr = StringReader(cleanResponseContent)
                 val xsr: XMLStreamReader = xif.createXMLStreamReader(sr)
                 val jaxbUnmarshaller: Unmarshaller = jaxbContext.createUnmarshaller()
-                result = jaxbUnmarshaller.unmarshal(xsr) as ItunesRssReviewResult
+                result = jaxbUnmarshaller.unmarshal(xsr) as AppStoreReviewResult
             }
         } catch (e: JAXBException) {
             throw AppVoxException(AppVoxError.DESERIALIZATION, e)

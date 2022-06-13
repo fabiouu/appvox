@@ -1,21 +1,21 @@
 package io.appvox.appstore.review
 
-import io.appvox.appstore.review.domain.ItunesRssReview
-import io.appvox.appstore.review.domain.ItunesRssReviewRequestParameters
-import io.appvox.appstore.review.domain.ItunesRssReviewResult
+import io.appvox.appstore.review.domain.AppStoreReview
+import io.appvox.appstore.review.domain.AppStoreReviewRequestParameters
+import io.appvox.appstore.review.domain.AppStoreReviewResult
 
-internal class ItunesRssReviewConverter {
+internal class AppStoreReviewConverter {
     fun toResponse(
-        requestParameters: ItunesRssReviewRequestParameters,
-        result: ItunesRssReviewResult.Entry
-    ): ItunesRssReview {
-        return ItunesRssReview(
+        requestParameters: AppStoreReviewRequestParameters,
+        result: AppStoreReviewResult.Entry
+    ): AppStoreReview {
+        return AppStoreReview(
             id = result.id!!,
             region = requestParameters.region,
             url = result.link?.href,
             comments = arrayListOf(
-                ItunesRssReview.Comment(
-                    userComment = ItunesRssReview.UserComment(
+                AppStoreReview.Comment(
+                    userComment = AppStoreReview.UserComment(
                         username = result.author?.name!!,
                         rating = result.rating!!,
                         title = result.title,

@@ -6,7 +6,7 @@ import javax.xml.datatype.XMLGregorianCalendar
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = ["id", "title", "updated", "link", "icon", "author", "rights", "entry"])
 @XmlRootElement(name = "feed")
-internal class ItunesRssReviewResult {
+internal class AppStoreReviewResult {
 
     @XmlAttribute(name = "xmlns")
     val uri: String? = null
@@ -58,13 +58,13 @@ internal class ItunesRssReviewResult {
         val content: List<Content>? = null
 
         @XmlElement(required = true, name = "im:voteSum")
-        val voteSum: Int? = 0
+        val voteSum: Int = 0
 
         @XmlElement(required = true, name = "im:voteCount")
-        val voteCount: Int? = 0
+        val voteCount: Int = 0
 
         @XmlElement(required = true, name = "im:rating")
-        val rating: Int? = 0
+        val rating: Int = 0
 
         @XmlElement(required = true, name = "im:version")
         val version: String? = null

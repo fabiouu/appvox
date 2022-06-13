@@ -1,25 +1,25 @@
 package io.appvox.appstore.review.domain
 
 import io.appvox.appstore.review.constant.AppStoreRegion
-import io.appvox.appstore.review.constant.ItunesRssSortType
+import io.appvox.appstore.review.constant.AppStoreSortType
 
-data class ItunesRssReviewRequestParameters(
+data class AppStoreReviewRequestParameters(
     val appId: String,
     val region: AppStoreRegion,
-    val sortType: ItunesRssSortType,
+    val sortType: AppStoreSortType,
     val pageNo: Int = 1
 ) {
     private constructor(builder: Builder) : this(
         appId = builder.appId,
         region = builder.region,
-        sortType = ItunesRssSortType.RECENT
+        sortType = AppStoreSortType.RECENT
     )
 
     class Builder {
         lateinit var appId: String
         var region: AppStoreRegion = AppStoreRegion.UNITED_STATES
-        var sortType: ItunesRssSortType = ItunesRssSortType.RECENT
+        var sortType: AppStoreSortType = AppStoreSortType.RECENT
 
-        fun build() = ItunesRssReviewRequestParameters(this)
+        fun build() = AppStoreReviewRequestParameters(this)
     }
 }
