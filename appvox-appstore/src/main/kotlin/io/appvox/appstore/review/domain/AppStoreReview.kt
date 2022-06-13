@@ -26,9 +26,39 @@ data class AppStoreReview(
     val url: String? = null,
 
     /**
-     * List of comments written by the user and developer
+     * iTunes author or name of the user who wrote the review
      */
-    val comments: List<Comment>,
+    val username: String,
+
+    /**
+     * Review rating from 1 (poor) to 5 (very good)
+     */
+    val rating: Int,
+
+    /**
+     * Title of the review written by the user (optional, can be null)
+     */
+    val title: String? = null,
+
+    /**
+     * iOS App Version
+     */
+    val appVersion: String? = null,
+
+    /**
+     * Comment written by the user
+     */
+    val comment: String,
+
+    /**
+     * Time the user commented on iTunes
+     */
+    val commentTime: ZonedDateTime? = null,
+
+    /**
+     * Number of times users found this comment useful (thumbs-up / upvote / like)
+     */
+    val likeCount: Int = 0
 ) {
     companion object {
         private const val LONG_REVIEW_THRESHOLD = 150
@@ -46,81 +76,25 @@ data class AppStoreReview(
         private const val POPULAR_USER_THRESOLD = 100
     }
 
-    /**
-     * Most recent comment. Contains the conversation between user and developer
-     */
-    val latestComment: Comment
-        get() = comments.first()
-
-    /**
-     * Most recent comment written by the user
-     */
-    val latestUserComment: UserComment
-        get() = comments.first().userComment
-
-    data class Comment(
-        /**
-         * Comment written by the user
-         */
-        val userComment: UserComment,
-    )
-
-    data class UserComment(
-        /**
-         * iTunes author or name of the user who wrote the review
-         */
-        val username: String,
-
-        /**
-         * Review rating from 1 (poor) to 5 (very good)
-         */
-        val rating: Int,
-
-        /**
-         * Title of the review written by the user (optional, can be null)
-         */
-        val title: String? = null,
-
-        /**
-         * iOS App Version
-         */
-        val appVersion: String? = null,
-
-        /**
-         * Comment written by the user
-         */
-        val text: String,
-
-        /**
-         * Time the user commented on iTunes
-         */
-        val time: ZonedDateTime? = null,
-
-        /**
-         * Number of times users found this comment useful (thumbs-up / upvote / like)
-         */
-        val likeCount: Int = 0
-    ) {
-        val userTypes: Set<AppStoreUserType>
-            get() {
-                val userPersonas = HashSet<AppStoreUserType>()
-                when (rating) {
-                    in MIN_NEGATIVE_REVIEW_STAR..MAX_NEGATIVE_REVIEW_STAR -> userPersonas.add(DETRACTOR)
-                    in MIN_POSITIVE_REVIEW_STAR..MAX_POSITIVE_REVIEW_STAR -> userPersonas.add(PROMOTER)
-                }
-                return userPersonas
+    val userTypes: Set<AppStoreUserType>
+        get() {
+            val userPersonas = HashSet<AppStoreUserType>()
+            when (rating) {
+                in MIN_NEGATIVE_REVIEW_STAR..MAX_NEGATIVE_REVIEW_STAR -> userPersonas.add(DETRACTOR)
+                in MIN_POSITIVE_REVIEW_STAR..MAX_POSITIVE_REVIEW_STAR -> userPersonas.add(PROMOTER)
             }
+            return userPersonas
+        }
 
-        val commentTypes: Set<AppStoreCommentType>
-            get() {
-                val reviewTypes = HashSet<AppStoreCommentType>()
-                val cleanCommentText = text.filter { !it.isWhitespace() }
-                when {
-                    cleanCommentText.length > LONG_REVIEW_THRESHOLD -> reviewTypes.add(EXTENSIVE)
-                    cleanCommentText.length < SHORT_REVIEW_THRESHOLD -> reviewTypes.add(IRRELEVANT)
-                    likeCount >= POPULAR_USER_THRESOLD -> reviewTypes.add(AppStoreCommentType.POPULAR)
-                }
-                return reviewTypes
+    val commentTypes: Set<AppStoreCommentType>
+        get() {
+            val reviewTypes = HashSet<AppStoreCommentType>()
+            val cleanCommentText = comment.filter { !it.isWhitespace() }
+            when {
+                cleanCommentText.length > LONG_REVIEW_THRESHOLD -> reviewTypes.add(EXTENSIVE)
+                cleanCommentText.length < SHORT_REVIEW_THRESHOLD -> reviewTypes.add(IRRELEVANT)
+                likeCount >= POPULAR_USER_THRESOLD -> reviewTypes.add(AppStoreCommentType.POPULAR)
             }
-    }
+            return reviewTypes
+        }
 }

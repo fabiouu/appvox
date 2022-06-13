@@ -13,19 +13,13 @@ internal class AppStoreReviewConverter {
             id = result.id!!,
             region = requestParameters.region,
             url = result.link?.href,
-            comments = arrayListOf(
-                AppStoreReview.Comment(
-                    userComment = AppStoreReview.UserComment(
-                        username = result.author?.name!!,
-                        rating = result.rating!!,
-                        title = result.title,
-                        text = result.content?.find { it.type == "text" }?.text!!,
-                        time = result.updated?.toGregorianCalendar()?.toZonedDateTime(),
-                        appVersion = result.version,
-                        likeCount = result.voteCount ?: 0,
-                    )
-                )
-            )
+            username = result.author?.name!!,
+            rating = result.rating,
+            title = result.title,
+            comment = result.content?.find { it.type == "text" }?.text!!,
+            commentTime = result.updated?.toGregorianCalendar()?.toZonedDateTime(),
+            appVersion = result.version,
+            likeCount = result.voteCount,
         )
     }
 }

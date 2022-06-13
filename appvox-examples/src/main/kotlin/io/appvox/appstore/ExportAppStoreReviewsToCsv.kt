@@ -50,13 +50,13 @@ fun main() = runBlocking {
             .collect { review ->
                 val csvReview: Array<String?> = arrayOf(
                     review.id,
-                    review.latestUserComment.rating.toString(),
-                    review.latestUserComment.username,
-                    review.latestUserComment.title,
-                    review.latestUserComment.appVersion,
-                    review.latestUserComment.text,
-                    review.latestUserComment.time.toString(),
-                    review.latestUserComment.likeCount.toString(),
+                    review.rating.toString(),
+                    review.username,
+                    review.title,
+                    review.appVersion,
+                    review.comment,
+                    review.commentTime.toString(),
+                    review.likeCount.toString(),
                     review.url
                 )
                 csvWriter.writeNext(csvReview)
