@@ -34,7 +34,7 @@ class AppStoreTest : BaseAppStoreMockTest() {
     ) = runTest {
         REQUEST_URL_DOMAIN = httpMockServerDomain
         val mockData = javaClass.getResource("/review/itunesrss/itunes_rss_reviews_mock_data.xml")!!.readText()
-        stubHttpUrl(REQUEST_URL_PATH.format(region, pageNo, appId), mockData)
+        stubHttpUrl(REQUEST_URL_PATH.format(region, pageNo, appId, AppStoreSortType.RECENT.value), mockData)
 
         val reviews = ArrayList<AppStoreReview>()
         AppStore()
@@ -75,7 +75,7 @@ class AppStoreTest : BaseAppStoreMockTest() {
     ) = runTest {
         REQUEST_URL_DOMAIN = httpMockServerDomain
         val mockData = javaClass.getResource("/review/itunesrss/itunes_rss_reviews_mock_data.xml")!!.readText()
-        stubHttpUrl(REQUEST_URL_PATH.format(region, pageNo, appId), mockData)
+        stubHttpUrl(REQUEST_URL_PATH.format(region, pageNo, appId, AppStoreSortType.RECENT.value), mockData)
 
         val reviews = arrayListOf<AppStoreReview>()
         val itunesRss = AppStore(RequestConfiguration(delay = 3000))
@@ -119,7 +119,7 @@ class AppStoreTest : BaseAppStoreMockTest() {
     ) = runTest {
         REQUEST_URL_DOMAIN = httpMockServerDomain
         val mockData = javaClass.getResource("/review/itunesrss/itunes_rss_reviews_empty_mock_data.xml")!!.readText()
-        stubHttpUrl(REQUEST_URL_PATH.format(region, pageNo, appId), mockData)
+        stubHttpUrl(REQUEST_URL_PATH.format(region, pageNo, appId, AppStoreSortType.RECENT.value), mockData)
 
         val reviews = ArrayList<AppStoreReview>()
         AppStore()

@@ -34,13 +34,13 @@ class AppStoreReviewRepositoryTest : BaseAppStoreMockTest() {
         REQUEST_URL_DOMAIN = httpMockServerDomain
         val region = AppStoreRegion.fromValue(regionCode)
         val mockData = javaClass.getResource("/review/itunesrss/itunes_rss_reviews_mock_data.xml")!!.readText()
-        stubHttpUrl(REQUEST_URL_PATH.format(region.code, pageNo, appId), mockData)
+        stubHttpUrl(REQUEST_URL_PATH.format(region.code, pageNo, appId, AppStoreSortType.RECENT.value), mockData)
 
         val request = AppStoreReviewRequestParameters(
             appId = appId,
             region = region,
             sortType = AppStoreSortType.RECENT,
-            pageNo = 1
+            pageNo = pageNo
         )
 
         val response = repository.getReviewsByAppId(ReviewRequest(request))

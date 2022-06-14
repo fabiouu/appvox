@@ -21,8 +21,8 @@ internal class AppStoreReviewRepository(
 ) {
     companion object {
         internal var REQUEST_URL_DOMAIN = "https://itunes.apple.com"
-        internal const val REQUEST_URL_PATH = "/%s/rss/customerreviews/page=%d/id=%s/sortby=mostrecent/xml"
-        internal const val REQUEST_URL_PARAMS = "?urlDesc=/customerreviews/id=%s/mostrecent/xml"
+        internal const val REQUEST_URL_PATH = "/%s/rss/customerreviews/page=%d/id=%s/sortby=%s/xml"
+        internal const val REQUEST_URL_PARAMS = "?urlDesc=/customerreviews/id=%s/%s/xml"
         internal const val MIN_PAGE_NO = 1
         internal const val MAX_PAGE_NO = 10
     }
@@ -49,10 +49,12 @@ internal class AppStoreReviewRepository(
                 REQUEST_URL_PATH.format(
                     request.parameters.region.code,
                     request.parameters.pageNo,
-                    request.parameters.appId
+                    request.parameters.appId,
+                    request.parameters.sortType.value
                 ) +
                 REQUEST_URL_PARAMS.format(
-                    request.parameters.appId
+                    request.parameters.appId,
+                    request.parameters.sortType.value
                 ))
 
             if (requestUrl.isNotBlank()) {
