@@ -1,0 +1,2568 @@
+{
+    "feed": {
+        "author": {
+            "name": {
+                "label": "iTunes Store"
+            },
+            "uri": {
+                "label": "http://www.apple.com/itunes/"
+            }
+        },
+        "entry": [
+            {
+                "author": {
+                    "uri": {
+                        "label": "https://itunes.apple.com/us/reviews/id524855897"
+                    },
+                    "name": {
+                        "label": "Lantana, FL"
+                    },
+                    "label": ""
+                },
+                "updated": {
+                    "label": "2021-11-20T10:25:34-07:00"
+                },
+                "im:rating": {
+                    "label": "4"
+                },
+                "im:version": {
+                    "label": "186.0"
+                },
+                "id": {
+                    "label": "8044879566"
+                },
+                "title": {
+                    "label": "Usually interesting reading but"
+                },
+                "content": {
+                    "label": "A huge bug is that when I click on that I’m not interested in a topic, I get a pop up message that Google gets it and won’t show me any more articles about that topic. But I keep seeing articles!!!! Sometimes I even see more of them. Two current examples are Princess Charlene of Monaco and Situation Puzzles. I clicked on a few of each which was enough so I clicked on that I wasn’t interested. The articles kept showing up, sometimes multiple articles every time I opened Google. Just now I opened the app and, out of 37 articles, 5 were about Charlene!! I keep saying I’m not interested but I keep seeing these articles. Enough already!!!  Another annoying bug is that, when Google is refreshing the articles, if you’re reading one, it freezes and you have to exit Google, reopen it and go to Tabs to find and continue reading the article.",
+                    "attributes": {
+                        "type": "text"
+                    }
+                },
+                "link": {
+                    "attributes": {
+                        "rel": "related",
+                        "href": "https://itunes.apple.com/us/review?id=284815942&type=Purple%20Software"
+                    }
+                },
+                "im:voteSum": {
+                    "label": "263"
+                },
+                "im:contentType": {
+                    "attributes": {
+                        "term": "Application",
+                        "label": "Application"
+                    }
+                },
+                "im:voteCount": {
+                    "label": "581"
+                }
+            },
+            {
+                "author": {
+                    "uri": {
+                        "label": "https://itunes.apple.com/us/reviews/id1140640454"
+                    },
+                    "name": {
+                        "label": "laur849"
+                    },
+                    "label": ""
+                },
+                "updated": {
+                    "label": "2021-10-01T23:13:03-07:00"
+                },
+                "im:rating": {
+                    "label": "1"
+                },
+                "im:version": {
+                    "label": "179.0"
+                },
+                "id": {
+                    "label": "7868068902"
+                },
+                "title": {
+                    "label": "Google - get rid of the blue pop up tips!!!"
+                },
+                "content": {
+                    "label": "Have an issue and cannot find anyone at Google to help. Literally EVERY SINGLE time I am on Google on my iphone, these blue “tip” boxes pop up. They contain directions and/or explanations for VERY self explanatory buttons and things on the Google page. For example -I search something like “candy” and then on the results that come up there is an overview of the subject searched. Then there is a blue box that pops up and points to that overview button and says “tap here for summary and general info”. I’m not understanding why Google has to define/explain this button every time I search something. I know what overview means. Or I look up a restaurant and a box forms over the “order here” button on the result page and says “view menu and order food.” If these instructional pop ups only occurred once when I first used Google I would understand but every time I search something there are blue boxes all over the page speaking to me like I am dumb lol. Soooo unnecessary and so annoying. Trying to find a way to disable this but no one can give me any info. I’ve tweeted at them and they don’t answer, I’ve called apple who says it’s Google’s issue but no one cares. Have stopped using Google because of how annoying it is.",
+                    "attributes": {
+                        "type": "text"
+                    }
+                },
+                "link": {
+                    "attributes": {
+                        "rel": "related",
+                        "href": "https://itunes.apple.com/us/review?id=284815942&type=Purple%20Software"
+                    }
+                },
+                "im:voteSum": {
+                    "label": "289"
+                },
+                "im:contentType": {
+                    "attributes": {
+                        "term": "Application",
+                        "label": "Application"
+                    }
+                },
+                "im:voteCount": {
+                    "label": "615"
+                }
+            },
+            {
+                "author": {
+                    "uri": {
+                        "label": "https://itunes.apple.com/us/reviews/id281768190"
+                    },
+                    "name": {
+                        "label": "Jim Wesley"
+                    },
+                    "label": ""
+                },
+                "updated": {
+                    "label": "2021-12-27T10:00:10-07:00"
+                },
+                "im:rating": {
+                    "label": "2"
+                },
+                "im:version": {
+                    "label": "190.1"
+                },
+                "id": {
+                    "label": "8174836010"
+                },
+                "title": {
+                    "label": "Hum search is worthless"
+                },
+                "content": {
+                    "label": "I’m trying to identify a tune from a music box we have. So I get that the music quality is low fi, but this app is worthless for that. Not only does it fail to identify the tune, it never even gave a guess or acknowledged that it couldn’t find it or suggested other things to try - its dots bounced along with the sounds (so I know the audio was active) but then would just quit listening and return to home with no feedback. We then gave several tests using humming, whistling, and singing along simple Christmas tunes to see if we could get it to work. I’m no virtuoso but, from the examples shown in all the Google ads, I think it should have given me something in all the tests we tried. Only once did it give me 3 very wrong guesses for a Jingle Bells whistle rendition. All other tests only resulted in no feedback at all. If you make any sounds it interprets as words (“la la la” or “blah blah blah”), it goes straight to lyrics that are ridiculously unhelpful and ignore any tune analysis. Maybe I’m missing a prompt or a trick to get it to work but I’ve determined the ads must be straight-up fiction and false.",
+                    "attributes": {
+                        "type": "text"
+                    }
+                },
+                "link": {
+                    "attributes": {
+                        "rel": "related",
+                        "href": "https://itunes.apple.com/us/review?id=284815942&type=Purple%20Software"
+                    }
+                },
+                "im:voteSum": {
+                    "label": "23"
+                },
+                "im:contentType": {
+                    "attributes": {
+                        "term": "Application",
+                        "label": "Application"
+                    }
+                },
+                "im:voteCount": {
+                    "label": "44"
+                }
+            },
+            {
+                "author": {
+                    "uri": {
+                        "label": "https://itunes.apple.com/us/reviews/id1230985501"
+                    },
+                    "name": {
+                        "label": "Random 5 year old."
+                    },
+                    "label": ""
+                },
+                "updated": {
+                    "label": "2021-06-15T02:07:15-07:00"
+                },
+                "im:rating": {
+                    "label": "1"
+                },
+                "im:version": {
+                    "label": "163.0"
+                },
+                "id": {
+                    "label": "7466714573"
+                },
+                "title": {
+                    "label": "Google Assistant problems"
+                },
+                "content": {
+                    "label": "I use Japanese as my second language on everything, and when I opened the app I changed that setting as well, but I noticed I couldn’t change the order of the languages as English stayed at the top no matter what I did. But I payed it no mind as it still worked both ways. I downloaded the app to use the “hum a song” feature anyways, yet when I first opened the app, the button that you are supposed to use for that feature didn’t show up. I closed the app for a few minutes and opened it back up to finally see the button, but google assistant seemed to have lost the ability to understand Japanese and would make my words into unreadable English “sentences”. After trying to fix it for 10 minutes I gave up and decided to make sure the “hum a song” feature was actually working. The circle of colorful dots showed up on the screen and moved when I hummed but nothing happened and after waiting for a few seconds, it would close and show the normal google assistant pop-up at the bottom of the screen. As if I hadn’t pressed the “search a song” button at all. Very disappointed.",
+                    "attributes": {
+                        "type": "text"
+                    }
+                },
+                "link": {
+                    "attributes": {
+                        "rel": "related",
+                        "href": "https://itunes.apple.com/us/review?id=284815942&type=Purple%20Software"
+                    }
+                },
+                "im:voteSum": {
+                    "label": "58"
+                },
+                "im:contentType": {
+                    "attributes": {
+                        "term": "Application",
+                        "label": "Application"
+                    }
+                },
+                "im:voteCount": {
+                    "label": "106"
+                }
+            },
+            {
+                "author": {
+                    "uri": {
+                        "label": "https://itunes.apple.com/us/reviews/id1202622148"
+                    },
+                    "name": {
+                        "label": "geid szoke be dledk"
+                    },
+                    "label": ""
+                },
+                "updated": {
+                    "label": "2021-07-20T13:34:57-07:00"
+                },
+                "im:rating": {
+                    "label": "1"
+                },
+                "im:version": {
+                    "label": "169.0"
+                },
+                "id": {
+                    "label": "7599097803"
+                },
+                "title": {
+                    "label": "Garbage"
+                },
+                "content": {
+                    "label": "Ask google a question and it might just give you A ANSWER, not THE ANSWER, To your question. I looked up a simple question, “How long is the US” to which it tried to tell me from some random websites Information that the continental United States was 2800 Miles from East to West (which is correct), but also tried to tell me it was 2800 miles from North to South as well. After some searching I found out that it’s about 1700 miles, so why is google telling me that a website, with incorrect information is right? Shouldn’t there be a algorithm or maybe a fact checker that would make sure that your actually giving people correct information? It is absolutely unacceptable that Google, a place where people get there information from everyday, is giving people the wrong information. What other questions do I have wrong answers to because of this. It would be great if when I asked google something it didn’t tell me what might be the answer, I would rather make the mistake myself of clicking on a not so trusted website and getting wrong information there rather than google straight up lying to me.",
+                    "attributes": {
+                        "type": "text"
+                    }
+                },
+                "link": {
+                    "attributes": {
+                        "rel": "related",
+                        "href": "https://itunes.apple.com/us/review?id=284815942&type=Purple%20Software"
+                    }
+                },
+                "im:voteSum": {
+                    "label": "31"
+                },
+                "im:contentType": {
+                    "attributes": {
+                        "term": "Application",
+                        "label": "Application"
+                    }
+                },
+                "im:voteCount": {
+                    "label": "78"
+                }
+            },
+            {
+                "author": {
+                    "uri": {
+                        "label": "https://itunes.apple.com/us/reviews/id186773448"
+                    },
+                    "name": {
+                        "label": "Kyl356"
+                    },
+                    "label": ""
+                },
+                "updated": {
+                    "label": "2021-07-14T21:37:08-07:00"
+                },
+                "im:rating": {
+                    "label": "2"
+                },
+                "im:version": {
+                    "label": "167.0"
+                },
+                "id": {
+                    "label": "7577968525"
+                },
+                "title": {
+                    "label": "Get Google Chrome Instead"
+                },
+                "content": {
+                    "label": "In short, why this company has two browsing applications is beyond me but chrome is far better than regular ole google and way more user friendly to those exposed to safari and looking for a widget to shake up their boring old home screens. \n\nIn long, I downloaded google for the widget which I really liked the look of on my home screen but the features of this app compared to safari our lacking. I would often find features that were on safari that weren’t on google or didn't work as smoothly, such as the transition from incognito to regular browsing or simply going back and going forward while searching. If I went back too far google would send me to the original search screen with no way of going back to what I was  just looking at. These, amongst other things, are minor, but they add up in the long run to make the users experience horrid. However, the google chrome app is a different story, it’s nearly identical to safari and in many ways better than it.",
+                    "attributes": {
+                        "type": "text"
+                    }
+                },
+                "link": {
+                    "attributes": {
+                        "rel": "related",
+                        "href": "https://itunes.apple.com/us/review?id=284815942&type=Purple%20Software"
+                    }
+                },
+                "im:voteSum": {
+                    "label": "38"
+                },
+                "im:contentType": {
+                    "attributes": {
+                        "term": "Application",
+                        "label": "Application"
+                    }
+                },
+                "im:voteCount": {
+                    "label": "74"
+                }
+            },
+            {
+                "author": {
+                    "uri": {
+                        "label": "https://itunes.apple.com/us/reviews/id541884435"
+                    },
+                    "name": {
+                        "label": "Amy Sweetwater"
+                    },
+                    "label": ""
+                },
+                "updated": {
+                    "label": "2018-11-02T13:47:39-07:00"
+                },
+                "im:rating": {
+                    "label": "4"
+                },
+                "im:version": {
+                    "label": "61.0"
+                },
+                "id": {
+                    "label": "3373591476"
+                },
+                "title": {
+                    "label": "I’m disappointed"
+                },
+                "content": {
+                    "label": "I know people may not have a problem with this but my google is being annoying right now. So usually when I would search up images, it would show some other images once I click on it. Then I have the option to save and that. Now every single time I click on a picture, it sends me to the website on where it’s from. I don’t want the website, I just wanna see the picture and save it on my camera roll. Now it’s annoying how long it takes me save an image. I’m always seeing the website with its picture. I sometimes like the other photos under that image I search up. I sometimes wanna save them. Now? it takes me at least two-four minutes just to save a picture. \n\nI just want my old google back :(",
+                    "attributes": {
+                        "type": "text"
+                    }
+                },
+                "link": {
+                    "attributes": {
+                        "rel": "related",
+                        "href": "https://itunes.apple.com/us/review?id=284815942&type=Purple%20Software"
+                    }
+                },
+                "im:voteSum": {
+                    "label": "381"
+                },
+                "im:contentType": {
+                    "attributes": {
+                        "term": "Application",
+                        "label": "Application"
+                    }
+                },
+                "im:voteCount": {
+                    "label": "711"
+                }
+            },
+            {
+                "author": {
+                    "uri": {
+                        "label": "https://itunes.apple.com/us/reviews/id817884771"
+                    },
+                    "name": {
+                        "label": "A Big Fan of the Show"
+                    },
+                    "label": ""
+                },
+                "updated": {
+                    "label": "2022-06-01T21:52:26-07:00"
+                },
+                "im:rating": {
+                    "label": "2"
+                },
+                "im:version": {
+                    "label": "214.0"
+                },
+                "id": {
+                    "label": "8732208963"
+                },
+                "title": {
+                    "label": "Images No Longer Lets You Save"
+                },
+                "content": {
+                    "label": "Have had the app for years and through several different phones and this has never been an issue in the past, but as of the last week or so, Google Images no longer lets you download pictures onto your phone. There had been a popular glitch in the past in which you’d have to hold down the image with one hand, wait for the save image popup, and click on the screen with your other hand and hold it down so you could select the download option without it disappearing, but now even that option has vanished and been replaced by some Google Lens feature to inspect the picture instead along with an “images may be subject to copyright” popup (I thought that might’ve been the issue but no images can be saved, not just copyrighted content). It’s very frustrating since looking for reference photos and such to save to my phone was one of the main functions I used the app for and I hope it gets fixed soon.",
+                    "attributes": {
+                        "type": "text"
+                    }
+                },
+                "link": {
+                    "attributes": {
+                        "rel": "related",
+                        "href": "https://itunes.apple.com/us/review?id=284815942&type=Purple%20Software"
+                    }
+                },
+                "im:voteSum": {
+                    "label": "2"
+                },
+                "im:contentType": {
+                    "attributes": {
+                        "term": "Application",
+                        "label": "Application"
+                    }
+                },
+                "im:voteCount": {
+                    "label": "2"
+                }
+            },
+            {
+                "author": {
+                    "uri": {
+                        "label": "https://itunes.apple.com/us/reviews/id681476570"
+                    },
+                    "name": {
+                        "label": "Nordic_Warrior"
+                    },
+                    "label": ""
+                },
+                "updated": {
+                    "label": "2020-10-09T20:05:27-07:00"
+                },
+                "im:rating": {
+                    "label": "3"
+                },
+                "im:version": {
+                    "label": "128.0"
+                },
+                "id": {
+                    "label": "6518983622"
+                },
+                "title": {
+                    "label": "Slowly deteriorating"
+                },
+                "content": {
+                    "label": "Google was great, but the issue is that minor inconveniences such as taking Google Search off iMessage is really annoying. From there I could do a quick search or a location to send much quicker via text. Not anymore! Another thing, the app gets slower and more cluttered with each update. I do not use Safari as much due to the fact that it feels “heavier” and more cluttered, but now I’m seeing pointless news articles that are absolutely irrelevant to me as an individual. All of the data mining and theft your company does, and you can’t even match my interests? Even if you could match my interests, you wouldn’t be able to do it because you are Google. Furthermore the articles are pointless anyways because of the News app and third party apps that I can download. Slowly but surely, Google is turning into a lesser search engine like Yahoo or Bing.",
+                    "attributes": {
+                        "type": "text"
+                    }
+                },
+                "link": {
+                    "attributes": {
+                        "rel": "related",
+                        "href": "https://itunes.apple.com/us/review?id=284815942&type=Purple%20Software"
+                    }
+                },
+                "im:voteSum": {
+                    "label": "313"
+                },
+                "im:contentType": {
+                    "attributes": {
+                        "term": "Application",
+                        "label": "Application"
+                    }
+                },
+                "im:voteCount": {
+                    "label": "667"
+                }
+            },
+            {
+                "author": {
+                    "uri": {
+                        "label": "https://itunes.apple.com/us/reviews/id168147512"
+                    },
+                    "name": {
+                        "label": "Sekandis"
+                    },
+                    "label": ""
+                },
+                "updated": {
+                    "label": "2020-12-21T04:34:29-07:00"
+                },
+                "im:rating": {
+                    "label": "1"
+                },
+                "im:version": {
+                    "label": "137.2"
+                },
+                "id": {
+                    "label": "6777529103"
+                },
+                "title": {
+                    "label": "Song hum feature"
+                },
+                "content": {
+                    "label": "Every time I say “what’s this song” into the microphone it takes me to a google search of instructions on how to use the feature instead of actually performing the feature itself. I also can’t find the “song search” button after exploring the whole app, despite the unwarranted google search telling me there is a button. Going to have to rate a 1 star and uninstall the app for faulty software and false advertising. Unfortunate considering this is a cool idea but it seems to have been executed very poorly. I would suggest actually putting a button there instead of lying to your users, and making it so when I say “What’s this song” it performs the actual advertised feature instead of taking me to a google search. Seems like a simple and obvious fix. Hopefully you all can get back to me and let me know if I’m doing something wrong, if the song search button is hidden somewhere strange in the app, or if the programming is just completely inept.",
+                    "attributes": {
+                        "type": "text"
+                    }
+                },
+                "link": {
+                    "attributes": {
+                        "rel": "related",
+                        "href": "https://itunes.apple.com/us/review?id=284815942&type=Purple%20Software"
+                    }
+                },
+                "im:voteSum": {
+                    "label": "73"
+                },
+                "im:contentType": {
+                    "attributes": {
+                        "term": "Application",
+                        "label": "Application"
+                    }
+                },
+                "im:voteCount": {
+                    "label": "122"
+                }
+            },
+            {
+                "author": {
+                    "uri": {
+                        "label": "https://itunes.apple.com/us/reviews/id342464544"
+                    },
+                    "name": {
+                        "label": "alphie the great"
+                    },
+                    "label": ""
+                },
+                "updated": {
+                    "label": "2021-12-14T10:26:58-07:00"
+                },
+                "im:rating": {
+                    "label": "3"
+                },
+                "im:version": {
+                    "label": "190"
+                },
+                "id": {
+                    "label": "8129998722"
+                },
+                "title": {
+                    "label": "It is a good, but there is some issues"
+                },
+                "content": {
+                    "label": "There is many google glitch that I constantly keep on seeing, like google being SUPER slow and keeps on acting like we do not have internet, and it is Xfinity, and I say Xfinity is really good internet in my book. And this REAL annoying glitch it is what I call the no pictures glitch because when you take photos IT ALWAYS SAYS “could not save image” and you know what I have to do to fix that, DELETE GOOGLE, yeah I would say that is a real annoying glitch, but I don’t know what causes this may cause my phone is outdated, because it is a iPhone 6 or but please google fix this glitch please, because I do not want to constantly DELETE GOOGLE, and when I mean constantly I mean every night, if you where me, you would probably feel the same as me, annoyed, the glitch is getting on my nerves and I hope it will be fixed.",
+                    "attributes": {
+                        "type": "text"
+                    }
+                },
+                "link": {
+                    "attributes": {
+                        "rel": "related",
+                        "href": "https://itunes.apple.com/us/review?id=284815942&type=Purple%20Software"
+                    }
+                },
+                "im:voteSum": {
+                    "label": "4"
+                },
+                "im:contentType": {
+                    "attributes": {
+                        "term": "Application",
+                        "label": "Application"
+                    }
+                },
+                "im:voteCount": {
+                    "label": "5"
+                }
+            },
+            {
+                "author": {
+                    "uri": {
+                        "label": "https://itunes.apple.com/us/reviews/id736903696"
+                    },
+                    "name": {
+                        "label": "Starscreamx861"
+                    },
+                    "label": ""
+                },
+                "updated": {
+                    "label": "2021-08-11T05:10:42-07:00"
+                },
+                "im:rating": {
+                    "label": "2"
+                },
+                "im:version": {
+                    "label": "172.0"
+                },
+                "id": {
+                    "label": "7680424649"
+                },
+                "title": {
+                    "label": "Oops. Something went wrong"
+                },
+                "content": {
+                    "label": "I would rate this app higher but oops something went wrong, I'll try again later. When the app works like it should it becomes my go to for news based on categories I like. However, it takes a long time for a story/topic you're not interested in to be removed. If I'm not interested in sports, it shouldn't take weeks of removing every article related to sports to finally be removed. Most of the times a few articles will display and going to the next page just results in \" something went wrong \". I love this app but it's the most frustrating one I have installed. Reinstallation does not fix the issue. Lastly if I do a random search I now have to open chrome private browsing because this app will \"think\" I'm interested in whatever I searched for, thus starting the loop cycle of trying to remove articles I'm not interested in, all from one random search.",
+                    "attributes": {
+                        "type": "text"
+                    }
+                },
+                "link": {
+                    "attributes": {
+                        "rel": "related",
+                        "href": "https://itunes.apple.com/us/review?id=284815942&type=Purple%20Software"
+                    }
+                },
+                "im:voteSum": {
+                    "label": "6"
+                },
+                "im:contentType": {
+                    "attributes": {
+                        "term": "Application",
+                        "label": "Application"
+                    }
+                },
+                "im:voteCount": {
+                    "label": "15"
+                }
+            },
+            {
+                "author": {
+                    "uri": {
+                        "label": "https://itunes.apple.com/us/reviews/id948423520"
+                    },
+                    "name": {
+                        "label": "keeping my head up :"
+                    },
+                    "label": ""
+                },
+                "updated": {
+                    "label": "2022-02-18T20:25:35-07:00"
+                },
+                "im:rating": {
+                    "label": "5"
+                },
+                "im:version": {
+                    "label": "199.0"
+                },
+                "id": {
+                    "label": "8371544270"
+                },
+                "title": {
+                    "label": "Please help me in adairsville"
+                },
+                "content": {
+                    "label": "Former senior woman with good credit no charges , no tickets. I am being stocked and been harassed by the cops of adairsville, GA\nUp north of 75 exit 306 . I have had load machine on me load cars up and down the road on 41 and a lot of guns being fired at me. This is because they believe I’m a alcoholics and a drug   Addict. And I’m not , for 4 years I been subject to them bugging my house, hacking my phone,and a tracker put on my car. Haven’t made any arrest. And they helped incarcerate me at the crises center where I had my blood checked several time for alcohol and drugs. I have a copy of the report. No alcohol or drugs in my system. They bully me and turned the town against me. It has affected my mental health.. I don’t want this to happen to anyone else..",
+                    "attributes": {
+                        "type": "text"
+                    }
+                },
+                "link": {
+                    "attributes": {
+                        "rel": "related",
+                        "href": "https://itunes.apple.com/us/review?id=284815942&type=Purple%20Software"
+                    }
+                },
+                "im:voteSum": {
+                    "label": "3"
+                },
+                "im:contentType": {
+                    "attributes": {
+                        "term": "Application",
+                        "label": "Application"
+                    }
+                },
+                "im:voteCount": {
+                    "label": "5"
+                }
+            },
+            {
+                "author": {
+                    "uri": {
+                        "label": "https://itunes.apple.com/us/reviews/id1161701828"
+                    },
+                    "name": {
+                        "label": "Wolfgang Treehouser"
+                    },
+                    "label": ""
+                },
+                "updated": {
+                    "label": "2022-03-16T06:59:25-07:00"
+                },
+                "im:rating": {
+                    "label": "3"
+                },
+                "im:version": {
+                    "label": "203.0"
+                },
+                "id": {
+                    "label": "8461758372"
+                },
+                "title": {
+                    "label": "Google Sign-In Broken In App"
+                },
+                "content": {
+                    "label": "I'm used to using  texted codes for 2FA.  Fortunately, Google still lets me do that.  The idea of depending on some password manager that contains a key that I can't access if something goes wrong doesn't appeal to me.  This time, though, I decided to try a different option that Google provides, which is to open the Google App and verify my identity.  So, I downloaded the app and gave it a go.  What happened, though, was that the text in the screen was highly zoomed, and locked in place, making it impossible to scroll, in any direction, to wherever it was on the screen that I was supposed to do the next thing.  Until that bug gets fixed, obviously, the Google App two-step login option is dead.\n\nAs for the app itself, it seems to be a decent search engine with some additional features.",
+                    "attributes": {
+                        "type": "text"
+                    }
+                },
+                "link": {
+                    "attributes": {
+                        "rel": "related",
+                        "href": "https://itunes.apple.com/us/review?id=284815942&type=Purple%20Software"
+                    }
+                },
+                "im:voteSum": {
+                    "label": "2"
+                },
+                "im:contentType": {
+                    "attributes": {
+                        "term": "Application",
+                        "label": "Application"
+                    }
+                },
+                "im:voteCount": {
+                    "label": "3"
+                }
+            },
+            {
+                "author": {
+                    "uri": {
+                        "label": "https://itunes.apple.com/us/reviews/id229912029"
+                    },
+                    "name": {
+                        "label": "Badears60"
+                    },
+                    "label": ""
+                },
+                "updated": {
+                    "label": "2022-01-18T08:39:11-07:00"
+                },
+                "im:rating": {
+                    "label": "2"
+                },
+                "im:version": {
+                    "label": "195.0"
+                },
+                "id": {
+                    "label": "8255104272"
+                },
+                "title": {
+                    "label": "One thing that annoys me …"
+                },
+                "content": {
+                    "label": "I receive notifications through many channels some I follow down their rabbit hole others I delete. I followed one this morning about iOS options and how to keep or turn them off. So, the first one about turning off phone call banners made me go look and change the way the call interrupts my work flow (if any). Then once I was done in settings I went back to … oh no, wait. Google decided I should go back to the very beginning of my opening Google! What, where the heck was I? Now you make me go back to … oh where the heck was I (before I submitted this review.) WHY CAN’T you leave me where I was in my review of, whatever link you sent me to?! If there’s one thing I hate is software that makes me have to a better short term memory than it does! Can you people at Google, quit playing games, read this and make your supposed search app more User-suppotive?",
+                    "attributes": {
+                        "type": "text"
+                    }
+                },
+                "link": {
+                    "attributes": {
+                        "rel": "related",
+                        "href": "https://itunes.apple.com/us/review?id=284815942&type=Purple%20Software"
+                    }
+                },
+                "im:voteSum": {
+                    "label": "1"
+                },
+                "im:contentType": {
+                    "attributes": {
+                        "term": "Application",
+                        "label": "Application"
+                    }
+                },
+                "im:voteCount": {
+                    "label": "4"
+                }
+            },
+            {
+                "author": {
+                    "uri": {
+                        "label": "https://itunes.apple.com/us/reviews/id41959325"
+                    },
+                    "name": {
+                        "label": "LeeLeeRocs"
+                    },
+                    "label": ""
+                },
+                "updated": {
+                    "label": "2021-07-10T19:50:23-07:00"
+                },
+                "im:rating": {
+                    "label": "2"
+                },
+                "im:version": {
+                    "label": "167.0"
+                },
+                "id": {
+                    "label": "7562750917"
+                },
+                "title": {
+                    "label": "Freezes, stalls, stops for 45 seconds HELP!"
+                },
+                "content": {
+                    "label": "Freezes, stalls, stops for 45 seconds HELP! I enjoy Google but I might or will dump them for bing.. why? The Google app on my new iPhone and/or old iPhone is super buggy… I have uninstalled and installed and still to no avail… I am totally not happy because I use google to look up the latest stock news outside of Yahoo Finance and CNBC.. Another thing, if I read just one tiny Kardashian story, I would get 10 more KimK stories or similar suggestions.. I dare not read about my fav reality shows and that’s all I see.. not cool or if I read a funny story from India or other countries.. it’s all India, London or Africa topics afterwards.. When I pick subjects I like on purpose in settings, about 50% will only show up along with some random stuff I didn’t sign up for … \nBut the biggest problem is the constant freezing and stalling for 45 seconds straight.. Help, Help, Help, Help!!",
+                    "attributes": {
+                        "type": "text"
+                    }
+                },
+                "link": {
+                    "attributes": {
+                        "rel": "related",
+                        "href": "https://itunes.apple.com/us/review?id=284815942&type=Purple%20Software"
+                    }
+                },
+                "im:voteSum": {
+                    "label": "6"
+                },
+                "im:contentType": {
+                    "attributes": {
+                        "term": "Application",
+                        "label": "Application"
+                    }
+                },
+                "im:voteCount": {
+                    "label": "10"
+                }
+            },
+            {
+                "author": {
+                    "uri": {
+                        "label": "https://itunes.apple.com/us/reviews/id1196098038"
+                    },
+                    "name": {
+                        "label": "CaseyUndercoverAsSarah"
+                    },
+                    "label": ""
+                },
+                "updated": {
+                    "label": "2021-09-22T14:52:22-07:00"
+                },
+                "im:rating": {
+                    "label": "2"
+                },
+                "im:version": {
+                    "label": "178.0"
+                },
+                "id": {
+                    "label": "7834440371"
+                },
+                "title": {
+                    "label": "It's getting worse tbh"
+                },
+                "content": {
+                    "label": "I have used this app for a while instead of safari because I just trust google more. But recently its been hiccuping and I can't stand it. One thing is that it won't let me change my picture. I don't know why and I want it changed because its an old picture of me. I will click on the icon and I will tap the camera on the profile picture and it will say \"you can't change this profile picture from this account\" but the problem is I have before. Also I've had this song stuck in my head so I tried to use the \"find song\" feature on the app and when I tap on it the dots will show up for a few seconds, like its trying to find the song, then it will go back to the home page. It is getting really annoying and I'm about ready to quit using the app (even though I liked using it) if these problems continue.",
+                    "attributes": {
+                        "type": "text"
+                    }
+                },
+                "link": {
+                    "attributes": {
+                        "rel": "related",
+                        "href": "https://itunes.apple.com/us/review?id=284815942&type=Purple%20Software"
+                    }
+                },
+                "im:voteSum": {
+                    "label": "5"
+                },
+                "im:contentType": {
+                    "attributes": {
+                        "term": "Application",
+                        "label": "Application"
+                    }
+                },
+                "im:voteCount": {
+                    "label": "15"
+                }
+            },
+            {
+                "author": {
+                    "uri": {
+                        "label": "https://itunes.apple.com/us/reviews/id1276961824"
+                    },
+                    "name": {
+                        "label": "NovaWolf18"
+                    },
+                    "label": ""
+                },
+                "updated": {
+                    "label": "2022-03-28T06:53:56-07:00"
+                },
+                "im:rating": {
+                    "label": "1"
+                },
+                "im:version": {
+                    "label": "204.1"
+                },
+                "id": {
+                    "label": "8505066594"
+                },
+                "title": {
+                    "label": "Stay Away From Google"
+                },
+                "content": {
+                    "label": "They’re growing too big for their own good. They act like they have a right to shove all of their content and whatever else they decide is a good idea into your face. And no, you can’t manage what they notify you about easily. You dared to search for a sports team? Clearly you want to receive game recap scores all the time about them, with no way to turn them off! There used to be a simple way, but they updated that out. It’s no longer there. Clearly, just holding on the notifications you don’t want and turning them off that way was too convenient for users, and led to too much getting turned off that google didn’t want. Now I’m stuck choosing between getting notifications I actually want to hear about while also getting something I literally never asked for, or no notifications at all. Such a great system, fantastic evidence that the company cares about your interests, and not theirs.",
+                    "attributes": {
+                        "type": "text"
+                    }
+                },
+                "link": {
+                    "attributes": {
+                        "rel": "related",
+                        "href": "https://itunes.apple.com/us/review?id=284815942&type=Purple%20Software"
+                    }
+                },
+                "im:voteSum": {
+                    "label": "3"
+                },
+                "im:contentType": {
+                    "attributes": {
+                        "term": "Application",
+                        "label": "Application"
+                    }
+                },
+                "im:voteCount": {
+                    "label": "6"
+                }
+            },
+            {
+                "author": {
+                    "uri": {
+                        "label": "https://itunes.apple.com/us/reviews/id1238029941"
+                    },
+                    "name": {
+                        "label": "🌕🌸Ursula🌸🌕"
+                    },
+                    "label": ""
+                },
+                "updated": {
+                    "label": "2021-05-06T12:13:51-07:00"
+                },
+                "im:rating": {
+                    "label": "2"
+                },
+                "im:version": {
+                    "label": "158.0"
+                },
+                "id": {
+                    "label": "7305818030"
+                },
+                "title": {
+                    "label": "Some Major Problems with the 3-D"
+                },
+                "content": {
+                    "label": "There’s a huge problem that I’m having with the 3-D Bengal Cat. The problem is when I attempt to videotape it in 3-D, I will try to move the animal around as I’m taking the video. It shows that it works, as the red line is moving around the circle, however the video does not actually take. I have seen a couple times at the top of my screen “Touch to return to Snapchat” or “Hangouts” but even after I have closed these apps it still fails to work and says the same thing. Afterwards when I try to take a video without moving the animal, it doesn’t take either! I have to close and open the app again, or exit out of 3-D in order to get a working video. But I’m still unable to move the animal around or the whole process will repeat. I’m not sure if it’s the same for other animals or not, but regardless, please fix this!",
+                    "attributes": {
+                        "type": "text"
+                    }
+                },
+                "link": {
+                    "attributes": {
+                        "rel": "related",
+                        "href": "https://itunes.apple.com/us/review?id=284815942&type=Purple%20Software"
+                    }
+                },
+                "im:voteSum": {
+                    "label": "8"
+                },
+                "im:contentType": {
+                    "attributes": {
+                        "term": "Application",
+                        "label": "Application"
+                    }
+                },
+                "im:voteCount": {
+                    "label": "11"
+                }
+            },
+            {
+                "author": {
+                    "uri": {
+                        "label": "https://itunes.apple.com/us/reviews/id328596843"
+                    },
+                    "name": {
+                        "label": "Nikki.rose0607"
+                    },
+                    "label": ""
+                },
+                "updated": {
+                    "label": "2020-10-29T12:46:58-07:00"
+                },
+                "im:rating": {
+                    "label": "2"
+                },
+                "im:version": {
+                    "label": "131.0"
+                },
+                "id": {
+                    "label": "6587581447"
+                },
+                "title": {
+                    "label": "Just keeps getting worse and worse."
+                },
+                "content": {
+                    "label": "App can’t load search results about 40% of the time. Everything else works fine, I have no problem doing anything else on my phone just this app won’t load search results it says try again. If I click one of the news articles under the search bar it’s absolutely fine, just can’t load search results. And this is when I’m home with full wifi in nyc with full service. Again, literally everything else on my phone is fine.  I use google a lot, but if I search five things I’ll have to go to internet explorer for at least 2-3 of them because the google app just won’t load search results. I’ve tried taking off the app and reloading it, I’ve had this problem on two different phones now. It’s just not a good app anymore if it doesn’t give search results about half the time.",
+                    "attributes": {
+                        "type": "text"
+                    }
+                },
+                "link": {
+                    "attributes": {
+                        "rel": "related",
+                        "href": "https://itunes.apple.com/us/review?id=284815942&type=Purple%20Software"
+                    }
+                },
+                "im:voteSum": {
+                    "label": "9"
+                },
+                "im:contentType": {
+                    "attributes": {
+                        "term": "Application",
+                        "label": "Application"
+                    }
+                },
+                "im:voteCount": {
+                    "label": "17"
+                }
+            },
+            {
+                "author": {
+                    "uri": {
+                        "label": "https://itunes.apple.com/us/reviews/id982011423"
+                    },
+                    "name": {
+                        "label": "Atlas_07"
+                    },
+                    "label": ""
+                },
+                "updated": {
+                    "label": "2020-10-07T12:21:50-07:00"
+                },
+                "im:rating": {
+                    "label": "1"
+                },
+                "im:version": {
+                    "label": "128.0"
+                },
+                "id": {
+                    "label": "6511138831"
+                },
+                "title": {
+                    "label": "Open Tabs (IPhone XR)"
+                },
+                "content": {
+                    "label": "Saw someone else post something similar, but I can’t open or delete any of my past google tabs. If I create a new tab, then I can go to all tabs and delete/select it, but any tab that I don’t immediately delete is no longer accessible to me. I can still access favorited tabs, but the same problem happens.\nEssentially it’s this - I open one tab, it’s fine - I open another tab which is fine, now the first one is inaccessible - I open another tab, which works fine, but the previous two are now inaccessible -etc, on and on. \nThis problem also happens when I leave the google app for a while, or swipe up. Because whenever I do that, returning to google then brings me back to the home screen of google, meaning that the previously fine tab is now inaccessible cause I (technically?) opened a new tab, even if this new tab doesn’t show up, but still causes the same problem.",
+                    "attributes": {
+                        "type": "text"
+                    }
+                },
+                "link": {
+                    "attributes": {
+                        "rel": "related",
+                        "href": "https://itunes.apple.com/us/review?id=284815942&type=Purple%20Software"
+                    }
+                },
+                "im:voteSum": {
+                    "label": "10"
+                },
+                "im:contentType": {
+                    "attributes": {
+                        "term": "Application",
+                        "label": "Application"
+                    }
+                },
+                "im:voteCount": {
+                    "label": "18"
+                }
+            },
+            {
+                "author": {
+                    "uri": {
+                        "label": "https://itunes.apple.com/us/reviews/id114654699"
+                    },
+                    "name": {
+                        "label": "Tfffrdee"
+                    },
+                    "label": ""
+                },
+                "updated": {
+                    "label": "2018-07-25T06:00:48-07:00"
+                },
+                "im:rating": {
+                    "label": "5"
+                },
+                "im:version": {
+                    "label": "54.0"
+                },
+                "id": {
+                    "label": "2967055517"
+                },
+                "title": {
+                    "label": "Akstyles"
+                },
+                "content": {
+                    "label": "The only search engine I trust and has been my go to since the conception of the term. I’m really loving the personalized news feeds. As someone who intentionally avoids today’s unreliable news sources, especially from social media apps, the google news feed has been a welcome addition to my routine. I no longer have to miss out on reading articles I may be interested in because of my choice to not login to FB. Instead I often find articles I’m interested in through my google feed in between searching for things. \nGoogle Search is one of my top 5 most used apps. Their reliability and commitment to being the best in my opinion has hands down beat any other apps. I’m sticking with google for the long haul.",
+                    "attributes": {
+                        "type": "text"
+                    }
+                },
+                "link": {
+                    "attributes": {
+                        "rel": "related",
+                        "href": "https://itunes.apple.com/us/review?id=284815942&type=Purple%20Software"
+                    }
+                },
+                "im:voteSum": {
+                    "label": "1475"
+                },
+                "im:contentType": {
+                    "attributes": {
+                        "term": "Application",
+                        "label": "Application"
+                    }
+                },
+                "im:voteCount": {
+                    "label": "2904"
+                }
+            },
+            {
+                "author": {
+                    "uri": {
+                        "label": "https://itunes.apple.com/us/reviews/id364362481"
+                    },
+                    "name": {
+                        "label": "Punkin' Pooh"
+                    },
+                    "label": ""
+                },
+                "updated": {
+                    "label": "2020-03-07T11:19:52-07:00"
+                },
+                "im:rating": {
+                    "label": "1"
+                },
+                "im:version": {
+                    "label": "97.0"
+                },
+                "id": {
+                    "label": "5629577759"
+                },
+                "title": {
+                    "label": "Google lens gone??!!"
+                },
+                "content": {
+                    "label": "I am only giving one star until google “lens” is back in search bar next to microphone again. What happened to the google lens option that WAS right next to the microphone in the search bar?? I used it for only a couple of things and when I went to use it again within 24 hours it was GONE. I’ve gone through everything within the app and there’s a place to download it and that didn’t even work. In one place it talks about the lens but again, it’s not on there. I’ve uninstalled the app and when I go back to the App Store to reinstall it, it says to update it. But I uninstalled it so why is it only giving option to update it instead of install it. And when I go to App Store and look at all the app offers, it shows that you can use google lens to search stuff you see, BUT IT’S NOT THERE WHEN I’M IN THE APP ITSELF. What’s the deal google? Where is the lens????? Please help me with this??!!!!",
+                    "attributes": {
+                        "type": "text"
+                    }
+                },
+                "link": {
+                    "attributes": {
+                        "rel": "related",
+                        "href": "https://itunes.apple.com/us/review?id=284815942&type=Purple%20Software"
+                    }
+                },
+                "im:voteSum": {
+                    "label": "15"
+                },
+                "im:contentType": {
+                    "attributes": {
+                        "term": "Application",
+                        "label": "Application"
+                    }
+                },
+                "im:voteCount": {
+                    "label": "22"
+                }
+            },
+            {
+                "author": {
+                    "uri": {
+                        "label": "https://itunes.apple.com/us/reviews/id133151452"
+                    },
+                    "name": {
+                        "label": "MoveToAmend"
+                    },
+                    "label": ""
+                },
+                "updated": {
+                    "label": "2020-08-07T05:54:11-07:00"
+                },
+                "im:rating": {
+                    "label": "2"
+                },
+                "im:version": {
+                    "label": "119.0"
+                },
+                "id": {
+                    "label": "6290765853"
+                },
+                "title": {
+                    "label": "Services NOT received (NYT subscription) and no way to dispute"
+                },
+                "content": {
+                    "label": "I’ve been trying to contact google in every way shape or form in order to get them to refund me my money, but there is no Avenue.  Zero.  They don’t give any way for you to directly email someone so that you can resolve your issue and don’t give any phone to call.  A New York Times news subscription is pretty basic and it seems like I should’ve been able to troubleshoot why I wasn’t receiving service. I spoke to the New York Times x2 and both times they said it was a third-party (Google Pay issue). The fact that I can’t contact them directly it’s really bad. The account information that I received in my email doesn’t work when I enter it into their form. Don’t trust this app! There’s no way you can get your money back because there’s no way to contact anyone if you have an issue.",
+                    "attributes": {
+                        "type": "text"
+                    }
+                },
+                "link": {
+                    "attributes": {
+                        "rel": "related",
+                        "href": "https://itunes.apple.com/us/review?id=284815942&type=Purple%20Software"
+                    }
+                },
+                "im:voteSum": {
+                    "label": "9"
+                },
+                "im:contentType": {
+                    "attributes": {
+                        "term": "Application",
+                        "label": "Application"
+                    }
+                },
+                "im:voteCount": {
+                    "label": "18"
+                }
+            },
+            {
+                "author": {
+                    "uri": {
+                        "label": "https://itunes.apple.com/us/reviews/id340374367"
+                    },
+                    "name": {
+                        "label": "MeghanSmith917"
+                    },
+                    "label": ""
+                },
+                "updated": {
+                    "label": "2019-03-28T19:14:06-07:00"
+                },
+                "im:rating": {
+                    "label": "2"
+                },
+                "im:version": {
+                    "label": "69.0"
+                },
+                "id": {
+                    "label": "3939314802"
+                },
+                "title": {
+                    "label": "New update AWFUL. Google image search useless."
+                },
+                "content": {
+                    "label": "New google image search is TERRIBLE! The sole reason I search for images is to see IMAGES, and only images. I do not want to see the text, or a ton of white space. I liked how the old google search app showed images only. I purposely used this app when searching for images as chrome doesn’t display image searches the same. Chrome shows the text. But now, not only is the text required but am unable go full screen with an image (and hide the text when tapping on it or rotating my phone). This is awful for viewing images because phone screens are not that big and now it only shows up on half the screen. Please bring back the old version or at least make it an option  that is easy to select on the screen (not hidden in layers of menus within settings). This is extremely frustrating and disappointing",
+                    "attributes": {
+                        "type": "text"
+                    }
+                },
+                "link": {
+                    "attributes": {
+                        "rel": "related",
+                        "href": "https://itunes.apple.com/us/review?id=284815942&type=Purple%20Software"
+                    }
+                },
+                "im:voteSum": {
+                    "label": "127"
+                },
+                "im:contentType": {
+                    "attributes": {
+                        "term": "Application",
+                        "label": "Application"
+                    }
+                },
+                "im:voteCount": {
+                    "label": "236"
+                }
+            },
+            {
+                "author": {
+                    "uri": {
+                        "label": "https://itunes.apple.com/us/reviews/id43504199"
+                    },
+                    "name": {
+                        "label": "hollybegonia"
+                    },
+                    "label": ""
+                },
+                "updated": {
+                    "label": "2021-10-04T07:33:49-07:00"
+                },
+                "im:rating": {
+                    "label": "2"
+                },
+                "im:version": {
+                    "label": "179.0"
+                },
+                "id": {
+                    "label": "7877073963"
+                },
+                "title": {
+                    "label": "Getting worse and worse"
+                },
+                "content": {
+                    "label": "Clearly Google has become more interested in monetizing what was once the sine qua non of digital maps than they are in providing a good user experience. They have junked it up with SO MUCH garbage, like (paid?) eateries and shops, that you can hardly see the streets. And no, I do not need a huge marker to tell me I “recently visited” a site that I merely tapped at random to get rid of something else obstructing my view. At the same time, so my street names are missing, unless you finally just happen to enlarge or shrink the map the perfect amount, and even then it will vanish if you move. And I’m talking about major thoroughfares, bridges, and so on. Then there’s all the persistent stuff I don’t want, like the weather, the Live icon, an inset photo, and info at the bottom of the map about whatever you looked up. Switching to another map!!",
+                    "attributes": {
+                        "type": "text"
+                    }
+                },
+                "link": {
+                    "attributes": {
+                        "rel": "related",
+                        "href": "https://itunes.apple.com/us/review?id=284815942&type=Purple%20Software"
+                    }
+                },
+                "im:voteSum": {
+                    "label": "3"
+                },
+                "im:contentType": {
+                    "attributes": {
+                        "term": "Application",
+                        "label": "Application"
+                    }
+                },
+                "im:voteCount": {
+                    "label": "5"
+                }
+            },
+            {
+                "author": {
+                    "uri": {
+                        "label": "https://itunes.apple.com/us/reviews/id29589937"
+                    },
+                    "name": {
+                        "label": "kokokaylee"
+                    },
+                    "label": ""
+                },
+                "updated": {
+                    "label": "2018-03-28T13:19:17-07:00"
+                },
+                "im:rating": {
+                    "label": "3"
+                },
+                "im:version": {
+                    "label": "46.0"
+                },
+                "id": {
+                    "label": "2356843892"
+                },
+                "title": {
+                    "label": "Losing pages."
+                },
+                "content": {
+                    "label": "If I’m on a page and I have to either step away so my phone goes to sleep or switch screens, it resets to the homepage search bar. Not all the time, but enough that it’s incredibly irritating. I’ll have to scroll all the way back down to where I was (I love reading comments on articles, so sometimes  it’s a lot of scrolling) to continue reading. This has only become a problem in the last few updates, I believe since the overall look has changed. Sometimes the page I was on will be completely gone from the history as well, saying I have no browsing history when I clearly do, as I was JUST reading something. Then I have to remember what I searched and the title of the article.\n\nApps are supposed to be streamlined, quick & beneficial. I might as well read on a computer. Fix this, please.",
+                    "attributes": {
+                        "type": "text"
+                    }
+                },
+                "link": {
+                    "attributes": {
+                        "rel": "related",
+                        "href": "https://itunes.apple.com/us/review?id=284815942&type=Purple%20Software"
+                    }
+                },
+                "im:voteSum": {
+                    "label": "40"
+                },
+                "im:contentType": {
+                    "attributes": {
+                        "term": "Application",
+                        "label": "Application"
+                    }
+                },
+                "im:voteCount": {
+                    "label": "93"
+                }
+            },
+            {
+                "author": {
+                    "uri": {
+                        "label": "https://itunes.apple.com/us/reviews/id25018277"
+                    },
+                    "name": {
+                        "label": "Stageon"
+                    },
+                    "label": ""
+                },
+                "updated": {
+                    "label": "2021-05-24T07:18:28-07:00"
+                },
+                "im:rating": {
+                    "label": "2"
+                },
+                "im:version": {
+                    "label": "160.0"
+                },
+                "id": {
+                    "label": "7382600276"
+                },
+                "title": {
+                    "label": "Used to use it a lot 🤷🏻‍♂️"
+                },
+                "content": {
+                    "label": "I used to use Safari for real browsing and this Google search app for…quick google searches. Forget a name, a spelling, etc. And the assistant was handy because let’s face it — I’m a big Apple user but Siri really blows. All was good in the kingdom.\n\nNow I’m removing it from iPads and iPhones. Look at the disclosure! Why does Google need access to financial information? Besides, Google’s products for Apple devices have been deteriorating over time. They’re a competitor like Microsoft now, so they don’t exactly want feature parity in their cross-platform products.\n\nSo see ya later, Mr. G. Now using anonymous browsers and a VPN to at least keep the dumb hackers out. The last thing I want installed on any of my machines is adware/spyware from Google, Facebook, or any of their subsidiaries. Remember, folks: If you’re not paying for the product, YOU ARE THE PRODUCT.",
+                    "attributes": {
+                        "type": "text"
+                    }
+                },
+                "link": {
+                    "attributes": {
+                        "rel": "related",
+                        "href": "https://itunes.apple.com/us/review?id=284815942&type=Purple%20Software"
+                    }
+                },
+                "im:voteSum": {
+                    "label": "7"
+                },
+                "im:contentType": {
+                    "attributes": {
+                        "term": "Application",
+                        "label": "Application"
+                    }
+                },
+                "im:voteCount": {
+                    "label": "8"
+                }
+            },
+            {
+                "author": {
+                    "uri": {
+                        "label": "https://itunes.apple.com/us/reviews/id376690912"
+                    },
+                    "name": {
+                        "label": "mandaraffe"
+                    },
+                    "label": ""
+                },
+                "updated": {
+                    "label": "2021-02-26T05:10:04-07:00"
+                },
+                "im:rating": {
+                    "label": "3"
+                },
+                "im:version": {
+                    "label": "137.2"
+                },
+                "id": {
+                    "label": "7040785778"
+                },
+                "title": {
+                    "label": "Doesn’t work half the time"
+                },
+                "content": {
+                    "label": "I’ve had this app for a few years and it’s happened intermittently, but it seems to have gotten worse recently. I’ll search something and then just...... nothing. The screen will be and stay blank indefinitely, not loading a single result. Blue bar will fill up, but nothing shows up. I’ve tried it on multiple different wifi networks, using data in various locations, force quit the app and restarted, to no avail. I’ll then go search the same thing on the Safari app and it’ll immediately load. So I’m inclined to think that it’s a problem with the app’s functionality, not user error. The next day or so it’ll start functioning properly, only to go back to being broken again. It was convenient, but now it’s just infuriating",
+                    "attributes": {
+                        "type": "text"
+                    }
+                },
+                "link": {
+                    "attributes": {
+                        "rel": "related",
+                        "href": "https://itunes.apple.com/us/review?id=284815942&type=Purple%20Software"
+                    }
+                },
+                "im:voteSum": {
+                    "label": "2"
+                },
+                "im:contentType": {
+                    "attributes": {
+                        "term": "Application",
+                        "label": "Application"
+                    }
+                },
+                "im:voteCount": {
+                    "label": "3"
+                }
+            },
+            {
+                "author": {
+                    "uri": {
+                        "label": "https://itunes.apple.com/us/reviews/id1234846188"
+                    },
+                    "name": {
+                        "label": "SUSANEDWR"
+                    },
+                    "label": ""
+                },
+                "updated": {
+                    "label": "2022-01-11T14:12:41-07:00"
+                },
+                "im:rating": {
+                    "label": "5"
+                },
+                "im:version": {
+                    "label": "194.0"
+                },
+                "id": {
+                    "label": "8230009474"
+                },
+                "title": {
+                    "label": "Dentists of Tucson"
+                },
+                "content": {
+                    "label": "Let me start by saying Dr Stears and his assistant did a wonderful job on my new crown. I also got a chance to see and hug Lynette, favorite hygienist, she is awesome. Very professional staff, always smiling and welcoming. Items are explained and you are aware of your portion of the payment necessary to do procedure. Business manager handled an irate patient professionally and I commend her for being calm but stern. Please remember to be kind, the people are simple doing their job, which they do an exceptional job. I work in the medical field and understand the difficulty of insurance companies and explaining the remaining balances and it is difficult. I love this staff and will continue to come here and recommend this office to everyone!",
+                    "attributes": {
+                        "type": "text"
+                    }
+                },
+                "link": {
+                    "attributes": {
+                        "rel": "related",
+                        "href": "https://itunes.apple.com/us/review?id=284815942&type=Purple%20Software"
+                    }
+                },
+                "im:voteSum": {
+                    "label": "0"
+                },
+                "im:contentType": {
+                    "attributes": {
+                        "term": "Application",
+                        "label": "Application"
+                    }
+                },
+                "im:voteCount": {
+                    "label": "5"
+                }
+            },
+            {
+                "author": {
+                    "uri": {
+                        "label": "https://itunes.apple.com/us/reviews/id1226200349"
+                    },
+                    "name": {
+                        "label": "Mister Press"
+                    },
+                    "label": ""
+                },
+                "updated": {
+                    "label": "2021-09-29T11:59:15-07:00"
+                },
+                "im:rating": {
+                    "label": "2"
+                },
+                "im:version": {
+                    "label": "179.0"
+                },
+                "id": {
+                    "label": "7859000740"
+                },
+                "title": {
+                    "label": "Unwanted information on my discovery feed"
+                },
+                "content": {
+                    "label": "There’s a Tampa Bay Bucs score feed under my search bar that just popped up out of nowhere. It’s been there for a week now even though I’ve went to the settings to make sure I didn’t somehow request this information. I did not & it remains. This is starting to frustrate me. I’ve never had this problem & I’m wondering if the new iOS update has something to do with it. Update: So I wanted to clarify my issue. It’s not what articles are popping up in my feed, it’s a persistent weekly score bubble under my google search bar at the very top of my discovery feed. I have went through all the options & requested that no Tampa Bay Bucs news specifically be added to my feed. It has remained. Update #2: It’s actually the latest team news feed for the Bucs. I just installed the new update & it’s still there.",
+                    "attributes": {
+                        "type": "text"
+                    }
+                },
+                "link": {
+                    "attributes": {
+                        "rel": "related",
+                        "href": "https://itunes.apple.com/us/review?id=284815942&type=Purple%20Software"
+                    }
+                },
+                "im:voteSum": {
+                    "label": "1"
+                },
+                "im:contentType": {
+                    "attributes": {
+                        "term": "Application",
+                        "label": "Application"
+                    }
+                },
+                "im:voteCount": {
+                    "label": "5"
+                }
+            },
+            {
+                "author": {
+                    "uri": {
+                        "label": "https://itunes.apple.com/us/reviews/id151982996"
+                    },
+                    "name": {
+                        "label": "Big hole2011"
+                    },
+                    "label": ""
+                },
+                "updated": {
+                    "label": "2020-06-12T19:50:16-07:00"
+                },
+                "im:rating": {
+                    "label": "2"
+                },
+                "im:version": {
+                    "label": "111.0"
+                },
+                "id": {
+                    "label": "6069078994"
+                },
+                "title": {
+                    "label": "Unsatisfied"
+                },
+                "content": {
+                    "label": "Google quickly became the most used search engine thanks to its simplicity and ease of use. Sadly, this app is missing a few things to earn those describers. \n\n1. They took away the connectivity to Apple Maps. Why? This was one of the main features I used the app for. I would look up Applebee’s, click for directions, and google would reroute me right to Apple Maps with the right directions. Now Apple Maps is no longer an option and it’s obvious you took away this feature without stating that’s what you were going to do in the update which in my mind is a really shady business practice and let’s me know you knew doing this would make some people mad. \n\n2. Symbols on the images. Now users can’t screenshot or view images without seeing the buttons/symbols. Again, another feature I used a lot that was taken away. \n\n3. When you click on a suggested image when viewing an image, they is no way to go back to that original image without going back all the image results. Why is there no back button?\n\nPlease add back these features to earn a good review! Thanks to these exact features, I think I’m going to have to start using Safari app just for the Apple connectivity and to view images without the three or four buttons on top each of them.",
+                    "attributes": {
+                        "type": "text"
+                    }
+                },
+                "link": {
+                    "attributes": {
+                        "rel": "related",
+                        "href": "https://itunes.apple.com/us/review?id=284815942&type=Purple%20Software"
+                    }
+                },
+                "im:voteSum": {
+                    "label": "24"
+                },
+                "im:contentType": {
+                    "attributes": {
+                        "term": "Application",
+                        "label": "Application"
+                    }
+                },
+                "im:voteCount": {
+                    "label": "41"
+                }
+            },
+            {
+                "author": {
+                    "uri": {
+                        "label": "https://itunes.apple.com/us/reviews/id148394241"
+                    },
+                    "name": {
+                        "label": "Notmyphone6401"
+                    },
+                    "label": ""
+                },
+                "updated": {
+                    "label": "2020-10-04T03:02:33-07:00"
+                },
+                "im:rating": {
+                    "label": "4"
+                },
+                "im:version": {
+                    "label": "127.0"
+                },
+                "id": {
+                    "label": "6499046479"
+                },
+                "title": {
+                    "label": "New Update"
+                },
+                "content": {
+                    "label": "Update: it seems like it’s gone back to how it was before, much appreciated! There are still a few freezes here and there where I have to restart the app, but nothing worth writing home about. \n\nI’m not a fan of the page changes of the most recent update. The Share button is now where the Bookmark button was, which is now where the Refresh button was, which is just gone for some reason. Also they got rid of the back button in the top left that allowed you to go back from the Open-in-new-tabesque feature, which is a major inconvenience to be honest. Overall not happy with it. It just seems like a pointless change that doesn’t make much sense.",
+                    "attributes": {
+                        "type": "text"
+                    }
+                },
+                "link": {
+                    "attributes": {
+                        "rel": "related",
+                        "href": "https://itunes.apple.com/us/review?id=284815942&type=Purple%20Software"
+                    }
+                },
+                "im:voteSum": {
+                    "label": "6"
+                },
+                "im:contentType": {
+                    "attributes": {
+                        "term": "Application",
+                        "label": "Application"
+                    }
+                },
+                "im:voteCount": {
+                    "label": "10"
+                }
+            },
+            {
+                "author": {
+                    "uri": {
+                        "label": "https://itunes.apple.com/us/reviews/id151880715"
+                    },
+                    "name": {
+                        "label": "mcgrottydanny1"
+                    },
+                    "label": ""
+                },
+                "updated": {
+                    "label": "2018-05-17T06:57:27-07:00"
+                },
+                "im:rating": {
+                    "label": "3"
+                },
+                "im:version": {
+                    "label": "49.0"
+                },
+                "id": {
+                    "label": "2559387601"
+                },
+                "title": {
+                    "label": "Good as Expected but..."
+                },
+                "content": {
+                    "label": "This app basically does exactly what you’d think a Google app would do. For that reason, it’s a fine app. I deleted this app though because I didn’t see the advantage of keeping it when I could just use a mobile browser to search on Google. I wouldn’t even think twice about downloading this app again if it incorporated just 1 specific thing... the first is that I wish this app had a reverse image search feature similar to Pinterest’s. Google already has a reverse image search option for non-mobile users (PC, Mac, etc.) in the browser, but the Google app doesn’t have this function for mobile use. So I would think that a reverse image search right on your mobile device would be brilliant. I would probably delete my Pinterest app if the Google app had this function.",
+                    "attributes": {
+                        "type": "text"
+                    }
+                },
+                "link": {
+                    "attributes": {
+                        "rel": "related",
+                        "href": "https://itunes.apple.com/us/review?id=284815942&type=Purple%20Software"
+                    }
+                },
+                "im:voteSum": {
+                    "label": "34"
+                },
+                "im:contentType": {
+                    "attributes": {
+                        "term": "Application",
+                        "label": "Application"
+                    }
+                },
+                "im:voteCount": {
+                    "label": "70"
+                }
+            },
+            {
+                "author": {
+                    "uri": {
+                        "label": "https://itunes.apple.com/us/reviews/id41536584"
+                    },
+                    "name": {
+                        "label": "Wanting a fair game"
+                    },
+                    "label": ""
+                },
+                "updated": {
+                    "label": "2017-10-09T16:50:17-07:00"
+                },
+                "im:rating": {
+                    "label": "3"
+                },
+                "im:version": {
+                    "label": "36.0"
+                },
+                "id": {
+                    "label": "1838217556"
+                },
+                "title": {
+                    "label": "Google window on the bottom of screen"
+                },
+                "content": {
+                    "label": "I like using this app, however, I really dislike the google window at the bottom of the page. It’s in the way when I need to make a selection at the bottom of the screen. I know how to make it smaller so I can make a selection. It’s just to much work just to see the bottom of the screen. Most times I just give up and click open page in Safari so I don’t have deal with it. Its also slightly annoying because it never goes away and I don’t see an option to close it. The only time it goes away is when I scroll up which does me no good if I want to look at the very bottom of the page. It would be much better if it was hidden at the top of the screen and I can just swipe down if I want to see it. At least give an option to close the box.",
+                    "attributes": {
+                        "type": "text"
+                    }
+                },
+                "link": {
+                    "attributes": {
+                        "rel": "related",
+                        "href": "https://itunes.apple.com/us/review?id=284815942&type=Purple%20Software"
+                    }
+                },
+                "im:voteSum": {
+                    "label": "57"
+                },
+                "im:contentType": {
+                    "attributes": {
+                        "term": "Application",
+                        "label": "Application"
+                    }
+                },
+                "im:voteCount": {
+                    "label": "102"
+                }
+            },
+            {
+                "author": {
+                    "uri": {
+                        "label": "https://itunes.apple.com/us/reviews/id701075526"
+                    },
+                    "name": {
+                        "label": "happy2234415"
+                    },
+                    "label": ""
+                },
+                "updated": {
+                    "label": "2022-05-10T16:46:32-07:00"
+                },
+                "im:rating": {
+                    "label": "3"
+                },
+                "im:version": {
+                    "label": "211.0"
+                },
+                "id": {
+                    "label": "8658141010"
+                },
+                "title": {
+                    "label": "Almost got a virus! (Think I actually have)"
+                },
+                "content": {
+                    "label": "So I thought that this Kahoot bot website was really funny so I clicked the link… yeah, bad mistake.\nIt started to give me pop up ads that were really unnecessary and some of them were not even related with the topic. It told me I needed a vpn for the website. And oh no.. then a littoral, PHYSICAL pop up came up on my iPad saying, “(19) Viruses have been activated on your apple device! Please install this vpn or your photos and other social media things will be stolen and sold!” I got very scared and my instinct hit the install button. And my mind was like, AHHHHHHHH NOOOOOOOOO!!! JAGSHDBEGUS 💀 just so y’all know this happened like 15-20 mins ago. Yeah but regardless of all that the app is astonishing! Just so you know please remove the website. It is the first search when you put in “Kahoot bot”",
+                    "attributes": {
+                        "type": "text"
+                    }
+                },
+                "link": {
+                    "attributes": {
+                        "rel": "related",
+                        "href": "https://itunes.apple.com/us/review?id=284815942&type=Purple%20Software"
+                    }
+                },
+                "im:voteSum": {
+                    "label": "1"
+                },
+                "im:contentType": {
+                    "attributes": {
+                        "term": "Application",
+                        "label": "Application"
+                    }
+                },
+                "im:voteCount": {
+                    "label": "2"
+                }
+            },
+            {
+                "author": {
+                    "uri": {
+                        "label": "https://itunes.apple.com/us/reviews/id319577435"
+                    },
+                    "name": {
+                        "label": "Nilda,Del, Iris"
+                    },
+                    "label": ""
+                },
+                "updated": {
+                    "label": "2022-01-09T18:58:51-07:00"
+                },
+                "im:rating": {
+                    "label": "5"
+                },
+                "im:version": {
+                    "label": "194.0"
+                },
+                "id": {
+                    "label": "8223761179"
+                },
+                "title": {
+                    "label": "Chelsea Bynum McKellum -Restland employee who helped us."
+                },
+                "content": {
+                    "label": "Restland was the place we chooses for our end distiny. We meet Chelsea when our siste Marisa was laid on that certain area of Restland. That’s where we meet Chelsea. After that time we Capasgordo’s planned to get some place for us . Chelsea was the who accommodated us . She showed and explained to us ,ask questions regarding the different plan we need. At the end we got 4 lots and services that we need. She was a happy and reliable person and goes beyond what we are expecting. We really want to recommend her as one assets of your company. Thank you so much Chelsea and hoping that you still can help others as what you did to us. God Bless Always .",
+                    "attributes": {
+                        "type": "text"
+                    }
+                },
+                "link": {
+                    "attributes": {
+                        "rel": "related",
+                        "href": "https://itunes.apple.com/us/review?id=284815942&type=Purple%20Software"
+                    }
+                },
+                "im:voteSum": {
+                    "label": "1"
+                },
+                "im:contentType": {
+                    "attributes": {
+                        "term": "Application",
+                        "label": "Application"
+                    }
+                },
+                "im:voteCount": {
+                    "label": "7"
+                }
+            },
+            {
+                "author": {
+                    "uri": {
+                        "label": "https://itunes.apple.com/us/reviews/id35748546"
+                    },
+                    "name": {
+                        "label": "gtaboo"
+                    },
+                    "label": ""
+                },
+                "updated": {
+                    "label": "2017-11-02T20:41:07-07:00"
+                },
+                "im:rating": {
+                    "label": "4"
+                },
+                "im:version": {
+                    "label": "38.0"
+                },
+                "id": {
+                    "label": "1893488402"
+                },
+                "title": {
+                    "label": "The Interface is Getting Cluttered"
+                },
+                "content": {
+                    "label": "It was nice having the streamlined layout of the app several versions before, and with every update version, the interface loads up with more buttons of questionable interest, and an excess of information that would be best left hidden or condensed. The tab feature is also getting cluttered with excessive numbers of saved pages after simple searches. I do not need a new window every time I want to view a new image, I just want to browse in peace. This is a petty and personal issue that doesn’t impede the app’s usefulness, so I will leave this with a decent rating, but I would greatly appreciate it if options for less screen filler were available in future updates. Thanks to whoever may see this.",
+                    "attributes": {
+                        "type": "text"
+                    }
+                },
+                "link": {
+                    "attributes": {
+                        "rel": "related",
+                        "href": "https://itunes.apple.com/us/review?id=284815942&type=Purple%20Software"
+                    }
+                },
+                "im:voteSum": {
+                    "label": "20"
+                },
+                "im:contentType": {
+                    "attributes": {
+                        "term": "Application",
+                        "label": "Application"
+                    }
+                },
+                "im:voteCount": {
+                    "label": "37"
+                }
+            },
+            {
+                "author": {
+                    "uri": {
+                        "label": "https://itunes.apple.com/us/reviews/id1176512467"
+                    },
+                    "name": {
+                        "label": "chagolla02"
+                    },
+                    "label": ""
+                },
+                "updated": {
+                    "label": "2022-05-08T17:18:27-07:00"
+                },
+                "im:rating": {
+                    "label": "5"
+                },
+                "im:version": {
+                    "label": "210.0"
+                },
+                "id": {
+                    "label": "8651664069"
+                },
+                "title": {
+                    "label": "Ok, Here’s my answer..-"
+                },
+                "content": {
+                    "label": "The “Hum for song” thing is Not worthless, it help a lot with others, or does not..- But sometimes it doesn’t work, and I think google is a special app for all of us! We have to treat it right, and (you don’t have to agree!-) I think google can show us how many things happened or we ask questions!! Maps is with google, games are with google, FaceTime is with google, ads are with google, Half of everything is google!! I thank google for their help and (you don’t have too but in mind-) I think you should say thank you!  \n                          \n                            (That’s my answer!)\n                                    (Привет)",
+                    "attributes": {
+                        "type": "text"
+                    }
+                },
+                "link": {
+                    "attributes": {
+                        "rel": "related",
+                        "href": "https://itunes.apple.com/us/review?id=284815942&type=Purple%20Software"
+                    }
+                },
+                "im:voteSum": {
+                    "label": "0"
+                },
+                "im:contentType": {
+                    "attributes": {
+                        "term": "Application",
+                        "label": "Application"
+                    }
+                },
+                "im:voteCount": {
+                    "label": "2"
+                }
+            },
+            {
+                "author": {
+                    "uri": {
+                        "label": "https://itunes.apple.com/us/reviews/id260634781"
+                    },
+                    "name": {
+                        "label": "Bubbled4"
+                    },
+                    "label": ""
+                },
+                "updated": {
+                    "label": "2021-01-06T20:34:32-07:00"
+                },
+                "im:rating": {
+                    "label": "5"
+                },
+                "im:version": {
+                    "label": "137.2"
+                },
+                "id": {
+                    "label": "6840091673"
+                },
+                "title": {
+                    "label": "I am so excited that you have changed the entire"
+                },
+                "content": {
+                    "label": "Process to open up all new apps  the clarity \nIs so much better and technology has improved our downloading the property info so much better! Thank you and keep making our apps easier to retrieve Thank you it solves a lot of frustrating problems !\nGood job technicians! Thanks for making this a lot less frustrating so we can make good money from our new accounts technicians and customers! Happy New Year! JaniceTilchen a customer representative in growing our Company much needed help\nHas created such a clarification of our technicians transactions’ Thanks Happy New Year it’s going to be a heck of a fantastic year!\nRepresentative\nFrom Michigan transportation to a exciting new year when the clearer help and positive\nSelling requiring new techs and better and brighter 2020\n’New year of great activity! HAPPY NÉW YEAR  CO WORKERS U R the Best brightest \nHappy 2020 ! Yea\nJanice Tilchen We Are #!Number Go Team\nWe are the BRIGHTEST AND FUN LOVING group HAPPY NÉW Year good health and success! You are the Best!’sincerely coach Janice Tilchen Delray Beach Florida! \nYOU GO And KILL IT !’Go teams!’",
+                    "attributes": {
+                        "type": "text"
+                    }
+                },
+                "link": {
+                    "attributes": {
+                        "rel": "related",
+                        "href": "https://itunes.apple.com/us/review?id=284815942&type=Purple%20Software"
+                    }
+                },
+                "im:voteSum": {
+                    "label": "7"
+                },
+                "im:contentType": {
+                    "attributes": {
+                        "term": "Application",
+                        "label": "Application"
+                    }
+                },
+                "im:voteCount": {
+                    "label": "12"
+                }
+            },
+            {
+                "author": {
+                    "uri": {
+                        "label": "https://itunes.apple.com/us/reviews/id26687291"
+                    },
+                    "name": {
+                        "label": "Petisa30"
+                    },
+                    "label": ""
+                },
+                "updated": {
+                    "label": "2020-05-31T07:04:17-07:00"
+                },
+                "im:rating": {
+                    "label": "3"
+                },
+                "im:version": {
+                    "label": "109.0"
+                },
+                "id": {
+                    "label": "6017876585"
+                },
+                "title": {
+                    "label": "Has been my favorite app but has been crashing for weeks now"
+                },
+                "content": {
+                    "label": "This app has been my favorite iPhone app but a recent update led to constant consistent crashing issues. Any time I try to use it it crashes. This began to occur after an update. I have looked ever day for an update assuming the developers would want to repair a problem that leads to complete inability to use app, but nothing. \nI have begun to look into other search apps as the lack of any response is concerning. I have not yet found one I like as much, but honestly ANYTHING that works is wayyy better than typing in a search getting result only to have the app ALWAYS crash. When trying to get the result.  Gave three stars because of the very slow response, but would have given 4/5 stars before this problem which renders the app useless.",
+                    "attributes": {
+                        "type": "text"
+                    }
+                },
+                "link": {
+                    "attributes": {
+                        "rel": "related",
+                        "href": "https://itunes.apple.com/us/review?id=284815942&type=Purple%20Software"
+                    }
+                },
+                "im:voteSum": {
+                    "label": "16"
+                },
+                "im:contentType": {
+                    "attributes": {
+                        "term": "Application",
+                        "label": "Application"
+                    }
+                },
+                "im:voteCount": {
+                    "label": "32"
+                }
+            },
+            {
+                "author": {
+                    "uri": {
+                        "label": "https://itunes.apple.com/us/reviews/id123492670"
+                    },
+                    "name": {
+                        "label": "dj jon bates"
+                    },
+                    "label": ""
+                },
+                "updated": {
+                    "label": "2018-12-22T23:46:35-07:00"
+                },
+                "im:rating": {
+                    "label": "3"
+                },
+                "im:version": {
+                    "label": "65.0"
+                },
+                "id": {
+                    "label": "3562444718"
+                },
+                "title": {
+                    "label": "Once critical app now unstable under iOS12"
+                },
+                "content": {
+                    "label": "I have used this app since its early days, a majority of my experience was excellent: on an iPad Pro, it was a godsend in split-screen mode when I needed to pull content from several sources into my primary apps by dragging or pasting.\n\nOnce iOS updated to its current release, this is the least stable and highest-lag of Google’s iOS offerings (several of which also suffer under iOS12). \n\nI didn’t understand when the ‘tools’ option was suddenly deactivated on image searches, but tolerated it because the app overall was still strong.\n\nNow, I use this app only when I can afford to have it freeze or crash. Scrolling through saved item collections is impossibly laggy, with several seconds elapsing between a touch or drag and the app responding — when it does scroll, it stutters and freezes.\n\nI have a top-tier current-gen iPad Pro with 70% of internal storage available, and would hope Google values stability and performance over feature-adds that aren’t ready for public release.\n\nPlease fix this, Google: an app that is fragile and unreliable is an app uninstalled. I’ve invested in the enterprise products you offer and rely on them daily (if not hourly) to do my job.",
+                    "attributes": {
+                        "type": "text"
+                    }
+                },
+                "link": {
+                    "attributes": {
+                        "rel": "related",
+                        "href": "https://itunes.apple.com/us/review?id=284815942&type=Purple%20Software"
+                    }
+                },
+                "im:voteSum": {
+                    "label": "12"
+                },
+                "im:contentType": {
+                    "attributes": {
+                        "term": "Application",
+                        "label": "Application"
+                    }
+                },
+                "im:voteCount": {
+                    "label": "19"
+                }
+            },
+            {
+                "author": {
+                    "uri": {
+                        "label": "https://itunes.apple.com/us/reviews/id31636961"
+                    },
+                    "name": {
+                        "label": "agtgpg"
+                    },
+                    "label": ""
+                },
+                "updated": {
+                    "label": "2021-03-04T19:22:06-07:00"
+                },
+                "im:rating": {
+                    "label": "5"
+                },
+                "im:version": {
+                    "label": "137.2"
+                },
+                "id": {
+                    "label": "7066381730"
+                },
+                "title": {
+                    "label": "Really good for searching!"
+                },
+                "content": {
+                    "label": "I use this app all the time when I have questions. And they have pretty good answers to the questions. I also like to write questions that I would like to share. And when you ask a question on this app so many results pop up so quickly. Faster than other apps. And I have so many questions that this app works so well for me! Whoever made this app is really great! I’m really glad that there is this app on App Store! There updates helps me a lot! The updates fix so many bugs that I have to update the app and I even have to upgrade it. And I pay to the company more for updates!",
+                    "attributes": {
+                        "type": "text"
+                    }
+                },
+                "link": {
+                    "attributes": {
+                        "rel": "related",
+                        "href": "https://itunes.apple.com/us/review?id=284815942&type=Purple%20Software"
+                    }
+                },
+                "im:voteSum": {
+                    "label": "1"
+                },
+                "im:contentType": {
+                    "attributes": {
+                        "term": "Application",
+                        "label": "Application"
+                    }
+                },
+                "im:voteCount": {
+                    "label": "2"
+                }
+            },
+            {
+                "author": {
+                    "uri": {
+                        "label": "https://itunes.apple.com/us/reviews/id699370457"
+                    },
+                    "name": {
+                        "label": "Wax and refuel"
+                    },
+                    "label": ""
+                },
+                "updated": {
+                    "label": "2018-06-20T13:31:12-07:00"
+                },
+                "im:rating": {
+                    "label": "2"
+                },
+                "im:version": {
+                    "label": "51.1"
+                },
+                "id": {
+                    "label": "2733762845"
+                },
+                "title": {
+                    "label": "Link to maps usually fails"
+                },
+                "content": {
+                    "label": "Generally a useful app but Google has lots of bugs to fix!  A search often brings up a map, and when I click on the map within the Google app, it gives \"no results\".  Very annoying and obviously wrong, since if you open another map app, including Google maps, there is what you were looking for.  Google, fix this!\n\nSimilar issue with other searches like yelp.  If you search for an establishment and the result you click is a yelp website, the Google app doesn't take you to the information you want.  Instead you get a series of links and you have to reenter the search on the yelp app. There's obviously a better way, and things could be more seamless.\n\nThese have been long running problems and I'm surprised Google isn't on top of this.  Seems like it should have been relatively easy to fix.",
+                    "attributes": {
+                        "type": "text"
+                    }
+                },
+                "link": {
+                    "attributes": {
+                        "rel": "related",
+                        "href": "https://itunes.apple.com/us/review?id=284815942&type=Purple%20Software"
+                    }
+                },
+                "im:voteSum": {
+                    "label": "11"
+                },
+                "im:contentType": {
+                    "attributes": {
+                        "term": "Application",
+                        "label": "Application"
+                    }
+                },
+                "im:voteCount": {
+                    "label": "20"
+                }
+            },
+            {
+                "author": {
+                    "uri": {
+                        "label": "https://itunes.apple.com/us/reviews/id337843249"
+                    },
+                    "name": {
+                        "label": "Pls lust lemme post things;-;"
+                    },
+                    "label": ""
+                },
+                "updated": {
+                    "label": "2019-06-03T17:34:14-07:00"
+                },
+                "im:rating": {
+                    "label": "1"
+                },
+                "im:version": {
+                    "label": "74.1"
+                },
+                "id": {
+                    "label": "4260027321"
+                },
+                "title": {
+                    "label": "Very disappointed"
+                },
+                "content": {
+                    "label": "Okay Google, you’ve been on thin ice for a while but with this new update is where I draw the line. I loved the Google app and have been using it religiously as my search engine for 5+ years. There have been many changes since I first started using the app, mostly good, but some bad. I use google a lot for reference images for art and now you can no longer save pictures directly from images. It was bad enough you took away the image previews, and then changed the way you save photos, but now you can’t even save them! It sends you to the website, but for many things on mobile it either doesn’t work or forces you to sign into a website to get to the photo. Sometimes it will take you to a website that just doesn’t even work! I will probably stop using the Google app after today and switch to another unless you fix this. It makes the app unusable for me.",
+                    "attributes": {
+                        "type": "text"
+                    }
+                },
+                "link": {
+                    "attributes": {
+                        "rel": "related",
+                        "href": "https://itunes.apple.com/us/review?id=284815942&type=Purple%20Software"
+                    }
+                },
+                "im:voteSum": {
+                    "label": "12"
+                },
+                "im:contentType": {
+                    "attributes": {
+                        "term": "Application",
+                        "label": "Application"
+                    }
+                },
+                "im:voteCount": {
+                    "label": "26"
+                }
+            },
+            {
+                "author": {
+                    "uri": {
+                        "label": "https://itunes.apple.com/us/reviews/id580182445"
+                    },
+                    "name": {
+                        "label": "Hello Person03"
+                    },
+                    "label": ""
+                },
+                "updated": {
+                    "label": "2019-03-22T19:37:01-07:00"
+                },
+                "im:rating": {
+                    "label": "3"
+                },
+                "im:version": {
+                    "label": "69.0"
+                },
+                "id": {
+                    "label": "3914498543"
+                },
+                "title": {
+                    "label": "Fix History and Images"
+                },
+                "content": {
+                    "label": "The way you delete and look at your search history along with Google images has recently been updated, and it needs to go back. First off, the best feature of your Search History, the ability to delete all of it at once, has been removed and replaced with a day by day basis which is much more difficult to manage. Also, the way you view images when you search has been changed and looks atrocious. It’s clunky, and you can no longer look at images in full screen. It appears to be a terrible attempt at trying to make it look like the desktop image search. Please, please, bring back the old History and Images search, as they are superior and easier to use than what has been added.",
+                    "attributes": {
+                        "type": "text"
+                    }
+                },
+                "link": {
+                    "attributes": {
+                        "rel": "related",
+                        "href": "https://itunes.apple.com/us/review?id=284815942&type=Purple%20Software"
+                    }
+                },
+                "im:voteSum": {
+                    "label": "20"
+                },
+                "im:contentType": {
+                    "attributes": {
+                        "term": "Application",
+                        "label": "Application"
+                    }
+                },
+                "im:voteCount": {
+                    "label": "24"
+                }
+            },
+            {
+                "author": {
+                    "uri": {
+                        "label": "https://itunes.apple.com/us/reviews/id259448848"
+                    },
+                    "name": {
+                        "label": "Shortish gurl"
+                    },
+                    "label": ""
+                },
+                "updated": {
+                    "label": "2019-10-11T01:12:54-07:00"
+                },
+                "im:rating": {
+                    "label": "1"
+                },
+                "im:version": {
+                    "label": "84.0"
+                },
+                "id": {
+                    "label": "4922131980"
+                },
+                "title": {
+                    "label": "Slow and laggy typing"
+                },
+                "content": {
+                    "label": "I have been using this app for the last 2 years almost everyday. But since the last few updates in September/October 2019 the app has been laggy and slow. I’m typing faster than the app can recognize. It takes it a few seconds before the text shows what I have actually typed into the search bar. I know it’s not just my phone being slow because I am able to write this review without the problem and text at my normal speed in iMessages and other apps with no issues. \n\nAdditionally, the search results seem to take longer to appear. The app hangs and freezes from time to time. Websites are opening slowly, and stay blank for a while before opening or not at all. When I’m scrolling down a page it does not scroll smoothly, rather there are pauses and it lags behind. I thought the most recent update would fix the problem but it hasn’t. \n\nThe actual search content wise is good but there are too many “related searches” and “related search results” displayed and not enough actual results displayed on the small screen. It usually shows about 10-12 results, and then a list of 8 related searches and results for potential searches. That ratio is too close and there should be more actual search results. \n\nPlease fix this.",
+                    "attributes": {
+                        "type": "text"
+                    }
+                },
+                "link": {
+                    "attributes": {
+                        "rel": "related",
+                        "href": "https://itunes.apple.com/us/review?id=284815942&type=Purple%20Software"
+                    }
+                },
+                "im:voteSum": {
+                    "label": "4"
+                },
+                "im:contentType": {
+                    "attributes": {
+                        "term": "Application",
+                        "label": "Application"
+                    }
+                },
+                "im:voteCount": {
+                    "label": "7"
+                }
+            },
+            {
+                "author": {
+                    "uri": {
+                        "label": "https://itunes.apple.com/us/reviews/id381432654"
+                    },
+                    "name": {
+                        "label": "MusicalDragon350"
+                    },
+                    "label": ""
+                },
+                "updated": {
+                    "label": "2018-06-30T11:45:49-07:00"
+                },
+                "im:rating": {
+                    "label": "3"
+                },
+                "im:version": {
+                    "label": "52.2"
+                },
+                "id": {
+                    "label": "2806120503"
+                },
+                "title": {
+                    "label": "Could be an amazing app but..."
+                },
+                "content": {
+                    "label": "I really like this app, but lately I have been pretty frustrated with it. This wasn’t happening at first, but now when I open the recently visited websites tab after I’ve been using the app to try and navigate to another page it won’t go to the page I want. It is happening fairly often too. It’s not that big of a deal, because I can get there by either typing it into the address bar or closing out of and restarting the app (sometimes this doesn’t work though). But it’s a real pain and can prevent me from setting aside a page or make me lose my progress on something like it just recently did. The mishap is actually what prompted me to write this review. If this problem were to go away the app would get a full 5 stars from me.",
+                    "attributes": {
+                        "type": "text"
+                    }
+                },
+                "link": {
+                    "attributes": {
+                        "rel": "related",
+                        "href": "https://itunes.apple.com/us/review?id=284815942&type=Purple%20Software"
+                    }
+                },
+                "im:voteSum": {
+                    "label": "7"
+                },
+                "im:contentType": {
+                    "attributes": {
+                        "term": "Application",
+                        "label": "Application"
+                    }
+                },
+                "im:voteCount": {
+                    "label": "8"
+                }
+            },
+            {
+                "author": {
+                    "uri": {
+                        "label": "https://itunes.apple.com/us/reviews/id114218173"
+                    },
+                    "name": {
+                        "label": "Ilovepink1817"
+                    },
+                    "label": ""
+                },
+                "updated": {
+                    "label": "2022-02-22T06:05:31-07:00"
+                },
+                "im:rating": {
+                    "label": "1"
+                },
+                "im:version": {
+                    "label": "200.0"
+                },
+                "id": {
+                    "label": "8384262443"
+                },
+                "title": {
+                    "label": "Shake to send feedback!"
+                },
+                "content": {
+                    "label": "There is NO way to turn this off within the Google app. I’m not talking about in Google maps. People have been complaining about this for months and the only developer response I’ve EVER seen is to go to another website to send more feedback. I know I’m not going to get any answers here, but I know people are searching for this exact question in the reviews to see if anyone has a remedy. So far the answer is no. No one seems to know how to disable this “shake to send feedback” feature that pops up an absurd amount of times in a day. Why is Google collecting my unsolicited feedback without my approval 200x a day. Since they changed their privacy policies suddenly there’s a “glitch” that totally invades my privacy without my consent. Because a permanent “shake to send feedback” feature WAS NOT in the Google terms of agreement that I agreed to.",
+                    "attributes": {
+                        "type": "text"
+                    }
+                },
+                "link": {
+                    "attributes": {
+                        "rel": "related",
+                        "href": "https://itunes.apple.com/us/review?id=284815942&type=Purple%20Software"
+                    }
+                },
+                "im:voteSum": {
+                    "label": "0"
+                },
+                "im:contentType": {
+                    "attributes": {
+                        "term": "Application",
+                        "label": "Application"
+                    }
+                },
+                "im:voteCount": {
+                    "label": "0"
+                }
+            },
+            {
+                "author": {
+                    "uri": {
+                        "label": "https://itunes.apple.com/us/reviews/id40285734"
+                    },
+                    "name": {
+                        "label": "AdamantVision"
+                    },
+                    "label": ""
+                },
+                "updated": {
+                    "label": "2021-04-08T20:41:23-07:00"
+                },
+                "im:rating": {
+                    "label": "1"
+                },
+                "im:version": {
+                    "label": "153.0"
+                },
+                "id": {
+                    "label": "7200642338"
+                },
+                "title": {
+                    "label": "News feed is so bad it's surreal"
+                },
+                "content": {
+                    "label": "For the longest time, I really enjoyed this app as a combination Google search bar and customized news feed. And for a while it was great! It reminded me of Google's discontinued iGoogle homepage. But something significant changed not long ago and the news feed is basically just random trash that I've never told Google I'm interested in. In fact, no matter how many times I tell the app I'm not interested in a topic or person or source or whatever, it just continues to show me more. It's laughable what it decides I'm going to want to see. \n\nDisappointing, because it used to be a regular piece of my news perusal. Now it's worthless and no amount of interaction seems to help the \"algorithm\" figure out what I wanna see. \n\nCome on, Google. You own so much data on me already that you should be able to figure me out. Especially with my help.",
+                    "attributes": {
+                        "type": "text"
+                    }
+                },
+                "link": {
+                    "attributes": {
+                        "rel": "related",
+                        "href": "https://itunes.apple.com/us/review?id=284815942&type=Purple%20Software"
+                    }
+                },
+                "im:voteSum": {
+                    "label": "3"
+                },
+                "im:contentType": {
+                    "attributes": {
+                        "term": "Application",
+                        "label": "Application"
+                    }
+                },
+                "im:voteCount": {
+                    "label": "3"
+                }
+            }
+        ],
+        "updated": {
+            "label": "2022-06-14T02:55:37-07:00"
+        },
+        "rights": {
+            "label": "Copyright 2008 Apple Inc."
+        },
+        "title": {
+            "label": "iTunes Store: Customer Reviews"
+        },
+        "icon": {
+            "label": "http://itunes.apple.com/favicon.ico"
+        },
+        "link": [
+            {
+                "attributes": {
+                    "rel": "alternate",
+                    "type": "text/html",
+                    "href": "https://music.apple.com/WebObjects/MZStore.woa/wa/viewGrouping?cc=us&id=1"
+                }
+            },
+            {
+                "attributes": {
+                    "rel": "self",
+                    "href": "https://mzstoreservices-int.dslb.apple.com/us/rss/customerreviews/id=284815942/sortBy=mostHelpful/json"
+                }
+            },
+            {
+                "attributes": {
+                    "rel": "first",
+                    "href": "https://itunes.apple.com/us/rss/customerreviews/page=1/id=284815942/sortby=mosthelpful/xml?urlDesc=/customerreviews/id=284815942/sortBy=mostHelpful/json"
+                }
+            },
+            {
+                "attributes": {
+                    "rel": "last",
+                    "href": "https://itunes.apple.com/us/rss/customerreviews/page=10/id=284815942/sortby=mosthelpful/xml?urlDesc=/customerreviews/id=284815942/sortBy=mostHelpful/json"
+                }
+            },
+            {
+                "attributes": {
+                    "rel": "previous",
+                    "href": "https://itunes.apple.com/us/rss/customerreviews/page=1/id=284815942/sortby=mosthelpful/xml?urlDesc=/customerreviews/id=284815942/sortBy=mostHelpful/json"
+                }
+            },
+            {
+                "attributes": {
+                    "rel": "next",
+                    "href": "https://itunes.apple.com/us/rss/customerreviews/page=2/id=284815942/sortby=mosthelpful/xml?urlDesc=/customerreviews/id=284815942/sortBy=mostHelpful/json"
+                }
+            }
+        ],
+        "id": {
+            "label": "https://mzstoreservices-int.dslb.apple.com/us/rss/customerreviews/id=284815942/sortBy=mostHelpful/json"
+        }
+    }
+}
