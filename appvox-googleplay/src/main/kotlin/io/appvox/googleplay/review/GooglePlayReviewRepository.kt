@@ -49,6 +49,7 @@ internal class GooglePlayReviewRepository(
         private val APP_VERSION_INDEX = intArrayOf(10)
         private val REPLY_COMMENT_INDEX = intArrayOf(7, 1)
         private val REPLY_SUBMIT_TIME_INDEX = intArrayOf(7, 2, 0)
+        // TODO: Implement criteria fetching
         private val CRITERIA_INDEX = intArrayOf(12)
         private val CRITERIA_CATEGORY_INDEX = intArrayOf(0)
         private val CRITERIA_RATING_INDEX = intArrayOf(1, 0)

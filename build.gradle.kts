@@ -1,12 +1,66 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins {
-    id("org.jetbrains.kotlin.jvm") version "1.7.0"
+    kotlin("jvm") version "1.7.0" apply true
     `java-library`
     `maven-publish`
+    signing
+}
+
+group = "com.github.fabiouu.appvox"
+version = "0.0.1"
+
+subprojects {
+    apply(plugin = "org.jetbrains.kotlin.jvm")
+    apply(plugin = "java-library")
+    apply(plugin = "maven-publish")
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        implementation(platform("org.jetbrains.kotlin:kotlin-bom"))
+        implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+        implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0")
+        runtimeOnly("org.jetbrains.kotlin:kotlin-reflect")
+        testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.0")
+        testImplementation("org.junit.jupiter:junit-jupiter:5.7.1")
+        testImplementation("org.junit.jupiter:junit-jupiter-params:5.7.1")
+        testImplementation("io.kotest:kotest-assertions-core-jvm:4.4.3")
+        testImplementation("com.github.tomakehurst:wiremock:2.27.2")
+    }
+
+    tasks.withType<KotlinCompile> {
+        kotlinOptions {
+            freeCompilerArgs = listOf("-Xjsr305=strict")
+            jvmTarget = "11"
+        }
+    }
+
+    java {
+        withJavadocJar()
+        withSourcesJar()
+    }
+
+    tasks.test {
+        useJUnitPlatform()
+    }
 }
 
 publishing {
     publications {
         create<MavenPublication>("mavenJava") {
+            artifactId = "appvox-googleplay"
+            from(components["java"])
+            versionMapping {
+                usage("java-api") {
+                    fromResolutionOf("runtimeClasspath")
+                }
+                usage("java-runtime") {
+                    fromResolutionResult()
+                }
+            }
             pom {
                 name.set("AppVox")
                 description.set("Capture the voice of your App users")
@@ -30,51 +84,24 @@ publishing {
                     url.set("https://github.com/fabiouu/appvox/tree/master")
                 }
             }
+            repositories {
+                maven {
+                    // change URLs to point to your repos, e.g. http://my.org/repo
+                    val releasesRepoUrl = uri(layout.buildDirectory.dir("repos/releases"))
+                    val snapshotsRepoUrl = uri(layout.buildDirectory.dir("repos/snapshots"))
+                    url = if (version.toString().endsWith("SNAPSHOT")) snapshotsRepoUrl else releasesRepoUrl
+                }
+            }
         }
     }
 }
 
-allprojects {
-    group = "io.appvox"
-    version = "0.0.1"
+signing {
+    sign(publishing.publications["mavenJava"])
 }
 
-repositories {
-    mavenCentral()
-}
-
-subprojects {
-    apply(plugin = "kotlin")
-
-    repositories {
-        mavenCentral()
-    }
-
-    dependencies {
-        implementation(platform("org.jetbrains.kotlin:kotlin-bom"))
-        implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-        implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0")
-        runtimeOnly("org.jetbrains.kotlin:kotlin-reflect")
-        testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.0")
-        testImplementation("org.junit.jupiter:junit-jupiter:5.7.1")
-        testImplementation("org.junit.jupiter:junit-jupiter-params:5.7.1")
-        testImplementation("io.kotest:kotest-assertions-core-jvm:4.4.3")
-        testImplementation("com.github.tomakehurst:wiremock:2.27.2")
-    }
-
-    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-        kotlinOptions {
-            freeCompilerArgs = listOf("-Xjsr305=strict")
-            jvmTarget = "11"
-        }
-    }
-
-    java {
-        withSourcesJar()
-        withJavadocJar()
-    }
-
-    tasks.test {
-        useJUnitPlatform()
+tasks.javadoc {
+    if (JavaVersion.current().isJava9Compatible) {
+        (options as StandardJavadocDocletOptions).addBooleanOption("html5", true)
     }
 }

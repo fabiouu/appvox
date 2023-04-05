@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.runBlocking
 import java.io.FileWriter
 import java.io.IOException
+import java.util.*
 
 fun main() = runBlocking {
     val appId = "com.twitter.android"
@@ -19,8 +20,8 @@ fun main() = runBlocking {
 
     val fileName =
         appId +
-            "_${sortType.name.toLowerCase()}" +
-            "_${reviewLanguage.name.toLowerCase()}" +
+            "_${sortType.name.lowercase(Locale.getDefault())}" +
+            "_${reviewLanguage.name.lowercase(Locale.getDefault())}" +
             "_$maxReviewCount.csv"
     val fileWriter = FileWriter(fileName)
 
