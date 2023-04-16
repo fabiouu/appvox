@@ -4,7 +4,7 @@ import io.appvox.core.configuration.Constant
 import io.appvox.googleplay.review.constant.GooglePlayLanguage
 import io.appvox.googleplay.review.constant.GooglePlaySortType
 
-data class GooglePlayReviewRequestParameters(
+data class GooglePlayReviewRequest(
     val appId: String,
     val language: GooglePlayLanguage,
     val sortType: GooglePlaySortType,
@@ -13,7 +13,8 @@ data class GooglePlayReviewRequestParameters(
     val batchSize: Int,
     val deviceName: String? = null,
     val sid: String? = null,
-    val bl: String? = null
+    val bl: String? = null,
+    val nextToken: String? = null
 ) {
     private constructor(builder: Builder) : this(
         appId = builder.appId,
@@ -34,6 +35,6 @@ data class GooglePlayReviewRequestParameters(
         var deviceName: String? = null
         var batchSize: Int = Constant.DEFAULT_BATCH_SIZE
 
-        fun build() = GooglePlayReviewRequestParameters(this)
+        fun build() = GooglePlayReviewRequest(this)
     }
 }

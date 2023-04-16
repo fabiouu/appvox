@@ -13,7 +13,6 @@ import io.kotest.inspectors.forExactly
 import io.kotest.matchers.ints.shouldBeBetween
 import io.kotest.matchers.ints.shouldBeGreaterThanOrEqual
 import io.kotest.matchers.nulls.shouldNotBeNull
-import io.kotest.matchers.string.shouldContain
 import io.kotest.matchers.string.shouldNotBeEmpty
 import io.kotest.matchers.string.shouldStartWith
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -38,14 +37,14 @@ class GooglePlayTest : BaseGooglePlayMockTest() {
 
         GooglePlayRepository.APP_HP_URL_DOMAIN = httpMockServerDomain
         val scriptParamsMockData = javaClass.getResource(
-            "/app/com.twitter.android/app_googleplay_com.twitter.android_homepage.html"
+            "/$appId/app_homepage.html"
         )!!.readText()
         stubHttpUrl(GooglePlayRepository.APP_HP_URL_PATH, scriptParamsMockData)
 
         REQUEST_URL_DOMAIN = httpMockServerDomain
         val mockData = javaClass.getResource(
-                "/review/com.twitter.android/relevant/review_google_play_com.twitter.android_relevant_1.json"
-            )!!.readText()
+            "/$appId/review_relevant.html"
+        )!!.readText()
         stubHttpUrl(REQUEST_URL_PATH, mockData)
 
         val reviews = ArrayList<GooglePlayReview>()
@@ -60,21 +59,17 @@ class GooglePlayTest : BaseGooglePlayMockTest() {
             assertSoftly(result) {
                 id shouldStartWith "gp:"
                 language.shouldNotBeNull()
-                url shouldContain id
                 userTypes.shouldNotBeNull()
-                latestComment.shouldNotBeNull()
+                latestUserComment.shouldNotBeNull()
             }
             assertSoftly(result.latestUserComment) {
-                name.shouldNotBeEmpty()
+                username.shouldNotBeEmpty()
                 avatar shouldStartWith "https://play-lh.googleusercontent.com/"
                 rating.shouldBeBetween(1, 5)
                 text.shouldNotBeEmpty()
-                lastUpdateTime.shouldNotBeNull()
+                latestUpdateTime.shouldNotBeNull()
                 likeCount.shouldBeGreaterThanOrEqual(0)
                 types.shouldNotBeNull()
-            }
-            assertSoftly(result.latestDeveloperComment) {
-                this?.text?.let { it.shouldNotBeEmpty() }
             }
         }
     }
@@ -94,16 +89,14 @@ class GooglePlayTest : BaseGooglePlayMockTest() {
 
         GooglePlayRepository.APP_HP_URL_DOMAIN = httpMockServerDomain
         val scriptParamsMockData = javaClass.getResource(
-            "/app/com.twitter.android" +
-                    "/app_googleplay_com.twitter.android_homepage.html"
+            "/$appId/app_homepage.html"
         )!!.readText()
         stubHttpUrl(GooglePlayRepository.APP_HP_URL_PATH, scriptParamsMockData)
 
         REQUEST_URL_DOMAIN = httpMockServerDomain
         val mockResponse =
             javaClass.getResource(
-                "/review/com.twitter.android/relevant" +
-                        "/review_google_play_com.twitter.android_relevant_1.json"
+                "/$appId/review_relevant.html"
             )!!.readText()
         stubHttpUrl(REQUEST_URL_PATH, mockResponse)
 
@@ -124,21 +117,17 @@ class GooglePlayTest : BaseGooglePlayMockTest() {
             assertSoftly(result) {
                 id shouldStartWith "gp:"
                 language.shouldNotBeNull()
-                url shouldContain id
                 userTypes.shouldNotBeNull()
-                latestComment.shouldNotBeNull()
+                latestUserComment.shouldNotBeNull()
             }
             assertSoftly(result.latestUserComment) {
-                name.shouldNotBeEmpty()
+                username.shouldNotBeEmpty()
                 avatar shouldStartWith "https://play-lh.googleusercontent.com/"
                 rating.shouldBeBetween(1, 5)
                 text.shouldNotBeEmpty()
-                lastUpdateTime.shouldNotBeNull()
+                latestUpdateTime.shouldNotBeNull()
                 likeCount.shouldBeGreaterThanOrEqual(0)
                 types.shouldNotBeNull()
-            }
-            assertSoftly(result.latestDeveloperComment) {
-                this?.text?.let { it.shouldNotBeEmpty() }
             }
         }
     }
@@ -156,15 +145,13 @@ class GooglePlayTest : BaseGooglePlayMockTest() {
 
         GooglePlayRepository.APP_HP_URL_DOMAIN = httpMockServerDomain
         val scriptParamsMockData = javaClass.getResource(
-            "/app/com.twitter.android" +
-                    "/app_googleplay_com.twitter.android_homepage.html"
+            "/$appId/app_homepage.html"
         )!!.readText()
         stubHttpUrl(GooglePlayRepository.APP_HP_URL_PATH, scriptParamsMockData)
 
         REQUEST_URL_DOMAIN = httpMockServerDomain
         val mockData = javaClass.getResource(
-            "/review/com.twitter.android/relevant" +
-                    "/review_google_play_com.twitter.android_relevant_1.json"
+            "/$appId/review_relevant.html"
         )!!.readText()
         stubHttpUrlWithStatus(REQUEST_URL_PATH, mockData, 408)
 
@@ -192,15 +179,13 @@ class GooglePlayTest : BaseGooglePlayMockTest() {
 
         GooglePlayRepository.APP_HP_URL_DOMAIN = httpMockServerDomain
         val scriptParamsMockData = javaClass.getResource(
-            "/app/com.twitter.android" +
-                    "/app_googleplay_com.twitter.android_homepage.html"
+            "/com.twitter.android/app_homepage.html"
         )!!.readText()
         stubHttpUrl(GooglePlayRepository.APP_HP_URL_PATH, scriptParamsMockData)
 
         REQUEST_URL_DOMAIN = httpMockServerDomain
         val mockData = javaClass.getResource(
-            "/review/com.twitter.android/relevant" +
-                    "/review_google_play_com.twitter.android_relevant_1.json"
+            "/com.twitter.android/review_relevant.html"
         )!!.readText()
         stubHttpUrlWithStatus(REQUEST_URL_PATH, mockData, 404)
 

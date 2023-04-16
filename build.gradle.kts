@@ -1,14 +1,14 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.7.0" apply true
+    kotlin("jvm") version "1.8.20" apply true
     `java-library`
     `maven-publish`
     signing
 }
 
 group = "com.github.fabiouu.appvox"
-version = "0.0.1"
+version = "0.0.1-SNAPSHOT"
 
 subprojects {
     apply(plugin = "org.jetbrains.kotlin.jvm")
@@ -17,6 +17,7 @@ subprojects {
 
     repositories {
         mavenCentral()
+        gradlePluginPortal()
     }
 
     dependencies {

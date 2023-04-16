@@ -5,6 +5,7 @@ import io.appvox.googleplay.review.constant.GooglePlayLanguage
 import io.appvox.googleplay.review.constant.GooglePlaySortType
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.runBlocking
+import kotlin.time.Duration.Companion.milliseconds
 
 /**
  *   In this example, we print the 100 most relevant Google Play Reviews of the Twitter App
@@ -23,7 +24,7 @@ fun main() = runBlocking {
     val config = RequestConfiguration(
 //        proxy = Proxy(Proxy.Type.HTTP, InetSocketAddress("localhost", 8080)),
 //        proxyAuthentication = PasswordAuthentication("my-proxy-username", "my-proxy-password".toCharArray()),
-        delay = 3000
+        delay = 3000.milliseconds
     )
     val googlePlay = GooglePlay(config)
     googlePlay.reviews {
@@ -36,17 +37,16 @@ fun main() = runBlocking {
             val formattedReview =
                 """
                             Id: ${review.id}
-                            Rating: ${review.latestUserComment.rating}
-                            User Name: ${review.latestUserComment.name}
-                            User Avatar: ${review.latestUserComment.avatar}
-                            Title: ${review.latestUserComment.title}
-                            Comment: ${review.latestUserComment.text}
-                            Comment Time: ${review.latestUserComment.lastUpdateTime}
-                            App Version: ${review.latestUserComment.appVersion}
-                            Like Count: ${review.latestUserComment.likeCount}
+                            Rating: ${review.rating}
+                            User Name: ${review.username}
+                            User Avatar: ${review.avatar}
+                            Title: ${review.title}
+                            Comment: ${review.text}
+                            Comment Time: ${review.latestUpdateTime}
+                            App Version: ${review.appVersion}
+                            Like Count: ${review.likeCount}
                             Reply Comment: ${review.latestDeveloperComment?.text}
-                            Reply Time: ${review.latestDeveloperComment?.lastUpdateTime}
-                            Review Url: ${review.url}
+                            Reply Time: ${review.latestDeveloperComment?.latestUpdateTime}
                         """.trimIndent()
             println(formattedReview)
         }

@@ -1,36 +1,31 @@
-package io.appvox.googleplay.app
+package io.appvox.googleplay
 
-import io.appvox.googleplay.BaseGooglePlayMockTest
 import io.appvox.core.configuration.RequestConfiguration
+import io.appvox.googleplay.app.GooglePlayRepository
 import io.appvox.googleplay.app.GooglePlayRepository.Companion.APP_HP_URL_DOMAIN
 import io.appvox.googleplay.app.GooglePlayRepository.Companion.APP_HP_URL_PATH
 import io.appvox.googleplay.review.constant.GooglePlayLanguage
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
+import kotlin.time.Duration.Companion.milliseconds
 
 class GooglePlayRepositoryTest : BaseGooglePlayMockTest() {
 
-    private val googlePlayRepository = GooglePlayRepository(RequestConfiguration(delay = 3000))
+    private val repository = GooglePlayRepository(RequestConfiguration(delay = 3000.milliseconds))
 
     @ParameterizedTest
     @CsvSource(
-        "com.twitter.android, en-US"
+        "com.twitter.android"
     )
-    fun `get Google Play request parameters`(
-        appId: String,
-        languageCode: String
-    ) {
+    fun `Extract sid and bl request's parameters from app homepage`(appId: String) {
         APP_HP_URL_DOMAIN = httpMockServerDomain
-        val mockData = javaClass.getResource(
-            "/app/com.twitter.android" +
-                "/app_googleplay_com.twitter.android_homepage.html"
-        ).readText()
-
+        val mockData = javaClass.getResource("/$appId/app_homepage.html").readText()
         stubHttpUrl(APP_HP_URL_PATH, mockData)
-        val scriptParameters = googlePlayRepository.getScriptParameters(
+
+        val scriptParameters = repository.getScriptParameters(
             appId = appId,
-            language = GooglePlayLanguage.fromValue(languageCode)
+            language = GooglePlayLanguage.ENGLISH_US
         )
 
         Assertions.assertNotNull(scriptParameters["sid"])

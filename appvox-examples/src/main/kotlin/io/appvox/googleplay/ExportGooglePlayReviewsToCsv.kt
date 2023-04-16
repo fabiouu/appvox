@@ -11,6 +11,7 @@ import kotlinx.coroutines.runBlocking
 import java.io.FileWriter
 import java.io.IOException
 import java.util.*
+import kotlin.time.Duration.Companion.milliseconds
 
 fun main() = runBlocking {
     val appId = "com.twitter.android"
@@ -44,7 +45,7 @@ fun main() = runBlocking {
         val config = RequestConfiguration(
 //        proxy = Proxy(Proxy.Type.HTTP, InetSocketAddress("localhost", 8080)),
 //        proxyAuthentication = PasswordAuthentication("my-proxy-username", "my-proxy-password".toCharArray()),
-            delay = 5000
+            delay = 5000.milliseconds
         )
         GooglePlay(config).reviews {
             this.appId = appId
@@ -56,17 +57,16 @@ fun main() = runBlocking {
             .collect { review ->
                 val csvReview: Array<String?> = arrayOf(
                     review.id,
-                    review.latestUserComment.rating.toString(),
-                    review.latestUserComment.name,
-                    review.latestUserComment.avatar,
-                    review.latestUserComment.title,
-                    review.latestUserComment.text,
-                    review.latestUserComment.lastUpdateTime.toString(),
-                    review.latestUserComment.appVersion,
-                    review.latestUserComment.likeCount.toString(),
-                    review.latestUserComment.text,
-                    review.latestUserComment.lastUpdateTime.toString(),
-                    review.url
+                    review.rating.toString(),
+                    review.username,
+                    review.avatar,
+                    review.title,
+                    review.text,
+                    review.latestUpdateTime.toString(),
+                    review.appVersion,
+                    review.likeCount.toString(),
+                    review.text,
+                    review.latestUpdateTime.toString(),
                 )
                 csvWriter.writeNext(csvReview)
             }

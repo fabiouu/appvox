@@ -22,15 +22,63 @@ data class GooglePlayReview(
     val language: GooglePlayLanguage,
 
     /**
-     * Url to the user's comment
+     * Whether comment has been edited by user or not.
+     * Activate fetchHistory to fetch comments full history
      */
-    val url: String,
+    val hasEditHistory: Boolean,
 
     /**
-     * List of comments written by the user and developer. If the user edited his comment, comments size will be > 1
+     * List of comments written by the user. Size is always >= 1.
+     * If the user edited his comment, userComments size will be > 1
      */
-    val comments: List<Comment>,
+    val userComments: List<UserComment>,
+
+    /**
+     * List of comments written by the developer.
+     * If the developer replied to user's comment, developerComments size will be > 1
+     */
+    val developerComments: List<DeveloperComment>,
 ) {
+
+    /**
+     * Proxy for UserComment#name
+     */
+    val username get() = latestUserComment.username
+
+    /**
+     * Proxy for UserComment#avatar
+     */
+    val avatar get() = latestUserComment.avatar
+
+    /**
+     * See UserComment#rating
+     */
+    val rating get() = latestUserComment.rating
+
+    /**
+     * See UserComment#title
+     */
+    val title get() = latestUserComment.title
+
+    /**
+     * See UserComment#text
+     */
+    val text get() = latestUserComment.text
+
+    /**
+     * See UserComment#updateTime
+     */
+    val latestUpdateTime get() = latestUserComment.latestUpdateTime
+
+    /**
+     * See UserComment#appVersion
+     */
+    val appVersion get() = latestUserComment.appVersion
+
+    /**
+     * See UserComment#likeCount
+     */
+    val likeCount: Int get() = latestUserComment.likeCount
 
     companion object {
         private const val LONG_REVIEW_THRESHOLD = 150
@@ -53,14 +101,14 @@ data class GooglePlayReview(
     val userTypes: Set<GooglePlayUserType>
         get() {
             val userTypes = HashSet<GooglePlayUserType>()
-            val sortedReviews = comments.sortedByDescending { it.user.text }
+            val sortedReviews = userComments.sortedByDescending { it.latestUpdateTime }
 
-            val firstUserComment = sortedReviews.last().user
-            val firstCommentTime = firstUserComment.lastUpdateTime.toLocalDate()
+            val firstUserComment = sortedReviews.last()
+            val firstCommentTime = firstUserComment.latestUpdateTime.toLocalDate()
             val firstCommentRating = firstUserComment.rating
 
-            val lastUserComment = sortedReviews.first().user
-            val lastCommentTime = lastUserComment.lastUpdateTime.toLocalDate()
+            val lastUserComment = sortedReviews.first()
+            val lastCommentTime = lastUserComment.latestUpdateTime.toLocalDate()
             val lastCommentRating = lastUserComment.rating
 
             if (abs(between(firstCommentTime, lastCommentTime).months) >= LOYAL_USER_THRESOLD) userTypes.add(LOYAL)
@@ -73,43 +121,23 @@ data class GooglePlayReview(
         }
 
     /**
-     * Most recent comment. Contains the conversation between user and developer
-     */
-    val latestComment: Comment
-        get() = comments.first()
-
-    /**
      * Most recent comment written by the user
      */
-    val latestUserComment: UserComment
-        get() = comments.first().user
+    val latestUserComment get() = userComments.first()
 
     /**
      * Most recent comment written by the developer of the application
      */
-    val latestDeveloperComment: DeveloperComment?
-        get() = comments.first().developer
-
-    data class Comment(
-        /**
-         * Comment written by the user
-         */
-        val user: UserComment,
-
-        /**
-         * Comment written by the developer
-         */
-        val developer: DeveloperComment?
-    )
+    val latestDeveloperComment get() = developerComments.first()
 
     data class UserComment(
         /**
-         * Google Author or user name of the user who wrote the review
+         * Google author or username of the user who wrote the review
          */
-        val name: String,
+        val username: String,
 
         /**
-         * Google Avatar or profile picture of the user who wrote the review
+         * Google avatar or profile picture url of the user who wrote the review
          */
         val avatar: String? = null,
 
@@ -119,7 +147,7 @@ data class GooglePlayReview(
         val rating: Int,
 
         /**
-         * Title of the review written by the user (optional, can be null)
+         * Title of the review written by the user (optional)
          */
         val title: String? = null,
 
@@ -131,7 +159,7 @@ data class GooglePlayReview(
         /**
          * Time the user commented on Google Play for the last time
          */
-        val lastUpdateTime: ZonedDateTime,
+        val latestUpdateTime: ZonedDateTime,
 
         /**
          * Google App Version
@@ -142,7 +170,6 @@ data class GooglePlayReview(
          * Number of times users found this comment useful (thumbs-up / upvote / like)
          */
         val likeCount: Int = 0
-
     ) {
         val types: Set<GooglePlayCommentType>
             get() {
@@ -164,6 +191,11 @@ data class GooglePlayReview(
         /**
          * Time the App's developer replied to the user's comment
          */
-        val lastUpdateTime: ZonedDateTime? = null,
+        val latestUpdateTime: ZonedDateTime? = null,
+    )
+
+    data class Criteria(
+        val name: String,
+        val rating: Int
     )
 }

@@ -14,4 +14,8 @@ object JsonUtil {
             getJsonNodeByIndex(jsonNode, nestedIndexes, nextIndex)
         }
     }
+
+    inline fun <R> JsonNode.whenNotNull(block: (JsonNode) -> R): R? {
+        return if (!this.isNull) block(this) else null
+    }
 }
