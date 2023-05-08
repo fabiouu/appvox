@@ -20,7 +20,7 @@ class GooglePlayRepositoryTest : BaseGooglePlayMockTest() {
     )
     fun `Extract sid and bl request's parameters from app homepage`(appId: String) {
         APP_HP_URL_DOMAIN = httpMockServerDomain
-        val mockData = javaClass.getResource("/$appId/app_homepage.html").readText()
+        val mockData = javaClass.getResource("/reviews/$appId/app_homepage.html").readText()
         stubHttpUrl(APP_HP_URL_PATH, mockData)
 
         val scriptParameters = repository.getScriptParameters(

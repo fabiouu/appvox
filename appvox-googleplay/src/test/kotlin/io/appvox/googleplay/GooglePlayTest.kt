@@ -37,13 +37,13 @@ class GooglePlayTest : BaseGooglePlayMockTest() {
 
         GooglePlayRepository.APP_HP_URL_DOMAIN = httpMockServerDomain
         val scriptParamsMockData = javaClass.getResource(
-            "/$appId/app_homepage.html"
+            "/reviews/$appId/app_homepage.html"
         )!!.readText()
         stubHttpUrl(GooglePlayRepository.APP_HP_URL_PATH, scriptParamsMockData)
 
         REQUEST_URL_DOMAIN = httpMockServerDomain
         val mockData = javaClass.getResource(
-            "/$appId/review_relevant.html"
+            "/reviews/$appId/review_relevant.html"
         )!!.readText()
         stubHttpUrl(REQUEST_URL_PATH, mockData)
 
@@ -89,14 +89,14 @@ class GooglePlayTest : BaseGooglePlayMockTest() {
 
         GooglePlayRepository.APP_HP_URL_DOMAIN = httpMockServerDomain
         val scriptParamsMockData = javaClass.getResource(
-            "/$appId/app_homepage.html"
+            "/reviews/$appId/app_homepage.html"
         )!!.readText()
         stubHttpUrl(GooglePlayRepository.APP_HP_URL_PATH, scriptParamsMockData)
 
         REQUEST_URL_DOMAIN = httpMockServerDomain
         val mockResponse =
             javaClass.getResource(
-                "/$appId/review_relevant.html"
+                "/reviews/$appId/review_relevant.html"
             )!!.readText()
         stubHttpUrl(REQUEST_URL_PATH, mockResponse)
 
@@ -145,13 +145,13 @@ class GooglePlayTest : BaseGooglePlayMockTest() {
 
         GooglePlayRepository.APP_HP_URL_DOMAIN = httpMockServerDomain
         val scriptParamsMockData = javaClass.getResource(
-            "/$appId/app_homepage.html"
+            "/reviews/$appId/app_homepage.html"
         )!!.readText()
         stubHttpUrl(GooglePlayRepository.APP_HP_URL_PATH, scriptParamsMockData)
 
         REQUEST_URL_DOMAIN = httpMockServerDomain
         val mockData = javaClass.getResource(
-            "/$appId/review_relevant.html"
+            "/reviews/$appId/review_relevant.html"
         )!!.readText()
         stubHttpUrlWithStatus(REQUEST_URL_PATH, mockData, 408)
 
@@ -179,13 +179,13 @@ class GooglePlayTest : BaseGooglePlayMockTest() {
 
         GooglePlayRepository.APP_HP_URL_DOMAIN = httpMockServerDomain
         val scriptParamsMockData = javaClass.getResource(
-            "/com.twitter.android/app_homepage.html"
+            "/reviews/$appId/app_homepage.html"
         )!!.readText()
         stubHttpUrl(GooglePlayRepository.APP_HP_URL_PATH, scriptParamsMockData)
 
         REQUEST_URL_DOMAIN = httpMockServerDomain
         val mockData = javaClass.getResource(
-            "/com.twitter.android/review_relevant.html"
+            "/reviews/$appId/review_relevant.html"
         )!!.readText()
         stubHttpUrlWithStatus(REQUEST_URL_PATH, mockData, 404)
 

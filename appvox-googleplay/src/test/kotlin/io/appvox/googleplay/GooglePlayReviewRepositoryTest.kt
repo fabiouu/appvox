@@ -36,7 +36,7 @@ class GooglePlayReviewRepositoryTest : BaseGooglePlayMockTest() {
     ) {
         REQUEST_URL_DOMAIN = httpMockServerDomain
         val mockData = javaClass.getResource(
-            "/$appId/review_relevant.html"
+            "/reviews/$appId/review_relevant.html"
         ).readText()
         stubHttpUrl(REQUEST_URL_PATH, mockData)
 

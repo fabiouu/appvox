@@ -25,9 +25,11 @@ internal class GooglePlayReviewRepository(private val config: RequestConfigurati
         private const val REQUEST_URL_PARAMS =
             "?rpcids=UsvDTd&f.sid=%s&bl=%s&hl=%s&authuser&soc-app=121&soc-platform=1&soc-device=1&_reqid=%s"
         private const val REQUEST_BODY_WITH_PARAMS =
-            "f.req=[[[\"UsvDTd\",\"[null,null,[2,%d,[%d,null,null],null,[null,null,%s]],[\\\"%s\\\",7]]\",null,\"generic\"]]]"
+            "f.req=[[[\"UsvDTd\",\"[null,null,[2,%d,[%d,null,null],null,[null,null,%s]]," +
+                "[\\\"%s\\\",7]]\",null,\"generic\"]]]"
         private const val REQUEST_BODY_WITH_PARAMS_AND_BODY =
-            "f.req=[[[\"UsvDTd\",\"[null,null,[2,null,[%d,null,\\\"%s\\\"],null,[null,null,%s]],[\\\"%s\\\",7]]\",null,\"generic\"]]]"
+            "f.req=[[[\"UsvDTd\",\"[null,null,[2,null,[%d,null,\\\"%s\\\"],null,[null,null,%s]]," +
+                "[\\\"%s\\\",7]]\",null,\"generic\"]]]"
         private const val REQUEST_BODY_HISTORY =
             "f.req=[[[\"UsvDTd\",\"[null,null,[4,null,[%d]],[\\\"%s\\\",7],\\\"%s\\\"]\",null,\"1\"]]]"
 
@@ -173,7 +175,7 @@ internal class GooglePlayReviewRepository(private val config: RequestConfigurati
             username = getJsonNodeByIndex(response, USER_NAME_INDEX).asText(),
             avatar = getJsonNodeByIndex(response, USER_PROFILE_PIC_INDEX).asText(),
             rating = getJsonNodeByIndex(response, RATING_INDEX).asInt(),
-            title = null, // TODO Title contained in text seprated by \t
+            title = null, // TODO Title contained in text separated by \t
             text = getJsonNodeByIndex(response, COMMENT_INDEX).asText(),
             latestUpdateTime = ZonedDateTime.ofInstant(
                 Instant.ofEpochSecond(getJsonNodeByIndex(response, SUBMIT_TIME_INDEX).asLong()),
