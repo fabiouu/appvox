@@ -3,19 +3,24 @@ name: Build with coverage
 on:
   push:
     branches: [ master ]
-steps:
-  - uses: actions/checkout@v3
-  - uses: codecov/codecov-action@v3
-    with:
-      token: ${{ secrets.CODECOV_TOKEN }}
-#      files: ./coverage1.xml,./coverage2.xml
-      flags: unittests # optional
-#      name: codecov-umbrella # optional
-      fail_ci_if_error: true # optional (default = false)
-      verbose: true # optional (default = false)
-  - uses: actions/setup-java@v3
-    with:
-      distribution: 'temurin'
-      java-version: '11'
-      cache: 'gradle'
-  - run: ./gradlew build --no-daemon
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+    #      files: ./coverage1.xml,./coverage2.xml
+          flags: unittests # optional
+    #      name: codecov-umbrella # optional
+          fail_ci_if_error: true # optional (default = false)
+          verbose: true # optional (default = false)
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '11'
+          cache: 'gradle'
+      - run: ./gradlew build --no-daemon
