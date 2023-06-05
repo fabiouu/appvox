@@ -118,7 +118,7 @@ fun main() = runBlocking {
   * [Filtering](#filtering)
   * [Classification](#classification)
 
-Only `appvox-core` package is necessary to start using AppVox.
+Only `appvox-appstore` or `appvox-googleplay` packages are necessary to start using AppVox.
 A variety of filters are available to allow you to focus on the data that matter the most to you.
 
 | Package | Description                                                                      |
@@ -150,14 +150,14 @@ val appStore = AppStore(config)
 ```
 
 ## Reviews
-In the usage examples below we use [`GooglePlay.kt`](./appvox-core/src/main/kotlin/io/appvox/GooglePlay.kt), [`AppStore.kt`](./appvox-core/src/main/kotlin/dev/fabiou/appvox/AppStore.kt) to scrape the most recent Twitter app reviews.
+In the usage examples below we use [`GooglePlay.kt`](./appvox-googleplay/src/main/kotlin/io/appvox/googleplay/GooglePlay.kt), [`AppStore.kt`](./appvox-appstore/src/main/kotlin/io/appvox/appstore/AppStore.kt) to scrape the most recent Twitter app reviews.
 The method `take()` will stop the `Flow` of data after scraping 100 reviews. If `take` is not specified,the `Flow` will end when there are no reviews to consume anymore.
 
 For more advanced filtering scenarios, see the [filtering](#filtering) section.
 
 ### Google Play
 - Language: We specify `ENGLISH_US` parameter since Google Play does not support region filtering (`gl` region parameter is not effective in practice).
-- Sorting:  [`GooglePlay.kt`](./appvox-core/src/main/kotlin/dev/fabiou/appvox/GooglePlay.kt) supports sorting reviews by relevance (`RELEVANT`), date (`RECENT`) or rating (`RATING`).
+- Sorting:  [`GooglePlay.kt`](./appvox-googleplay/src/main/kotlin/io/appvox/googleplay/GooglePlay.kt) supports sorting reviews by relevance (`RELEVANT`), date (`RECENT`) or rating (`RATING`).
 It means fetched reviews are already sorted by `sortType` parameter when scraped from Google Play HTTP endpoints.
 
 ```kotlin
@@ -184,7 +184,7 @@ fun main() = runBlocking {
 
 ### App Store
 - Region: We specify a `UNITED_STATES` parameter to fetch reviews from users located in the US.
-- Sorting: [`AppStore.kt`](./appvox-core/src/main/kotlin/dev/fabiou/appvox/AppStore.kt) supports sorting reviews by relevance (`RELEVANT`) and date (`RECENT`).
+- Sorting: [`AppStore.kt`](./appvox-appstore/src/main/kotlin/io/appvox/appstore/AppStore.kt) supports sorting reviews by relevance (`RELEVANT`) and date (`RECENT`).
 
 iTunes RSS feed only returns the 500 most recent or relevant reviews. `take(n)` with `n` > 500 will not yield more results.
 
@@ -245,7 +245,7 @@ Each review and the user who commented are classified into different categories
 The library is composed of 3 layers:
 - Repository (`*Repository.kt` - internal) abstracts network communication with a scraped data source. A repository returns a result entity suffixed with `*Result.kt` (internal).
 - Service (`*Service.kt` - internal) contains business logic and may call multiple repositories to process a result entity
-- Facade ([`GooglePlay.kt`](./appvox-core/src/main/kotlin/dev/fabiou/appvox/GooglePlay.kt), [`AppStore.kt`](./appvox-core/src/main/kotlin/dev/fabiou/appvox/AppStore.kt) - public) facades expose scraped data in a uniform way to the user. 
+- Facade ([`GooglePlay.kt`](./appvox-googleplay/src/main/kotlin/io/appvox/googleplay/GooglePlay.kt), [`AppStore.kt`](./appvox-appstore/src/main/kotlin/io/appvox/appstore/AppStore.kt) - public) facades expose scraped data in a uniform way to the user. 
 A facade returns response entities via a Kotlin Flow.
 
 ## Scrapers
