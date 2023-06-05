@@ -3,11 +3,11 @@
 </p>
 
 <p align="center">
-    <a href="https://travis-ci.com/fabiouu/AppVox">
-        <img src="https://travis-ci.com/fabiouu/AppVox.svg?branch=master" alt="Build Status" />
+    <a href="https://github.com/fabiouu/AppVox">
+        <img src="https://github.com/fabiouu/appvox/actions/workflows/build.yml/badge.svg" alt="Build Status" />
     </a>
     <a>
-        <img src="https://img.shields.io/badge/Kotlin-1.7.0-blue.svg" alt="Coverage" />
+        <img src="https://img.shields.io/badge/Kotlin-1.8.20-blue.svg" alt="Coverage" />
     </a>
     <a href="https://codeclimate.com/github/fabiouu/AppVox/maintainability">
         <img src="https://api.codeclimate.com/v1/badges/6f0c3287d031b4f431ea/maintainability" alt="Maintainability" />
@@ -135,7 +135,7 @@ An `AppVoxException` will be thrown if the configured request delay is inferior 
 Advanced usage examples can be found in [`appvox-examples`](./appvox-examples) module.
 
 ## Proxy
-If you're scraping behind a proxy, you can pass a `java.net.Proxy` object to `RequestConfiguration` accepted by [`GooglePlay.kt`](./appvox-core/src/main/kotlin/io/appvox/googleplay/GooglePlay.kt), [`AppStore.kt`](./appvox-core/src/main/kotlin/io/appvox/appstore/AppStore.kt) constructors.
+If you're scraping behind a proxy, you can pass a `java.net.Proxy` object to `RequestConfiguration` accepted by [`GooglePlay.kt`](./appvox-googleplay/src/main/kotlin/io/appvox/googleplay/GooglePlay.kt), [`AppStore.kt`](./appvox-appstore/src/main/kotlin/io/appvox/appstore/AppStore.kt) constructors.
 
 ```kotlin
 val config = RequestConfiguration(
@@ -150,7 +150,7 @@ val appStore = AppStore(config)
 ```
 
 ## Reviews
-In the usage examples below we use [`GooglePlay.kt`](./appvox-core/src/main/kotlin/dev/fabiou/appvox/GooglePlay.kt), [`AppStore.kt`](./appvox-core/src/main/kotlin/dev/fabiou/appvox/AppStore.kt) to scrape the most recent Twitter app reviews.
+In the usage examples below we use [`GooglePlay.kt`](./appvox-core/src/main/kotlin/io/appvox/GooglePlay.kt), [`AppStore.kt`](./appvox-core/src/main/kotlin/dev/fabiou/appvox/AppStore.kt) to scrape the most recent Twitter app reviews.
 The method `take()` will stop the `Flow` of data after scraping 100 reviews. If `take` is not specified,the `Flow` will end when there are no reviews to consume anymore.
 
 For more advanced filtering scenarios, see the [filtering](#filtering) section.
