@@ -4,13 +4,12 @@ on:
   push:
     branches: [ master ]
 
-  jobs:
-    detekt:
-      runs-on: ubuntu-latest
+jobs:
+  detekt:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "checkout"
+        uses: actions/checkout@v3
 
-      steps:
-        - name: "checkout"
-          uses: actions/checkout@v3
-
-        - name: "detekt"
-          uses: natiginfo/action-detekt-all@1.22.0
+      - name: "detekt"
+        uses: natiginfo/action-detekt-all@1.22.0
