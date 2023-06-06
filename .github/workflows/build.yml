@@ -1,4 +1,4 @@
-name: Build with coverage
+name: Build
 
 on:
   push:
@@ -23,4 +23,4 @@ jobs:
           distribution: 'temurin'
           java-version: '11'
           cache: 'gradle'
-      - run: gradle build
+      - run: gradle build --no-daemon
