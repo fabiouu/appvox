@@ -20,6 +20,9 @@ jobs:
           distribution: 'temurin'
           cache: 'gradle'
 
+      - name: Make gradlew executable
+        run: chmod +x gradlew
+
       - name: Publish to GitHub Packages
         env:
           GITHUB_USERNAME: ${{ github.actor }}
