@@ -15,7 +15,7 @@ version = "0.0.1-SNAPSHOT"
 subprojects {
     apply(plugin = "org.jetbrains.kotlin.jvm")
     apply(plugin = "java-library")
-//    apply(plugin = "maven-publish")
+    apply(plugin = "maven-publish")
 
     repositories {
         mavenCentral()
