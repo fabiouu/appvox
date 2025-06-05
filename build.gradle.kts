@@ -15,7 +15,7 @@ version = "0.0.1-SNAPSHOT"
 subprojects {
     apply(plugin = "org.jetbrains.kotlin.jvm")
     apply(plugin = "java-library")
-    apply(plugin = "maven-publish")
+//    apply(plugin = "maven-publish")
 
     repositories {
         mavenCentral()
@@ -51,56 +51,56 @@ subprojects {
     }
 }
 
-publishing {
-    publications {
-        create<MavenPublication>("mavenJava") {
-            artifactId = "appvox-googleplay"
-            from(components["java"])
-            versionMapping {
-                usage("java-api") {
-                    fromResolutionOf("runtimeClasspath")
-                }
-                usage("java-runtime") {
-                    fromResolutionResult()
-                }
-            }
-            pom {
-                name.set("AppVox")
-                description.set("Capture the voice of your App users")
-                url.set("https://github.com/fabiouu/appvox")
-                licenses {
-                    license {
-                        name.set("The Apache License, Version 2.0")
-                        url.set("http://www.apache.org/licenses/LICENSE-2.0.txt")
-                    }
-                }
-                developers {
-                    developer {
-                        id.set("https://github.com/fabiouu")
-                        name.set("fabiouu")
-                        email.set("fab.renoux@gmail.com")
-                    }
-                }
-                scm {
-                    connection.set("scm:git:git@github.com:fabiouu/appvox.git")
-                    developerConnection.set("scm:git:git@github.com:fabiouu/appvox.git")
-                    url.set("https://github.com/fabiouu/appvox/tree/master")
-                }
-            }
-            repositories {
-                maven {
-                    val releasesRepoUrl = uri(layout.buildDirectory.dir("repos/releases"))
-                    val snapshotsRepoUrl = uri(layout.buildDirectory.dir("repos/snapshots"))
-                    url = if (version.toString().endsWith("SNAPSHOT")) snapshotsRepoUrl else releasesRepoUrl
-                }
-            }
-        }
-    }
-}
+//publishing {
+//    publications {
+//        create<MavenPublication>("mavenJava") {
+//            artifactId = "appvox-googleplay"
+//            from(components["java"])
+//            versionMapping {
+//                usage("java-api") {
+//                    fromResolutionOf("runtimeClasspath")
+//                }
+//                usage("java-runtime") {
+//                    fromResolutionResult()
+//                }
+//            }
+//            pom {
+//                name.set("AppVox")
+//                description.set("Capture the voice of your App users")
+//                url.set("https://github.com/fabiouu/appvox")
+//                licenses {
+//                    license {
+//                        name.set("The Apache License, Version 2.0")
+//                        url.set("http://www.apache.org/licenses/LICENSE-2.0.txt")
+//                    }
+//                }
+//                developers {
+//                    developer {
+//                        id.set("https://github.com/fabiouu")
+//                        name.set("fabiouu")
+//                        email.set("fab.renoux@gmail.com")
+//                    }
+//                }
+//                scm {
+//                    connection.set("scm:git:git@github.com:fabiouu/appvox.git")
+//                    developerConnection.set("scm:git:git@github.com:fabiouu/appvox.git")
+//                    url.set("https://github.com/fabiouu/appvox/tree/master")
+//                }
+//            }
+//            repositories {
+//                maven {
+//                    val releasesRepoUrl = uri(layout.buildDirectory.dir("repos/releases"))
+//                    val snapshotsRepoUrl = uri(layout.buildDirectory.dir("repos/snapshots"))
+//                    url = if (version.toString().endsWith("SNAPSHOT")) snapshotsRepoUrl else releasesRepoUrl
+//                }
+//            }
+//        }
+//    }
+//}
 
-signing {
-    sign(publishing.publications["mavenJava"])
-}
+//signing {
+//    sign(publishing.publications["mavenJava"])
+//}
 
 tasks.javadoc {
     if (JavaVersion.current().isJava9Compatible) {
