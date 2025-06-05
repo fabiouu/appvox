@@ -17,6 +17,9 @@ subprojects {
     apply(plugin = "java-library")
     apply(plugin = "maven-publish")
 
+    group = "com.github.fabiouu.appvox"
+    version = "0.0.1-SNAPSHOT"
+
     repositories {
         mavenCentral()
     }
