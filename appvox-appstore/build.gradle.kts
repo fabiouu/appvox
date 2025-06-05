@@ -1,6 +1,6 @@
 plugins {
     id("org.jetbrains.kotlin.plugin.serialization") version "1.6.10"
-    kotlin("jvm") version "1.8.20"
+    kotlin("jvm") version "2.1.21"
 }
 
 val implementation by configurations
@@ -18,5 +18,5 @@ repositories {
     mavenCentral()
 }
 kotlin {
-    jvmToolchain(11)
+    jvmToolchain(23)
 }

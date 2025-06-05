@@ -15,5 +15,10 @@ enum class AppVoxError(val errorCode: Int, val errorMessage: String) {
     ),
     INVALID_ARGUMENT(
         errorCode = 3,
-        errorMessage = "Invalid scraper argument");
+        errorMessage = "Invalid scraper argument"
+    ),
+    RATE_LIMIT(
+        errorCode = 4,
+        errorMessage = "Rate Limit"
+    );
 }

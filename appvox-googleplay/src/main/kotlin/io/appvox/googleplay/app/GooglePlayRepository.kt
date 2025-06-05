@@ -1,9 +1,9 @@
 package io.appvox.googleplay.app
 
 import io.appvox.core.configuration.RequestConfiguration
-import io.appvox.googleplay.review.constant.GooglePlayLanguage
 import io.appvox.core.util.HttpUtil
 import io.appvox.core.util.memoize
+import io.appvox.googleplay.review.constant.GooglePlayLanguage
 
 internal class GooglePlayRepository(
     private val config: RequestConfiguration

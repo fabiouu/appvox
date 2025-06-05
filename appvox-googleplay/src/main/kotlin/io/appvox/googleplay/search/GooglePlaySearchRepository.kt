@@ -7,6 +7,7 @@ import io.appvox.core.util.HttpUtil
 import io.appvox.core.util.JsonUtil.getJsonNodeByIndex
 import io.appvox.googleplay.search.domain.GooglePlaySearch
 import io.appvox.googleplay.search.domain.GooglePlaySearchRequest
+import java.net.URLEncoder
 
 internal class GooglePlaySearchRepository(
     private val config: RequestConfiguration
@@ -32,7 +33,7 @@ internal class GooglePlaySearchRepository(
 
     fun searchAppByTerm(request: GooglePlaySearchRequest): ReviewResult<GooglePlaySearch> {
         val requestUrl = GOOGLE_PLAY_DOMAIN + APP_SEARCH_URL_PATH +
-            APP_SEARCH_URL_PARAMS.format(request.searchTerm, request.language.code)
+            APP_SEARCH_URL_PARAMS.format(URLEncoder.encode(request.searchTerm, "utf-8"), request.language.code)
         val responseContent = httpUtil.getRequest(requestUrl = requestUrl, proxy = config.proxy)
         val searchResultApps = mutableListOf<GooglePlaySearch>()
         val data = extractData(responseContent)

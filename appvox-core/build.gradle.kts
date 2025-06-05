@@ -1,5 +1,5 @@
 plugins {
-    kotlin("jvm") version "1.8.20"
+    kotlin("jvm") version "2.1.21"
 }
 dependencies {
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.13.3")
@@ -9,5 +9,5 @@ repositories {
     mavenCentral()
 }
 kotlin {
-    jvmToolchain(11)
+    jvmToolchain(23)
 }

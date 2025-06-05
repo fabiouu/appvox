@@ -1,5 +1,5 @@
 plugins {
-    kotlin("jvm") version "1.8.20"
+    kotlin("jvm") version "2.1.21"
 }
 dependencies {
     api(project(":appvox-core"))
@@ -10,5 +10,5 @@ repositories {
     mavenCentral()
 }
 kotlin {
-    jvmToolchain(11)
+    jvmToolchain(23)
 }

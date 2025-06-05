@@ -1,7 +1,9 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
 
 plugins {
-    kotlin("jvm") version "1.8.20" apply true
+    kotlin("jvm") version "2.1.21" apply true
     `java-library`
     `maven-publish`
     signing
@@ -21,20 +23,21 @@ subprojects {
 
     dependencies {
         implementation(platform("org.jetbrains.kotlin:kotlin-bom"))
-        implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-        implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0")
+//        implementation("org.jetbrains.kotlin:kotlin-stdlib")
+        implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2")
         runtimeOnly("org.jetbrains.kotlin:kotlin-reflect")
-        testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.0")
+        implementation("org.apache.commons:commons-text:1.13.1")
+        testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.10.2")
         testImplementation("org.junit.jupiter:junit-jupiter:5.7.1")
         testImplementation("org.junit.jupiter:junit-jupiter-params:5.7.1")
         testImplementation("io.kotest:kotest-assertions-core-jvm:4.4.3")
         testImplementation("com.github.tomakehurst:wiremock:2.27.2")
     }
 
-    tasks.withType<KotlinCompile> {
-        kotlinOptions {
-            freeCompilerArgs = listOf("-Xjsr305=strict")
-            jvmTarget = "11"
+    tasks.withType<KotlinJvmCompile>().configureEach {
+        compilerOptions {
+            jvmTarget.set(JvmTarget.JVM_23)
+            freeCompilerArgs.add("-Xjsr305=strict")
         }
     }
 

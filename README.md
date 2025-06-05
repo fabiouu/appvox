@@ -6,6 +6,9 @@
     <a href="https://github.com/fabiouu/AppVox">
         <img src="https://github.com/fabiouu/appvox/actions/workflows/build.yml/badge.svg" alt="Build Status" />
     </a>
+    <a href="https://github.com/fabiouu/AppVox">
+        <img src="https://github.com/fabiouu/appvox/actions/workflows/detekt.yml/badge.svg" alt="Detekt" />
+    </a>
     <a>
         <img src="https://img.shields.io/badge/Kotlin-1.8.20-blue.svg" alt="Coverage" />
     </a>
