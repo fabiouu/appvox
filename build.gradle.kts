@@ -6,7 +6,7 @@ plugins {
     kotlin("jvm") version "2.1.21" apply true
     `java-library`
     `maven-publish`
-    signing
+//    signing
 }
 
 group = "com.github.fabiouu.appvox"
@@ -45,6 +45,38 @@ subprojects {
         withJavadocJar()
         withSourcesJar()
     }
+
+    apply(plugin = "maven-publish")
+    configure<PublishingExtension> {
+        repositories {
+            maven {
+                name = "GitHubPackages"
+                url = uri("https://maven.pkg.github.com/fabiouu/appvox")
+                credentials {
+                    username = System.getenv("GITHUB_USERNAME")
+                    password = System.getenv("GITHUB_TOKEN")
+                }
+            }
+        }
+        publications {
+            register<MavenPublication>("gpr") {
+                from(components["java"])
+            }
+        }
+    }
+
+//    publishing {
+//        repositories {
+//            maven {
+//                name = "GitHubPackages"
+//                url = uri("https://maven.pkg.github.com/fabiouu/appvox")
+//                credentials {
+//                    username = System.getenv("GITHUB_USERNAME")
+//                    password = System.getenv("GITHUB_TOKEN")
+//                }
+//            }
+//        }
+//    }
 
     tasks.test {
         useJUnitPlatform()
@@ -102,18 +134,7 @@ subprojects {
 //    sign(publishing.publications["mavenJava"])
 //}
 
-publishing {
-    repositories {
-        maven {
-            name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/fabiouu/appvox")
-            credentials {
-                username = System.getenv("GITHUB_USERNAME")
-                password = System.getenv("GITHUB_TOKEN")
-            }
-        }
-    }
-}
+
 
 tasks.javadoc {
     if (JavaVersion.current().isJava9Compatible) {
