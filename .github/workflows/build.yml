@@ -21,6 +21,6 @@ jobs:
       - uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
-          java-version: '23'
+          java-version: '21'
           cache: 'gradle'
       - run: gradle build --no-daemon

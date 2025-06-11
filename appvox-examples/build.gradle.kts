@@ -11,10 +11,10 @@ repositories {
     mavenCentral()
 }
 kotlin {
-    jvmToolchain(23)
+    jvmToolchain(21)
 }
 
 tasks.withType<JavaCompile> {
-    sourceCompatibility = "23"
-    targetCompatibility = "23"
+    sourceCompatibility = "21"
+    targetCompatibility = "21"
 }
